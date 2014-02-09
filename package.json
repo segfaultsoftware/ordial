@@ -1,0 +1,27 @@
+{
+  "name": "ordial",
+  "version": "0.3.0",
+  "contributors": [
+    {
+      "name": "Sam Serrano",
+      "email": "samuel.j.serrano@gmail.com"
+    },
+    {
+      "name": "Tira Odhner",
+      "email": "atiraodhner@gmail.com"
+    }
+  ],
+  "main": "./src/ordial.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/segfaultsoftware/ordial.git"
+  },
+  "dependencies" : {
+    "backbone"    : "1.1.x",
+    "jquery"      : "2.1.x",
+    "underscore"  : "1.5.x"
+  },
+  "devDependencies": {
+    "jasmine-core"  : "2.0.x"
+  }
+}
