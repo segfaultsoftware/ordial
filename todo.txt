@@ -1,0 +1,24 @@
+chore: investigate jasmine:8888 
+        run a jasmine rails server so you can hit it in the browser?
+chore: favicon!
+chore: grunt
+chore: packaging/packages.json something to load libraries so we dont check everything(jquery etc) all in to one repo
+
+story: render a 50,50 grid
+story: Rob shows up as a filled box in the grid
+story: render a resource as a filled box in the grid
+story: render Rob as an arrow defaulting up
+story: Rob can move forward
+story: creature can rotate left
+story: creature moves forward after rotating left
+story: Rob can starve to death/creature dies after 10 ticks
+       Given that Rob starts at 0,0
+       And there are no resources in the world
+       And Rob moves down one each tick
+       Then Rob should die after 10 ticks
+story: Rob can stay alive 20 ticks when it consumes a resource
+       Given that Rob starts at 0,0
+       And there is a resource at 0,1
+       And Rob moves down one each tick
+       Then Rob should die after 20 ticks
+story: Rob can reproduce
