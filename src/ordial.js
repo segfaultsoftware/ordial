@@ -4,11 +4,12 @@ $(function() {
 
     initialize: function(){
       this.world = new World();
-      this.paused = false;
+      this.paused = true;
 
     },
 
     togglePause: function() {
+      console.log("togglePause from " + this.paused);
       this.paused = !this.paused;
       if(!this.paused){
         this.updateWorld();
@@ -16,6 +17,7 @@ $(function() {
     },
 
     updateWorld: function() {
+      console.log("Updating the world");
       this.worldView = new WorldView({model: this.world});
       this.render();
 
@@ -27,7 +29,8 @@ $(function() {
 
     render: function(){
       var ordial = this;
-      this.pauseView = this.pauseView || new PauseView();
+      this.pauseView = new PauseView();
+      // (possibly?) leaks when pauseView should be garbage collected
       this.listenTo(this.pauseView, 'pauseButtonClicked', function() {
         ordial.togglePause();
       });

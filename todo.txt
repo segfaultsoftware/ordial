@@ -3,6 +3,9 @@ chore: investigate jasmine:8888
 chore: favicon!
 chore: grunt
 chore: packaging/packages.json something to load libraries so we dont check everything(jquery etc) all in to one repo
+chore: why is jasmine actually rendering??
+chore: jasmine pull request to highlight non jasmine stack trace
+chore: convert to marionette
 
 story: render a 50,50 grid
 story: Rob shows up as a filled box in the grid
