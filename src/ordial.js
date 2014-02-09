@@ -5,6 +5,7 @@ $(function() {
     initialize: function(){
       this.world = new World();
       this.paused = false;
+
     },
 
     togglePause: function() {
@@ -20,7 +21,7 @@ $(function() {
 
       if(!this.paused){
         this.world.update();
-        _.delay(this.updateWorld, 1000);
+        _.delay(_.bind(this.updateWorld, this), 1000);
       }
     },
 

@@ -31,7 +31,17 @@ describe("Ordial", function() {
 
   describe("updateWorld", function(){
     beforeEach(function() {
-      spyOn(_, 'delay');
+      var test = this;
+      this.actuallyCallThrough = false;
+      var callCount = 0;
+      spyOn(_, 'delay').and.callFake(function(method) {
+        if (test.actuallyCallThrough) {
+          callCount++;
+          if(callCount <= 4){
+            method();
+          }
+        }
+      });
     });
 
     it("should render the world", function(){
@@ -47,7 +57,15 @@ describe("Ordial", function() {
 
     it('should defer an updateWorld for later', function() {
       this.ordial.updateWorld();
-      expect(_.delay).toHaveBeenCalledWith(this.ordial.updateWorld, 1000);
+      expect(_.delay).toHaveBeenCalledWith(jasmine.any(Function), 1000);
+    });
+
+    describe('the delayed updateWorld', function() {
+      it('should delay again', function() {
+        this.actuallyCallThrough = true;
+        this.ordial.updateWorld();
+        expect(_.delay.calls.count()).toEqual(5);
+      });
     });
 
     describe("when paused", function(){
