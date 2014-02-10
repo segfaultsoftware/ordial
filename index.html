@@ -8,6 +8,8 @@
 <script type="text/javascript" src="src/WorldView.js"></script>
 <script type="text/javascript" src="src/PauseView.js"></script>
 <script src="src/ordial.js"></script>
+<script type="text/javascript" src="src/Critter.js"></script>
+
 
 <link rel="stylesheet" type="text/css" href="src/css/world.css">
 
@@ -18,6 +20,9 @@
 <script type="text/javascript">
   $(function() {
     var ordial = new Ordial();
+    o = ordial;
+    rob = new Critter();
+    o.world.place(rob, 4, 4);
     ordial.render();
   });
 </script>

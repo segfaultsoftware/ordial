@@ -5,10 +5,11 @@ chore: grunt
 chore: why is jasmine actually rendering??
 chore: jasmine pull request to highlight non jasmine stack trace
 chore: convert to marionette
+chore: we miss scss
 
-> story: Pause button should show the action of what its doing (pause or unpause)
-story: Rob shows up as a filled box in the grid
-story: render a resource as a filled box in the grid
+> story: render a resource as a filled box in the grid
+story: seed the world with 4 resources and 2 critters
+story: resources should not spawn on top of critters (or other resources)
 story: render Rob as an arrow defaulting up
 story: Rob can move forward
 story: creature can rotate left
@@ -31,6 +32,8 @@ story: Rob can reproduce
 
 ZOMG WE DONE THESE:
 9 Feb 2014
+story: Rob shows up as a filled box in the grid
+story: Pause button should show the action of what its doing (pause or unpause)
 story: the tiles should be of size 20x20px
 chore: packaging/packages.json something to load libraries so we dont check everything(jquery etc) all in to one repo
 
