@@ -6,25 +6,28 @@ chore: why is jasmine actually rendering??
 chore: jasmine pull request to highlight non jasmine stack trace
 chore: convert to marionette
 chore: we miss scss
+chore: set up ssh/github keys (probably requires rechecking the project out)
 
-> story: render a resource as a filled box in the grid
-story: seed the world with 4 resources and 2 critters
-story: resources should not spawn on top of critters (or other resources)
-story: render Rob as an arrow defaulting up
-story: Rob can move forward
-story: creature can rotate left
-story: creature moves forward after rotating left
-story: Rob can starve to death/creature dies after 10 ticks
+> story: render Rob as an arrow defaulting up
+story: Rob moves forward one square at each step
+  Rob stops when he gets to a wall
+story: Zoe rotates left 90 degrees at each step
+story: Rob and Zoe can starve to death/creature dies after 10 ticks
        Given that Rob starts at 0,0
        And there are no resources in the world
-       And Rob moves down one each tick
-       Then Rob should die after 10 ticks
+       And Rob moves up one each tick
+       Then Rob should die after 10 seconds
+story: render a resource as a filled box in the grid
+story: seed the world with 4 resources and 2 critters
+story: stepping on a resource should remove it from the map
 story: Rob can stay alive 20 ticks when it consumes a resource
        Given that Rob starts at 0,0
        And there is a resource at 0,1
        And Rob moves down one each tick
        Then Rob should die after 20 ticks
-story: Rob can reproduce
+story: creature moves forward after rotating left
+story: Rob can reproduce after moving
+story: resources should not spawn on top of critters (or other resources)
 
 
 
