@@ -2,12 +2,11 @@ chore: investigate jasmine:8888
         run a jasmine rails server so you can hit it in the browser?
 chore: favicon!
 chore: grunt
-chore: packaging/packages.json something to load libraries so we dont check everything(jquery etc) all in to one repo
 chore: why is jasmine actually rendering??
 chore: jasmine pull request to highlight non jasmine stack trace
 chore: convert to marionette
 
-story: render a 50,50 grid
+> story: Pause button should show the action of what its doing (pause or unpause)
 story: Rob shows up as a filled box in the grid
 story: render a resource as a filled box in the grid
 story: render Rob as an arrow defaulting up
@@ -25,3 +24,15 @@ story: Rob can stay alive 20 ticks when it consumes a resource
        And Rob moves down one each tick
        Then Rob should die after 20 ticks
 story: Rob can reproduce
+
+
+
+
+
+ZOMG WE DONE THESE:
+9 Feb 2014
+story: the tiles should be of size 20x20px
+chore: packaging/packages.json something to load libraries so we dont check everything(jquery etc) all in to one repo
+
+8 Feb 2014
+story: render a 50,50 grid

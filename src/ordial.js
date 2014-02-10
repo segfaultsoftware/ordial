@@ -11,9 +11,7 @@ $(function() {
     togglePause: function() {
       console.log("togglePause from " + this.paused);
       this.paused = !this.paused;
-      if(!this.paused){
-        this.updateWorld();
-      }
+      this.updateWorld();
     },
 
     updateWorld: function() {
@@ -29,7 +27,7 @@ $(function() {
 
     render: function(){
       var ordial = this;
-      this.pauseView = new PauseView();
+      this.pauseView = new PauseView({paused: this.paused});
       // (possibly?) leaks when pauseView should be garbage collected
       this.listenTo(this.pauseView, 'pauseButtonClicked', function() {
         ordial.togglePause();

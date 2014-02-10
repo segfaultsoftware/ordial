@@ -4,17 +4,13 @@ describe("Ordial", function() {
     this.ordial.render();
   });
 
-  // sam is paranoid
-//  afterEach(function() {
-//    this.ordial.paused = true;
-//  });
-
   it("should have a world", function(){
     expect(this.ordial.world).not.toBeUndefined();
   });
 
   it("should have a pause button", function() {
     expect(this.ordial.$el.find("#pause-button")).toBeTruthy();
+    expect(this.ordial.$el.find("#pause-button").text()).toEqual('resume');
   });
 
   it("should default to paused", function(){
@@ -41,17 +37,31 @@ describe("Ordial", function() {
     it("toggles the pause button's text");
 
     describe("when unpausing", function(){
-      it("should updateWorld", function() {
+      beforeEach(function() {
         this.ordial.$el.find('#pause-button').click();
+      });
+
+      it("should updateWorld", function() {
         expect(this.ordial.updateWorld).toHaveBeenCalled();
+      });
+      
+      it('should change text to "pause"', function() {
+        expect(this.ordial.$el.find('#pause-button').text()).toEqual('pause');
       });
     });
 
     describe("when pausing", function() {
-      it('should not call updateWorld', function() {
+      beforeEach(function() {
         this.ordial.paused = false;
         this.ordial.$el.find('#pause-button').click();
-        expect(this.ordial.updateWorld).not.toHaveBeenCalled();
+      });
+
+      it('should call updateWorld', function() {
+        expect(this.ordial.updateWorld).toHaveBeenCalled();
+      });
+
+      it('should change text to "resume"', function() {
+        expect(this.ordial.$el.find('#pause-button').text()).toEqual('resume');
       });
     });
   });
@@ -115,12 +125,10 @@ describe("Ordial", function() {
 
       it("should not update the world", function(){
         spyOn(this.ordial.world, "update");
-//        this.ordial.updateWorld();
         expect(this.ordial.world.update).not.toHaveBeenCalled();
       });
 
       it('should not defer an updatedWorld for later', function() {
-//        this.ordial.updateWorld();
         expect(_.delay).not.toHaveBeenCalled();
       });
     })
