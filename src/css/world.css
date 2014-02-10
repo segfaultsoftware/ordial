@@ -7,5 +7,5 @@
 #world td .critter {
   width: inherit;
   height: inherit;
-  background-color: purple;
+  background-image:url('/src/assets/arrow.png');
 }
