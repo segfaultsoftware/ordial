@@ -13,7 +13,6 @@ $(function() {
         for(var col = 0; col< 10; col++){
           var thing = this.model.getThingAt(row, col);
           var thingView = this.renderThingAt(thing);
-          debugger;
           rowHtml += "<td>" + thingView + "</td>";
         }
         rowHtml += "</tr>";

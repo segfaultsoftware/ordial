@@ -8,8 +8,7 @@ chore: convert to marionette
 chore: we miss scss
 chore: set up ssh/github keys (probably requires rechecking the project out)
 
-> story: render Rob as an arrow defaulting up
-story: Rob moves forward one square at each step
+> story: Rob moves forward one square at each step
   Rob stops when he gets to a wall
 story: Zoe rotates left 90 degrees at each step
 story: Rob and Zoe can starve to death/creature dies after 10 ticks
@@ -35,6 +34,7 @@ story: resources should not spawn on top of critters (or other resources)
 
 ZOMG WE DONE THESE:
 9 Feb 2014
+story: render Rob as an arrow defaulting up
 story: Rob shows up as a filled box in the grid
 story: Pause button should show the action of what its doing (pause or unpause)
 story: the tiles should be of size 20x20px

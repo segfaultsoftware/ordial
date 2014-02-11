@@ -34,8 +34,6 @@ describe("Ordial", function() {
       expect(this.ordial.paused).toBeTruthy();
     });
 
-    it("toggles the pause button's text");
-
     describe("when unpausing", function(){
       beforeEach(function() {
         this.ordial.$el.find('#pause-button').click();
