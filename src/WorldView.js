@@ -10,8 +10,8 @@ $(function() {
       this.$el.html("<table border='1'>");
       for(var row = 0; row < 10; row++) {
         var rowHtml = "<tr>";
-        for(var col = 0; col< 10; col++){
-          var thing = this.model.getThingAt(row, col);
+        for(var col = 0; col < 10; col++){
+          var thing = this.model.getThingAt(col, row);
           var thingView = this.renderThingAt(thing);
           rowHtml += "<td>" + thingView + "</td>";
         }
