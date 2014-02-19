@@ -23,7 +23,7 @@ $(function() {
 
     renderThingAt: function(thing){
       if(thing != undefined && thing != null){
-        return '<div class="critter"></div>';
+        return '<div class="critter ' + thing.direction.toLowerCase() + '"></div>';
       }
       return "";
     }

@@ -24,8 +24,10 @@
   $(function() {
     var ordial = new Ordial();
     o = ordial;
-    rob = new Critter();
+    rob = new Critter({mind: new CritterMind(Critter.Actions.MOVE_FORWARD)});
+    zoe = new Critter({mind: new CritterMind(Critter.Actions.TURN_LEFT)});
     o.world.place(rob, 4, 4);
+    o.world.place(zoe, 3, 7);
     ordial.render();
   });
 </script>

@@ -4,8 +4,30 @@
   background-color: floralwhite;
 }
 
-#world td .critter {
+#world td .critter.north {
   width: inherit;
   height: inherit;
-  background-image:url('/src/assets/arrow.png');
+
+  background-image:url('/src/assets/ordial_critter_north.png');
+}
+
+#world td .critter.south {
+  width: inherit;
+  height: inherit;
+
+  background-image:url('/src/assets/ordial_critter_south.png');
+}
+
+#world td .critter.west {
+  width: inherit;
+  height: inherit;
+
+  background-image:url('/src/assets/ordial_critter_west.png');
+}
+
+#world td .critter.east {
+  width: inherit;
+  height: inherit;
+
+  background-image:url('/src/assets/ordial_critter_east.png');
 }

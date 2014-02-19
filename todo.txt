@@ -1,18 +1,17 @@
 chore: investigate jasmine:8888 
         run a jasmine rails server so you can hit it in the browser?
-chore: favicon!
 chore: grunt
 chore: why is jasmine actually rendering??
 chore: jasmine pull request to highlight non jasmine stack trace
 chore: convert to marionette
 chore: we miss scss
-chore: set up ssh/github keys (probably requires rechecking the project out)
+chore: get a usb stick with your github key on it
 chore: create a tracker account instead of using this file.
 chore: create a tear down helper method for leaving work (and a setup method?)
 
 
-> story: Zoe rotates left 90 degrees at each step
-story: Randomize the update order of critters and allow a seeded value (http://davidbau.com/encode/seedrandom.js)
+
+> story: Randomize the update order of critters and allow a seeded value (http://davidbau.com/encode/seedrandom.js)
 story: Rob and Zoe can starve to death/creature dies after 10 ticks
        Given that Rob starts at 0,0
        And there are no resources in the world
@@ -28,13 +27,15 @@ story: Rob can stay alive 20 ticks when it consumes a resource
        Then Rob should die after 20 ticks
 story: creature moves forward after rotating left
 story: Rob can reproduce after moving
-story: resources should not spawn on top of critters (or other resources)
-
-
+story: resources should should spawn at random intervals in random places (but not on critters or other resources)
 
 
 
 ZOMG WE DONE THESE:
+19 Feb 2014
+story: Zoe rotates left 90 degrees at each step
+chore: favicon!
+
 13 Feb 2014
 story: Rob moves forward one square at each step
        Rob stops when he gets to a wall
@@ -47,4 +48,5 @@ story: the tiles should be of size 20x20px
 chore: packaging/packages.json something to load libraries so we dont check everything(jquery etc) all in to one repo
 
 8 Feb 2014
+chore: set up ssh/github keys (probably requires rechecking the project out)
 story: render a 50,50 grid
