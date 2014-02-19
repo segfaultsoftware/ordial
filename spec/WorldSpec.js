@@ -1,22 +1,27 @@
 describe("World", function() {
-  var world, rob;
+  var world, rob, zoe;
 
   beforeEach(function() {
     world = new World();
-    rob = new Critter();
+    rob = new Critter({mind: new CritterMind(Critter.Actions.MOVE_FORWARD)});
+    zoe = new Critter({mind: new CritterMind(Critter.Actions.TURN_LEFT)});
   });
 
   describe("#update", function(){
-    var originalLocation;
+    var robsOriginalLocation, zoesOriginalLocation;
     beforeEach(function() {
-      originalLocation = {x: 1, y: 1};
-      world.place(rob, originalLocation.x, originalLocation.y);
+      robsOriginalLocation = {x: 1, y: 1};
+      zoesOriginalLocation = {x: 4, y: 4};
+      world.place(rob, robsOriginalLocation.x, robsOriginalLocation.y);
+      world.place(zoe, zoesOriginalLocation.x, zoesOriginalLocation.y);
     });
 
     it("should call getAction on all critters", function(){
       spyOn(rob, "getAction");
+      spyOn(zoe, "getAction");
       world.update();
       expect(rob.getAction).toHaveBeenCalled();
+      expect(zoe.getAction).toHaveBeenCalled();
     });
 
     describe("performing the MOVE_FORWARD action for a critter", function(){
@@ -37,10 +42,7 @@ describe("World", function() {
       });
 
       describe("when there is another critter in front of rob", function() {
-        var zoe;
-
         beforeEach(function() {
-          zoe = new Critter();
           world.place(rob, 4, 1);
           world.place(zoe, 4, 0);
           world.update();
@@ -67,6 +69,28 @@ describe("World", function() {
           expect(rob.location).toEqual({x:4, y:0});
         });
       });
+    });
+
+    describe("performing the TURN_LEFT action for a critter", function () {
+      it("should update the critter's cardinal direction", function () {
+        expect(zoe.direction).toBe(CardinalDirection.NORTH);
+        world.update();
+        expect(zoe.direction).toBe(CardinalDirection.WEST);
+        world.update();
+        expect(zoe.direction).toBe(CardinalDirection.SOUTH);
+        world.update();
+        expect(zoe.direction).toBe(CardinalDirection.EAST);
+        world.update();
+        expect(zoe.direction).toBe(CardinalDirection.NORTH);
+      });
+
+      it("should not move the critter", function () {
+        var oldLocation = _.extend(zoesOriginalLocation);
+        world.update();
+        expect(world.tiles[4][4]).toBe(zoe);
+        expect(zoe.location).toEqual(oldLocation);
+      });
+
     });
   });
 

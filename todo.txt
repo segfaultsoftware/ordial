@@ -7,9 +7,11 @@ chore: jasmine pull request to highlight non jasmine stack trace
 chore: convert to marionette
 chore: we miss scss
 chore: set up ssh/github keys (probably requires rechecking the project out)
+chore: create a tracker account instead of using this file.
 
-> story: Randomize the update order of critters and allow a seeded value (http://davidbau.com/encode/seedrandom.js)
-story: Zoe rotates left 90 degrees at each step
+
+> story: Zoe rotates left 90 degrees at each step
+story: Randomize the update order of critters and allow a seeded value (http://davidbau.com/encode/seedrandom.js)
 story: Rob and Zoe can starve to death/creature dies after 10 ticks
        Given that Rob starts at 0,0
        And there are no resources in the world

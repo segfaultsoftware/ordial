@@ -10,12 +10,20 @@ $(function() {
     update: function(){
       var world = this;
       _.each(this.things, function(thing){
-        thing.getAction();
-        var nextLocation = world.getTileInDirection(RelativeDirection.FORWARD, thing);
-        var thingAtNextLocation = world.getThingAt(nextLocation.x, nextLocation.y);
-        if (!thingAtNextLocation) {
-          world.place(thing, nextLocation.x, nextLocation.y);
+        switch(thing.getAction()) {
+          case Critter.Actions.MOVE_FORWARD:
+            var nextLocation = world.getTileInDirection(RelativeDirection.FORWARD, thing);
+            var thingAtNextLocation = world.getThingAt(nextLocation.x, nextLocation.y);
+            if (!thingAtNextLocation) {
+              world.place(thing, nextLocation.x, nextLocation.y);
+            }
+            break;
+
+          case Critter.Actions.TURN_LEFT:
+            thing.direction = CardinalDirection.WEST;
+            break;
         }
+
       });
     },
 
