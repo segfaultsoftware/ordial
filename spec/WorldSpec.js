@@ -1,29 +1,60 @@
 describe("World", function() {
-  var world, rob;
+  var world, rob, zoe;
 
   beforeEach(function() {
     world = new World();
-    rob = new Critter();
+    rob = new Critter({mind: new CritterMind(Critter.Actions.MOVE_FORWARD)});
+    zoe = new Critter({mind: new CritterMind(Critter.Actions.TURN_LEFT)});
   });
 
   describe("#update", function(){
-    var originalLocation;
     beforeEach(function() {
-      originalLocation = {x: 1, y: 1};
-      world.place(rob, originalLocation.x, originalLocation.y);
+      var robsOriginalLocation, zoesOriginalLocation;
+      robsOriginalLocation = {x: 1, y: 1};
+      zoesOriginalLocation = {x: 4, y: 4};
+      world.place(rob, robsOriginalLocation.x, robsOriginalLocation.y);
+      world.place(zoe, zoesOriginalLocation.x, zoesOriginalLocation.y);
     });
 
     it("should call getAction on all critters", function(){
       spyOn(rob, "getAction");
+      spyOn(zoe, "getAction");
       world.update();
       expect(rob.getAction).toHaveBeenCalled();
+      expect(zoe.getAction).toHaveBeenCalled();
     });
 
-    describe("performing the MOVE_FORWARD action for a critter", function(){
+    describe("when the getAction is MOVE_FORWARD", function() {
+      it("should call #moveCritterForward", function() {
+        spyOn(world, 'moveCritterForward');
+        world.update();
+        expect(world.moveCritterForward).toHaveBeenCalledWith(rob);
+      });
+    });
+
+    describe("when the getAction is TURN_LEFT", function () {
+      it("should call #turnCritterLeft", function () {
+        spyOn(world, 'turnCritterLeft');
+        world.update();
+        expect(world.turnCritterLeft).toHaveBeenCalledWith(zoe);
+      });
+    });
+  });
+
+  describe("critter actions", function(){
+    var robsOriginalLocation, zoesOriginalLocation;
+    beforeEach(function() {
+      robsOriginalLocation = {x: 1, y: 1};
+      zoesOriginalLocation = {x: 4, y: 4};
+      world.place(rob, robsOriginalLocation.x, robsOriginalLocation.y);
+      world.place(zoe, zoesOriginalLocation.x, zoesOriginalLocation.y);
+    });
+
+    describe("#moveCritterForward", function() {
       describe('when there is an empty tile in front of the critter', function() {
         beforeEach(function() {
           world.place(rob, 4, 1);
-          world.update();
+          world.moveCritterForward(rob);
         });
 
         it("should remove the critter from the tile it is in", function(){
@@ -37,13 +68,10 @@ describe("World", function() {
       });
 
       describe("when there is another critter in front of rob", function() {
-        var zoe;
-
         beforeEach(function() {
-          zoe = new Critter();
           world.place(rob, 4, 1);
           world.place(zoe, 4, 0);
-          world.update();
+          world.moveCritterForward(rob);
         });
 
         it('should not move Rob', function(){
@@ -60,13 +88,35 @@ describe("World", function() {
       describe('when there is the edge of the world in front of the critter', function() {
         beforeEach(function() {
           world.place(rob, 4, 0);
-          world.update();
+          world.moveCritterForward(rob);
         });
 
         it('should not move Rob', function(){
           expect(rob.location).toEqual({x:4, y:0});
         });
       });
+    });
+
+    describe("#turnCritterLeft", function() {
+      it("should update the critter's cardinal direction", function () {
+        expect(zoe.direction).toBe(CardinalDirection.NORTH);
+        world.turnCritterLeft(zoe);
+        expect(zoe.direction).toBe(CardinalDirection.WEST);
+        world.turnCritterLeft(zoe);
+        expect(zoe.direction).toBe(CardinalDirection.SOUTH);
+        world.turnCritterLeft(zoe);
+        expect(zoe.direction).toBe(CardinalDirection.EAST);
+        world.turnCritterLeft(zoe);
+        expect(zoe.direction).toBe(CardinalDirection.NORTH);
+      });
+
+      it("should not move the critter", function () {
+        var oldLocation = _.extend(zoesOriginalLocation);
+        world.update();
+        expect(world.tiles[4][4]).toBe(zoe);
+        expect(zoe.location).toEqual(oldLocation);
+      });
+
     });
   });
 

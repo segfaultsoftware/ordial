@@ -21,8 +21,9 @@ describe("WorldView", function() {
   });
 
   describe("in a world with Rob", function() {
+    var rob;
     beforeEach(function() {
-      var rob = new Critter();
+      rob = new Critter();
       this.world.place(rob, 4, 4);
 
       this.worldView.render();
@@ -35,6 +36,31 @@ describe("WorldView", function() {
 
     it('should draw nothing everywhere else', function() {
       expect(this.worldView.$el.find('.critter').length).toEqual(1);
+    });
+
+    it('should draw Rob facing the north', function(){
+      expect(this.worldView.$el.find('.critter').hasClass('north')).toBeTruthy();
+    });
+
+    describe("rob facing other directions", function(){
+      it("should draw Rob facing west", function(){
+        rob.direction = CardinalDirection.WEST;
+        this.worldView.render();
+        expect(this.worldView.$el.find('.critter').hasClass('west')).toBeTruthy();
+        expect(this.worldView.$el.find('.critter').hasClass('north')).toBeFalsy();
+      });
+
+      it("should draw Rob facing east", function(){
+        rob.direction = CardinalDirection.EAST;
+        this.worldView.render();
+        expect(this.worldView.$el.find('.critter').hasClass('east')).toBeTruthy();
+      });
+
+      it("should draw Rob facing south", function(){
+        rob.direction = CardinalDirection.SOUTH;
+        this.worldView.render();
+        expect(this.worldView.$el.find('.critter').hasClass('south')).toBeTruthy();
+      });
     });
   });
 });

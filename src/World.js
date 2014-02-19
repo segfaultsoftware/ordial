@@ -10,12 +10,16 @@ $(function() {
     update: function(){
       var world = this;
       _.each(this.things, function(thing){
-        thing.getAction();
-        var nextLocation = world.getTileInDirection(RelativeDirection.FORWARD, thing);
-        var thingAtNextLocation = world.getThingAt(nextLocation.x, nextLocation.y);
-        if (!thingAtNextLocation) {
-          world.place(thing, nextLocation.x, nextLocation.y);
+        switch(thing.getAction()) {
+          case Critter.Actions.MOVE_FORWARD:
+            world.moveCritterForward(thing);
+            break;
+
+          case Critter.Actions.TURN_LEFT:
+            world.turnCritterLeft(thing);
+            break;
         }
+
       });
     },
 
@@ -74,6 +78,21 @@ $(function() {
       }
 
       return {x: thing.location.x + xDelta, y: thing.location.y + yDelta};
+    },
+
+    moveCritterForward: function(critter){
+      var nextLocation = this.getTileInDirection(RelativeDirection.FORWARD, critter);
+      var thingAtNextLocation = this.getThingAt(nextLocation.x, nextLocation.y);
+      if (!thingAtNextLocation) {
+        this.place(critter, nextLocation.x, nextLocation.y);
+      }
+    },
+
+    turnCritterLeft: function(critter){
+      critter.direction = CardinalDirection.getDirectionAfterRotation(
+        critter.direction,
+        RelativeDirection.LEFT
+      );
     }
-  });
+});
 });

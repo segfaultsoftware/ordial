@@ -1,5 +1,7 @@
 $(function(){
   RelativeDirection = {
-    FORWARD: "FORWARD"
+    FORWARD: "FORWARD",
+    LEFT: "LEFT",
+    RIGHT: "RIGHT"
   };
 });
