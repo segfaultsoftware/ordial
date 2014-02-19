@@ -8,6 +8,7 @@ chore: convert to marionette
 chore: we miss scss
 chore: set up ssh/github keys (probably requires rechecking the project out)
 chore: create a tracker account instead of using this file.
+chore: create a tear down helper method for leaving work (and a setup method?)
 
 
 > story: Zoe rotates left 90 degrees at each step
