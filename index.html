@@ -26,8 +26,10 @@
     o = ordial;
     rob = new Critter({mind: new CritterMind(Critter.Actions.MOVE_FORWARD)});
     zoe = new Critter({mind: new CritterMind(Critter.Actions.TURN_LEFT)});
-    o.world.place(rob, 4, 4);
-    o.world.place(zoe, 3, 7);
+    kim = new Critter({mind: new CritterMind(Critter.Actions.REPRODUCE)});
+    o.world.place(rob, {x: 4, y: 4});
+    o.world.place(zoe, {x: 3, y: 7});
+    o.world.place(kim, {x: 2, y: 2});
     ordial.render();
   });
 </script>

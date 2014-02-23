@@ -25,5 +25,5 @@ describe("Critter", function() {
       rob.getAction();
       expect(mind.getAction).toHaveBeenCalled();
     });
-  })
+  });
 });

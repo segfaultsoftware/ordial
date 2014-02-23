@@ -11,12 +11,12 @@ $(function() {
       for(var row = 0; row < 10; row++) {
         var rowHtml = "<tr>";
         for(var col = 0; col < 10; col++){
-          var thing = this.model.getThingAt(col, row);
+          var thing = this.model.getThingAt({x: col, y: row});
           var thingView = this.renderThingAt(thing);
           rowHtml += "<td>" + thingView + "</td>";
         }
         rowHtml += "</tr>";
-        this.$("table").append(rowHtml);//"<tr><td class='tile'></td><td class='tile'></td><td class='tile'></td><td class='tile'></td><td class='tile'></td><td class='tile'></td><td class='tile'></td><td class='tile'></td><td class='tile'></td><td class='tile'></td>");
+        this.$("table").append(rowHtml);
       }
       return this;
     },

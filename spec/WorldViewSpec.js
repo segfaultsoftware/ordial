@@ -24,7 +24,7 @@ describe("WorldView", function() {
     var rob;
     beforeEach(function() {
       rob = new Critter();
-      this.world.place(rob, 4, 4);
+      this.world.place(rob, {x: 4, y: 4});
 
       this.worldView.render();
     });

@@ -18,14 +18,23 @@ $(function() {
           case Critter.Actions.TURN_LEFT:
             world.turnCritterLeft(thing);
             break;
+
+          case Critter.Actions.REPRODUCE:
+            world.reproduceCritter(thing);
+            break;
         }
 
       });
     },
 
-    place: function(thing, x, y){
-      if(!this.isLocationInsideWorld(x,y)){
-        console.error("You can't place that thing:", thing, " at x:" + x + " y:" + y );
+    place: function(thing, location){
+      var x = location.x;
+      var y = location.y;
+
+      if(!this.isLocationInsideWorld(location)) {
+        if(!thing.location){
+          throw new Error("Placing thing outside the world at " + x + "," + y, thing);
+        }
       }
       else {
         if(thing.location){
@@ -48,20 +57,19 @@ $(function() {
       }
     },
 
-    isLocationInsideWorld: function(x, y){
-      return x >= 0 && x < this.width &&
-             y >= 0 && y < this.height;
+    isLocationInsideWorld: function(location){
+      return location.x >= 0 && location.x < this.width &&
+             location.y >= 0 && location.y < this.height;
     },
 
-    getThingAt: function(x, y){
-      return this.tiles[x] ? this.tiles[x][y] : null;
+    getThingAt: function(location){
+      return this.tiles[location.x] ? this.tiles[location.x][location.y] : null;
     },
 
     getTileInDirection: function(direction, thing){
-      var xDelta = 0, yDelta = 0;
-
-      if (direction == RelativeDirection.FORWARD){
-        switch (thing.direction){
+      function getOffsetInFrontOf(thingDirection){
+        var xDelta = 0, yDelta = 0;
+        switch (thingDirection){
           case CardinalDirection.WEST:
             xDelta = -1;
             break;
@@ -75,16 +83,26 @@ $(function() {
             yDelta = 1;
             break;
         }
+        return {xDelta: xDelta, yDelta: yDelta};
       }
 
-      return {x: thing.location.x + xDelta, y: thing.location.y + yDelta};
+      var offset;
+      if (direction == RelativeDirection.FORWARD){
+        offset = getOffsetInFrontOf(thing.direction);
+      }
+      else {
+        var cardinalDirectionAfterRotation = CardinalDirection.getDirectionAfterRotation(thing.direction, direction);
+        offset = getOffsetInFrontOf(cardinalDirectionAfterRotation);
+      }
+
+      return {x: thing.location.x + offset.xDelta, y: thing.location.y + offset.yDelta};
     },
 
     moveCritterForward: function(critter){
       var nextLocation = this.getTileInDirection(RelativeDirection.FORWARD, critter);
-      var thingAtNextLocation = this.getThingAt(nextLocation.x, nextLocation.y);
+      var thingAtNextLocation = this.getThingAt(nextLocation);
       if (!thingAtNextLocation) {
-        this.place(critter, nextLocation.x, nextLocation.y);
+        this.place(critter, nextLocation);
       }
     },
 
@@ -93,6 +111,22 @@ $(function() {
         critter.direction,
         RelativeDirection.LEFT
       );
+    },
+
+    reproduceCritter: function(critter){
+      var world = this;
+      function createOffspringInDirection(relativeDirection){
+        var offspringLocation = world.getTileInDirection(relativeDirection, critter);
+        var contentsOfTile = world.getThingAt(offspringLocation);
+        if (!contentsOfTile && world.isLocationInsideWorld(offspringLocation)) {
+          var offspring = new Critter({mind: critter.mind});
+          offspring.direction = CardinalDirection.getDirectionAfterRotation(critter.direction, relativeDirection);
+          world.place(offspring, offspringLocation);
+        }
+      }
+
+      createOffspringInDirection(RelativeDirection.LEFT);
+      createOffspringInDirection(RelativeDirection.RIGHT);
     }
-});
+  });
 });

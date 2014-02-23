@@ -13,6 +13,7 @@ $(function() {
   Critter.Actions = {
     MOVE_FORWARD: 'move_forward',
     TURN_LEFT: 'turn left',
+    REPRODUCE: 'reproduce',
     STARE_OFF_INTO_SPACE: 'noop'
   };
 });
