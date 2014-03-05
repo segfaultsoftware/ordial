@@ -9,8 +9,10 @@ $(function() {
 
     update: function(){
       var world = this;
+      var deadThings = [];
       _.each(this.things, function(thing){
-        switch(thing.getAction()) {
+        var action = thing.getAction();
+        switch(action) {
           case Critter.Actions.MOVE_FORWARD:
             world.moveCritterForward(thing);
             break;
@@ -24,6 +26,14 @@ $(function() {
             break;
         }
 
+        deadThings.push(thing);
+      });
+
+      _.each(deadThings, function(thing) {
+        thing.mana --;
+        if (thing.mana <= 0) {
+          world.remove(thing);
+        }
       });
     },
 
@@ -54,6 +64,9 @@ $(function() {
       var index = this.things.indexOf(thing);
       if (index >= 0) {
         this.things.splice(index, 1);
+      }
+      if (thing.location && this.tiles[thing.location.x]) {
+        this.tiles[thing.location.x][thing.location.y] = undefined;
       }
     },
 

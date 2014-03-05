@@ -3,6 +3,7 @@ $(function() {
     initialize: function(options) {
       this.direction = CardinalDirection.NORTH;
       this.mind = (options && options.mind) ? options.mind : CritterMind.EmptyMind;
+      this.mana = (options && options.mana) ? options.mana : Critter.DEFAULT_STARTING_MANA;
     },
 
     getAction : function() {
@@ -16,4 +17,6 @@ $(function() {
     REPRODUCE: 'reproduce',
     STARE_OFF_INTO_SPACE: 'noop'
   };
+
+  Critter.DEFAULT_STARTING_MANA = 10;
 });

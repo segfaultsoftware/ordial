@@ -52,6 +52,22 @@ describe("World", function() {
         expect(world.reproduceCritter).toHaveBeenCalledWith(kim);
       });
     });
+
+    it("should update the critters' mana", function () {
+      rob.mana = 1;
+      world.update();
+      expect(rob.mana).toBeLessThan(1);
+      expect(kim.mana).toBeLessThan(Critter.DEFAULT_STARTING_MANA);
+      expect(zoe.mana).toBeLessThan(Critter.DEFAULT_STARTING_MANA);
+    });
+
+    it("should remove critters that drop to zero or negative mana", function() {
+      rob.mana = 1;
+      world.update();
+      expect(world.things).not.toContain(rob);
+      expect(world.things).toContain(zoe);
+      expect(world.things).toContain(kim);
+    });
   });
 
   describe("critter actions", function(){
@@ -350,11 +366,15 @@ describe("World", function() {
 
   describe("#remove", function() {
     beforeEach(function() {
-      world.things.push(rob);
+      world.place(rob, {x: 1, y: 1});
       world.remove(rob);
     });
 
     it("should remove the thing from the tile", function() {
+      expect(world.getThingAt(rob.location)).toBeUndefined();
+    });
+
+    it("should remove the thing from the things", function () {
       expect(world.things).not.toContain(rob);
     });
   });

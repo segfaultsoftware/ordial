@@ -1,14 +1,24 @@
 describe("Critter", function() {
   var rob;
 
-  beforeEach(function() {
-
-  });
-
   describe("#initialize", function() {
-    it('uses the default EmptyMind if no mind is passed in', function() {
-      rob = new Critter();
-      expect(rob.mind).toEqual(CritterMind.EmptyMind);
+    describe("using defaults", function() {
+      beforeEach(function() {
+        rob = new Critter();
+      });
+
+      it('uses the default EmptyMind', function() {
+        expect(rob.mind).toEqual(CritterMind.EmptyMind);
+      });
+
+      it('sets the mana to default', function() {
+        expect(rob.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
+      });
+    });
+
+    it('overrides the starting mana if mana is passed in', function() {
+      rob = new Critter({mana: 999});
+      expect(rob.mana).toEqual(999);
     });
   });
 
