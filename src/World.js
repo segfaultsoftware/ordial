@@ -26,15 +26,12 @@ $(function() {
             break;
         }
 
-        deadThings.push(thing);
-      });
-
-      _.each(deadThings, function(thing) {
-        thing.mana --;
-        if (thing.mana <= 0) {
-          world.remove(thing);
+        if(thing.mana <= 0){
+          deadThings.push(thing);
         }
       });
+
+      _.each(deadThings, function(thing){ world.remove(thing);});
     },
 
     place: function(thing, location){
@@ -117,6 +114,8 @@ $(function() {
       if (!thingAtNextLocation) {
         this.place(critter, nextLocation);
       }
+      
+      critter.mana -= Critter.Actions.MOVE_FORWARD.cost;
     },
 
     turnCritterLeft: function(critter){
@@ -124,6 +123,8 @@ $(function() {
         critter.direction,
         RelativeDirection.LEFT
       );
+
+      critter.mana -= Critter.Actions.TURN_LEFT.cost;
     },
 
     reproduceCritter: function(critter){
@@ -138,8 +139,12 @@ $(function() {
         }
       }
 
-      createOffspringInDirection(RelativeDirection.LEFT);
-      createOffspringInDirection(RelativeDirection.RIGHT);
+      if(critter.mana >= Critter.Actions.REPRODUCE.cost){
+        createOffspringInDirection(RelativeDirection.LEFT);
+        createOffspringInDirection(RelativeDirection.RIGHT);
+      }
+      
+      critter.mana -= Critter.Actions.REPRODUCE.cost;
     }
   });
 });

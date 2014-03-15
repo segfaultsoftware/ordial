@@ -54,11 +54,10 @@ describe("World", function() {
     });
 
     it("should update the critters' mana", function () {
-      rob.mana = 1;
       world.update();
-      expect(rob.mana).toBeLessThan(1);
-      expect(kim.mana).toBeLessThan(Critter.DEFAULT_STARTING_MANA);
-      expect(zoe.mana).toBeLessThan(Critter.DEFAULT_STARTING_MANA);
+      expect(zoe.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_LEFT.cost);
+      expect(rob.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.MOVE_FORWARD.cost);
+      expect(kim.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.REPRODUCE.cost);
     });
 
     it("should remove critters that drop to zero or negative mana", function() {
@@ -66,7 +65,7 @@ describe("World", function() {
       world.update();
       expect(world.things).not.toContain(rob);
       expect(world.things).toContain(zoe);
-      expect(world.things).toContain(kim);
+      expect(world.things).not.toContain(kim);
     });
   });
 
@@ -82,6 +81,12 @@ describe("World", function() {
     });
 
     describe("#moveCritterForward", function() {
+      it("should decrement the critter's mana by movement cost.", function(){
+        expect(rob.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
+        world.moveCritterForward(rob);
+        expect(rob.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.MOVE_FORWARD.cost);
+      });
+      
       describe('when there is an empty tile in front of the critter', function() {
         beforeEach(function() {
           world.place(rob, {x: 4, y: 1});
@@ -129,6 +134,11 @@ describe("World", function() {
     });
 
     describe("#turnCritterLeft", function() {
+      it("should decrement the critter's mana by turning cost", function(){
+        expect(zoe.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
+        world.moveCritterForward(zoe);
+        expect(zoe.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_LEFT.cost);
+      });
       it("should update the critter's cardinal direction", function () {
         expect(zoe.direction).toBe(CardinalDirection.NORTH);
         world.turnCritterLeft(zoe);
@@ -157,6 +167,13 @@ describe("World", function() {
           Math.floor(Math.random() * CardinalDirection.ALL_DIRECTIONS.length)
           ];
         kim.direction = kimsDirection;
+      });
+
+      it("should decrement kim's mana by reproduction cost", function() {
+        var startingMana = 100;
+        kim.mana = startingMana;
+        world.reproduceCritter(kim);
+        expect(kim.mana).toEqual(startingMana - Critter.Actions.REPRODUCE.cost);
       });
 
       describe("left child", function() {
@@ -274,6 +291,42 @@ describe("World", function() {
             world.reproduceCritter(kim);
             expect(placeSpy.calls.count()).toEqual(1);
           });
+        });
+      });
+
+      describe("when the critter doesn't have enough mana to reproduce", function(){
+        beforeEach(function(){
+          kim.mana = 1; 
+          expect(world.things.length).toEqual(3);
+          world.reproduceCritter(kim);
+        });
+        
+        it("should not create offspring", function(){
+          expect(world.things.length).toEqual(3);
+        });
+      });
+
+      describe("when the critter has exactly the amount of mana to reproduce", function() {
+        beforeEach(function(){
+          kim.mana = Critter.Actions.REPRODUCE.cost;
+          expect(world.things.length).toEqual(3);
+          world.reproduceCritter(kim);
+        });
+        
+        it("should produce both offspring", function() {
+          expect(world.things.length).toEqual(5);
+        });
+      });
+      
+      describe("when the critter has more than enough mana to reproduce", function() {
+        beforeEach(function() {
+          kim.mana = Critter.Actions.REPRODUCE.cost + 1;
+          expect(world.things.length).toEqual(3);
+          world.reproduceCritter(kim);
+        });
+        
+        it("should produce both offspring", function() {
+          expect(world.things.length).toEqual(5);
         });
       });
     });
@@ -456,7 +509,7 @@ describe("World", function() {
     describe("RelativeDirection.LEFT", function () {
       beforeEach(function() {
         relativeDirection = RelativeDirection.LEFT;
-      })
+      });
       
       it("should return coordinates for the tile to the SOUTH of Rob when Rob is facing WEST", function() {
         rob.direction = CardinalDirection.WEST;
