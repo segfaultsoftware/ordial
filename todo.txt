@@ -8,6 +8,8 @@ chore: we miss scss
 chore: get a usb stick with your github key on it
 chore: create a tracker account instead of using this file.
 chore: create a tear down helper method for leaving work (and a setup method?)
+chore: stop recreating static views on each and every loop
+chore: require.js
 
 
 > story: Randomize the update order of critters and allow a seeded value (http://davidbau.com/encode/seedrandom.js)

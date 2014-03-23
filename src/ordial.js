@@ -5,12 +5,12 @@ $(function() {
     initialize: function(){
       this.world = new World();
       this.paused = true;
-
     },
 
     togglePause: function() {
       console.log("togglePause from " + this.paused);
       this.paused = !this.paused;
+      this.seedView.disableInput();
       this.updateWorld();
     },
 
@@ -27,12 +27,14 @@ $(function() {
 
     render: function(){
       var ordial = this;
+      this.seedView = this.seedView || new SeedView({model: new Seed()});
       this.pauseView = new PauseView({paused: this.paused});
       // (possibly?) leaks when pauseView should be garbage collected
       this.listenTo(this.pauseView, 'pauseButtonClicked', function() {
         ordial.togglePause();
       });
       this.$el.html(this.pauseView.render().el);
+      this.$el.append(this.seedView.render().el);
       if(this.worldView){
         this.$el.append(this.worldView.render().el);
       }
