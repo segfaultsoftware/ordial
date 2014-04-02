@@ -10,6 +10,7 @@ describe("World", function() {
 
   describe("#update", function(){
     beforeEach(function() {
+      Math.seedrandom('foo');
       var robsOriginalLocation, zoesOriginalLocation, kimsOriginalLocation;
       robsOriginalLocation = {x: 1, y: 1};
       zoesOriginalLocation = {x: 4, y: 4};

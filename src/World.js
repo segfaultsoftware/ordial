@@ -10,7 +10,7 @@ $(function() {
     update: function(){
       var world = this;
       var deadThings = [];
-      _.each(this.things, function(thing){
+      _.each(_.shuffle(this.things), function(thing){
         var action = thing.getAction();
         switch(action) {
           case Critter.Actions.MOVE_FORWARD:
