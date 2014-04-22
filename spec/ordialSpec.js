@@ -157,7 +157,7 @@ describe("Ordial", function() {
       var test = this;
       this.actuallyCallThrough = false;
       var callCount = 0;
-      spyOn(_, 'delay').and.callFake(function(method) {
+      spyOn(window, 'setTimeout').and.callFake(function(method) {
         if (test.actuallyCallThrough) {
           callCount++;
           if(callCount <= 4){
@@ -185,14 +185,14 @@ describe("Ordial", function() {
 
       it('should defer an updateWorld for later', function() {
         this.ordial.updateWorld();
-        expect(_.delay).toHaveBeenCalledWith(jasmine.any(Function), 1000);
+        expect(window.setTimeout).toHaveBeenCalledWith(jasmine.any(Function), 1000);
       });
 
       describe('the delayed updateWorld', function() {
         it('should delay again', function() {
           this.actuallyCallThrough = true;
           this.ordial.updateWorld();
-          expect(_.delay.calls.count()).toEqual(5);
+          expect(window.setTimeout.calls.count()).toEqual(5);
         });
       });
     });
@@ -215,7 +215,7 @@ describe("Ordial", function() {
       });
 
       it('should not defer an updatedWorld for later', function() {
-        expect(_.delay).not.toHaveBeenCalled();
+        expect(window.setTimeout).not.toHaveBeenCalled();
       });
     })
   });

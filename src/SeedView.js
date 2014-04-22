@@ -23,6 +23,7 @@ $(function() {
     },
 
     render: function(){
+      debugger
       this.$el.html(this.template());
       return this;
     }

@@ -1,7 +1,5 @@
 $(function() {
   WorldView = Backbone.View.extend({
-    id: 'world',
-
     render: function() {
       // render the grid
       // render the world inhabitants
