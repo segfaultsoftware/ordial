@@ -140,8 +140,14 @@ $(function() {
       }
 
       if(critter.mana >= Critter.Actions.REPRODUCE.cost){
-        createOffspringInDirection(RelativeDirection.LEFT);
-        createOffspringInDirection(RelativeDirection.RIGHT);
+        if (Math.floor(Math.random() * 1000) % 2) {
+          createOffspringInDirection(RelativeDirection.LEFT);
+          createOffspringInDirection(RelativeDirection.RIGHT);
+        }
+        else {
+          createOffspringInDirection(RelativeDirection.RIGHT);
+          createOffspringInDirection(RelativeDirection.LEFT);
+        }
       }
       
       critter.mana -= Critter.Actions.REPRODUCE.cost;
