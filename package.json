@@ -20,8 +20,5 @@
     "backbone"    : "1.1.x",
     "jquery"      : "2.1.x",
     "underscore"  : "1.5.x"
-  },
-  "devDependencies": {
-    "jasmine-core"  : "2.0.x"
   }
 }
