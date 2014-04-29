@@ -24,6 +24,7 @@ describe("WorldView", function() {
     var rob;
     beforeEach(function() {
       rob = new Critter();
+      rob.direction = CardinalDirection.NORTH;
       this.world.place(rob, {x: 4, y: 4});
 
       this.worldView.render();
@@ -41,26 +42,20 @@ describe("WorldView", function() {
     it('should draw Rob facing the north', function(){
       expect(this.worldView.$el.find('.critter').hasClass('north')).toBeTruthy();
     });
+  });
 
-    describe("rob facing other directions", function(){
-      it("should draw Rob facing west", function(){
-        rob.direction = CardinalDirection.WEST;
-        this.worldView.render();
-        expect(this.worldView.$el.find('.critter').hasClass('west')).toBeTruthy();
-        expect(this.worldView.$el.find('.critter').hasClass('north')).toBeFalsy();
-      });
+  describe("in a world with resources", function() {
+    var resource;
+    beforeEach(function() {
+      resource = new Resource();
+      this.world.place(resource, {x: 3, y: 3});
 
-      it("should draw Rob facing east", function(){
-        rob.direction = CardinalDirection.EAST;
-        this.worldView.render();
-        expect(this.worldView.$el.find('.critter').hasClass('east')).toBeTruthy();
-      });
+      this.worldView.render();
+    });
 
-      it("should draw Rob facing south", function(){
-        rob.direction = CardinalDirection.SOUTH;
-        this.worldView.render();
-        expect(this.worldView.$el.find('.critter').hasClass('south')).toBeTruthy();
-      });
+    it("should draw the resource at the right place", function() {
+      var resourceCell = this.worldView.$el.find("table tr:nth-child(4) td:nth-child(4)");
+      expect(resourceCell.find(".resource").length).toEqual(1);
     });
   });
 });

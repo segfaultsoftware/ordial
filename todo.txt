@@ -12,9 +12,7 @@ chore: stop recreating static views on each and every loop
 chore: require.js
 
 
-> story: It should not be painful to copy the seed.
-story: render a resource as a filled box in the grid
-story: stepping on a resource should remove it from the map
+> story: stepping on a resource should remove it from the map
 story: Rob can stay alive 20 ticks when it consumes a resource
        Given that Rob starts at 0,0
        And there is a resource at 0,1
@@ -29,6 +27,12 @@ story: reset button (even if it just refreshes the page)
 
 
 ZOMG WE DONE THESE:
+28 April 2014
+story: render a resource as a filled box in the grid
+
+21 April 2014
+story: It should not be painful to copy the seed.
+
 1 April 2014
 story: Randomize the update order of critters and allow a seeded value (http://davidbau.com/encode/seedrandom.js)
 

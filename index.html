@@ -15,6 +15,9 @@
 <script type="text/javascript" src="src/CritterMind.js"></script>
 <script type="text/javascript" src="src/CardinalDirection.js"></script>
 <script type="text/javascript" src="src/RelativeDirection.js"></script>
+<script type="text/javascript" src="src/CritterView.js"></script>
+<script type="text/javascript" src="src/Resource.js"></script>
+<script type="text/javascript" src="src/ResourceView.js"></script>
 
 
 <link rel="stylesheet" type="text/css" href="src/css/world.css">
@@ -28,13 +31,14 @@
 <script type="text/javascript">
   $(function() {
     var ordial = new Ordial();
-    o = ordial;
     rob = new Critter({mind: new CritterMind(Critter.Actions.MOVE_FORWARD)});
     zoe = new Critter({mind: new CritterMind(Critter.Actions.TURN_LEFT)});
     kim = new Critter({mind: new CritterMind(Critter.Actions.REPRODUCE)});
-    o.world.place(rob, {x: 4, y: 4});
-    o.world.place(zoe, {x: 3, y: 7});
-    o.world.place(kim, {x: 2, y: 2});
-//    ordial.render();
+    ordial.world.place(rob, {x: 4, y: 4});
+    ordial.world.place(zoe, {x: 3, y: 7});
+    ordial.world.place(kim, {x: 2, y: 2});
+
+    ordial.world.place(new Resource(), {x: 1, y: 1});
+    ordial.world.place(new Resource(), {x: 3, y: 4});
   });
 </script>

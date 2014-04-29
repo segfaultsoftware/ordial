@@ -11,23 +11,25 @@ $(function() {
       var world = this;
       var deadThings = [];
       _.each(_.shuffle(this.things), function(thing){
-        var action = thing.getAction();
-        switch(action) {
-          case Critter.Actions.MOVE_FORWARD:
-            world.moveCritterForward(thing);
-            break;
+        if (thing.getAction) {
+          var action = thing.getAction();
+          switch(action) {
+            case Critter.Actions.MOVE_FORWARD:
+              world.moveCritterForward(thing);
+              break;
 
-          case Critter.Actions.TURN_LEFT:
-            world.turnCritterLeft(thing);
-            break;
+            case Critter.Actions.TURN_LEFT:
+              world.turnCritterLeft(thing);
+              break;
 
-          case Critter.Actions.REPRODUCE:
-            world.reproduceCritter(thing);
-            break;
-        }
+            case Critter.Actions.REPRODUCE:
+              world.reproduceCritter(thing);
+              break;
+          }
 
-        if(thing.mana <= 0){
-          deadThings.push(thing);
+          if(thing.mana <= 0){
+            deadThings.push(thing);
+          }
         }
       });
 

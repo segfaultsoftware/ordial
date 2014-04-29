@@ -20,10 +20,17 @@ $(function() {
     },
 
     renderThingAt: function(thing){
+      var view = undefined;
+
       if(thing != undefined && thing != null){
-        return '<div class="critter ' + thing.direction.toLowerCase() + '"></div>';
+        if(thing instanceof Critter){
+          view = new CritterView({model: thing}).render();
+        }
+        else if (thing instanceof Resource) {
+          view = new ResourceView().render();
+        }
       }
-      return "";
+      return view ? view.render().el.innerHTML : "";
     }
   });
 });
