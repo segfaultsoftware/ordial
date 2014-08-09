@@ -8,6 +8,10 @@ $(function() {
 
     getAction : function() {
       return this.mind.getAction();
+    },
+
+    canEat: function(yummyMorsel) {
+      return yummyMorsel instanceof Resource;
     }
   });
 

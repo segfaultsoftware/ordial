@@ -46,17 +46,26 @@ $(function() {
         }
       }
       else {
+        var row = this.tiles[x] || [];
+        if(row[y]){
+          this.remove(row[y]);
+        }
+
         if(thing.location){
           this.tiles[thing.location.x][thing.location.y] = null;
         }
-        var row = this.tiles[x] || [];
+
         row[y] = thing;
         this.tiles[x] = row;
         thing.location = {x:x, y:y};
-        if (!_.contains(this.things, thing)) {
+        if (!this.contains(thing)) {
           this.things.push(thing);
         }
       }
+    },
+
+    contains: function(thing) {
+      return _.contains(this.things, thing);
     },
 
     remove: function(thing){
@@ -67,6 +76,8 @@ $(function() {
       if (thing.location && this.tiles[thing.location.x]) {
         this.tiles[thing.location.x][thing.location.y] = undefined;
       }
+
+      delete thing.location;
     },
 
     isLocationInsideWorld: function(location){
@@ -113,7 +124,7 @@ $(function() {
     moveCritterForward: function(critter){
       var nextLocation = this.getTileInDirection(RelativeDirection.FORWARD, critter);
       var thingAtNextLocation = this.getThingAt(nextLocation);
-      if (!thingAtNextLocation) {
+      if (!thingAtNextLocation || critter.canEat(thingAtNextLocation)) {
         this.place(critter, nextLocation);
       }
       
@@ -134,8 +145,8 @@ $(function() {
       function createOffspringInDirection(relativeDirection){
         var offspringLocation = world.getTileInDirection(relativeDirection, critter);
         var contentsOfTile = world.getThingAt(offspringLocation);
-        if (!contentsOfTile && world.isLocationInsideWorld(offspringLocation)) {
-          var offspring = new Critter({mind: critter.mind});
+        var offspring = new Critter({mind: critter.mind});
+        if ((!contentsOfTile || offspring.canEat(contentsOfTile)) && world.isLocationInsideWorld(offspringLocation)) {
           offspring.direction = CardinalDirection.getDirectionAfterRotation(critter.direction, relativeDirection);
           world.place(offspring, offspringLocation);
         }

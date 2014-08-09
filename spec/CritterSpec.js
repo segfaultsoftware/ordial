@@ -36,4 +36,15 @@ describe("Critter", function() {
       expect(mind.getAction).toHaveBeenCalled();
     });
   });
+
+  describe("#canEat", function() {
+    it('for a resource should return true', function() {
+      expect(rob.canEat(new Resource())).toBe(true);
+    });
+
+    it('for a critter should return false', function() {
+      expect(rob.canEat(new Critter())).toBe(false);
+    });
+  });
+
 });

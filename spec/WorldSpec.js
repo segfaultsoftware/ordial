@@ -132,6 +132,28 @@ describe("World", function() {
           expect(rob.location).toEqual({x:4, y:0});
         });
       });
+
+      describe("when there is a resource in front of the critter", function() {
+        var resource;
+        beforeEach(function () {
+          resource = new Resource();
+          world.place(rob, {x: 4, y: 1});
+          world.place(resource, {x: 4, y: 0});
+          world.moveCritterForward(rob);
+        });
+
+        it('should move Rob into the space', function(){
+          expect(rob.location).toEqual({x: 4, y: 0});
+        });
+
+        it('should remove the resource from the tile', function(){
+          expect(world.getThingAt({x:4, y:0})).not.toEqual(resource);
+        });
+
+        it('should remove the resource from the world', function(){
+          expect(world.contains(resource)).toBe(false);
+        });
+      });
     });
 
     describe("#turnCritterLeft", function() {
@@ -140,6 +162,7 @@ describe("World", function() {
         world.moveCritterForward(zoe);
         expect(zoe.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_LEFT.cost);
       });
+
       it("should update the critter's cardinal direction", function () {
         expect(zoe.direction).toBe(CardinalDirection.NORTH);
         world.turnCritterLeft(zoe);
@@ -234,6 +257,23 @@ describe("World", function() {
             expect(placeSpy.calls.count()).toEqual(1);
           });
         });
+
+        describe("when there is a resource to the left", function () {
+          var resource;
+          beforeEach(function () {
+            resource = new Resource();
+            world.place(resource, offspringLocation);
+            world.reproduceCritter(kim);
+          });
+
+          it("should create a critter to the left", function () {
+            expect(world.getThingAt(offspringLocation) instanceof Critter).toBe(true);
+          });
+
+          it("should remove the resource", function () {
+            expect(world.contains(resource)).toBe(false);
+          });
+        });
       });
 
       describe("right child", function(){
@@ -293,6 +333,23 @@ describe("World", function() {
             expect(placeSpy.calls.count()).toEqual(1);
           });
         });
+
+        describe("when there is a resource to the right", function () {
+          var resource;
+          beforeEach(function () {
+            resource = new Resource();
+            world.place(resource, offspringLocation);
+            world.reproduceCritter(kim);
+          });
+
+          it("should create a critter to the right", function () {
+            expect(world.getThingAt(offspringLocation) instanceof Critter).toBe(true);
+          });
+
+          it("should remove the resource", function () {
+            expect(world.contains(resource)).toBe(false);
+          });
+        });
       });
 
       describe("when the critter doesn't have enough mana to reproduce", function(){
@@ -341,7 +398,7 @@ describe("World", function() {
         location = {
           x: Math.floor(Math.random() * 5),
           y: Math.floor(Math.random() * 5)
-        }
+        };
 
         spyOn(console, "error").and.callThrough();
         world.place(rob, location);
@@ -374,6 +431,21 @@ describe("World", function() {
         var allMyRobs = _.filter(world.things, function(thing) { return thing == rob; });
         expect(allMyRobs.length).toEqual(1);
       });
+
+      describe("when there is a thing in the target tile", function () {
+        var aThing;
+        beforeEach(function () {
+          aThing = { a: "thing" };
+          world.place(aThing, location);
+        });
+
+        it("should remove the thing in that tile from the world", function () {
+          expect(world.contains(aThing)).toBe(true);
+          world.place(rob, location);
+          expect(world.contains(aThing)).toBe(false);
+        });
+      });
+
     });
 
     describe('in a tile outside the world', function() {
@@ -419,18 +491,25 @@ describe("World", function() {
   });
 
   describe("#remove", function() {
+    var location;
     beforeEach(function() {
-      world.place(rob, {x: 1, y: 1});
+      location = {x: 1, y: 1};
+      world.place(rob, location);
       world.remove(rob);
     });
 
     it("should remove the thing from the tile", function() {
-      expect(world.getThingAt(rob.location)).toBeUndefined();
+      expect(world.getThingAt(location)).toBeUndefined();
     });
 
     it("should remove the thing from the things", function () {
       expect(world.things).not.toContain(rob);
     });
+
+    it("should unset the location of the thing", function () {
+      expect(rob.location).toBeUndefined();
+    });
+
   });
 
   describe("#isLocationInsideWorld", function() {
