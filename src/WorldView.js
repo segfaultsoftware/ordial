@@ -6,9 +6,9 @@ $(function() {
 
 
       this.$el.html("<table border='1'>");
-      for(var row = 0; row < 10; row++) {
+      for(var row = 0; row < this.model.height; row++) {
         var rowHtml = "<tr>";
-        for(var col = 0; col < 10; col++){
+        for(var col = 0; col < this.model.width; col++){
           var thing = this.model.getThingAt({x: col, y: row});
           var thingView = this.renderThingAt(thing);
           rowHtml += "<td>" + thingView + "</td>";

@@ -2,6 +2,9 @@
   width: 20px;
   height: 20px;
   background-color: floralwhite;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 #world .resource {
@@ -36,4 +39,9 @@
   height: inherit;
 
   background-image:url('../assets/ordial_critter_east.png');
+}
+
+textarea {
+  width: 500px;
+  height: 200px;
 }

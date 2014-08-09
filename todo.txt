@@ -12,12 +12,7 @@ chore: stop recreating static views on each and every loop
 chore: require.js
 
 
-> story: Rob can stay alive 20 ticks when it consumes a resource
-       Given that Rob starts at 0,0
-       And there is a resource at 0,1
-       And Rob moves down one each tick
-       Then Rob should die after 20 ticks
-story: creature moves forward after rotating left
+> story: creature moves forward after rotating left
 story: resources should should spawn at random intervals in random places (but not on critters or other resources)
 story: random colors for critters
 story: seed the world with 4 resources and rob, zoe, and kim critters with random positions and directions
@@ -27,6 +22,11 @@ story: reset button (even if it just refreshes the page)
 
 ZOMG WE DONE THESE:
 9 August 2014 (sorry, Tira)
+story: Rob can stay alive 20 ticks when it consumes a resource
+       Given that Rob starts at 0,0
+       And there is a resource at 0,1
+       And Rob moves down one each tick
+       Then Rob should die after 20 ticks
 story: stepping on a resource should remove it from the map
 
 28 April 2014

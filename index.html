@@ -31,6 +31,15 @@
 <script type="text/javascript">
   $(function() {
     var ordial = new Ordial();
+    $("#runCode").click(function() {
+      ordial.world.initialize();
+      eval($("#code").val());
+    });
+  });
+</script>
+
+<h3>Active Code</h3>
+<textarea id="code">
     rob = new Critter({mind: new CritterMind(Critter.Actions.MOVE_FORWARD)});
     zoe = new Critter({mind: new CritterMind(Critter.Actions.TURN_LEFT)});
     kim = new Critter({mind: new CritterMind(Critter.Actions.REPRODUCE)});
@@ -40,5 +49,29 @@
 
     ordial.world.place(new Resource(), {x: 1, y: 1});
     ordial.world.place(new Resource(), {x: 3, y: 4});
-  });
-</script>
+</textarea>
+<br/>
+<button id="runCode">Run</button>
+
+<h3>Tall World</h3>
+<textarea>
+    rob = new Critter({mind: new CritterMind(Critter.Actions.MOVE_FORWARD)});
+    rob.direction = CardinalDirection.SOUTH;
+    ordial.world.width = 3;
+    ordial.world.height = 30;
+
+    ordial.world.place(rob, {x: 1, y: 0});
+</textarea>
+
+
+<h3>Tall World With Resource</h3>
+<textarea>
+    rob = new Critter({mind: new CritterMind(Critter.Actions.MOVE_FORWARD)});
+    rob.direction = CardinalDirection.SOUTH;
+    ordial.world.width = 3;
+    ordial.world.height = 30;
+
+    ordial.world.place(rob, {x: 1, y: 0});
+    ordial.world.place(new Resource(), {x: 1, y: 8});
+
+</textarea>
