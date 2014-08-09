@@ -47,4 +47,26 @@ describe("Critter", function() {
     });
   });
 
+  describe("#eat", function () {
+    var originalMana, resourceMana, resource;
+    beforeEach(function () {
+      resource = new Resource();
+      originalMana = rob.mana;
+      resourceMana = resource.mana;
+    });
+
+    describe("when eating a resource", function() {
+      it("should increment the critter's mana by the resource amount", function () {
+         rob.eat(resource);
+         expect(rob.mana).toEqual(originalMana + resourceMana);
+      });
+    });
+
+    describe("when there's nothing to eat", function() {
+      it("should not touch the critter's mana", function() {
+        rob.eat(undefined);
+        expect(rob.mana).toEqual(originalMana);
+      });
+    });
+  });
 });

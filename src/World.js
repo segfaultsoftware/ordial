@@ -126,6 +126,7 @@ $(function() {
       var thingAtNextLocation = this.getThingAt(nextLocation);
       if (!thingAtNextLocation || critter.canEat(thingAtNextLocation)) {
         this.place(critter, nextLocation);
+        critter.eat(thingAtNextLocation);
       }
       
       critter.mana -= Critter.Actions.MOVE_FORWARD.cost;
@@ -149,6 +150,7 @@ $(function() {
         if ((!contentsOfTile || offspring.canEat(contentsOfTile)) && world.isLocationInsideWorld(offspringLocation)) {
           offspring.direction = CardinalDirection.getDirectionAfterRotation(critter.direction, relativeDirection);
           world.place(offspring, offspringLocation);
+          offspring.eat(contentsOfTile);
         }
       }
 

@@ -134,9 +134,11 @@ describe("World", function() {
       });
 
       describe("when there is a resource in front of the critter", function() {
-        var resource;
+        var resource, originalMana, costOfTheMove;
         beforeEach(function () {
           resource = new Resource();
+          originalMana = rob.mana;
+          costOfTheMove = Critter.Actions.MOVE_FORWARD.cost;
           world.place(rob, {x: 4, y: 1});
           world.place(resource, {x: 4, y: 0});
           world.moveCritterForward(rob);
@@ -152,6 +154,10 @@ describe("World", function() {
 
         it('should remove the resource from the world', function(){
           expect(world.contains(resource)).toBe(false);
+        });
+
+        it("should increase rob's mana by the resource's value", function() {
+          expect(rob.mana).toEqual(originalMana + resource.mana - costOfTheMove);
         });
       });
     });
@@ -272,6 +278,11 @@ describe("World", function() {
 
           it("should remove the resource", function () {
             expect(world.contains(resource)).toBe(false);
+          });
+
+          it("should increment the critter's mana by the resource's mana", function() {
+            var child = world.getThingAt(offspringLocation);
+            expect(child.mana).toEqual(Critter.DEFAULT_STARTING_MANA + resource.mana);
           });
         });
       });
@@ -445,7 +456,6 @@ describe("World", function() {
           expect(world.contains(aThing)).toBe(false);
         });
       });
-
     });
 
     describe('in a tile outside the world', function() {
@@ -509,7 +519,6 @@ describe("World", function() {
     it("should unset the location of the thing", function () {
       expect(rob.location).toBeUndefined();
     });
-
   });
 
   describe("#isLocationInsideWorld", function() {

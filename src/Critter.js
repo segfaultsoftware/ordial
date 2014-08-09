@@ -12,6 +12,12 @@ $(function() {
 
     canEat: function(yummyMorsel) {
       return yummyMorsel instanceof Resource;
+    },
+
+    eat: function(yummyMorsel) {
+      if (yummyMorsel && yummyMorsel.mana) {
+        this.mana += yummyMorsel.mana;
+      }
     }
   });
 
