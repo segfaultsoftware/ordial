@@ -13,8 +13,6 @@ $(function() {
     getAction : function(sensations) {
       return this.decisionTree.getAction(sensations);
     }
-
-
   });
 
   CritterMind.EmptyMind = new CritterMind({action:Critter.Actions.STARE_OFF_INTO_SPACE});

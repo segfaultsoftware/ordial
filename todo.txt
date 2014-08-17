@@ -25,10 +25,6 @@ story: reset button (even if it just refreshes the page)
 
 
 
-
-
-
-
 ZOMG WE DONE THESE:
 9 August 2014 (sorry, Tira)
 story: Rob can stay alive 20 ticks when it consumes a resource
