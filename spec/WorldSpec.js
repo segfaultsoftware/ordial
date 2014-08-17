@@ -3,9 +3,9 @@ describe("World", function() {
 
   beforeEach(function() {
     world = new World();
-    rob = new Critter({mind: new CritterMind(Critter.Actions.MOVE_FORWARD)});
-    zoe = new Critter({mind: new CritterMind(Critter.Actions.TURN_LEFT)});
-    kim = new Critter({mind: new CritterMind(Critter.Actions.REPRODUCE)});
+    rob = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD })});
+    zoe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT })});
+    kim = new Critter({mind: new CritterMind({action: Critter.Actions.REPRODUCE })});
   });
 
   describe("#update", function(){

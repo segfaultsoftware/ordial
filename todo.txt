@@ -12,11 +12,20 @@ chore: stop recreating static views on each and every loop
 chore: require.js
 
 
-> story: creature moves forward after rotating left
+> story: critter turns left if tile in front of it is occupied by something other than a resource; otherwise moves forward
+story: map can have blocks in tiles which resources cannot spawn in and critters cannot move into
+story: critter turns right if tile in front of it and tile to the left of it is occupied by something other than a resource; otherwise moves forward
+story: critter turns left if resource is to the left of it
+story: critter turns right if resource is to the right of it
+story: creature moves forward after rotating left; then rotates left again and moves forward again, until the creature dies of exhaustion
 story: resources should should spawn at random intervals in random places (but not on critters or other resources)
 story: random colors for critters
 story: seed the world with 4 resources and rob, zoe, and kim critters with random positions and directions
 story: reset button (even if it just refreshes the page)
+
+
+
+
 
 
 

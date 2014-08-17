@@ -1,0 +1,9 @@
+#!/bin/sh
+
+toggle=$(($RANDOM % 2))
+if [[ $toggle -eq 0 ]]; then
+  GIT_DUET_AUTHORS_FILE=./.pairs git-duet ao ss
+else
+  GIT_DUET_AUTHORS_FILE=./.pairs git-duet ss ao
+fi
+
