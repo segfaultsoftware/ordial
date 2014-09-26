@@ -11,11 +11,12 @@
 <script type="text/javascript" src="src/SeedView.js"></script>
 <script type="text/javascript" src="src/Seed.js"></script>
 <script src="src/ordial.js"></script>
-<script type="text/javascript" src="src/Critter.js"></script>
-<script type="text/javascript" src="src/CritterMind.js"></script>
+<script type="text/javascript" src="src/critter/DecisionNode.js"></script>
+<script type="text/javascript" src="src/critter/Critter.js"></script>
+<script type="text/javascript" src="src/critter/CritterMind.js"></script>
 <script type="text/javascript" src="src/CardinalDirection.js"></script>
 <script type="text/javascript" src="src/RelativeDirection.js"></script>
-<script type="text/javascript" src="src/CritterView.js"></script>
+<script type="text/javascript" src="src/critter/CritterView.js"></script>
 <script type="text/javascript" src="src/Resource.js"></script>
 <script type="text/javascript" src="src/ResourceView.js"></script>
 
@@ -52,6 +53,33 @@
 </textarea>
 <br/>
 <button id="runCode">Run</button>
+
+<h3>ZigZagger</h3>
+<textarea>
+  iShouldTurnLeft = function(senses) {
+    return Math.floor(Math.random() * 100) % 2;
+  };
+
+  turnLeftElseGoForward = new DecisionNode(iShouldTurnLeft, Critter.Actions.TURN_LEFT, Critter.Actions.MOVE_FORWARD);
+
+  rob = new Critter({mind: new CritterMind({decisionTree: turnLeftElseGoForward})});
+
+  function getCoord() {
+    return Math.floor(Math.random() * 10);
+  }
+
+  function getCoords() {
+    return {x: getCoord(), y: getCoord()};
+  }
+
+  ordial.world.place(rob, {x: 9, y: 2});
+  ordial.world.place(new Resource(), getCoords());
+  ordial.world.place(new Resource(), getCoords());
+  ordial.world.place(new Resource(), getCoords());
+  ordial.world.place(new Resource(), getCoords());
+  ordial.world.place(new Resource(), getCoords());
+
+</textarea>
 
 <h3>Tall World</h3>
 <textarea>

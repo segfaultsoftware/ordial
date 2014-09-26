@@ -24,7 +24,7 @@ $(function() {
   Critter.Actions = {
     MOVE_FORWARD: {
       key: 'move_forward',
-      cost: 1
+      cost: 1,
     },
     TURN_LEFT: {
       key: 'turn left',
