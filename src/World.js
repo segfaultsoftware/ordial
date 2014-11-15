@@ -1,10 +1,11 @@
 $(function() {
   World = Backbone.Model.extend({
-    initialize: function() {
+    initialize: function(options) {
       this.width = 10;
       this.height = 10;
       this.tiles = [];
       this.things = [];
+      this.stimulusPackager = options && options.stimulusPackager ? options.stimulusPackager : new StimulusPackager();
     },
 
     update: function(){
@@ -12,7 +13,8 @@ $(function() {
       var deadThings = [];
       _.each(_.shuffle(this.things), function(thing){
         if (thing.getAction) {
-          var action = thing.getAction();
+          var stimuli = world.stimulusPackager.package(world, thing);
+          var action = thing.getAction(stimuli);
           switch(action) {
             case Critter.Actions.MOVE_FORWARD:
               world.moveCritterForward(thing);

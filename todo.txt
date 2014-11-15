@@ -12,7 +12,7 @@ chore: stop recreating static views on each and every loop
 chore: require.js
 
 
-> story: critter turns left if tile in front of it is occupied by something other than a resource; otherwise moves forward
+> story: critter should be able to detect edge of the world in front of him
 story: map can have blocks in tiles which resources cannot spawn in and critters cannot move into
 story: critter turns right if tile in front of it and tile to the left of it is occupied by something other than a resource; otherwise moves forward
 story: critter turns left if resource is to the left of it
@@ -30,6 +30,10 @@ story: reset button (even if it just refreshes the page)
 
 
 ZOMG WE DONE THESE:
+15 November 2014
+story: critter turns left if tile in front of it is occupied by something other than a resource;
+         otherwise moves forward
+
 9 August 2014 (sorry, Tira)
 story: Rob can stay alive 20 ticks when it consumes a resource
        Given that Rob starts at 0,0

@@ -19,6 +19,7 @@
 <script type="text/javascript" src="src/critter/CritterView.js"></script>
 <script type="text/javascript" src="src/Resource.js"></script>
 <script type="text/javascript" src="src/ResourceView.js"></script>
+<script type="text/javascript" src="src/StimulusPackager.js"></script>
 
 
 <link rel="stylesheet" type="text/css" href="src/css/world.css">
@@ -54,15 +55,18 @@
 <br/>
 <button id="runCode">Run</button>
 
-<h3>ZigZagger</h3>
+<h3>Finding food</h3>
 <textarea>
-  iShouldTurnLeft = function(senses) {
-    return Math.floor(Math.random() * 100) % 2;
+  var isSomethingInFrontOfMe = function(stimuli) {
+    return stimuli.thingInFrontOfMe;
+  };
+  var isThingInFrontOfMeEdible = function(stimuli) {
+    return stimuli.thingInFrontOfMe instanceof Resource;
   };
 
-  turnLeftElseGoForward = new DecisionNode(iShouldTurnLeft, Critter.Actions.TURN_LEFT, Critter.Actions.MOVE_FORWARD);
-
-  rob = new Critter({mind: new CritterMind({decisionTree: turnLeftElseGoForward})});
+  var turnLeftOrEatIt = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, Critter.Actions.TURN_LEFT);
+  var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, turnLeftOrEatIt, Critter.Actions.MOVE_FORWARD);
+  var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
 
   function getCoord() {
     return Math.floor(Math.random() * 10);
@@ -72,34 +76,29 @@
     return {x: getCoord(), y: getCoord()};
   }
 
-  ordial.world.place(rob, {x: 9, y: 2});
-  ordial.world.place(new Resource(), getCoords());
-  ordial.world.place(new Resource(), getCoords());
-  ordial.world.place(new Resource(), getCoords());
-  ordial.world.place(new Resource(), getCoords());
-  ordial.world.place(new Resource(), getCoords());
+  for(var i = 0; i < 50; i++) {
+    ordial.world.place(new Resource(), getCoords());
+  }
+  for(var i = 0; i < 50; i++) {
+    var blocker = new Critter();
+    blocker.mana = 100000;
+    ordial.world.place(blocker, getCoords());
+  }
 
+  rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
+  ordial.world.place(rob, getCoords());
 </textarea>
 
-<h3>Tall World</h3>
+<h3>Turn, Run, and Make Babies</h3>
 <textarea>
-    rob = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD})});
-    rob.direction = CardinalDirection.SOUTH;
-    ordial.world.width = 3;
-    ordial.world.height = 30;
+  rob = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD})});
+  zoe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT})});
+  kim = new Critter({mind: new CritterMind({action: Critter.Actions.REPRODUCE})});
+  ordial.world.place(rob, {x: 4, y: 4});
+  ordial.world.place(zoe, {x: 3, y: 7});
+  ordial.world.place(kim, {x: 2, y: 2});
 
-    ordial.world.place(rob, {x: 1, y: 0});
+  ordial.world.place(new Resource(), {x: 1, y: 1});
+  ordial.world.place(new Resource(), {x: 3, y: 4});
 </textarea>
 
-
-<h3>Tall World With Resource</h3>
-<textarea>
-    rob = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD})});
-    rob.direction = CardinalDirection.SOUTH;
-    ordial.world.width = 3;
-    ordial.world.height = 30;
-
-    ordial.world.place(rob, {x: 1, y: 0});
-    ordial.world.place(new Resource(), {x: 1, y: 8});
-
-</textarea>

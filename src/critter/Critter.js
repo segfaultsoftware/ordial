@@ -6,8 +6,8 @@ $(function() {
       this.mana = (options && options.mana) ? options.mana : Critter.DEFAULT_STARTING_MANA;
     },
 
-    getAction : function() {
-      return this.mind.getAction();
+    getAction : function(stimuli) {
+      return this.mind.getAction(stimuli);
     },
 
     canEat: function(yummyMorsel) {
@@ -24,7 +24,7 @@ $(function() {
   Critter.Actions = {
     MOVE_FORWARD: {
       key: 'move_forward',
-      cost: 1,
+      cost: 1
     },
     TURN_LEFT: {
       key: 'turn left',

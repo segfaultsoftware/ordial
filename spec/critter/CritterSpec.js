@@ -31,9 +31,10 @@ describe("Critter", function() {
     });
 
     it('should request the next action from its mind', function() {
+      var stimuli = {foo: 'bar'};
       spyOn(mind, "getAction");
-      rob.getAction();
-      expect(mind.getAction).toHaveBeenCalled();
+      rob.getAction(stimuli);
+      expect(mind.getAction).toHaveBeenCalledWith(stimuli);
     });
   });
 

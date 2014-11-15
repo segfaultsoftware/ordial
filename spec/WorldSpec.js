@@ -1,7 +1,8 @@
 describe("World", function() {
-  var world, rob, zoe, kim;
+  var world, rob, zoe, kim, stimulusPackager;
 
   beforeEach(function() {
+    stimulusPackager = jasmine.createSpyObj('packager', ['package']);
     world = new World();
     rob = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD })});
     zoe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT })});
@@ -28,6 +29,19 @@ describe("World", function() {
       expect(rob.getAction).toHaveBeenCalled();
       expect(zoe.getAction).toHaveBeenCalled();
       expect(kim.getAction).toHaveBeenCalled();
+    });
+
+    it("should get the critter's action based on its stimuli", function () {
+      world = new World({stimulusPackager: stimulusPackager});
+      var somethingInteresting = "Some stimulating conversation";
+      stimulusPackager.package.and.returnValue(somethingInteresting);
+
+      rob = new Critter();
+      world.place(rob, {x:1, y:1});
+      spyOn(rob, "getAction");
+      world.update();
+      expect(stimulusPackager.package).toHaveBeenCalledWith(world, rob);
+      expect(rob.getAction).toHaveBeenCalledWith(somethingInteresting);
     });
 
     describe("when the getAction is MOVE_FORWARD", function() {
