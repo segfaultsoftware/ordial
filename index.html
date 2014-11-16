@@ -24,7 +24,7 @@
 <script type="text/javascript" src="src/TheVoid.js"></script>
 
 
-<link rel="stylesheet" type="text/css" href="src/css/world.css">
+<link rel="stylesheet" type="text/css" href="src/css/ordial.css">
 
 <div id="ordial">
   <div id="seedContainer"></div>
@@ -59,36 +59,36 @@
 
 <h3>Finding food</h3>
 <textarea>
-  var isSomethingInFrontOfMe = function(stimuli) {
+    var isSomethingInFrontOfMe = function(stimuli) {
     return stimuli.thingInFrontOfMe;
-  };
-  var isThingInFrontOfMeEdible = function(stimuli) {
+    };
+    var isThingInFrontOfMeEdible = function(stimuli) {
     return stimuli.thingInFrontOfMe instanceof Resource;
-  };
+    };
 
-  var turnLeftOrEatIt = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, Critter.Actions.TURN_LEFT);
-  var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, turnLeftOrEatIt, Critter.Actions.MOVE_FORWARD);
-  var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
+    var turnLeftOrEatIt = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, Critter.Actions.TURN_LEFT);
+    var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, turnLeftOrEatIt, Critter.Actions.MOVE_FORWARD);
+    var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
 
-  function getCoord() {
+    function getCoord() {
     return Math.floor(Math.random() * 10);
-  }
+    }
 
-  function getCoords() {
+    function getCoords() {
     return {x: getCoord(), y: getCoord()};
-  }
+    }
 
-  for(var i = 0; i < 50; i++) {
+    for(var i = 0; i < 50; i++) {
     ordial.world.place(new Resource(), getCoords());
-  }
-  for(var i = 0; i < 50; i++) {
-    var blocker = new Critter();
+    }
+    for(var i = 0; i < 50; i++) {
+    var blocker = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT})});
     blocker.mana = 100000;
     ordial.world.place(blocker, getCoords());
-  }
+    }
 
-  rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
-  ordial.world.place(rob, getCoords());
+    rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
+    ordial.world.place(rob, getCoords());
 </textarea>
 
 <h3>Turn, Run, and Make Babies</h3>

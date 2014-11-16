@@ -16,9 +16,12 @@
     "type": "git",
     "url": "https://github.com/segfaultsoftware/ordial.git"
   },
-  "dependencies" : {
-    "backbone"    : "1.1.x",
-    "jquery"      : "2.1.x",
-    "underscore"  : "1.5.x"
+  "dependencies": {
+    "backbone": "1.1.x",
+    "jquery": "2.1.x",
+    "underscore": "1.5.x"
+  },
+  "devDependencies": {
+    "less": "~2.0.0"
   }
 }

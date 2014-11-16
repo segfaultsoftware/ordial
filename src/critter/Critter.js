@@ -4,6 +4,7 @@ $(function() {
       this.direction = CardinalDirection.NORTH;
       this.mind = (options && options.mind) ? options.mind : CritterMind.EmptyMind;
       this.mana = (options && options.mana) ? options.mana : Critter.DEFAULT_STARTING_MANA;
+      this.color = _.sample(["lavender", "black", "blue", "orange", "eggshell", "pink", "teal", "purple"]);
     },
 
     getAction : function(stimuli) {

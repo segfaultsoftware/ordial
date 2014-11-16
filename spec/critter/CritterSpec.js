@@ -14,6 +14,11 @@ describe("Critter", function() {
       it('sets the mana to default', function() {
         expect(rob.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
       });
+
+      it("should set a random color", function () {
+        expect(["lavender", "black", "blue", "orange", "eggshell","pink", "teal","purple"]).toContain(rob.color);
+      });
+
     });
 
     it('overrides the starting mana if mana is passed in', function() {

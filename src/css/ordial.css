@@ -1,0 +1,117 @@
+.critter {
+  width: inherit;
+  height: inherit;
+}
+.critter.teal.west {
+  background-image: url('../assets/critter/ordial_critter_west_teal.png');
+}
+.critter.teal.east {
+  background-image: url('../assets/critter/ordial_critter_east_teal.png');
+}
+.critter.teal.south {
+  background-image: url('../assets/critter/ordial_critter_south_teal.png');
+}
+.critter.teal.north {
+  background-image: url('../assets/critter/ordial_critter_north_teal.png');
+}
+.critter.purple.west {
+  background-image: url('../assets/critter/ordial_critter_west_purple.png');
+}
+.critter.purple.east {
+  background-image: url('../assets/critter/ordial_critter_east_purple.png');
+}
+.critter.purple.south {
+  background-image: url('../assets/critter/ordial_critter_south_purple.png');
+}
+.critter.purple.north {
+  background-image: url('../assets/critter/ordial_critter_north_purple.png');
+}
+.critter.pink.west {
+  background-image: url('../assets/critter/ordial_critter_west_pink.png');
+}
+.critter.pink.east {
+  background-image: url('../assets/critter/ordial_critter_east_pink.png');
+}
+.critter.pink.south {
+  background-image: url('../assets/critter/ordial_critter_south_pink.png');
+}
+.critter.pink.north {
+  background-image: url('../assets/critter/ordial_critter_north_pink.png');
+}
+.critter.orange.west {
+  background-image: url('../assets/critter/ordial_critter_west_orange.png');
+}
+.critter.orange.east {
+  background-image: url('../assets/critter/ordial_critter_east_orange.png');
+}
+.critter.orange.south {
+  background-image: url('../assets/critter/ordial_critter_south_orange.png');
+}
+.critter.orange.north {
+  background-image: url('../assets/critter/ordial_critter_north_orange.png');
+}
+.critter.lavender.west {
+  background-image: url('../assets/critter/ordial_critter_west_lavender.png');
+}
+.critter.lavender.east {
+  background-image: url('../assets/critter/ordial_critter_east_lavender.png');
+}
+.critter.lavender.south {
+  background-image: url('../assets/critter/ordial_critter_south_lavender.png');
+}
+.critter.lavender.north {
+  background-image: url('../assets/critter/ordial_critter_north_lavender.png');
+}
+.critter.eggshell.west {
+  background-image: url('../assets/critter/ordial_critter_west_eggshell.png');
+}
+.critter.eggshell.east {
+  background-image: url('../assets/critter/ordial_critter_east_eggshell.png');
+}
+.critter.eggshell.south {
+  background-image: url('../assets/critter/ordial_critter_south_eggshell.png');
+}
+.critter.eggshell.north {
+  background-image: url('../assets/critter/ordial_critter_north_eggshell.png');
+}
+.critter.blue.west {
+  background-image: url('../assets/critter/ordial_critter_west_blue.png');
+}
+.critter.blue.east {
+  background-image: url('../assets/critter/ordial_critter_east_blue.png');
+}
+.critter.blue.south {
+  background-image: url('../assets/critter/ordial_critter_south_blue.png');
+}
+.critter.blue.north {
+  background-image: url('../assets/critter/ordial_critter_north_blue.png');
+}
+.critter.black.west {
+  background-image: url('../assets/critter/ordial_critter_west_black.png');
+}
+.critter.black.east {
+  background-image: url('../assets/critter/ordial_critter_east_black.png');
+}
+.critter.black.south {
+  background-image: url('../assets/critter/ordial_critter_south_black.png');
+}
+.critter.black.north {
+  background-image: url('../assets/critter/ordial_critter_north_black.png');
+}
+.resource {
+  background-color: royalblue;
+  width: 100%;
+  height: 100%;
+}
+#world td {
+  width: 20px;
+  height: 20px;
+  background-color: floralwhite;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+textarea {
+  width: 500px;
+  height: 200px;
+}

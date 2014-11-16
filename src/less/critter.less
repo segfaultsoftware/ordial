@@ -1,0 +1,26 @@
+@colors: 'black', 'blue', 'eggshell', 'lavender', 'orange', 'pink', 'purple', 'teal';
+@directions: 'north', 'south', 'east', 'west';
+
+.generate-critter-class(@color, @direction) {
+  &.@{color}.@{direction} {
+    background-image: url('../assets/critter/ordial_critter_@{direction}_@{color}.png')
+  }
+}
+
+.generate-critter-classes-for-color-and-directions(@color, @j: length(@directions)) when (@j > 0) {
+
+  .generate-critter-class(@color, e(extract(@directions, @j)));
+
+  .generate-critter-classes-for-color-and-directions(@color, (@j - 1));
+}
+
+.generate-critter-classes-for-colors(@i: length(@colors)) when (@i > 0) {
+  .generate-critter-classes-for-color-and-directions(e(extract(@colors, @i)));
+  .generate-critter-classes-for-colors((@i - 1));
+}
+
+.critter{
+  width: inherit;
+  height: inherit;
+  .generate-critter-classes-for-colors();
+}
