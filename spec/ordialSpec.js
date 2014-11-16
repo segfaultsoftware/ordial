@@ -1,68 +1,64 @@
 describe("Ordial", function() {
+  var ordial, ordialScheduler;
+
   beforeEach(function() {
-    this.ordial = new Ordial();
-    this.ordial.render();
+    ordialScheduler = jasmine.createSpyObj("fake scheduler", ['schedule']);
+    ordial = new Ordial({scheduler: ordialScheduler});
   });
 
   it("should have a world", function(){
-    expect(this.ordial.world).not.toBeUndefined();
+    expect(ordial.world).not.toBeUndefined();
   });
 
   it("should have a pause button", function() {
-    expect(this.ordial.$el.find("#pause-button")).toBeTruthy();
-    expect(this.ordial.$el.find("#pause-button").text()).toEqual('resume');
+    expect(ordial.$el.find("#pause-button")).toBeTruthy();
+    expect(ordial.$el.find("#pause-button").text()).toEqual('resume');
   });
 
   it("should default to paused", function(){
-    expect(this.ordial.paused).toBeTruthy();
+    expect(ordial.paused).toBeTruthy();
   });
 
   it('should have a seed input field', function() {
-    expect(this.ordial.$el.find('#seed-input')).toBeTruthy();
+    expect(ordial.$el.find('#seed-input')).toBeTruthy();
   });
 
   describe('seed input field', function() {
-    beforeEach(function() {
-      spyOn(_, 'delay').and.callFake(function(){
-        console.log('delaaay');
-      });
-    });
-
     it('should start with a random seed', function() {
-      var firstVal = this.ordial.$el.find('#seed-input').val();
-      this.ordial = new Ordial();
-      this.ordial.render();
-      expect(this.ordial.$el.find('#seed-input').val()).not.toEqual(firstVal);
+      var firstVal = ordial.$el.find('#seed-input').val();
+      ordial = new Ordial({scheduler: ordialScheduler});
+      ordial.render();
+      expect(ordial.$el.find('#seed-input').val()).not.toEqual(firstVal);
     });
 
     it('should not just use the next call to Math.random as the seed', function(){
-      this.ordial.$el.find('#seed-input').val('abc').blur();
-      this.ordial.$el.find('#pause-button').click();
+      ordial.$el.find('#seed-input').val('abc').blur();
+      ordial.$el.find('#pause-button').click();
 
-      this.ordial = new Ordial();
-      this.ordial.render();
-      this.ordial.$el.find('#pause-button').click();
+      ordial = new Ordial({scheduler: ordialScheduler});
+      ordial.render();
+      ordial.$el.find('#pause-button').click();
       var undefinedRandomVal = Math.random();
 
-      this.ordial = new Ordial();
-      this.ordial.render();
-      this.ordial.$el.find('#seed-input').val('abc').blur();
-      this.ordial.$el.find('#pause-button').click();
+      ordial = new Ordial({scheduler: ordialScheduler});
+      ordial.render();
+      ordial.$el.find('#seed-input').val('abc').blur();
+      ordial.$el.find('#pause-button').click();
 
-      this.ordial = new Ordial();
-      this.ordial.render();
-      this.ordial.$el.find('#pause-button').click();
+      ordial = new Ordial({scheduler: ordialScheduler});
+      ordial.render();
+      ordial.$el.find('#pause-button').click();
       expect(Math.random()).not.toEqual(undefinedRandomVal);
     });
 
     describe('with different seeds after starting the world', function() {
       var firstVal;
       beforeEach(function() {
-        this.ordial.$el.find('#pause-button').click();
+        ordial.$el.find('#pause-button').click();
         firstVal = Math.random();
-        this.ordial = new Ordial();
-        this.ordial.render();
-        this.ordial.$el.find('#pause-button').click();
+        ordial = new Ordial({scheduler: ordialScheduler});
+        ordial.render();
+        ordial.$el.find('#pause-button').click();
       });
 
       it('should lead to different random numbers', function() {
@@ -73,14 +69,14 @@ describe("Ordial", function() {
     describe('user changing the seed value and after starting the world', function(){
       var firstVal, secondVal;
       beforeEach(function(){
-        this.ordial.$el.find('#seed-input').val('abc').blur();
-        this.ordial.$el.find('#pause-button').click();
+        ordial.$el.find('#seed-input').val('abc').blur();
+        ordial.$el.find('#pause-button').click();
         firstVal = Math.random();
         secondVal = Math.random();
-        this.ordial = new Ordial();
-        this.ordial.render();
-        this.ordial.$el.find('#seed-input').val('abc').blur();
-        this.ordial.$el.find('#pause-button').click();
+        ordial = new Ordial({scheduler: ordialScheduler});
+        ordial.render();
+        ordial.$el.find('#seed-input').val('abc').blur();
+        ordial.$el.find('#pause-button').click();
       });
 
       it('should produce the same random numbers as previously with the same seed', function(){
@@ -89,10 +85,10 @@ describe("Ordial", function() {
       });
 
       it('should produce different random numbers with a different seed', function(){
-        this.ordial = new Ordial();
-        this.ordial.render();
-        this.ordial.$el.find('#seed-input').val('abcd').blur();
-        this.ordial.$el.find('#pause-button').click();
+        ordial = new Ordial({scheduler: ordialScheduler});
+        ordial.render();
+        ordial.$el.find('#seed-input').val('abcd').blur();
+        ordial.$el.find('#pause-button').click();
         expect(Math.random()).not.toEqual(firstVal);
         expect(Math.random()).not.toEqual(secondVal);
       });
@@ -101,121 +97,95 @@ describe("Ordial", function() {
 
   describe("when the pause button is clicked", function() {
     beforeEach(function() {
-      var test = this;
-      spyOn(this.ordial, 'updateWorld').and.callFake(function() {
-        // we only want to redraw the pause button
-        test.ordial.render();
-      });
+      spyOn(ordial, 'updateWorld');
     });
 
     it('disables the seed input', function() {
-      spyOn(this.ordial.seedView, 'disableInput');
-      this.ordial.$el.find('#pause-button').click();
-      expect(this.ordial.seedView.disableInput).toHaveBeenCalled();
+      spyOn(ordial.seedView, 'disableInput');
+      ordial.$el.find('#pause-button').click();
+      expect(ordial.seedView.disableInput).toHaveBeenCalled();
     });
 
     it("toggles the paused flag", function() {
-      expect(this.ordial.paused).toBeTruthy();
-      this.ordial.$el.find('#pause-button').click();
-      expect(this.ordial.paused).toBeFalsy();
-      this.ordial.$el.find('#pause-button').click();
-      expect(this.ordial.paused).toBeTruthy();
+      expect(ordial.paused).toBeTruthy();
+      ordial.$el.find('#pause-button').click();
+      expect(ordial.paused).toBeFalsy();
+      ordial.$el.find('#pause-button').click();
+      expect(ordial.paused).toBeTruthy();
     });
 
     describe("when unpausing", function(){
       beforeEach(function() {
-        this.ordial.$el.find('#pause-button').click();
+        ordial.$el.find('#pause-button').click();
       });
 
       it("should updateWorld", function() {
-        expect(this.ordial.updateWorld).toHaveBeenCalled();
+        expect(ordial.updateWorld).toHaveBeenCalled();
       });
       
       it('should change text to "pause"', function() {
-        expect(this.ordial.$el.find('#pause-button').text()).toEqual('pause');
+        expect(ordial.$el.find('#pause-button').text()).toEqual('pause');
       });
     });
 
     describe("when pausing", function() {
       beforeEach(function() {
-        this.ordial.paused = false;
-        this.ordial.$el.find('#pause-button').click();
+        ordial.paused = false;
+        ordial.$el.find('#pause-button').click();
       });
 
       it('should call updateWorld', function() {
-        expect(this.ordial.updateWorld).toHaveBeenCalled();
+        expect(ordial.updateWorld).toHaveBeenCalled();
       });
 
       it('should change text to "resume"', function() {
-        expect(this.ordial.$el.find('#pause-button').text()).toEqual('resume');
+        expect(ordial.$el.find('#pause-button').text()).toEqual('resume');
       });
     });
   });
 
   describe("updateWorld", function(){
-    beforeEach(function() {
-      var test = this;
-      this.actuallyCallThrough = false;
-      var callCount = 0;
-      spyOn(window, 'setTimeout').and.callFake(function(method) {
-        if (test.actuallyCallThrough) {
-          callCount++;
-          if(callCount <= 4){
-            method();
-          }
-        }
-      });
-    });
-
     describe("when not paused", function() {
       beforeEach(function() {
-        this.ordial.paused = false;
+        ordial.paused = false;
       });
 
-      it("should render the world", function(){
-        this.ordial.updateWorld();
-        expect(this.ordial.$('#world').length).toBe(1);
+      it("should render the world", function() {
+        ordial.updateWorld();
+        expect(ordial.$('#world').length).toBe(1);
       });
 
       it("should update the world", function(){
-        spyOn(this.ordial.world, "update");
-        this.ordial.updateWorld();
-        expect(this.ordial.world.update).toHaveBeenCalled();
+        spyOn(ordial.world, "update");
+        ordial.updateWorld();
+        expect(ordial.world.update).toHaveBeenCalled();
       });
 
       it('should defer an updateWorld for later', function() {
-        this.ordial.updateWorld();
-        expect(window.setTimeout).toHaveBeenCalledWith(jasmine.any(Function), 1000);
-      });
-
-      describe('the delayed updateWorld', function() {
-        it('should delay again', function() {
-          this.actuallyCallThrough = true;
-          this.ordial.updateWorld();
-          expect(window.setTimeout.calls.count()).toEqual(5);
-        });
+        ordial.updateWorld();
+        expect(ordialScheduler.schedule).toHaveBeenCalledWith(ordial);
       });
     });
 
     describe("when paused", function(){
       beforeEach(function(){
-        this.ordial.updateWorld();
-
-        this.actuallyCallThrough = true;
-        this.ordial.paused = true;
+        ordial.paused = true;
       });
 
       it("should render the world", function() {
-        expect(this.ordial.$('#world').length).toBe(1);
+        ordial.updateWorld();
+        expect(ordial.$('#world').length).toBe(1);
       });
 
       it("should not update the world", function(){
-        spyOn(this.ordial.world, "update");
-        expect(this.ordial.world.update).not.toHaveBeenCalled();
+        ordial.updateWorld();
+        spyOn(ordial.world, "update");
+        expect(ordial.world.update).not.toHaveBeenCalled();
       });
 
       it('should not defer an updatedWorld for later', function() {
-        expect(window.setTimeout).not.toHaveBeenCalled();
+        ordial.updateWorld();
+        expect(ordialScheduler.schedule).not.toHaveBeenCalled();
       });
     })
   });

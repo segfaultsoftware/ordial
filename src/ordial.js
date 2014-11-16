@@ -2,7 +2,9 @@ $(function() {
   Ordial = Backbone.View.extend({
     el: $('#ordial'),
 
-    initialize: function(){
+    initialize: function(options) {
+      this.scheduler = options && options.scheduler ? options.scheduler : new OrdialScheduler();
+
       this.world = new World();
       this.paused = true;
 
@@ -34,8 +36,7 @@ $(function() {
 
       if(!this.paused){
         this.world.update();
-        window.clearTimeout(this.playId);
-        this.playId = window.setTimeout(_.bind(this.updateWorld, this), 1000);
+        this.scheduler.schedule(this);
       }
     },
 

@@ -44,13 +44,23 @@ describe("StimulusPackager", function () {
       });
 
       describe("when the critter is facing the edge of the map", function () {
-        beforeEach(function () {
-          world.place(critter, {x:0, y: 2});
-          critter.direction = CardinalDirection.WEST;
-        });
+        function placeAndGetStimuli(critter, at, facing) {
+          world.place(critter, at);
+          critter.direction = facing;
+          return packager.package(world, critter);
+        }
 
         it("should be THE VOID", function () {
-          var stimuli = packager.package(world, critter);
+          var stimuli = placeAndGetStimuli(critter, {x: 0, y: 2}, CardinalDirection.WEST);
+          expect(stimuli.thingInFrontOfMe).toBe(TheVoid);
+
+          stimuli = placeAndGetStimuli(critter, {x: world.width - 1, y: 2}, CardinalDirection.EAST);
+          expect(stimuli.thingInFrontOfMe).toBe(TheVoid);
+
+          stimuli = placeAndGetStimuli(critter, {x: 2, y: 0}, CardinalDirection.NORTH);
+          expect(stimuli.thingInFrontOfMe).toBe(TheVoid);
+
+          stimuli = placeAndGetStimuli(critter, {x: 2, y: world.height - 1}, CardinalDirection.SOUTH);
           expect(stimuli.thingInFrontOfMe).toBe(TheVoid);
         });
       });
