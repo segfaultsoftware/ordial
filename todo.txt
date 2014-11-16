@@ -12,7 +12,8 @@ chore: stop recreating static views on each and every loop
 chore: require.js
 
 
-> story: critter should be able to detect edge of the world in front of him
+> chore: move to tracker
+chore: find out who is updating the world in specrunner
 story: map can have blocks in tiles which resources cannot spawn in and critters cannot move into
 story: critter turns right if tile in front of it and tile to the left of it is occupied by something other than a resource; otherwise moves forward
 story: critter turns left if resource is to the left of it
@@ -31,6 +32,7 @@ story: reset button (even if it just refreshes the page)
 
 ZOMG WE DONE THESE:
 15 November 2014
+story: critter should be able to detect edge of the world in front of him
 story: critter turns left if tile in front of it is occupied by something other than a resource;
          otherwise moves forward
 
