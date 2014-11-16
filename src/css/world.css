@@ -17,28 +17,28 @@
   width: inherit;
   height: inherit;
 
-  background-image:url('../assets/ordial_critter_north.png');
+  background-image:url('../assets/critter/ordial_critter_north_purple.png');
 }
 
 #world td .critter.south {
   width: inherit;
   height: inherit;
 
-  background-image:url('../assets/ordial_critter_south.png');
+  background-image:url('../assets/critter/ordial_critter_south_purple.png');
 }
 
 #world td .critter.west {
   width: inherit;
   height: inherit;
 
-  background-image:url('../assets/ordial_critter_west.png');
+  background-image:url('../assets/critter/ordial_critter_west_purple.png');
 }
 
 #world td .critter.east {
   width: inherit;
   height: inherit;
 
-  background-image:url('../assets/ordial_critter_east.png');
+  background-image:url('../assets/critter/ordial_critter_east_purple.png');
 }
 
 textarea {
