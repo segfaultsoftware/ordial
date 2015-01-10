@@ -1,4 +1,10 @@
-chore: investigate jasmine:8888 
+THIS FILE IS DEPRECATED: use tracker
+
+
+
+
+
+chore: investigate jasmine:8888
         run a jasmine rails server so you can hit it in the browser?
 chore: grunt
 chore: why is jasmine actually rendering??
@@ -12,7 +18,7 @@ chore: stop recreating static views on each and every loop
 chore: require.js
 
 
-> chore: move to tracker
+> THIS FILE IS DEPRECATED: use tracker
 chore: find out who is updating the world in specrunner
 story: map can have blocks in tiles which resources cannot spawn in and critters cannot move into
 story: critter turns right if tile in front of it and tile to the left of it is occupied by something other than a resource; otherwise moves forward
@@ -32,6 +38,7 @@ story: reset button (even if it just refreshes the page)
 
 ZOMG WE DONE THESE:
 15 November 2014
+chore: move to tracker
 story: critter should be able to detect edge of the world in front of him
 story: critter turns left if tile in front of it is occupied by something other than a resource;
          otherwise moves forward
