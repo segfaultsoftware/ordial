@@ -20,6 +20,8 @@
 <script type="text/javascript" src="src/critter/CritterView.js"></script>
 <script type="text/javascript" src="src/Resource.js"></script>
 <script type="text/javascript" src="src/ResourceView.js"></script>
+<script type="text/javascript" src="src/Rock.js"></script>
+<script type="text/javascript" src="src/RockView.js"></script>
 <script type="text/javascript" src="src/StimulusPackager.js"></script>
 <script type="text/javascript" src="src/TheVoid.js"></script>
 
@@ -60,10 +62,10 @@
 <h3>Finding food</h3>
 <textarea>
     var isSomethingInFrontOfMe = function(stimuli) {
-    return stimuli.thingInFrontOfMe;
+      return stimuli.thingInFrontOfMe;
     };
     var isThingInFrontOfMeEdible = function(stimuli) {
-    return stimuli.thingInFrontOfMe instanceof Resource;
+      return stimuli.thingInFrontOfMe instanceof Resource;
     };
 
     var turnLeftOrEatIt = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, Critter.Actions.TURN_LEFT);
@@ -71,20 +73,19 @@
     var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
 
     function getCoord() {
-    return Math.floor(Math.random() * 10);
+      return Math.floor(Math.random() * 10);
     }
 
     function getCoords() {
-    return {x: getCoord(), y: getCoord()};
+      return {x: getCoord(), y: getCoord()};
     }
 
     for(var i = 0; i < 50; i++) {
-    ordial.world.place(new Resource(), getCoords());
+      ordial.world.place(new Resource(), getCoords());
     }
     for(var i = 0; i < 50; i++) {
-    var blocker = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT})});
-    blocker.mana = 100000;
-    ordial.world.place(blocker, getCoords());
+      var blocker = new Rock();
+      ordial.world.place(blocker, getCoords());
     }
 
     rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);

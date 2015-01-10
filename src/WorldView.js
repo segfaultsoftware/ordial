@@ -29,6 +29,9 @@ $(function() {
         else if (thing instanceof Resource) {
           view = new ResourceView().render();
         }
+        else if (thing instanceof Rock) {
+          view = new RockView().render();
+        }
       }
       return view ? view.render().el.innerHTML : "";
     }

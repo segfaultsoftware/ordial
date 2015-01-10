@@ -48,9 +48,8 @@ describe("WorldView", function() {
   });
 
   describe("in a world with resources", function() {
-    var resource;
     beforeEach(function() {
-      resource = new Resource();
+      var resource = new Resource();
       world.place(resource, {x: 3, y: 3});
 
       worldView.render();
@@ -59,6 +58,20 @@ describe("WorldView", function() {
     it("should draw the resource at the right place", function() {
       var resourceCell = worldView.$el.find("table tr:nth-child(4) td:nth-child(4)");
       expect(resourceCell.find(".resource").length).toEqual(1);
+    });
+  });
+
+  describe("in a world with rocks", function () {
+    beforeEach(function () {
+      var rock = new Rock();
+      world.place(rock, {x: 4, y: 4});
+
+      worldView.render();
+    });
+
+    it("should draw the rock at the right place", function () {
+      var rockCell = worldView.$el.find("table tr:nth-child(5) td:nth-child(5)");
+      expect(rockCell.find(".rock").length).toEqual(1);
     });
   });
 });

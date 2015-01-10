@@ -14,7 +14,7 @@ describe("Simple Decision Making", function () {
       var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, turnLeftOrEatIt, Critter.Actions.MOVE_FORWARD);
 
       rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
-      blockingThing = {};
+      blockingThing = new Rock();
       resource = new Resource();
       world = new World();
 
