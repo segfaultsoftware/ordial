@@ -31,6 +31,10 @@ $(function() {
       key: 'turn left',
       cost: 1
     },
+    TURN_RIGHT: {
+      key: 'turn right',
+      cost: 1
+    },
     REPRODUCE: {
       key: 'reproduce',
       cost: 10

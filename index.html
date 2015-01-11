@@ -46,15 +46,40 @@
 
 <h3>Active Code</h3>
 <textarea id="code">
-    rob = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD})});
-    zoe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT})});
-    kim = new Critter({mind: new CritterMind({action: Critter.Actions.REPRODUCE})});
-    ordial.world.place(rob, {x: 4, y: 4});
-    ordial.world.place(zoe, {x: 3, y: 7});
-    ordial.world.place(kim, {x: 2, y: 2});
+  var isSomethingInFrontOfMe = function(stimuli) {
+    return stimuli.thingInFrontOfMe;
+  };
+  var isThingInFrontOfMeEdible = function(stimuli) {
+    return stimuli.thingInFrontOfMe instanceof Resource;
+  };
+  var isNothingToTheLeftOfMe = function(stimuli) {
+    return !stimuli.thingToTheLeftOfMe;
+  };
 
-    ordial.world.place(new Resource(), {x: 1, y: 1});
-    ordial.world.place(new Resource(), {x: 3, y: 4});
+  var turnLeftOrTurnRight = new DecisionNode(isNothingToTheLeftOfMe, Critter.Actions.TURN_LEFT, Critter.Actions.TURN_RIGHT);
+  var eatItOrThink = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, turnLeftOrTurnRight);
+  var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, eatItOrThink, Critter.Actions.MOVE_FORWARD);
+  var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
+  var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
+
+  function getCoord() {
+  return Math.floor(Math.random() * 10);
+  }
+
+  function getCoords() {
+  return {x: getCoord(), y: getCoord()};
+  }
+
+  for(var i = 0; i < 50; i++) {
+  ordial.world.place(new Resource(), getCoords());
+  }
+  for(var i = 0; i < 50; i++) {
+  var blocker = new Rock();
+  ordial.world.place(blocker, getCoords());
+  }
+
+  rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
+  ordial.world.place(rob, getCoords());
 </textarea>
 <br/>
 <button id="runCode">Run</button>
@@ -67,9 +92,13 @@
     var isThingInFrontOfMeEdible = function(stimuli) {
       return stimuli.thingInFrontOfMe instanceof Resource;
     };
+    var isNothingToTheLeftOfMe = function(stimuli) {
+      return !stimuli.thingToTheLeftOfMe;
+    };
 
-    var turnLeftOrEatIt = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, Critter.Actions.TURN_LEFT);
-    var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, turnLeftOrEatIt, Critter.Actions.MOVE_FORWARD);
+    var turnLeftOrTurnRight = new DecisionNode(isNothingToTheLeftOfMe, Critter.Actions.TURN_LEFT, Critter.Actions.TURN_RIGHT);
+    var eatItOrThink = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, turnLeftOrTurnRight
+    var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, eatItOrThink, Critter.Actions.MOVE_FORWARD);
     var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
 
     function getCoord() {

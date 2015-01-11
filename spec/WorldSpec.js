@@ -1,5 +1,5 @@
 describe("World", function() {
-  var world, rob, zoe, kim, stimulusPackager;
+  var world, rob, zoe, kim, joe, stimulusPackager;
 
   beforeEach(function() {
     stimulusPackager = jasmine.createSpyObj('packager', ['package']);
@@ -7,18 +7,21 @@ describe("World", function() {
     rob = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD })});
     zoe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT })});
     kim = new Critter({mind: new CritterMind({action: Critter.Actions.REPRODUCE })});
+    joe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_RIGHT })});
   });
 
   describe("#update", function(){
     beforeEach(function() {
       Math.seedrandom('foo');
-      var robsOriginalLocation, zoesOriginalLocation, kimsOriginalLocation;
+      var robsOriginalLocation, zoesOriginalLocation, kimsOriginalLocation, joesOriginalLocation;
       robsOriginalLocation = {x: 1, y: 1};
       zoesOriginalLocation = {x: 4, y: 4};
       kimsOriginalLocation = {x: 7, y: 7};
+      joesOriginalLocation = {x: 7, y: 2};
       world.place(rob, robsOriginalLocation);
       world.place(zoe, zoesOriginalLocation);
       world.place(kim, kimsOriginalLocation);
+      world.place(joe, joesOriginalLocation);
     });
 
     it("should call getAction on all critters", function(){
@@ -59,6 +62,14 @@ describe("World", function() {
         expect(world.turnCritterLeft).toHaveBeenCalledWith(zoe);
       });
     });
+    
+    describe("when the getAction is TURN_RIGHT", function () {
+      it("should call #turnCritterRight", function () {
+        spyOn(world, 'turnCritterRight');
+        world.update();
+        expect(world.turnCritterRight).toHaveBeenCalledWith(joe);
+      });
+    });
 
     describe("when the getAction is REPRODUCE", function () {
       it("should call #reproduceCritter", function () {
@@ -85,14 +96,16 @@ describe("World", function() {
   });
 
   describe("critter actions", function(){
-    var robsOriginalLocation, zoesOriginalLocation, kimsOriginalLocation;
+    var robsOriginalLocation, zoesOriginalLocation, kimsOriginalLocation, joesOriginalLocation;
     beforeEach(function() {
+      joesOriginalLocation = {x: 7, y: 2};
       robsOriginalLocation = {x: 1, y: 1};
       zoesOriginalLocation = {x: 4, y: 4};
       kimsOriginalLocation = {x: 7, y: 7};
       world.place(rob, robsOriginalLocation);
       world.place(zoe, zoesOriginalLocation);
       world.place(kim, kimsOriginalLocation);
+      world.place(joe, joesOriginalLocation);
     });
 
     describe("#moveCritterForward", function() {
@@ -201,16 +214,43 @@ describe("World", function() {
         expect(world.tiles[4][4]).toBe(zoe);
         expect(zoe.location).toEqual(oldLocation);
       });
+    });
 
+    describe("#turnCritterRight", function() {
+      it("should decrement the critter's mana by turning cost", function(){
+        expect(joe.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
+        world.moveCritterForward(joe);
+        expect(joe.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_RIGHT.cost);
+      });
+
+      it("should update the critter's cardinal direction", function () {
+        expect(joe.direction).toBe(CardinalDirection.NORTH);
+        world.turnCritterRight(joe);
+        expect(joe.direction).toBe(CardinalDirection.EAST);
+        world.turnCritterRight(joe);
+        expect(joe.direction).toBe(CardinalDirection.SOUTH);
+        world.turnCritterRight(joe);
+        expect(joe.direction).toBe(CardinalDirection.WEST);
+        world.turnCritterRight(joe);
+        expect(joe.direction).toBe(CardinalDirection.NORTH);
+      });
+
+      it("should not move the critter", function () {
+        var oldLocation = _.extend(joesOriginalLocation);
+        world.update();
+        expect(world.tiles[7][2]).toBe(joe);
+        expect(joe.location).toEqual(oldLocation);
+      });
     });
 
     describe("#reproduceCritter", function () {
-      var offspringLocation;
+      var offspringLocation, originalWorldSize;
       beforeEach(function () {
         var kimsDirection = CardinalDirection.ALL_DIRECTIONS[
           Math.floor(Math.random() * CardinalDirection.ALL_DIRECTIONS.length)
           ];
         kim.direction = kimsDirection;
+        originalWorldSize = world.things.length;
       });
 
       it("should decrement kim's mana by reproduction cost", function() {
@@ -380,36 +420,33 @@ describe("World", function() {
       describe("when the critter doesn't have enough mana to reproduce", function(){
         beforeEach(function(){
           kim.mana = 1; 
-          expect(world.things.length).toEqual(3);
           world.reproduceCritter(kim);
         });
         
         it("should not create offspring", function(){
-          expect(world.things.length).toEqual(3);
+          expect(world.things.length).toEqual(originalWorldSize);
         });
       });
 
       describe("when the critter has exactly the amount of mana to reproduce", function() {
         beforeEach(function(){
           kim.mana = Critter.Actions.REPRODUCE.cost;
-          expect(world.things.length).toEqual(3);
           world.reproduceCritter(kim);
         });
         
         it("should produce both offspring", function() {
-          expect(world.things.length).toEqual(5);
+          expect(world.things.length).toEqual(originalWorldSize + 2);
         });
       });
       
       describe("when the critter has more than enough mana to reproduce", function() {
         beforeEach(function() {
           kim.mana = Critter.Actions.REPRODUCE.cost + 1;
-          expect(world.things.length).toEqual(3);
           world.reproduceCritter(kim);
         });
         
         it("should produce both offspring", function() {
-          expect(world.things.length).toEqual(5);
+          expect(world.things.length).toEqual(originalWorldSize + 2);
         });
       });
     });

@@ -24,6 +24,10 @@ $(function() {
               world.turnCritterLeft(thing);
               break;
 
+            case Critter.Actions.TURN_RIGHT:
+              world.turnCritterRight(thing);
+              break;
+
             case Critter.Actions.REPRODUCE:
               world.reproduceCritter(thing);
               break;
@@ -134,13 +138,21 @@ $(function() {
       critter.mana -= Critter.Actions.MOVE_FORWARD.cost;
     },
 
-    turnCritterLeft: function(critter){
+    turnCritter: function(critter, direction, action) {
       critter.direction = CardinalDirection.getDirectionAfterRotation(
         critter.direction,
-        RelativeDirection.LEFT
+        direction
       );
 
-      critter.mana -= Critter.Actions.TURN_LEFT.cost;
+      critter.mana -= action.cost;
+    },
+
+    turnCritterLeft: function(critter){
+      return this.turnCritter(critter, RelativeDirection.LEFT, Critter.Actions.TURN_LEFT);
+    },
+
+    turnCritterRight: function(critter){
+      return this.turnCritter(critter, RelativeDirection.RIGHT, Critter.Actions.TURN_RIGHT);
     },
 
     reproduceCritter: function(critter){
