@@ -10,14 +10,14 @@ $(function() {
       }
     },
 
-    getActions : function(stimuli, currentNode) {
+    getActions : function(stimuli, vitals, currentNode) {
       currentNode = currentNode || this.decisionTree;
       if (currentNode.type === DecisionNode.TYPE) {
-        if (currentNode.condition(stimuli)) {
-          return this.getActions(stimuli, currentNode.leftNode);
+        if (currentNode.condition(stimuli, vitals)) {
+          return this.getActions(stimuli, vitals, currentNode.leftNode);
         }
         else {
-          return this.getActions(stimuli, currentNode.rightNode);
+          return this.getActions(stimuli, vitals, currentNode.rightNode);
         }
       }
       else {

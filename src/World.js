@@ -34,6 +34,14 @@ $(function() {
               case Critter.Actions.REPRODUCE:
                 world.reproduceCritter(thing);
                 break;
+
+              case Critter.Actions.INCREMENT_COUNTER:
+                world.incrementCounterOnCritter(thing);
+                break;
+
+              case Critter.Actions.DECREMENT_COUNTER:
+                world.decrementCounterOnCritter(thing);
+                break;
             }
 
             if(thing.mana <= 0){
@@ -184,6 +192,14 @@ $(function() {
       }
       
       critter.mana -= Critter.Actions.REPRODUCE.cost;
+    },
+
+    incrementCounterOnCritter: function(critter) {
+      critter.vitals.counter++;
+    },
+
+    decrementCounterOnCritter: function(critter) {
+      critter.vitals.counter--;
     }
   });
 });

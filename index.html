@@ -37,8 +37,9 @@
 <script type="text/javascript">
   $(function() {
     var ordial = new Ordial();
+    var world = ordial.world;
     $("#runCode").click(function() {
-      ordial.world.initialize();
+      world.initialize();
       eval($("#code").val());
     });
   });
@@ -71,15 +72,15 @@
   }
 
   for(var i = 0; i < 50; i++) {
-  ordial.world.place(new Resource(), getCoords());
+  world.place(new Resource(), getCoords());
   }
   for(var i = 0; i < 50; i++) {
   var blocker = new Rock();
-  ordial.world.place(blocker, getCoords());
+  world.place(blocker, getCoords());
   }
 
   rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
-  ordial.world.place(rob, getCoords());
+  world.place(rob, getCoords());
 </textarea>
 <br/>
 <button id="runCode">Run</button>
@@ -110,15 +111,28 @@
     }
 
     for(var i = 0; i < 50; i++) {
-      ordial.world.place(new Resource(), getCoords());
+      world.place(new Resource(), getCoords());
     }
     for(var i = 0; i < 50; i++) {
       var blocker = new Rock();
-      ordial.world.place(blocker, getCoords());
+      world.place(blocker, getCoords());
     }
 
     rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
-    ordial.world.place(rob, getCoords());
+    world.place(rob, getCoords());
+</textarea>
+
+<h3>Zig Zag</h3>
+<textarea>
+  var zig = [Critter.Actions.TURN_RIGHT, Critter.Actions.MOVE_FORWARD, Critter.Actions.DECREMENT_COUNTER];
+  var zag = [Critter.Actions.TURN_LEFT, Critter.Actions.MOVE_FORWARD, Critter.Actions.INCREMENT_COUNTER];
+  var toZigOrToZagThatIsTheQuestion = function(stimuli, vitals) {
+  return vitals.counter === 0;
+  };
+  var zigZag = new DecisionNode(toZigOrToZagThatIsTheQuestion, zig, zag);
+  anna = new Critter({mind: new CritterMind({decisionTree:zigZag })});
+
+  world.place(anna, {x:0, y: 9});
 </textarea>
 
 <h3>Turn, Run, and Make Babies</h3>
@@ -126,11 +140,11 @@
   rob = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD})});
   zoe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT})});
   kim = new Critter({mind: new CritterMind({action: Critter.Actions.REPRODUCE})});
-  ordial.world.place(rob, {x: 4, y: 4});
-  ordial.world.place(zoe, {x: 3, y: 7});
-  ordial.world.place(kim, {x: 2, y: 2});
+  world.place(rob, {x: 4, y: 4});
+  world.place(zoe, {x: 3, y: 7});
+  world.place(kim, {x: 2, y: 2});
 
-  ordial.world.place(new Resource(), {x: 1, y: 1});
-  ordial.world.place(new Resource(), {x: 3, y: 4});
+  world.place(new Resource(), {x: 1, y: 1});
+  world.place(new Resource(), {x: 3, y: 4});
 </textarea>
 

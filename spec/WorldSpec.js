@@ -79,6 +79,34 @@ describe("World", function() {
       });
     });
 
+    describe("when the getActions is INCREMENT_COUNTER", function () {
+      var vanderbilt;
+      beforeEach(function () {
+        vanderbilt = new Critter({mind: new CritterMind({action: Critter.Actions.INCREMENT_COUNTER})});
+        world.place(vanderbilt, {x:0, y:0});
+        spyOn(world, 'incrementCounterOnCritter');
+      });
+
+      it("should call #incrementCounterOnCritter", function () {
+        world.update();
+        expect(world.incrementCounterOnCritter).toHaveBeenCalledWith(vanderbilt);
+      });
+    });
+
+    describe("when the getActions is DECREMENT_COUNTER", function () {
+      var coleman;
+      beforeEach(function () {
+        coleman = new Critter({mind: new CritterMind({action: Critter.Actions.DECREMENT_COUNTER})});
+        world.place(coleman, {x:0, y:0});
+        spyOn(world, 'decrementCounterOnCritter');
+      });
+
+      it("should call #decrementCounterOnCritter", function () {
+        world.update();
+        expect(world.decrementCounterOnCritter).toHaveBeenCalledWith(coleman);
+      });
+    });
+
     it("should update the critters' mana", function () {
       world.update();
       expect(zoe.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_LEFT.cost);
@@ -465,6 +493,44 @@ describe("World", function() {
         it("should produce both offspring", function() {
           expect(world.things.length).toEqual(originalWorldSize + 2);
         });
+      });
+    });
+
+    describe("#incrementCounterOnCritter", function () {
+      var anna;
+      beforeEach(function () {
+        anna = new Critter();
+      });
+
+      it("should add one to the vitals.counter stat", function () {
+        expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER);
+        world.incrementCounterOnCritter(anna);
+        expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER + 1);
+      });
+
+      it("should not cost any mana", function () {
+        expect(anna.mana).toBe(Critter.DEFAULT_STARTING_MANA);
+        world.incrementCounterOnCritter(anna);
+        expect(anna.mana).toBe(Critter.DEFAULT_STARTING_MANA);
+      });
+    });
+
+    describe("#decrementCounterOnCritter", function () {
+      var anna;
+      beforeEach(function () {
+        anna = new Critter();
+      });
+
+      it("should subtract one to the vitals.counter stat", function () {
+        expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER);
+        world.decrementCounterOnCritter(anna);
+        expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER - 1);
+      });
+
+      it("should not cost any mana", function () {
+        expect(anna.mana).toBe(Critter.DEFAULT_STARTING_MANA);
+        world.decrementCounterOnCritter(anna);
+        expect(anna.mana).toBe(Critter.DEFAULT_STARTING_MANA);
       });
     });
   });

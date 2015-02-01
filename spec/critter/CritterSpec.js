@@ -19,6 +19,11 @@ describe("Critter", function() {
         expect(["lavender", "black", "blue", "orange", "eggshell","pink", "teal","purple"]).toContain(rob.color);
       });
 
+      it('gives critters their very own vitals', function(){
+        var bob = new Critter();
+        bob.vitals.counter += 17;
+        expect(rob.vitals.counter).not.toEqual(bob.vitals.counter);
+      });
     });
 
     it('overrides the starting mana if mana is passed in', function() {
@@ -28,18 +33,19 @@ describe("Critter", function() {
   });
 
   describe("#getActions", function() {
-    var mind;
+    var mind, vitals;
 
     beforeEach(function() {
+      vitals = {counter: 7};
       mind = new CritterMind();
-      rob = new Critter({mind: mind});
+      rob = new Critter({mind: mind, vitals: vitals});
     });
 
     it('should request the next action from its mind', function() {
       var stimuli = {foo: 'bar'};
       spyOn(mind, "getActions");
       rob.getActions(stimuli);
-      expect(mind.getActions).toHaveBeenCalledWith(stimuli);
+      expect(mind.getActions).toHaveBeenCalledWith(stimuli, vitals);
     });
   });
 

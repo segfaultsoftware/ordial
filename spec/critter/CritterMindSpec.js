@@ -1,21 +1,22 @@
 describe("CritterMind", function () {
-  describe("#getActions", function(){
-    var senses, critterMind;
-    beforeEach(function () {
-      senses = {a :1};
-    });
+  var stimuli, vitals, critterMind;
+  beforeEach(function () {
+    stimuli = {a :1};
+    vitals = {counter: 100};
+  });
 
+  describe("#getActions", function(){
     describe("when initialized with no decision tree or action", function() {
       it("defaults to staring off into space", function() {
-        var critterMind = new CritterMind();
-        expect(critterMind.getActions()).toEqual(Critter.Actions.STARE_OFF_INTO_SPACE);
+        critterMind = new CritterMind();
+        expect(critterMind.getActions(stimuli, vitals)).toEqual(Critter.Actions.STARE_OFF_INTO_SPACE);
       });
     });
 
     describe("when initialized with an action", function() {
       it("should return that action", function() {
-        var critterMind = new CritterMind({action: Critter.Actions.MOVE_FORWARD});
-        expect(critterMind.getActions()).toEqual(Critter.Actions.MOVE_FORWARD);
+        critterMind = new CritterMind({action: Critter.Actions.MOVE_FORWARD});
+        expect(critterMind.getActions(stimuli, vitals)).toEqual(Critter.Actions.MOVE_FORWARD);
       });
     });
 
@@ -26,7 +27,7 @@ describe("CritterMind", function () {
       });
 
       it("should return the action", function() {
-        expect(critterMind.getActions(senses)).toBe(Critter.Actions.REPRODUCE);
+        expect(critterMind.getActions(stimuli, vitals)).toBe(Critter.Actions.REPRODUCE);
       });
     });
 
@@ -44,9 +45,9 @@ describe("CritterMind", function () {
         critterMind = new CritterMind({decisionTree: treeStartingAtDecisionNode});
       });
 
-      it("should evaluate the condition with the senses", function() {
-        critterMind.getActions(senses);
-        expect(condition).toHaveBeenCalledWith(senses);
+      it("should evaluate the condition with the stimuli & vitals", function() {
+        critterMind.getActions(stimuli, vitals);
+        expect(condition).toHaveBeenCalledWith(stimuli, vitals);
       });
 
       describe("when the condition in the decision tree returns true", function() {
@@ -55,7 +56,7 @@ describe("CritterMind", function () {
         });
 
         it("should return the result of the left side of the tree", function() {
-          expect(critterMind.getActions()).toEqual(Critter.Actions.TURN_LEFT);
+          expect(critterMind.getActions(stimuli, vitals)).toEqual(Critter.Actions.TURN_LEFT);
         });
       });
 
@@ -65,7 +66,7 @@ describe("CritterMind", function () {
         });
 
         it("should return the result of the right side of the tree", function() {
-          expect(critterMind.getActions()).toEqual(Critter.Actions.REPRODUCE);
+          expect(critterMind.getActions(stimuli, vitals)).toEqual(Critter.Actions.REPRODUCE);
         });
       });
 
@@ -76,7 +77,7 @@ describe("CritterMind", function () {
         });
 
         it("should recursively evaluate the conditions of the decision nodes", function() {
-          expect(critterMind.getActions()).toEqual(Critter.Actions.REPRODUCE);
+          expect(critterMind.getActions(stimuli, vitals)).toEqual(Critter.Actions.REPRODUCE);
         });
       });
     });
@@ -85,7 +86,7 @@ describe("CritterMind", function () {
   describe(".EmptyMind", function() {
     describe("#getActions", function(){
       it("always returns noop", function() {
-        expect(CritterMind.EmptyMind.getActions()).toBe(Critter.Actions.STARE_OFF_INTO_SPACE);
+        expect(CritterMind.EmptyMind.getActions(stimuli, vitals)).toBe(Critter.Actions.STARE_OFF_INTO_SPACE);
       });
     });
   });
