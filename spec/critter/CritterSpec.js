@@ -27,7 +27,7 @@ describe("Critter", function() {
     });
   });
 
-  describe("#getAction", function() {
+  describe("#getActions", function() {
     var mind;
 
     beforeEach(function() {
@@ -37,9 +37,9 @@ describe("Critter", function() {
 
     it('should request the next action from its mind', function() {
       var stimuli = {foo: 'bar'};
-      spyOn(mind, "getAction");
-      rob.getAction(stimuli);
-      expect(mind.getAction).toHaveBeenCalledWith(stimuli);
+      spyOn(mind, "getActions");
+      rob.getActions(stimuli);
+      expect(mind.getActions).toHaveBeenCalledWith(stimuli);
     });
   });
 

@@ -7,8 +7,8 @@ $(function() {
       this.color = _.sample(["lavender", "black", "blue", "orange", "eggshell", "pink", "teal", "purple"]);
     },
 
-    getAction : function(stimuli) {
-      return this.mind.getAction(stimuli);
+    getActions : function(stimuli) {
+      return this.mind.getActions(stimuli);
     },
 
     canEat: function(yummyMorsel) {

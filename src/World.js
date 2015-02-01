@@ -12,9 +12,9 @@ $(function() {
       var world = this;
       var deadThings = [];
       _.each(_.shuffle(this.things), function(thing){
-        if (thing.getAction) {
+        if (thing.getActions) {
           var stimuli = world.stimulusPackager.package(world, thing);
-          var actions = thing.getAction(stimuli);
+          var actions = thing.getActions(stimuli);
           actions = _.isArray(actions) ? actions : [actions];
 
           _.each(actions, function(action) {

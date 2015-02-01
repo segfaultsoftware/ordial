@@ -24,14 +24,14 @@ describe("World", function() {
       world.place(joe, joesOriginalLocation);
     });
 
-    it("should call getAction on all critters", function(){
-      spyOn(rob, "getAction");
-      spyOn(zoe, "getAction");
-      spyOn(kim, "getAction");
+    it("should call getActions on all critters", function(){
+      spyOn(rob, "getActions");
+      spyOn(zoe, "getActions");
+      spyOn(kim, "getActions");
       world.update();
-      expect(rob.getAction).toHaveBeenCalled();
-      expect(zoe.getAction).toHaveBeenCalled();
-      expect(kim.getAction).toHaveBeenCalled();
+      expect(rob.getActions).toHaveBeenCalled();
+      expect(zoe.getActions).toHaveBeenCalled();
+      expect(kim.getActions).toHaveBeenCalled();
     });
 
     it("should get the critter's action based on its stimuli", function () {
@@ -41,13 +41,13 @@ describe("World", function() {
 
       rob = new Critter();
       world.place(rob, {x:1, y:1});
-      spyOn(rob, "getAction");
+      spyOn(rob, "getActions");
       world.update();
       expect(stimulusPackager.package).toHaveBeenCalledWith(world, rob);
-      expect(rob.getAction).toHaveBeenCalledWith(somethingInteresting);
+      expect(rob.getActions).toHaveBeenCalledWith(somethingInteresting);
     });
 
-    describe("when the getAction is MOVE_FORWARD", function() {
+    describe("when the getActions is MOVE_FORWARD", function() {
       it("should call #moveCritterForward", function() {
         spyOn(world, 'moveCritterForward');
         world.update();
@@ -55,7 +55,7 @@ describe("World", function() {
       });
     });
 
-    describe("when the getAction is TURN_LEFT", function () {
+    describe("when the getActions is TURN_LEFT", function () {
       it("should call #turnCritterLeft", function () {
         spyOn(world, 'turnCritterLeft');
         world.update();
@@ -63,7 +63,7 @@ describe("World", function() {
       });
     });
     
-    describe("when the getAction is TURN_RIGHT", function () {
+    describe("when the getActions is TURN_RIGHT", function () {
       it("should call #turnCritterRight", function () {
         spyOn(world, 'turnCritterRight');
         world.update();
@@ -71,7 +71,7 @@ describe("World", function() {
       });
     });
 
-    describe("when the getAction is REPRODUCE", function () {
+    describe("when the getActions is REPRODUCE", function () {
       it("should call #reproduceCritter", function () {
         spyOn(world, 'reproduceCritter');
         world.update();
@@ -98,7 +98,7 @@ describe("World", function() {
       var fred;
       beforeEach(function () {
         fred = new Critter();
-        spyOn(fred, "getAction").and.returnValue([Critter.Actions.MOVE_FORWARD, Critter.Actions.REPRODUCE]);
+        spyOn(fred, "getActions").and.returnValue([Critter.Actions.MOVE_FORWARD, Critter.Actions.REPRODUCE]);
         world.place(fred, {x:5, y:5});
       });
 
