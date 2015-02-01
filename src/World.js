@@ -14,28 +14,32 @@ $(function() {
       _.each(_.shuffle(this.things), function(thing){
         if (thing.getAction) {
           var stimuli = world.stimulusPackager.package(world, thing);
-          var action = thing.getAction(stimuli);
-          switch(action) {
-            case Critter.Actions.MOVE_FORWARD:
-              world.moveCritterForward(thing);
-              break;
+          var actions = thing.getAction(stimuli);
+          actions = _.isArray(actions) ? actions : [actions];
 
-            case Critter.Actions.TURN_LEFT:
-              world.turnCritterLeft(thing);
-              break;
+          _.each(actions, function(action) {
+            switch(action) {
+              case Critter.Actions.MOVE_FORWARD:
+                world.moveCritterForward(thing);
+                break;
 
-            case Critter.Actions.TURN_RIGHT:
-              world.turnCritterRight(thing);
-              break;
+              case Critter.Actions.TURN_LEFT:
+                world.turnCritterLeft(thing);
+                break;
 
-            case Critter.Actions.REPRODUCE:
-              world.reproduceCritter(thing);
-              break;
-          }
+              case Critter.Actions.TURN_RIGHT:
+                world.turnCritterRight(thing);
+                break;
 
-          if(thing.mana <= 0){
-            deadThings.push(thing);
-          }
+              case Critter.Actions.REPRODUCE:
+                world.reproduceCritter(thing);
+                break;
+            }
+
+            if(thing.mana <= 0){
+              deadThings.push(thing);
+            }
+          });
         }
       });
 

@@ -93,6 +93,23 @@ describe("World", function() {
       expect(world.things).toContain(zoe);
       expect(world.things).not.toContain(kim);
     });
+    
+    describe("when there are multiple actions", function(){
+      var fred;
+      beforeEach(function () {
+        fred = new Critter();
+        spyOn(fred, "getAction").and.returnValue([Critter.Actions.MOVE_FORWARD, Critter.Actions.REPRODUCE]);
+        world.place(fred, {x:5, y:5});
+      });
+
+      it("applies both actions", function () {
+        spyOn(world, "moveCritterForward");
+        spyOn(world, "reproduceCritter");
+        world.update();
+        expect(world.moveCritterForward).toHaveBeenCalledWith(fred);
+        expect(world.reproduceCritter).toHaveBeenCalledWith(fred);
+      });
+    });
   });
 
   describe("critter actions", function(){
