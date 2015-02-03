@@ -1,4 +1,6 @@
-
+<!doctype html>
+<meta charset="utf-8">
+<title>Ordial</title>
 
 <script type="text/javascript" src="node_modules/underscore/underscore.js"></script>
 <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
@@ -25,6 +27,7 @@
 <script type="text/javascript" src="src/StimulusPackager.js"></script>
 <script type="text/javascript" src="src/TheVoid.js"></script>
 
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <link rel="stylesheet" type="text/css" href="src/css/ordial.css">
 
@@ -64,19 +67,19 @@
   var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
 
   function getCoord() {
-  return Math.floor(Math.random() * 10);
+    return Math.floor(Math.random() * 10);
   }
 
   function getCoords() {
-  return {x: getCoord(), y: getCoord()};
+    return {x: getCoord(), y: getCoord()};
   }
 
   for(var i = 0; i < 50; i++) {
-  world.place(new Resource(), getCoords());
+    world.place(new Resource(), getCoords());
   }
   for(var i = 0; i < 50; i++) {
-  var blocker = new Rock();
-  world.place(blocker, getCoords());
+    var blocker = new Rock();
+    world.place(blocker, getCoords());
   }
 
   rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
@@ -98,7 +101,7 @@
     };
 
     var turnLeftOrTurnRight = new DecisionNode(isNothingToTheLeftOfMe, Critter.Actions.TURN_LEFT, Critter.Actions.TURN_RIGHT);
-    var eatItOrThink = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, turnLeftOrTurnRight
+    var eatItOrThink = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, turnLeftOrTurnRight);
     var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, eatItOrThink, Critter.Actions.MOVE_FORWARD);
     var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
 
@@ -127,7 +130,7 @@
   var zig = [Critter.Actions.TURN_RIGHT, Critter.Actions.MOVE_FORWARD, Critter.Actions.DECREMENT_COUNTER];
   var zag = [Critter.Actions.TURN_LEFT, Critter.Actions.MOVE_FORWARD, Critter.Actions.INCREMENT_COUNTER];
   var toZigOrToZagThatIsTheQuestion = function(stimuli, vitals) {
-  return vitals.counter === 0;
+    return vitals.counter === 0;
   };
   var zigZag = new DecisionNode(toZigOrToZagThatIsTheQuestion, zig, zag);
   anna = new Critter({mind: new CritterMind({decisionTree:zigZag })});
@@ -148,3 +151,18 @@
   world.place(new Resource(), {x: 3, y: 4});
 </textarea>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+<script>
+  $("textarea").each(function(){
+    var $textarea = $(this);
+    var $editarea = $("<div/>").insertAfter($textarea);
+    var editor = ace.edit($editarea[0]);
+    var session = editor.getSession();
+    session.setValue($textarea.val());
+    session.setMode("ace/mode/javascript");
+    session.on('change', function(){
+      $textarea.val(editor.getSession().getValue());
+    });
+    $textarea.hide();
+  });
+</script>

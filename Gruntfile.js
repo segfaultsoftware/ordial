@@ -9,11 +9,11 @@ module.exports = function(grunt) {
       }
     },
     exec: {
-      compile_less:'lessc ./src/less/ordial.less ./src/css/ordial.css'
+      compile_less: 'lessc ./src/less/ordial.less ./src/css/ordial.css'
     }
   });
 
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.registerTask('default', ['watch']);
-}
+};
