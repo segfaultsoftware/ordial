@@ -18,7 +18,8 @@
   "main": "index.html",
   "scripts": {
     "start": "index.html",
-    "test": "SpecRunner.html"
+    "test": "SpecRunner.html",
+    "grunt": "grunt"
   },
   "dependencies": {
     "backbone": "1.1.x",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "grunt": "~0.4.5",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-exec": "~0.4.6",
     "less": "~2.0.0"

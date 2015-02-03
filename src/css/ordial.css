@@ -116,7 +116,11 @@
   padding: 0;
   border: 0;
 }
-textarea {
-  width: 500px;
-  height: 200px;
+textarea,
+.ace_editor {
+  width: 900px;
+  height: 220px;
+}
+body {
+  font-family: sans-serif;
 }
