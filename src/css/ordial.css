@@ -120,6 +120,7 @@ textarea,
 .ace_editor {
   width: 900px;
   height: 220px;
+  border: 1px solid darkgray;
 }
 body {
   font-family: sans-serif;
