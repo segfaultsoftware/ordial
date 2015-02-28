@@ -21,7 +21,6 @@ $(function() {
     },
 
     togglePause: function() {
-      console.log("togglePause from " + this.paused);
       this.paused = !this.paused;
 
       this.updateWorld();
@@ -30,7 +29,6 @@ $(function() {
     },
 
     updateWorld: function() {
-      console.log("Updating the world");
       this.worldView = new WorldView({model: this.world, el: '#world'});
       this.worldView.render();
 
