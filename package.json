@@ -17,8 +17,8 @@
   },
   "main": "index.html",
   "scripts": {
-    "start": "index.html",
-    "test": "SpecRunner.html",
+    "start": "opener index.html",
+    "test": "opener SpecRunner.html",
     "grunt": "grunt"
   },
   "dependencies": {
@@ -27,6 +27,7 @@
     "underscore": "1.5.x"
   },
   "devDependencies": {
+    "opener": "~1.4.0",
     "grunt": "~0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-watch": "~0.6.1",
