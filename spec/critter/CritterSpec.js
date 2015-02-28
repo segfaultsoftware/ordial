@@ -12,7 +12,7 @@ describe("Critter", function() {
       });
 
       it('sets the mana to default', function() {
-        expect(rob.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
+        expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
       });
 
       it("should set a random color", function () {
@@ -26,9 +26,14 @@ describe("Critter", function() {
       });
     });
 
-    it('overrides the starting mana if mana is passed in', function() {
-      rob = new Critter({mana: 999});
-      expect(rob.mana).toEqual(999);
+    it("merges defaults of vitals with any overrides", function () {
+      rob = new Critter({vitals: {mana: 999}});
+      expect(rob.vitals.mana).toEqual(999);
+      expect(rob.vitals.counter).toEqual(Critter.DEFAULT_STARTING_COUNTER);
+
+      rob = new Critter({vitals: {counter: 2515}});
+      expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
+      expect(rob.vitals.counter).toEqual(2515);
     });
   });
 
@@ -63,21 +68,21 @@ describe("Critter", function() {
     var originalMana, resourceMana, resource;
     beforeEach(function () {
       resource = new Resource();
-      originalMana = rob.mana;
+      originalMana = rob.vitals.mana;
       resourceMana = resource.mana;
     });
 
     describe("when eating a resource", function() {
       it("should increment the critter's mana by the resource amount", function () {
          rob.eat(resource);
-         expect(rob.mana).toEqual(originalMana + resourceMana);
+         expect(rob.vitals.mana).toEqual(originalMana + resourceMana);
       });
     });
 
     describe("when there's nothing to eat", function() {
       it("should not touch the critter's mana", function() {
         rob.eat(undefined);
-        expect(rob.mana).toEqual(originalMana);
+        expect(rob.vitals.mana).toEqual(originalMana);
       });
     });
   });

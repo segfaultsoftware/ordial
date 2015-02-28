@@ -109,13 +109,13 @@ describe("World", function() {
 
     it("should update the critters' mana", function () {
       world.update();
-      expect(zoe.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_LEFT.cost);
-      expect(rob.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.MOVE_FORWARD.cost);
-      expect(kim.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.REPRODUCE.cost);
+      expect(zoe.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_LEFT.cost);
+      expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.MOVE_FORWARD.cost);
+      expect(kim.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.REPRODUCE.cost);
     });
 
     it("should remove critters that drop to zero or negative mana", function() {
-      rob.mana = 1;
+      rob.vitals.mana = 1;
       world.update();
       expect(world.things).not.toContain(rob);
       expect(world.things).toContain(zoe);
@@ -155,9 +155,9 @@ describe("World", function() {
 
     describe("#moveCritterForward", function() {
       it("should decrement the critter's mana by movement cost.", function(){
-        expect(rob.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
+        expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
         world.moveCritterForward(rob);
-        expect(rob.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.MOVE_FORWARD.cost);
+        expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.MOVE_FORWARD.cost);
       });
       
       describe('when there is an empty tile in front of the critter', function() {
@@ -209,7 +209,7 @@ describe("World", function() {
         var resource, originalMana, costOfTheMove;
         beforeEach(function () {
           resource = new Resource();
-          originalMana = rob.mana;
+          originalMana = rob.vitals.mana;
           costOfTheMove = Critter.Actions.MOVE_FORWARD.cost;
           world.place(rob, {x: 4, y: 1});
           world.place(resource, {x: 4, y: 0});
@@ -229,16 +229,16 @@ describe("World", function() {
         });
 
         it("should increase rob's mana by the resource's value", function() {
-          expect(rob.mana).toEqual(originalMana + resource.mana - costOfTheMove);
+          expect(rob.vitals.mana).toEqual(originalMana + resource.mana - costOfTheMove);
         });
       });
     });
 
     describe("#turnCritterLeft", function() {
       it("should decrement the critter's mana by turning cost", function(){
-        expect(zoe.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
+        expect(zoe.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
         world.moveCritterForward(zoe);
-        expect(zoe.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_LEFT.cost);
+        expect(zoe.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_LEFT.cost);
       });
 
       it("should update the critter's cardinal direction", function () {
@@ -263,9 +263,9 @@ describe("World", function() {
 
     describe("#turnCritterRight", function() {
       it("should decrement the critter's mana by turning cost", function(){
-        expect(joe.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
+        expect(joe.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
         world.moveCritterForward(joe);
-        expect(joe.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_RIGHT.cost);
+        expect(joe.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_RIGHT.cost);
       });
 
       it("should update the critter's cardinal direction", function () {
@@ -300,9 +300,9 @@ describe("World", function() {
 
       it("should decrement kim's mana by reproduction cost", function() {
         var startingMana = 100;
-        kim.mana = startingMana;
+        kim.vitals.mana = startingMana;
         world.reproduceCritter(kim);
-        expect(kim.mana).toEqual(startingMana - Critter.Actions.REPRODUCE.cost);
+        expect(kim.vitals.mana).toEqual(startingMana - Critter.Actions.REPRODUCE.cost);
       });
 
       describe("left child", function() {
@@ -381,7 +381,7 @@ describe("World", function() {
 
           it("should increment the critter's mana by the resource's mana", function() {
             var child = world.getThingAt(offspringLocation);
-            expect(child.mana).toEqual(Critter.DEFAULT_STARTING_MANA + resource.mana);
+            expect(child.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA + resource.mana);
           });
         });
       });
@@ -464,7 +464,7 @@ describe("World", function() {
 
       describe("when the critter doesn't have enough mana to reproduce", function(){
         beforeEach(function(){
-          kim.mana = 1; 
+          kim.vitals.mana = 1;
           world.reproduceCritter(kim);
         });
         
@@ -475,7 +475,7 @@ describe("World", function() {
 
       describe("when the critter has exactly the amount of mana to reproduce", function() {
         beforeEach(function(){
-          kim.mana = Critter.Actions.REPRODUCE.cost;
+          kim.vitals.mana = Critter.Actions.REPRODUCE.cost;
           world.reproduceCritter(kim);
         });
         
@@ -486,7 +486,7 @@ describe("World", function() {
       
       describe("when the critter has more than enough mana to reproduce", function() {
         beforeEach(function() {
-          kim.mana = Critter.Actions.REPRODUCE.cost + 1;
+          kim.vitals.mana = Critter.Actions.REPRODUCE.cost + 1;
           world.reproduceCritter(kim);
         });
         
@@ -509,9 +509,9 @@ describe("World", function() {
       });
 
       it("should not cost any mana", function () {
-        expect(anna.mana).toBe(Critter.DEFAULT_STARTING_MANA);
+        expect(anna.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA);
         world.incrementCounterOnCritter(anna);
-        expect(anna.mana).toBe(Critter.DEFAULT_STARTING_MANA);
+        expect(anna.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA);
       });
     });
 
@@ -528,9 +528,9 @@ describe("World", function() {
       });
 
       it("should not cost any mana", function () {
-        expect(anna.mana).toBe(Critter.DEFAULT_STARTING_MANA);
+        expect(anna.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA);
         world.decrementCounterOnCritter(anna);
-        expect(anna.mana).toBe(Critter.DEFAULT_STARTING_MANA);
+        expect(anna.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA);
       });
     });
   });

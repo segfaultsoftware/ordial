@@ -48,7 +48,7 @@ describe("Simple Decision Making", function () {
       world.update();
       expect(rob.location).toEqual({x:0, y:2});
 
-      expect(rob.mana).toBe(Critter.DEFAULT_STARTING_MANA - 7 + Resource.DEFAULT_MANA_VALUE);
+      expect(rob.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA - 7 + Resource.DEFAULT_MANA_VALUE);
     });
   });
 

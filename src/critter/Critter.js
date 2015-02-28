@@ -3,9 +3,9 @@ $(function() {
     initialize: function(options) {
       this.direction = CardinalDirection.NORTH;
       this.mind = (options && options.mind) ? options.mind : CritterMind.EmptyMind;
-      this.mana = (options && options.mana) ? options.mana : Critter.DEFAULT_STARTING_MANA;
       this.color = _.sample(["lavender", "black", "blue", "orange", "eggshell", "pink", "teal", "purple"]);
-      this.vitals = (options && options.vitals) ? options.vitals : defaultVitals();
+      var vitalOverrides = (options && options.vitals) || {};
+      this.vitals = _.defaults(vitalOverrides, defaultVitals());
     },
 
     getActions : function(stimuli) {
@@ -18,7 +18,7 @@ $(function() {
 
     eat: function(yummyMorsel) {
       if (yummyMorsel && yummyMorsel.mana) {
-        this.mana += yummyMorsel.mana;
+        this.vitals.mana += yummyMorsel.mana;
       }
     }
   });
@@ -56,7 +56,8 @@ $(function() {
 
   function defaultVitals() {
     return {
-      counter: Critter.DEFAULT_STARTING_COUNTER
+      counter: Critter.DEFAULT_STARTING_COUNTER,
+      mana: Critter.DEFAULT_STARTING_MANA
     };
   }
 

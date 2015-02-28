@@ -44,7 +44,7 @@ $(function() {
                 break;
             }
 
-            if(thing.mana <= 0){
+            if(thing.vitals.mana <= 0){
               deadThings.push(thing);
             }
           });
@@ -147,7 +147,7 @@ $(function() {
         critter.eat(thingAtNextLocation);
       }
       
-      critter.mana -= Critter.Actions.MOVE_FORWARD.cost;
+      critter.vitals.mana -= Critter.Actions.MOVE_FORWARD.cost;
     },
 
     turnCritter: function(critter, direction, action) {
@@ -156,7 +156,7 @@ $(function() {
         direction
       );
 
-      critter.mana -= action.cost;
+      critter.vitals.mana -= action.cost;
     },
 
     turnCritterLeft: function(critter){
@@ -180,7 +180,7 @@ $(function() {
         }
       }
 
-      if(critter.mana >= Critter.Actions.REPRODUCE.cost){
+      if(critter.vitals.mana >= Critter.Actions.REPRODUCE.cost){
         if (Math.floor(Math.random() * 1000) % 2) {
           createOffspringInDirection(RelativeDirection.LEFT);
           createOffspringInDirection(RelativeDirection.RIGHT);
@@ -191,7 +191,7 @@ $(function() {
         }
       }
       
-      critter.mana -= Critter.Actions.REPRODUCE.cost;
+      critter.vitals.mana -= Critter.Actions.REPRODUCE.cost;
     },
 
     incrementCounterOnCritter: function(critter) {
