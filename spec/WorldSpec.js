@@ -3,6 +3,7 @@ describe("World", function() {
 
   beforeEach(function() {
     stimulusPackager = jasmine.createSpyObj('packager', ['package']);
+    window.singletonContext.stimulusPackager = stimulusPackager;
     world = new World();
     rob = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD })});
     zoe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT })});
@@ -35,7 +36,7 @@ describe("World", function() {
     });
 
     it("should get the critter's action based on its stimuli", function () {
-      world = new World({stimulusPackager: stimulusPackager});
+      world = new World();
       var somethingInteresting = "Some stimulating conversation";
       stimulusPackager.package.and.returnValue(somethingInteresting);
 

@@ -2,10 +2,7 @@ $(function() {
   Ordial = Backbone.View.extend({
     el: $('#ordial'),
 
-    initialize: function(options) {
-      this.scheduler = options && options.scheduler ? options.scheduler : new OrdialScheduler();
-
-      this.world = new World();
+    initialize: function() {
       this.paused = true;
 
       this.seedView = new SeedView({model: new Seed(), el:'#seedContainer'});
@@ -29,12 +26,12 @@ $(function() {
     },
 
     updateWorld: function() {
-      this.worldView = new WorldView({model: this.world, el: '#world'});
+      this.worldView = new WorldView({model: window.singletonContext.world, el: '#world'});
       this.worldView.render();
 
       if(!this.paused){
-        this.world.update();
-        this.scheduler.schedule(this);
+        window.singletonContext.world.update();
+        window.singletonContext.scheduler.schedule(this);
       }
     },
 

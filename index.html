@@ -24,6 +24,7 @@
 <script type="text/javascript" src="src/ResourceView.js"></script>
 <script type="text/javascript" src="src/Rock.js"></script>
 <script type="text/javascript" src="src/RockView.js"></script>
+<script type="text/javascript" src="src/SingletonContext.js"></script>
 <script type="text/javascript" src="src/StimulusPackager.js"></script>
 <script type="text/javascript" src="src/TheVoid.js"></script>
 
@@ -39,8 +40,10 @@
 
 <script type="text/javascript">
   $(function() {
-    var ordial = new Ordial();
-    var world = ordial.world;
+    window.singletonContext = new SingletonContext();
+    window.singletonContext.ordial = new Ordial();
+
+    var world = window.singletonContext.world;
     $("#runCode").click(function() {
       world.initialize();
       eval($("#code").val());

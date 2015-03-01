@@ -1,11 +1,10 @@
 $(function() {
   World = Backbone.Model.extend({
-    initialize: function(options) {
+    initialize: function() {
       this.width = 10;
       this.height = 10;
       this.tiles = [];
       this.things = [];
-      this.stimulusPackager = options && options.stimulusPackager ? options.stimulusPackager : new StimulusPackager();
     },
 
     update: function(){
@@ -13,7 +12,7 @@ $(function() {
       var deadThings = [];
       _.each(_.shuffle(this.things), function(thing){
         if (thing.getActions) {
-          var stimuli = world.stimulusPackager.package(world, thing);
+          var stimuli = window.singletonContext.stimulusPackager.package(world, thing);
           var actions = thing.getActions(stimuli);
           actions = _.isArray(actions) ? actions : [actions];
 

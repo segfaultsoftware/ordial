@@ -2,12 +2,10 @@ describe("Ordial", function() {
   var ordial, ordialScheduler;
 
   beforeEach(function() {
-    ordialScheduler = jasmine.createSpyObj("fake scheduler", ['schedule']);
-    ordial = new Ordial({scheduler: ordialScheduler});
-  });
+    window.singletonContext.scheduler = jasmine.createSpyObj("fake scheduler", ['schedule']);
+    window.singletonContext.world = new World();
 
-  it("should have a world", function(){
-    expect(ordial.world).not.toBeUndefined();
+    ordial = new Ordial();
   });
 
   it("should have a pause button", function() {
@@ -156,14 +154,14 @@ describe("Ordial", function() {
       });
 
       it("should update the world", function(){
-        spyOn(ordial.world, "update");
+        spyOn(window.singletonContext.world, "update");
         ordial.updateWorld();
-        expect(ordial.world.update).toHaveBeenCalled();
+        expect(window.singletonContext.world.update).toHaveBeenCalled();
       });
 
       it('should defer an updateWorld for later', function() {
         ordial.updateWorld();
-        expect(ordialScheduler.schedule).toHaveBeenCalledWith(ordial);
+        expect(window.singletonContext.scheduler.schedule).toHaveBeenCalledWith(ordial);
       });
     });
 
@@ -178,14 +176,14 @@ describe("Ordial", function() {
       });
 
       it("should not update the world", function(){
+        spyOn(window.singletonContext.world, "update");
         ordial.updateWorld();
-        spyOn(ordial.world, "update");
-        expect(ordial.world.update).not.toHaveBeenCalled();
+        expect(window.singletonContext.world.update).not.toHaveBeenCalled();
       });
 
       it('should not defer an updatedWorld for later', function() {
         ordial.updateWorld();
-        expect(ordialScheduler.schedule).not.toHaveBeenCalled();
+        expect(window.singletonContext.scheduler.schedule).not.toHaveBeenCalled();
       });
     })
   });
