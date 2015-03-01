@@ -51,6 +51,8 @@ $(function() {
       });
 
       _.each(deadThings, function(thing){ world.remove(thing);});
+
+      window.singletonContext.resourceSpawner.spawn();
     },
 
     place: function(thing, location){
@@ -136,6 +138,18 @@ $(function() {
       }
 
       return {x: thing.location.x + offset.xDelta, y: thing.location.y + offset.yDelta};
+    },
+
+    getFreeTiles: function() {
+      var freeTiles = [];
+      for (var y = 0; y < this.height; y++) {
+        for (var x = 0; x < this.width; x++) {
+          if (!this.tiles[x] || !this.tiles[x][y]) {
+            freeTiles.push({x: x, y: y});
+          }
+        }
+      }
+      return freeTiles;
     },
 
     moveCritterForward: function(critter){

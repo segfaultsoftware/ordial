@@ -756,4 +756,50 @@ describe("World", function() {
       });
     });
   });
+
+  describe("#getFreeTiles", function () {
+    beforeEach(function () {
+      world.height = 2;
+      world.width = 2;
+    });
+
+    it("should return a list of empty tiles", function () {
+      var freeTiles = world.getFreeTiles();
+      expect(freeTiles).toMatchArray([
+        {x: 0, y: 0},
+        {x: 0, y: 1},
+        {x: 1, y: 0},
+        {x: 1, y: 1}
+      ]);
+    });
+
+    describe("after a thing has been placed in a tile", function () {
+      var thing;
+      beforeEach(function () {
+        thing = new Rock();
+        world.place(thing, {x:1, y:0});
+      });
+      it("no longer returns that tile", function () {
+        expect(world.getFreeTiles()).toMatchArray([
+          {x: 0, y: 0},
+          {x: 0, y: 1},
+          {x: 1, y: 1}
+        ]);
+      });
+
+      describe("after a thing has been removed from a tile", function () {
+        beforeEach(function () {
+          world.remove(thing);
+        });
+        it("returns that tile", function () {
+          expect(world.getFreeTiles()).toMatchArray([
+            {x: 0, y: 0},
+            {x: 0, y: 1},
+            {x: 1, y: 0},
+            {x: 1, y: 1}
+          ]);
+        });
+      });
+    });
+  });
 });
