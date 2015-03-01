@@ -1,2 +1,4 @@
 ordial
 ======
+
+python -m SimpleHTTPServer

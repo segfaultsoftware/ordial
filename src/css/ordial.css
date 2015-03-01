@@ -1,107 +1,175 @@
 .critter {
   width: inherit;
-  height: inherit;
+  height: 64px;
 }
 .critter.teal.west {
-  background-image: url('../assets/critter/ordial_critter_west_teal.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_west.png');
+  top: -32px;
+  position: relative;
 }
 .critter.teal.east {
-  background-image: url('../assets/critter/ordial_critter_east_teal.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_east.png');
+  top: -32px;
+  position: relative;
 }
 .critter.teal.south {
-  background-image: url('../assets/critter/ordial_critter_south_teal.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_south.png');
+  top: -32px;
+  position: relative;
 }
 .critter.teal.north {
-  background-image: url('../assets/critter/ordial_critter_north_teal.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_north.png');
+  top: -32px;
+  position: relative;
 }
 .critter.purple.west {
-  background-image: url('../assets/critter/ordial_critter_west_purple.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_west.png');
+  top: -32px;
+  position: relative;
 }
 .critter.purple.east {
-  background-image: url('../assets/critter/ordial_critter_east_purple.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_east.png');
+  top: -32px;
+  position: relative;
 }
 .critter.purple.south {
-  background-image: url('../assets/critter/ordial_critter_south_purple.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_south.png');
+  top: -32px;
+  position: relative;
 }
 .critter.purple.north {
-  background-image: url('../assets/critter/ordial_critter_north_purple.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_north.png');
+  top: -32px;
+  position: relative;
 }
 .critter.pink.west {
-  background-image: url('../assets/critter/ordial_critter_west_pink.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_west.png');
+  top: -32px;
+  position: relative;
 }
 .critter.pink.east {
-  background-image: url('../assets/critter/ordial_critter_east_pink.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_east.png');
+  top: -32px;
+  position: relative;
 }
 .critter.pink.south {
-  background-image: url('../assets/critter/ordial_critter_south_pink.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_south.png');
+  top: -32px;
+  position: relative;
 }
 .critter.pink.north {
-  background-image: url('../assets/critter/ordial_critter_north_pink.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_north.png');
+  top: -32px;
+  position: relative;
 }
 .critter.orange.west {
-  background-image: url('../assets/critter/ordial_critter_west_orange.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_west.png');
+  top: -32px;
+  position: relative;
 }
 .critter.orange.east {
-  background-image: url('../assets/critter/ordial_critter_east_orange.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_east.png');
+  top: -32px;
+  position: relative;
 }
 .critter.orange.south {
-  background-image: url('../assets/critter/ordial_critter_south_orange.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_south.png');
+  top: -32px;
+  position: relative;
 }
 .critter.orange.north {
-  background-image: url('../assets/critter/ordial_critter_north_orange.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_north.png');
+  top: -32px;
+  position: relative;
 }
 .critter.lavender.west {
-  background-image: url('../assets/critter/ordial_critter_west_lavender.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_west.png');
+  top: -32px;
+  position: relative;
 }
 .critter.lavender.east {
-  background-image: url('../assets/critter/ordial_critter_east_lavender.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_east.png');
+  top: -32px;
+  position: relative;
 }
 .critter.lavender.south {
-  background-image: url('../assets/critter/ordial_critter_south_lavender.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_south.png');
+  top: -32px;
+  position: relative;
 }
 .critter.lavender.north {
-  background-image: url('../assets/critter/ordial_critter_north_lavender.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_north.png');
+  top: -32px;
+  position: relative;
 }
 .critter.eggshell.west {
-  background-image: url('../assets/critter/ordial_critter_west_eggshell.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_west.png');
+  top: -32px;
+  position: relative;
 }
 .critter.eggshell.east {
-  background-image: url('../assets/critter/ordial_critter_east_eggshell.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_east.png');
+  top: -32px;
+  position: relative;
 }
 .critter.eggshell.south {
-  background-image: url('../assets/critter/ordial_critter_south_eggshell.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_south.png');
+  top: -32px;
+  position: relative;
 }
 .critter.eggshell.north {
-  background-image: url('../assets/critter/ordial_critter_north_eggshell.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_north.png');
+  top: -32px;
+  position: relative;
 }
 .critter.blue.west {
-  background-image: url('../assets/critter/ordial_critter_west_blue.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_west.png');
+  top: -32px;
+  position: relative;
 }
 .critter.blue.east {
-  background-image: url('../assets/critter/ordial_critter_east_blue.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_east.png');
+  top: -32px;
+  position: relative;
 }
 .critter.blue.south {
-  background-image: url('../assets/critter/ordial_critter_south_blue.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_south.png');
+  top: -32px;
+  position: relative;
 }
 .critter.blue.north {
-  background-image: url('../assets/critter/ordial_critter_north_blue.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_north.png');
+  top: -32px;
+  position: relative;
 }
 .critter.black.west {
-  background-image: url('../assets/critter/ordial_critter_west_black.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_west.png');
+  top: -32px;
+  position: relative;
 }
 .critter.black.east {
-  background-image: url('../assets/critter/ordial_critter_east_black.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_east.png');
+  top: -32px;
+  position: relative;
 }
 .critter.black.south {
-  background-image: url('../assets/critter/ordial_critter_south_black.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_south.png');
+  top: -32px;
+  position: relative;
 }
 .critter.black.north {
-  background-image: url('../assets/critter/ordial_critter_north_black.png');
+  background-image: url('../assets/critter/ordial_critter_isometric_north.png');
+  top: -32px;
+  position: relative;
 }
 .resource {
   width: inherit;
   height: inherit;
   background-image: url('../assets/resource.png');
+}
+.tile {
+  position: absolute;
+  background-image: url("../assets/tile0.png");
 }
 .rock {
   width: inherit;

@@ -3,7 +3,12 @@
 
 .generate-critter-class(@color, @direction) {
   &.@{color}.@{direction} {
-    background-image: url('../assets/critter/ordial_critter_@{direction}_@{color}.png')
+//    background-image: url('../assets/critter/ordial_critter_@{direction}_@{color}.png');
+//    &.isometric {
+      background-image: url('../assets/critter/ordial_critter_isometric_@{direction}.png');
+    top: -32px;
+    position:relative;
+//    }
   }
 }
 
@@ -21,6 +26,7 @@
 
 .critter{
   width: inherit;
-  height: inherit;
+//  height: inherit;
+  height:64px;
   .generate-critter-classes-for-colors();
 }

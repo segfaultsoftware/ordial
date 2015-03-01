@@ -14,6 +14,7 @@ $(function() {
     } else if (rotationDirection == RelativeDirection.RIGHT){
       index += 1;
     } else {
+      index += 2;
       console.warn('rotating in this direction not implemented yet.', rotationDirection);
     }
 

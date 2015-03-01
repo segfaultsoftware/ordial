@@ -46,22 +46,50 @@
 
 <h3>Active Code</h3>
 <textarea id="code">
-  var isSomethingInFrontOfMe = function(stimuli) {
-    return stimuli.thingInFrontOfMe;
+
+  var isSomethingInFrontOfMe = function (stimuli) {
+  return stimuli.thingInFrontOfMe;
   };
-  var isThingInFrontOfMeEdible = function(stimuli) {
-    return stimuli.thingInFrontOfMe instanceof Resource;
+  var isThingInFrontOfMeEdible = function (stimuli) {
+  return stimuli.thingInFrontOfMe instanceof Resource;
   };
-  var isNothingToTheLeftOfMe = function(stimuli) {
-    return !stimuli.thingToTheLeftOfMe;
+  var isNothingToTheLeftOfMe = function (stimuli) {
+  return !stimuli.thingToTheLeftOfMe;
   };
+  var isLeftThingEdible = function (stimuli) {
+  console.log(3)
+  return stimuli.thingToTheLeftOfMe && stimuli.thingToTheLeftOfMe instanceof Resource;
+  };
+  var leftEdibleLeftElse = function (alternativeNode) {
+  return new DecisionNode(isLeftThingEdible, Critter.Actions.TURN_LEFT, alternativeNode);
+  };
+
+  var isRightThingEdible = function (stimuli) {
+  console.log(2)
+  return stimuli.thingToTheRightOfMe && stimuli.thingToTheRightOfMe instanceof Resource;
+  };
+  var rightEdibleRightElse = function (alternativeNode) {
+  return new DecisionNode(isRightThingEdible, Critter.Actions.TURN_RIGHT, alternativeNode);
+  };
+
+  var isForwardThingEdible = function (stimuli) {
+  console.log(1)
+  return stimuli.thingInFrontOfMe && stimuli.thingInFrontOfMe instanceof Resource;
+  };
+  var forwardEdibleForwardElse = function (alternativeNode) {
+  return new DecisionNode(isForwardThingEdible, Critter.Actions.MOVE_FORWARD, alternativeNode);
+  };
+
 
   var turnLeftOrTurnRight = new DecisionNode(isNothingToTheLeftOfMe, Critter.Actions.TURN_LEFT, Critter.Actions.TURN_RIGHT);
   var eatItOrThink = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, turnLeftOrTurnRight);
   var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, eatItOrThink, Critter.Actions.MOVE_FORWARD);
-  var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
+
   var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
 
+
+  var tree = forwardEdibleForwardElse(rightEdibleRightElse(leftEdibleLeftElse(moveForwardOrThink)));
+  var bob = new Critter({mind: new CritterMind({decisionTree: tree})});
   function getCoord() {
   return Math.floor(Math.random() * 10);
   }
@@ -70,16 +98,20 @@
   return {x: getCoord(), y: getCoord()};
   }
 
-  for(var i = 0; i < 50; i++) {
+  for (var i = 0; i < 50; i++) {
   ordial.world.place(new Resource(), getCoords());
   }
-  for(var i = 0; i < 50; i++) {
+  for (var i = 0; i < 50; i++) {
   var blocker = new Rock();
   ordial.world.place(blocker, getCoords());
   }
 
   rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
   ordial.world.place(rob, getCoords());
+
+
+  bob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
+  ordial.world.place(bob, getCoords());
 </textarea>
 <br/>
 <button id="runCode">Run</button>
