@@ -22,9 +22,11 @@
     "underscore": "1.5.x"
   },
   "devDependencies": {
-    "less": "~2.0.0",
     "grunt": "~0.4.5",
+    "grunt-contrib-connect": "^0.9.0",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-exec": "~0.4.6"
+    "grunt-exec": "~0.4.6",
+    "grunt-include-source": "^0.5.0",
+    "less": "~2.0.0"
   }
 }
