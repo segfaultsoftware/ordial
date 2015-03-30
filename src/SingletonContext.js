@@ -5,6 +5,7 @@ SingletonContext = function() {
     this.stimulusPackager = new StimulusPackager();
     this.resourceSpawner = new ResourceSpawner();
     this.configuration = new Configuration();
+    this.critterActuator = new CritterActuator();
   } catch (e) {
     throw 'Syntax error in SingletonContext.initialize' + e;
   }

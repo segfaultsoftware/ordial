@@ -1,8 +1,8 @@
-describe("Critters taking multiple actions per world tick", function () {
+describe("MultipleActionsIntegrationTest Critters taking multiple actions per world tick", function () {
   var world, fred;
 
   beforeEach(function() {
-    world = new World();
+    world = singletonContext.world = new World();
   });
 
   describe("when a critter has multiple actions in an action node", function () {

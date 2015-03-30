@@ -2,7 +2,7 @@ describe("Simple Decision Making", function () {
   var world, rob;
 
   beforeEach(function () {
-    world = new World();
+    world = singletonContext.world = new World();
   });
 
   describe("with forward stimuli", function () {

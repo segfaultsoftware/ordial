@@ -4,7 +4,7 @@ describe("World", function() {
   beforeEach(function() {
     stimulusPackager = jasmine.createSpyObj('packager', ['package']);
     window.singletonContext.stimulusPackager = stimulusPackager;
-    world = new World();
+    world = singletonContext.world = new World();
     rob = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD })});
     zoe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT })});
     kim = new Critter({mind: new CritterMind({action: Critter.Actions.REPRODUCE })});
@@ -12,7 +12,9 @@ describe("World", function() {
   });
 
   describe("#update", function(){
+    var critterActuator;
     beforeEach(function() {
+      critterActuator = singletonContext.critterActuator = new CritterActuator();
       Math.seedrandom('foo');
       var robsOriginalLocation, zoesOriginalLocation, kimsOriginalLocation, joesOriginalLocation;
       robsOriginalLocation = {x: 1, y: 1};
@@ -50,33 +52,33 @@ describe("World", function() {
 
     describe("when the getActions is MOVE_FORWARD", function() {
       it("should call #moveCritterForward", function() {
-        spyOn(world, 'moveCritterForward');
+        spyOn(critterActuator, 'moveCritterForward');
         world.update();
-        expect(world.moveCritterForward).toHaveBeenCalledWith(rob);
+        expect(critterActuator.moveCritterForward).toHaveBeenCalledWith(rob);
       });
     });
 
     describe("when the getActions is TURN_LEFT", function () {
       it("should call #turnCritterLeft", function () {
-        spyOn(world, 'turnCritterLeft');
+        spyOn(critterActuator, 'turnCritterLeft');
         world.update();
-        expect(world.turnCritterLeft).toHaveBeenCalledWith(zoe);
+        expect(critterActuator.turnCritterLeft).toHaveBeenCalledWith(zoe);
       });
     });
     
     describe("when the getActions is TURN_RIGHT", function () {
       it("should call #turnCritterRight", function () {
-        spyOn(world, 'turnCritterRight');
+        spyOn(critterActuator, 'turnCritterRight');
         world.update();
-        expect(world.turnCritterRight).toHaveBeenCalledWith(joe);
+        expect(critterActuator.turnCritterRight).toHaveBeenCalledWith(joe);
       });
     });
 
     describe("when the getActions is REPRODUCE", function () {
       it("should call #reproduceCritter", function () {
-        spyOn(world, 'reproduceCritter');
+        spyOn(critterActuator, 'reproduceCritter');
         world.update();
-        expect(world.reproduceCritter).toHaveBeenCalledWith(kim);
+        expect(critterActuator.reproduceCritter).toHaveBeenCalledWith(kim);
       });
     });
 
@@ -85,12 +87,12 @@ describe("World", function() {
       beforeEach(function () {
         vanderbilt = new Critter({mind: new CritterMind({action: Critter.Actions.INCREMENT_COUNTER})});
         world.place(vanderbilt, {x:0, y:0});
-        spyOn(world, 'incrementCounterOnCritter');
+        spyOn(critterActuator, 'incrementCounterOnCritter');
       });
 
       it("should call #incrementCounterOnCritter", function () {
         world.update();
-        expect(world.incrementCounterOnCritter).toHaveBeenCalledWith(vanderbilt);
+        expect(critterActuator.incrementCounterOnCritter).toHaveBeenCalledWith(vanderbilt);
       });
     });
 
@@ -99,12 +101,12 @@ describe("World", function() {
       beforeEach(function () {
         coleman = new Critter({mind: new CritterMind({action: Critter.Actions.DECREMENT_COUNTER})});
         world.place(coleman, {x:0, y:0});
-        spyOn(world, 'decrementCounterOnCritter');
+        spyOn(critterActuator, 'decrementCounterOnCritter');
       });
 
       it("should call #decrementCounterOnCritter", function () {
         world.update();
-        expect(world.decrementCounterOnCritter).toHaveBeenCalledWith(coleman);
+        expect(critterActuator.decrementCounterOnCritter).toHaveBeenCalledWith(coleman);
       });
     });
 
@@ -132,410 +134,16 @@ describe("World", function() {
       });
 
       it("applies both actions", function () {
-        spyOn(world, "moveCritterForward");
-        spyOn(world, "reproduceCritter");
+        spyOn(critterActuator, "moveCritterForward");
+        spyOn(critterActuator, "reproduceCritter");
         world.update();
-        expect(world.moveCritterForward).toHaveBeenCalledWith(fred);
-        expect(world.reproduceCritter).toHaveBeenCalledWith(fred);
+        expect(critterActuator.moveCritterForward).toHaveBeenCalledWith(fred);
+        expect(critterActuator.reproduceCritter).toHaveBeenCalledWith(fred);
       });
     });
   });
 
-  describe("critter actions", function(){
-    var robsOriginalLocation, zoesOriginalLocation, kimsOriginalLocation, joesOriginalLocation;
-    beforeEach(function() {
-      joesOriginalLocation = {x: 7, y: 2};
-      robsOriginalLocation = {x: 1, y: 1};
-      zoesOriginalLocation = {x: 4, y: 4};
-      kimsOriginalLocation = {x: 7, y: 7};
-      world.place(rob, robsOriginalLocation);
-      world.place(zoe, zoesOriginalLocation);
-      world.place(kim, kimsOriginalLocation);
-      world.place(joe, joesOriginalLocation);
-    });
-
-    describe("#moveCritterForward", function() {
-      it("should decrement the critter's mana by movement cost.", function(){
-        expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
-        world.moveCritterForward(rob);
-        expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.MOVE_FORWARD.cost);
-      });
-      
-      describe('when there is an empty tile in front of the critter', function() {
-        beforeEach(function() {
-          world.place(rob, {x: 4, y: 1});
-          world.moveCritterForward(rob);
-        });
-
-        it("should remove the critter from the tile it is in", function(){
-          expect(world.tiles[4][1]).not.toBe(rob);
-        });
-
-        it("should add the critter to the tile in front of the previous one", function() {
-          expect(world.tiles[4][0]).toBe(rob);
-          expect(rob.location).toEqual({x:4, y:0});
-        })
-      });
-
-      describe("when there is another critter in front of rob", function() {
-        beforeEach(function() {
-          world.place(rob, {x: 4, y: 1});
-          world.place(zoe, {x: 4, y: 0});
-          world.moveCritterForward(rob);
-        });
-
-        it('should not move Rob', function(){
-          expect(world.tiles[4][1]).toBe(rob);
-          expect(rob.location).toEqual({x:4, y:1});
-        });
-
-        it('should not move Zoe', function() {
-          expect(world.tiles[4][0]).toBe(zoe);
-          expect(zoe.location).toEqual({x:4, y:0});
-        });
-      });
-
-      describe('when there is the edge of the world in front of the critter', function() {
-        beforeEach(function() {
-          world.place(rob, {x: 4, y: 0});
-          world.moveCritterForward(rob);
-        });
-
-        it('should not move Rob', function(){
-          expect(rob.location).toEqual({x:4, y:0});
-        });
-      });
-
-      describe("when there is a resource in front of the critter", function() {
-        var resource, originalMana, costOfTheMove;
-        beforeEach(function () {
-          resource = new Resource();
-          originalMana = rob.vitals.mana;
-          costOfTheMove = Critter.Actions.MOVE_FORWARD.cost;
-          world.place(rob, {x: 4, y: 1});
-          world.place(resource, {x: 4, y: 0});
-          world.moveCritterForward(rob);
-        });
-
-        it('should move Rob into the space', function(){
-          expect(rob.location).toEqual({x: 4, y: 0});
-        });
-
-        it('should remove the resource from the tile', function(){
-          expect(world.getThingAt({x:4, y:0})).not.toEqual(resource);
-        });
-
-        it('should remove the resource from the world', function(){
-          expect(world.contains(resource)).toBe(false);
-        });
-
-        it("should increase rob's mana by the resource's value", function() {
-          expect(rob.vitals.mana).toEqual(originalMana + resource.mana - costOfTheMove);
-        });
-      });
-    });
-
-    describe("#turnCritterLeft", function() {
-      it("should decrement the critter's mana by turning cost", function(){
-        expect(zoe.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
-        world.moveCritterForward(zoe);
-        expect(zoe.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_LEFT.cost);
-      });
-
-      it("should update the critter's cardinal direction", function () {
-        expect(zoe.direction).toBe(CardinalDirection.NORTH);
-        world.turnCritterLeft(zoe);
-        expect(zoe.direction).toBe(CardinalDirection.WEST);
-        world.turnCritterLeft(zoe);
-        expect(zoe.direction).toBe(CardinalDirection.SOUTH);
-        world.turnCritterLeft(zoe);
-        expect(zoe.direction).toBe(CardinalDirection.EAST);
-        world.turnCritterLeft(zoe);
-        expect(zoe.direction).toBe(CardinalDirection.NORTH);
-      });
-
-      it("should not move the critter", function () {
-        var oldLocation = _.extend(zoesOriginalLocation);
-        world.update();
-        expect(world.tiles[4][4]).toBe(zoe);
-        expect(zoe.location).toEqual(oldLocation);
-      });
-    });
-
-    describe("#turnCritterRight", function() {
-      it("should decrement the critter's mana by turning cost", function(){
-        expect(joe.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
-        world.moveCritterForward(joe);
-        expect(joe.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_RIGHT.cost);
-      });
-
-      it("should update the critter's cardinal direction", function () {
-        expect(joe.direction).toBe(CardinalDirection.NORTH);
-        world.turnCritterRight(joe);
-        expect(joe.direction).toBe(CardinalDirection.EAST);
-        world.turnCritterRight(joe);
-        expect(joe.direction).toBe(CardinalDirection.SOUTH);
-        world.turnCritterRight(joe);
-        expect(joe.direction).toBe(CardinalDirection.WEST);
-        world.turnCritterRight(joe);
-        expect(joe.direction).toBe(CardinalDirection.NORTH);
-      });
-
-      it("should not move the critter", function () {
-        var oldLocation = _.extend(joesOriginalLocation);
-        world.update();
-        expect(world.tiles[7][2]).toBe(joe);
-        expect(joe.location).toEqual(oldLocation);
-      });
-    });
-
-    describe("#reproduceCritter", function () {
-      var offspringLocation, originalWorldSize;
-      beforeEach(function () {
-        var kimsDirection = CardinalDirection.ALL_DIRECTIONS[
-          Math.floor(Math.random() * CardinalDirection.ALL_DIRECTIONS.length)
-          ];
-        kim.direction = kimsDirection;
-        originalWorldSize = world.things.length;
-      });
-
-      it("should decrement kim's mana by reproduction cost", function() {
-        var startingMana = 100;
-        kim.vitals.mana = startingMana;
-        world.reproduceCritter(kim);
-        expect(kim.vitals.mana).toEqual(startingMana - Critter.Actions.REPRODUCE.cost);
-      });
-
-      describe("left child", function() {
-        beforeEach(function(){
-          offspringLocation = world.getTileInDirection(RelativeDirection.LEFT, kim);
-        });
-
-        describe("when there is an open position to the left", function() {
-          var offspring;
-
-          beforeEach(function() {
-            world.reproduceCritter(kim);
-            offspring = world.getThingAt(offspringLocation);
-          });
-
-          it("should create a critter to the left", function(){
-            expect(offspring).not.toBeFalsy();
-          });
-
-          describe("offspring", function() {
-            it("should have its parent's mind", function(){
-              expect(offspring.mind).toEqual(kim.mind);
-            });
-
-            it("should be oriented to the left of its parent", function(){
-              expect(offspring.direction).toEqual(
-                CardinalDirection.getDirectionAfterRotation(kim.direction, RelativeDirection.LEFT)
-              );
-            });
-          });
-        });
-
-        describe("when there is a critter to the left", function() {
-          var robsLocation;
-
-          beforeEach(function() {
-            robsLocation = world.getTileInDirection(RelativeDirection.LEFT, kim);
-            world.place(rob, robsLocation);
-            world.reproduceCritter(kim);
-          });
-
-          it("should not create a critter to the left", function() {
-            expect(world.getThingAt(robsLocation)).toEqual(rob);
-          });
-        });
-
-        describe("when the edge of the world is to the left", function () {
-          var placeSpy;
-          beforeEach(function() {
-            kim.direction = CardinalDirection.NORTH;
-            world.place(kim, {x: 0, y: 4});
-            placeSpy = spyOn(world, "place");
-          });
-
-          it("should not place a critter to the left", function () {
-            world.reproduceCritter(kim);
-            expect(placeSpy.calls.count()).toEqual(1);
-          });
-        });
-
-        describe("when there is a resource to the left", function () {
-          var resource;
-          beforeEach(function () {
-            resource = new Resource();
-            world.place(resource, offspringLocation);
-            world.reproduceCritter(kim);
-          });
-
-          it("should create a critter to the left", function () {
-            expect(world.getThingAt(offspringLocation) instanceof Critter).toBe(true);
-          });
-
-          it("should remove the resource", function () {
-            expect(world.contains(resource)).toBe(false);
-          });
-
-          it("should increment the critter's mana by the resource's mana", function() {
-            var child = world.getThingAt(offspringLocation);
-            expect(child.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA + resource.mana);
-          });
-        });
-      });
-
-      describe("right child", function(){
-        beforeEach(function () {
-          offspringLocation = world.getTileInDirection(RelativeDirection.RIGHT, kim);
-        });
-
-        describe("when there is an open position to the right", function() {
-          var offspring;
-
-          beforeEach(function() {
-            world.reproduceCritter(kim);
-            offspring = world.getThingAt(offspringLocation);
-          });
-
-          it("should create a critter to the right", function(){
-            expect(offspring).not.toBeFalsy();
-          });
-
-          describe("offspring", function() {
-            it("should have its parent's mind", function(){
-              expect(offspring.mind).toEqual(kim.mind);
-            });
-
-            it("should be oriented to the right of its parent", function(){
-              expect(offspring.direction).toEqual(
-                CardinalDirection.getDirectionAfterRotation(kim.direction, RelativeDirection.RIGHT)
-              );
-            });
-          });
-        });
-
-        describe("when there is a critter to the right", function() {
-          var robsLocation;
-
-          beforeEach(function() {
-            robsLocation = world.getTileInDirection(RelativeDirection.RIGHT, kim);
-            world.place(rob, robsLocation);
-            world.reproduceCritter(kim);
-          });
-
-          it("should not create a critter to the right", function() {
-            expect(world.getThingAt(robsLocation)).toEqual(rob);
-          });
-        });
-
-        describe("when the edge of the world is to the right", function () {
-          var placeSpy;
-          beforeEach(function() {
-            kim.direction = CardinalDirection.WEST;
-            world.place(kim, {x: 4, y: 0});
-            placeSpy = spyOn(world, "place");
-          });
-
-          it("should not place a critter to the left", function () {
-            world.reproduceCritter(kim);
-            expect(placeSpy.calls.count()).toEqual(1);
-          });
-        });
-
-        describe("when there is a resource to the right", function () {
-          var resource;
-          beforeEach(function () {
-            resource = new Resource();
-            world.place(resource, offspringLocation);
-            world.reproduceCritter(kim);
-          });
-
-          it("should create a critter to the right", function () {
-            expect(world.getThingAt(offspringLocation) instanceof Critter).toBe(true);
-          });
-
-          it("should remove the resource", function () {
-            expect(world.contains(resource)).toBe(false);
-          });
-        });
-      });
-
-      describe("when the critter doesn't have enough mana to reproduce", function(){
-        beforeEach(function(){
-          kim.vitals.mana = 1;
-          world.reproduceCritter(kim);
-        });
-        
-        it("should not create offspring", function(){
-          expect(world.things.length).toEqual(originalWorldSize);
-        });
-      });
-
-      describe("when the critter has exactly the amount of mana to reproduce", function() {
-        beforeEach(function(){
-          kim.vitals.mana = Critter.Actions.REPRODUCE.cost;
-          world.reproduceCritter(kim);
-        });
-        
-        it("should produce both offspring", function() {
-          expect(world.things.length).toEqual(originalWorldSize + 2);
-        });
-      });
-      
-      describe("when the critter has more than enough mana to reproduce", function() {
-        beforeEach(function() {
-          kim.vitals.mana = Critter.Actions.REPRODUCE.cost + 1;
-          world.reproduceCritter(kim);
-        });
-        
-        it("should produce both offspring", function() {
-          expect(world.things.length).toEqual(originalWorldSize + 2);
-        });
-      });
-    });
-
-    describe("#incrementCounterOnCritter", function () {
-      var anna;
-      beforeEach(function () {
-        anna = new Critter();
-      });
-
-      it("should add one to the vitals.counter stat", function () {
-        expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER);
-        world.incrementCounterOnCritter(anna);
-        expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER + 1);
-      });
-
-      it("should not cost any mana", function () {
-        expect(anna.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA);
-        world.incrementCounterOnCritter(anna);
-        expect(anna.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA);
-      });
-    });
-
-    describe("#decrementCounterOnCritter", function () {
-      var anna;
-      beforeEach(function () {
-        anna = new Critter();
-      });
-
-      it("should subtract one to the vitals.counter stat", function () {
-        expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER);
-        world.decrementCounterOnCritter(anna);
-        expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER - 1);
-      });
-
-      it("should not cost any mana", function () {
-        expect(anna.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA);
-        world.decrementCounterOnCritter(anna);
-        expect(anna.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA);
-      });
-    });
-  });
-
+  
   describe("#place", function() {
     var location;
 

@@ -9,6 +9,7 @@ $(function() {
 
     update: function(){
       var world = this;
+      var critterActuator = singletonContext.critterActuator;
       var deadThings = [];
       _.each(_.shuffle(this.things), function(thing){
         if (thing.getActions) {
@@ -19,27 +20,27 @@ $(function() {
           _.each(actions, function(action) {
             switch(action) {
               case Critter.Actions.MOVE_FORWARD:
-                world.moveCritterForward(thing);
+                critterActuator.moveCritterForward(thing);
                 break;
 
               case Critter.Actions.TURN_LEFT:
-                world.turnCritterLeft(thing);
+                critterActuator.turnCritterLeft(thing);
                 break;
 
               case Critter.Actions.TURN_RIGHT:
-                world.turnCritterRight(thing);
+                critterActuator.turnCritterRight(thing);
                 break;
 
               case Critter.Actions.REPRODUCE:
-                world.reproduceCritter(thing);
+                critterActuator.reproduceCritter(thing);
                 break;
 
               case Critter.Actions.INCREMENT_COUNTER:
-                world.incrementCounterOnCritter(thing);
+                critterActuator.incrementCounterOnCritter(thing);
                 break;
 
               case Critter.Actions.DECREMENT_COUNTER:
-                world.decrementCounterOnCritter(thing);
+                critterActuator.decrementCounterOnCritter(thing);
                 break;
             }
 
@@ -150,69 +151,6 @@ $(function() {
         }
       }
       return freeTiles;
-    },
-
-    moveCritterForward: function(critter){
-      var nextLocation = this.getTileInDirection(RelativeDirection.FORWARD, critter);
-      var thingAtNextLocation = this.getThingAt(nextLocation);
-      if (!thingAtNextLocation || critter.canEat(thingAtNextLocation)) {
-        this.place(critter, nextLocation);
-        critter.eat(thingAtNextLocation);
-      }
-      
-      critter.vitals.mana -= Critter.Actions.MOVE_FORWARD.cost;
-    },
-
-    turnCritter: function(critter, direction, action) {
-      critter.direction = CardinalDirection.getDirectionAfterRotation(
-        critter.direction,
-        direction
-      );
-
-      critter.vitals.mana -= action.cost;
-    },
-
-    turnCritterLeft: function(critter){
-      return this.turnCritter(critter, RelativeDirection.LEFT, Critter.Actions.TURN_LEFT);
-    },
-
-    turnCritterRight: function(critter){
-      return this.turnCritter(critter, RelativeDirection.RIGHT, Critter.Actions.TURN_RIGHT);
-    },
-
-    reproduceCritter: function(critter){
-      var world = this;
-      function createOffspringInDirection(relativeDirection){
-        var offspringLocation = world.getTileInDirection(relativeDirection, critter);
-        var contentsOfTile = world.getThingAt(offspringLocation);
-        var offspring = new Critter({mind: critter.mind});
-        if ((!contentsOfTile || offspring.canEat(contentsOfTile)) && world.isLocationInsideWorld(offspringLocation)) {
-          offspring.direction = CardinalDirection.getDirectionAfterRotation(critter.direction, relativeDirection);
-          world.place(offspring, offspringLocation);
-          offspring.eat(contentsOfTile);
-        }
-      }
-
-      if(critter.vitals.mana >= Critter.Actions.REPRODUCE.cost){
-        if (Math.floor(Math.random() * 1000) % 2) {
-          createOffspringInDirection(RelativeDirection.LEFT);
-          createOffspringInDirection(RelativeDirection.RIGHT);
-        }
-        else {
-          createOffspringInDirection(RelativeDirection.RIGHT);
-          createOffspringInDirection(RelativeDirection.LEFT);
-        }
-      }
-      
-      critter.vitals.mana -= Critter.Actions.REPRODUCE.cost;
-    },
-
-    incrementCounterOnCritter: function(critter) {
-      critter.vitals.counter++;
-    },
-
-    decrementCounterOnCritter: function(critter) {
-      critter.vitals.counter--;
     }
   });
 });
