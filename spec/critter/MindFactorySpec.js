@@ -10,14 +10,13 @@ describe("MindFactory", function(){
     describe("when the first item in the array is an action", function(){
       it("creates a mind with an action", function(){
         expect(mindFactory.create([
-          ['action', 'MOVE_FORWARD'], 
-          ['condition', 'IGNORED_VALUE']
+          ['action', 'MOVE_FORWARD']
         ]).getActions(stimuli, vitals))
-          .toEqual([Critter.Actions.MOVE_FORWARD]); 
+          .toEqual(Critter.Actions.MOVE_FORWARD); 
       });
     });
 
-    xdescribe("when the first item is a condition", function(){
+    describe("when the first item is a condition", function(){
       var mind;
       beforeEach(function(){
         mind = mindFactory.create([
@@ -38,8 +37,7 @@ describe("MindFactory", function(){
     describe("when the first item is multiple actions", function(){
       it("creates a mind with those action", function(){
         expect(mindFactory.create([
-          ['action', ['MOVE_FORWARD', 'TURN_LEFT']], 
-          ['condition', 'IGNORED_VALUE']
+          ['action', ['MOVE_FORWARD', 'TURN_LEFT']]
         ]).getActions(stimuli, vitals))
           .toEqual([Critter.Actions.MOVE_FORWARD, 
                     Critter.Actions.TURN_LEFT]); 

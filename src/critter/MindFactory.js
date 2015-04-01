@@ -2,7 +2,7 @@ $(function() {
   MindFactory = Backbone.Model.extend({
     create: function(template){
       return new CritterMind({
-        decisionTree: this.getNodeFromTemplateEntry(template[0])
+        decisionTree: this.getNodeWithChildren(template, 0)
       });
     }, 
     getNodeFromTemplateEntry: function(templateEntry){
@@ -11,15 +11,39 @@ $(function() {
         var actionNames = templateEntry[1];
         actionNames = _.isArray(actionNames) ? actionNames : [actionNames];
 
-        return _.map(actionNames, function(actionName){
+        var actions = _.map(actionNames, function(actionName){
           return Critter.Actions[actionName];
         });
+        if(actions.length == 1){
+          return actions[0];
+        } else {
+          return actions;
+        }
       } else if(nodeType == 'condition'){
         var conditionName = templateEntry[1];
         var condition = Condition.Collection[conditionName];
+        console.log('condition', conditionName, condition);
         return new DecisionNode(_.bind(condition.evaluate, condition));
       } else {
         throw 'unknown node type in tree: ' + nodeType;
+      }
+    },
+    
+    getLeftNode: function(template, parentIndex){
+      return this.getNodeWithChildren(template, 2*parentIndex + 1);
+    },
+    getRightNode: function(template, parentIndex){
+      return this.getNodeWithChildren(template, 2*parentIndex + 2);
+    },
+    getNodeWithChildren: function(template, index){
+      var templateEntry = template[index];
+      if(templateEntry){
+        var node = this.getNodeFromTemplateEntry(templateEntry);
+        node.leftNode = this.getLeftNode(template, index);
+        node.rightNode = this.getRightNode(template, index);
+        return node;
+      } else {
+        return null;
       }
     }
   });
