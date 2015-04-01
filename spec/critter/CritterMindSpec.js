@@ -80,6 +80,16 @@ describe("CritterMind", function () {
           expect(critterMind.getActions(stimuli, vitals)).toEqual(Critter.Actions.REPRODUCE);
         });
       });
+      
+      describe("and the child nodes are empty", function(){
+        beforeEach(function(){
+          var treeWithEmptyChildren = new DecisionNode(jasmine.createSpy());
+          critterMind = new CritterMind({decisionTree: treeWithEmptyChildren});
+        });
+        it("should return the no-op action", function(){
+          expect(critterMind.getActions(stimuli, vitals)).toEqual(Critter.Actions.STARE_OFF_INTO_SPACE);
+        });
+      });
     });
   });
 

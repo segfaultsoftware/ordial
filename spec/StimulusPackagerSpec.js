@@ -66,7 +66,7 @@ describe("StimulusPackager", function () {
       });
     });
     
-    describe("package.thingInToTheRightOfMe", function () {
+    describe("package.thingToTheRightOfMe", function () {
       describe("when there is a blocker to the right of the critter", function () {
         var blocker;
 
@@ -106,7 +106,7 @@ describe("StimulusPackager", function () {
       });
     });
 
-    describe("package.thingInToTheLeftOfMe", function () {
+    describe("package.thingToTheLeftOfMe", function () {
       describe("when there is a blocker to the left of the critter", function () {
         var blocker;
 

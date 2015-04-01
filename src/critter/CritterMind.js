@@ -10,22 +10,27 @@ $(function() {
       }
     },
 
-    getActions : function(stimuli, vitals, currentNode) {
-      currentNode = currentNode || this.decisionTree;
-      if (currentNode.type === DecisionNode.TYPE) {
+    getActionsForNode: function(stimuli, vitals, currentNode){
+      if (!currentNode){
+        return Critter.Actions.STARE_OFF_INTO_SPACE;
+      } else if(currentNode.type === DecisionNode.TYPE) {
         if (currentNode.condition(stimuli, vitals)) {
-          return this.getActions(stimuli, vitals, currentNode.leftNode);
+          return this.getActionsForNode(stimuli, vitals, currentNode.leftNode);
         }
         else {
-          return this.getActions(stimuli, vitals, currentNode.rightNode);
+          return this.getActionsForNode(stimuli, vitals, currentNode.rightNode);
         }
       }
       else {
         return currentNode;
       }
+    },
+
+    getActions : function(stimuli, vitals) {
+      var currentNode = this.decisionTree;
+      return this.getActionsForNode(stimuli, vitals, currentNode);
+
     }
-
-
   });
 
   CritterMind.EmptyMind = new CritterMind({action:Critter.Actions.STARE_OFF_INTO_SPACE});
