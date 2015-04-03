@@ -32,6 +32,14 @@ describe("MindFactory", function(){
         vitals.counter = 0;
         expect(mind.getActions(stimuli, vitals)).toEqual(Critter.Actions.TURN_RIGHT);
       });
+      
+      describe("when the condition is not a valid predefined condition", function(){
+        it("throws an appropriate error", function(){
+          expect(function(){
+            mindFactory.create([['condition', 'isAsdfLol']]);
+          }).toThrow('invalid condition name: "isAsdfLol"');
+        });
+      });
     });
 
     describe("when the first item is multiple actions", function(){

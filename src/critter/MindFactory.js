@@ -22,7 +22,10 @@ $(function() {
       } else if(nodeType == 'condition'){
         var conditionName = templateEntry[1];
         var condition = Condition.Collection[conditionName];
-        console.log('condition', conditionName, condition);
+        if(!condition){
+          throw 'invalid condition name: "' + conditionName + '"';
+        }
+        
         return new DecisionNode(_.bind(condition.evaluate, condition));
       } else {
         throw 'unknown node type in tree: ' + nodeType;

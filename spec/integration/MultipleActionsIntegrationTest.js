@@ -7,8 +7,9 @@ describe("MultipleActionsIntegrationTest Critters taking multiple actions per wo
 
   describe("when a critter has multiple actions in an action node", function () {
     beforeEach(function () {
-      var moveForwardThenTurnLeft = [Critter.Actions.MOVE_FORWARD, Critter.Actions.TURN_LEFT];
-      fred = new Critter({mind: new CritterMind({decisionTree: moveForwardThenTurnLeft})});
+      var moveForwardThenTurnLeft = [['action', ['MOVE_FORWARD', 'TURN_LEFT']]];
+      
+      fred = new Critter({mind: new MindFactory().create(moveForwardThenTurnLeft)});
 
       world.place(fred, {x: 5, y: 5});
     });
@@ -22,8 +23,7 @@ describe("MultipleActionsIntegrationTest Critters taking multiple actions per wo
 
   describe("when a critter has one action in an action node", function () {
     beforeEach(function () {
-      var moveForward = Critter.Actions.MOVE_FORWARD;
-      fred = new Critter({mind: new CritterMind({decisionTree: moveForward})});
+      fred = new Critter({mind: new MindFactory().create([['action', 'MOVE_FORWARD']])});
 
       world.place(fred, {x: 5, y: 5});
     });

@@ -9,17 +9,10 @@ describe("Simple Decision Making", function () {
     var resource, blockingThing;
 
     beforeEach(function () {
-      var isSomethingInFrontOfMe = function(stimuli) {
-        return stimuli.thingInFrontOfMe;
-      };
-      var isThingInFrontOfMeEdible = function(stimuli) {
-        return stimuli.thingInFrontOfMe instanceof Resource;
-      };
+      var moveForwardOrEatOrTurn = [['condition', 'thingInFront'], ['condition', 'resourceInFront'], ['action', 'MOVE_FORWARD'], ['action', 'MOVE_FORWARD'], ['action', 'TURN_LEFT']];
 
-      var turnLeftOrEatIt = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, Critter.Actions.TURN_LEFT);
-      var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, turnLeftOrEatIt, Critter.Actions.MOVE_FORWARD);
-
-      rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
+      var mind = new MindFactory().create(moveForwardOrEatOrTurn);
+      rob = new Critter({mind: mind});
       blockingThing = new Rock();
       resource = new Resource();
 
@@ -62,21 +55,11 @@ describe("Simple Decision Making", function () {
       world.place(new Rock(), {x: 4, y: 2});
       world.place(new Rock(), {x: 3, y: 3});
 
-      var isSomethingInFrontOfMe = function(stimuli) {
-        return stimuli.thingInFrontOfMe;
-      };
-      var isSomethingToTheLeftOfMe = function(stimuli) {
-        return stimuli.thingToTheLeftOfMe;
-      };
-      var isSomethingToTheRightOfMe = function(stimuli) {
-        return stimuli.thingToTheRightOfMe;
-      };
 
-      var turnLeftOrStayStill = new DecisionNode(isSomethingToTheLeftOfMe, Critter.Actions.STARE_OFF_INTO_SPACE, Critter.Actions.TURN_LEFT);
-      var turnLeftRightOrThink = new DecisionNode(isSomethingToTheRightOfMe, turnLeftOrStayStill, Critter.Actions.TURN_RIGHT);
-      var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, turnLeftRightOrThink, Critter.Actions.MOVE_FORWARD);
-      var complexMind = new CritterMind({decisionTree: moveForwardOrThink});
-
+      var mindGenes = [['condition', 'thingInFront'], 
+          ['condition', 'thingToTheLeft'], ['action', 'MOVE_FORWARD'], ['condition','thingToTheRight'], ['action', 'TURN_LEFT'], null, null, ['action', 'STARE_OFF_INTO_SPACE'], ['action', 'TURN_RIGHT']];
+      
+      complexMind = new MindFactory().create(mindGenes);
       rob = new Critter({mind: complexMind});
       world.place(rob, {x: 2, y: 3});
     });

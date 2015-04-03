@@ -5,13 +5,11 @@ describe("Decision making from memory", function () {
     beforeEach(function () {
       world = window.singletonContext.world;
 
-      var zig = [Critter.Actions.TURN_RIGHT, Critter.Actions.MOVE_FORWARD, Critter.Actions.DECREMENT_COUNTER];
-      var zag = [Critter.Actions.TURN_LEFT, Critter.Actions.MOVE_FORWARD, Critter.Actions.INCREMENT_COUNTER];
-      var toZigOrToZagThatIsTheQuestion = function(stimuli, vitals) {
-        return vitals.counter === 0;
-      };
-      var zigZag = new DecisionNode(toZigOrToZagThatIsTheQuestion, zig, zag);
-      anna = new Critter({mind: new CritterMind({decisionTree: zigZag})});
+      var zig = ['action', ['TURN_RIGHT', 'MOVE_FORWARD', 'DECREMENT_COUNTER']];
+      var zag = ['action', ['TURN_LEFT', 'MOVE_FORWARD', 'INCREMENT_COUNTER']];
+      var mindGenes = [['condition', 'counter0'], zig, zag];
+      var mind = new MindFactory().create(mindGenes);
+      anna = new Critter({mind: mind});
 
       world.place(anna, {x:0, y: 9});
     });

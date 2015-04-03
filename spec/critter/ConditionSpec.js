@@ -17,7 +17,7 @@ describe("Condition", function(){
 
       describe("when the left value is truthy", function(){
         it("returns true", function(){
-          var stimuli = {someSense: true};
+          var stimuli = {someSense: 'some value'};
           expect(condition.evaluate(stimuli, vitals)).toBe(true);
         });
       });
@@ -35,7 +35,7 @@ describe("Condition", function(){
 
       describe("when the left value is truthy", function(){
         it("returns true", function(){
-          var vitals = {someVital: true};
+          var vitals = {someVital: 'some value'};
           expect(condition.evaluate(stimuli, vitals)).toBe(true);
         });
       });
