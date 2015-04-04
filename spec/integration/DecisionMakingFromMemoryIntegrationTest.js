@@ -8,8 +8,7 @@ describe("Decision making from memory", function () {
       var zig = ['action', ['TURN_RIGHT', 'MOVE_FORWARD', 'DECREMENT_COUNTER']];
       var zag = ['action', ['TURN_LEFT', 'MOVE_FORWARD', 'INCREMENT_COUNTER']];
       var mindGenes = [['condition', 'counter0'], zig, zag];
-      var mind = new MindFactory().create(mindGenes);
-      anna = new Critter({mind: mind});
+      anna = new Critter({genes: mindGenes});
 
       world.place(anna, {x:0, y: 9});
     });

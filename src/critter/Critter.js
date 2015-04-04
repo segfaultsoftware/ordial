@@ -2,7 +2,16 @@ $(function() {
   Critter = Backbone.Model.extend({
     initialize: function(options) {
       this.direction = CardinalDirection.NORTH;
-      this.mind = (options && options.mind) ? options.mind : CritterMind.EmptyMind;
+
+      if(options && options.mind){
+        this.mind = options.mind;
+      } else if(options && options.genes){
+        this.mind = singletonContext.mindFactory.create(options.genes);
+      } else {
+        this.mind = CritterMind.EmptyMind;
+      }
+      this.genes = options && options.genes;
+
       this.color = _.sample(["lavender", "black", "blue", "orange", "eggshell", "pink", "teal", "purple"]);
       var vitalOverrides = (options && options.vitals) || {};
       this.vitals = _.defaults(vitalOverrides, defaultVitals());

@@ -9,7 +9,7 @@ describe("MultipleActionsIntegrationTest Critters taking multiple actions per wo
     beforeEach(function () {
       var moveForwardThenTurnLeft = [['action', ['MOVE_FORWARD', 'TURN_LEFT']]];
       
-      fred = new Critter({mind: new MindFactory().create(moveForwardThenTurnLeft)});
+      fred = new Critter({genes: moveForwardThenTurnLeft});
 
       world.place(fred, {x: 5, y: 5});
     });

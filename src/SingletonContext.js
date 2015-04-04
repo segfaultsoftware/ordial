@@ -6,6 +6,7 @@ SingletonContext = function() {
     this.resourceSpawner = new ResourceSpawner();
     this.configuration = new Configuration();
     this.critterActuator = new CritterActuator();
+    this.mindFactory = new MindFactory();
   } catch (e) {
     throw 'Syntax error in SingletonContext.initialize' + e;
   }

@@ -11,8 +11,7 @@ describe("Simple Decision Making", function () {
     beforeEach(function () {
       var moveForwardOrEatOrTurn = [['condition', 'thingInFront'], ['condition', 'resourceInFront'], ['action', 'MOVE_FORWARD'], ['action', 'MOVE_FORWARD'], ['action', 'TURN_LEFT']];
 
-      var mind = new MindFactory().create(moveForwardOrEatOrTurn);
-      rob = new Critter({mind: mind});
+      rob = new Critter({genes: moveForwardOrEatOrTurn});
       blockingThing = new Rock();
       resource = new Resource();
 
@@ -59,8 +58,7 @@ describe("Simple Decision Making", function () {
       var mindGenes = [['condition', 'thingInFront'], 
           ['condition', 'thingToTheLeft'], ['action', 'MOVE_FORWARD'], ['condition','thingToTheRight'], ['action', 'TURN_LEFT'], null, null, ['action', 'STARE_OFF_INTO_SPACE'], ['action', 'TURN_RIGHT']];
       
-      complexMind = new MindFactory().create(mindGenes);
-      rob = new Critter({mind: complexMind});
+      rob = new Critter({genes: mindGenes});
       world.place(rob, {x: 2, y: 3});
     });
 

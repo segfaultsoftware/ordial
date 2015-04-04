@@ -35,6 +35,26 @@ describe("Critter", function() {
       expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
       expect(rob.vitals.counter).toEqual(2515);
     });
+    
+    describe("when given genes", function(){
+      var mindFactory, createdMind, genes;
+      beforeEach(function(){
+        genes = [['action', 'MOVE_FORWARD']];
+        createdMind = new CritterMind();
+        mindFactory = window.singletonContext.mindFactory;
+      });
+      it("generates a mind", function(){
+        spyOn(mindFactory, 'create').and.returnValue(createdMind);
+        var critter = new Critter({genes:genes});
+        expect(mindFactory.create).toHaveBeenCalledWith(genes);
+        expect(critter.mind).toBe(createdMind);
+      });
+      
+      it("stores the genes.", function(){
+        var critter = new Critter({genes: genes});
+        expect(critter.genes).toBe(genes);
+      });
+    });
   });
 
   describe("#getActions", function() {
