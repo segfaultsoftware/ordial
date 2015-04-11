@@ -7,6 +7,7 @@ SingletonContext = function() {
     this.configuration = new Configuration();
     this.critterActuator = new CritterActuator();
     this.mindFactory = new MindFactory();
+    this.geneMutator = new GeneMutator();
   } catch (e) {
     throw 'Syntax error in SingletonContext.initialize' + e;
   }

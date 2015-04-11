@@ -55,6 +55,13 @@ describe("Critter", function() {
         expect(critter.genes).toBe(genes);
       });
     });
+    
+    describe("when not given genes", function(){
+      it("creates default genes", function(){
+        var critter = new Critter();
+        expect(critter.genes).toEqual([]);
+      });
+    });
   });
 
   describe("#getActions", function() {

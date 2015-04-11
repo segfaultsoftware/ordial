@@ -9,8 +9,6 @@ $(function() {
         world.place(critter, nextLocation);
         critter.eat(thingAtNextLocation);
       }
-
-      critter.vitals.mana -= Critter.Actions.MOVE_FORWARD.cost;
     },
 
     turnCritter: function(critter, direction, action) {
@@ -18,8 +16,6 @@ $(function() {
         critter.direction,
         direction
       );
-
-      critter.vitals.mana -= action.cost;
     },
 
     turnCritterLeft: function(critter){
@@ -32,10 +28,10 @@ $(function() {
 
     reproduceCritter: function(critter){
       var world = singletonContext.world;
-      function createOffspringInDirection(relativeDirection){
+      function createOffspringInDirection(relativeDirection, genes){
         var offspringLocation = world.getTileInDirection(relativeDirection, critter);
         var contentsOfTile = world.getThingAt(offspringLocation);
-        var offspring = new Critter({mind: critter.mind});
+        var offspring = new Critter({genes: genes});
         if ((!contentsOfTile || offspring.canEat(contentsOfTile)) && world.isLocationInsideWorld(offspringLocation)) {
           offspring.direction = CardinalDirection.getDirectionAfterRotation(critter.direction, relativeDirection);
           world.place(offspring, offspringLocation);
@@ -43,18 +39,17 @@ $(function() {
         }
       }
 
-      if(critter.vitals.mana >= Critter.Actions.REPRODUCE.cost){
+        var cloneGenes = critter.genes;
+        var mutantGenes = singletonContext.geneMutator.mutate(_.clone(critter.genes));
+        
         if (Math.floor(Math.random() * 1000) % 2) {
-          createOffspringInDirection(RelativeDirection.LEFT);
-          createOffspringInDirection(RelativeDirection.RIGHT);
+          createOffspringInDirection(RelativeDirection.LEFT, cloneGenes);
+          createOffspringInDirection(RelativeDirection.RIGHT, mutantGenes);
         }
         else {
-          createOffspringInDirection(RelativeDirection.RIGHT);
-          createOffspringInDirection(RelativeDirection.LEFT);
+          createOffspringInDirection(RelativeDirection.RIGHT, mutantGenes);
+          createOffspringInDirection(RelativeDirection.LEFT, cloneGenes);
         }
-      }
-
-      critter.vitals.mana -= Critter.Actions.REPRODUCE.cost;
     },
 
     incrementCounterOnCritter: function(critter) {

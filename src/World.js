@@ -1,8 +1,8 @@
 $(function() {
   World = Backbone.Model.extend({
     initialize: function() {
-      this.width = 10;
-      this.height = 10;
+      this.width = 40;
+      this.height = 25;
       this.tiles = [];
       this.things = [];
     },
@@ -18,31 +18,35 @@ $(function() {
           actions = _.isArray(actions) ? actions : [actions];
 
           _.each(actions, function(action) {
-            switch(action) {
-              case Critter.Actions.MOVE_FORWARD:
-                critterActuator.moveCritterForward(thing);
-                break;
+            if(thing.vitals.mana >= action.cost){
+              switch(action) {
+                case Critter.Actions.MOVE_FORWARD:
+                  critterActuator.moveCritterForward(thing);
+                  break;
 
-              case Critter.Actions.TURN_LEFT:
-                critterActuator.turnCritterLeft(thing);
-                break;
+                case Critter.Actions.TURN_LEFT:
+                  critterActuator.turnCritterLeft(thing);
+                  break;
 
-              case Critter.Actions.TURN_RIGHT:
-                critterActuator.turnCritterRight(thing);
-                break;
+                case Critter.Actions.TURN_RIGHT:
+                  critterActuator.turnCritterRight(thing);
+                  break;
 
-              case Critter.Actions.REPRODUCE:
-                critterActuator.reproduceCritter(thing);
-                break;
+                case Critter.Actions.REPRODUCE:
+                  critterActuator.reproduceCritter(thing);
+                  break;
 
-              case Critter.Actions.INCREMENT_COUNTER:
-                critterActuator.incrementCounterOnCritter(thing);
-                break;
+                case Critter.Actions.INCREMENT_COUNTER:
+                  critterActuator.incrementCounterOnCritter(thing);
+                  break;
 
-              case Critter.Actions.DECREMENT_COUNTER:
-                critterActuator.decrementCounterOnCritter(thing);
-                break;
+                case Critter.Actions.DECREMENT_COUNTER:
+                  critterActuator.decrementCounterOnCritter(thing);
+                  break;
+              }
             }
+
+            thing.vitals.mana -= action.cost;
 
             if(thing.vitals.mana <= 0){
               deadThings.push(thing);
@@ -102,7 +106,7 @@ $(function() {
 
     isLocationInsideWorld: function(location){
       return location.x >= 0 && location.x < this.width &&
-             location.y >= 0 && location.y < this.height;
+        location.y >= 0 && location.y < this.height;
     },
 
     getThingAt: function(location){

@@ -28,9 +28,9 @@ describe("World", function() {
     });
 
     it("should call getActions on all critters", function(){
-      spyOn(rob, "getActions");
-      spyOn(zoe, "getActions");
-      spyOn(kim, "getActions");
+      spyOn(rob, "getActions").and.callThrough();
+      spyOn(zoe, "getActions").and.callThrough();
+      spyOn(kim, "getActions").and.callThrough();
       world.update();
       expect(rob.getActions).toHaveBeenCalled();
       expect(zoe.getActions).toHaveBeenCalled();
@@ -44,7 +44,7 @@ describe("World", function() {
 
       rob = new Critter();
       world.place(rob, {x:1, y:1});
-      spyOn(rob, "getActions");
+      spyOn(rob, "getActions").and.callThrough();
       world.update();
       expect(stimulusPackager.package).toHaveBeenCalledWith(world, rob);
       expect(rob.getActions).toHaveBeenCalledWith(somethingInteresting);
@@ -65,7 +65,7 @@ describe("World", function() {
         expect(critterActuator.turnCritterLeft).toHaveBeenCalledWith(zoe);
       });
     });
-    
+
     describe("when the getActions is TURN_RIGHT", function () {
       it("should call #turnCritterRight", function () {
         spyOn(critterActuator, 'turnCritterRight');
@@ -76,6 +76,7 @@ describe("World", function() {
 
     describe("when the getActions is REPRODUCE", function () {
       it("should call #reproduceCritter", function () {
+        kim.vitals.mana = Critter.Actions.REPRODUCE.cost + 1;
         spyOn(critterActuator, 'reproduceCritter');
         world.update();
         expect(critterActuator.reproduceCritter).toHaveBeenCalledWith(kim);
@@ -117,18 +118,29 @@ describe("World", function() {
       expect(kim.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.REPRODUCE.cost);
     });
 
-    it("should remove critters that drop to zero or negative mana", function() {
-      rob.vitals.mana = 1;
-      world.update();
-      expect(world.things).not.toContain(rob);
-      expect(world.things).toContain(zoe);
-      expect(world.things).not.toContain(kim);
+    describe("when the critter does not have enough mana to perform the action", function(){
+      it("should remove the critters", function() {
+        rob.vitals.mana = 1;
+        world.update();
+        expect(world.things).not.toContain(rob);
+        expect(world.things).toContain(zoe);
+        expect(world.things).not.toContain(kim);
+      });
+
+      it("should not perform the action", function(){
+        rob.vitals.mana = 1;
+        spyOn(critterActuator, 'moveCritterForward');
+        world.update();
+        expect(critterActuator.moveCritterForward).not.toHaveBeenCalledWith(rob);
+      });
+
     });
-    
     describe("when there are multiple actions", function(){
-      var fred;
+      var fred, originalMana;
       beforeEach(function () {
         fred = new Critter();
+        originalMana = Critter.Actions.REPRODUCE.cost + Critter.Actions.MOVE_FORWARD.cost + 1;
+        fred.vitals.mana = originalMana;
         spyOn(fred, "getActions").and.returnValue([Critter.Actions.MOVE_FORWARD, Critter.Actions.REPRODUCE]);
         world.place(fred, {x:5, y:5});
       });
@@ -140,10 +152,15 @@ describe("World", function() {
         expect(critterActuator.moveCritterForward).toHaveBeenCalledWith(fred);
         expect(critterActuator.reproduceCritter).toHaveBeenCalledWith(fred);
       });
+
+      it("applies both costs", function(){
+        world.update();
+        expect(fred.vitals.mana).toEqual(1);
+      });
     });
   });
 
-  
+
   describe("#place", function() {
     var location;
 
@@ -307,7 +324,7 @@ describe("World", function() {
 
   describe("#getTileInDirection", function() {
     var relativeDirection;
-    
+
     beforeEach(function() {
       rob.location = {x: 1, y:1};
     });
@@ -316,7 +333,7 @@ describe("World", function() {
       beforeEach(function() {
         relativeDirection = RelativeDirection.FORWARD;  
       });
-      
+
       it("should return coordinates for the tile to the WEST of Rob when Rob is facing WEST", function() {
         rob.direction = CardinalDirection.WEST;
         expect(world.getTileInDirection(relativeDirection, rob)).toEqual({x:0, y: 1});
@@ -342,7 +359,7 @@ describe("World", function() {
       beforeEach(function() {
         relativeDirection = RelativeDirection.LEFT;
       });
-      
+
       it("should return coordinates for the tile to the SOUTH of Rob when Rob is facing WEST", function() {
         rob.direction = CardinalDirection.WEST;
         expect(world.getTileInDirection(relativeDirection, rob)).toEqual({x:1, y: 2});

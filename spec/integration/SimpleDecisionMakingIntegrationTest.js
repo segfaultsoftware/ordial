@@ -39,8 +39,6 @@ describe("Simple Decision Making", function () {
       expect(rob.direction).toBe(CardinalDirection.SOUTH);
       world.update();
       expect(rob.location).toEqual({x:0, y:2});
-
-      expect(rob.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA - 7 + Resource.DEFAULT_MANA_VALUE);
     });
   });
 

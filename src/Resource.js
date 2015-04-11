@@ -5,5 +5,5 @@ $(function() {
     }
   });
 
-  Resource.DEFAULT_MANA_VALUE = 10;
+  Resource.DEFAULT_MANA_VALUE = 300;
 });

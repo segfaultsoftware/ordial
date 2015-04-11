@@ -23,7 +23,7 @@ describe("MultipleActionsIntegrationTest Critters taking multiple actions per wo
 
   describe("when a critter has one action in an action node", function () {
     beforeEach(function () {
-      fred = new Critter({mind: new MindFactory().create([['action', 'MOVE_FORWARD']])});
+      fred = new Critter({genes: [['action', 'MOVE_FORWARD']]});
 
       world.place(fred, {x: 5, y: 5});
     });

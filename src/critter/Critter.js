@@ -10,7 +10,12 @@ $(function() {
       } else {
         this.mind = CritterMind.EmptyMind;
       }
-      this.genes = options && options.genes;
+      
+      if(options && options.genes){
+        this.genes = options.genes;
+      } else {
+        this.genes = [];
+      }
 
       this.color = _.sample(["lavender", "black", "blue", "orange", "eggshell", "pink", "teal", "purple"]);
       var vitalOverrides = (options && options.vitals) || {};
@@ -35,31 +40,31 @@ $(function() {
   Critter.Actions = {
     MOVE_FORWARD: {
       key: 'move_forward',
-      cost: 1
+      cost: 10
     },
     TURN_LEFT: {
       key: 'turn left',
-      cost: 1
+      cost: 10
     },
     TURN_RIGHT: {
       key: 'turn right',
-      cost: 1
+      cost: 10
     },
     REPRODUCE: {
       key: 'reproduce',
-      cost: 10
+      cost: 100
     },
     STARE_OFF_INTO_SPACE: {
       key: 'noop',
-      cost: 0
+      cost: 1
     },
     INCREMENT_COUNTER: {
       key: 'increment counter',
-      cost: 0
+      cost: 1
     },
     DECREMENT_COUNTER: {
       key: 'decrement counter',
-      cost: 0
+      cost: 1
     }
   };
 
@@ -71,5 +76,5 @@ $(function() {
   }
 
   Critter.DEFAULT_STARTING_COUNTER = 0;
-  Critter.DEFAULT_STARTING_MANA = 10;
+  Critter.DEFAULT_STARTING_MANA = 50;
 });

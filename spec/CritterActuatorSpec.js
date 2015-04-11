@@ -2,19 +2,13 @@ describe("CritterActuator", function(){
   var critterActuator, robsOriginalLocation, zoesOriginalLocation;
   var world, rob;
   beforeEach(function(){
-    rob = new Critter();
+    rob = new Critter({genes:[['action', 'MOVE_FORWARD']]});
     critterActuator = new CritterActuator();
     world = singletonContext.world = new World();
     world.place(rob, {x: 4, y: 1});
   });
 
   describe("#moveCritterForward", function() {
-    it("should decrement the critter's mana by movement cost.", function(){
-      expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
-      critterActuator.moveCritterForward(rob);
-      expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.MOVE_FORWARD.cost);
-    });
-
     describe('when there is an empty tile in front of the critter', function() {
       beforeEach(function() {
         world.place(rob, {x: 4, y: 1});
@@ -67,7 +61,6 @@ describe("CritterActuator", function(){
       beforeEach(function () {
         resource = new Resource();
         originalMana = rob.vitals.mana;
-        costOfTheMove = Critter.Actions.MOVE_FORWARD.cost;
         world.place(rob, {x: 4, y: 1});
         world.place(resource, {x: 4, y: 0});
         critterActuator.moveCritterForward(rob);
@@ -86,18 +79,12 @@ describe("CritterActuator", function(){
       });
 
       it("should increase rob's mana by the resource's value", function() {
-        expect(rob.vitals.mana).toEqual(originalMana + resource.mana - costOfTheMove);
+        expect(rob.vitals.mana).toEqual(originalMana + resource.mana);
       });
     });
   });
 
   describe("#turnCritterLeft", function() {
-    it("should decrement the critter's mana by turning cost", function(){
-      expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
-      critterActuator.moveCritterForward(rob);
-      expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_LEFT.cost);
-    });
-
     it("should update the critter's cardinal direction", function () {
       expect(rob.direction).toBe(CardinalDirection.NORTH);
       critterActuator.turnCritterLeft(rob);
@@ -119,12 +106,6 @@ describe("CritterActuator", function(){
   });
 
   describe("#turnCritterRight", function() {
-    it("should decrement the critter's mana by turning cost", function(){
-      expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA);
-      critterActuator.moveCritterForward(rob);
-      expect(rob.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_RIGHT.cost);
-    });
-
     it("should update the critter's cardinal direction", function () {
       expect(rob.direction).toBe(CardinalDirection.NORTH);
       critterActuator.turnCritterRight(rob);
@@ -155,13 +136,6 @@ describe("CritterActuator", function(){
       originalWorldSize = world.things.length;
     });
 
-    it("should decrement rob's mana by reproduction cost", function() {
-      var startingMana = 100;
-      rob.vitals.mana = startingMana;
-      critterActuator.reproduceCritter(rob);
-      expect(rob.vitals.mana).toEqual(startingMana - Critter.Actions.REPRODUCE.cost);
-    });
-
     describe("left child", function() {
       beforeEach(function(){
         offspringLocation = world.getTileInDirection(RelativeDirection.LEFT, rob);
@@ -180,8 +154,8 @@ describe("CritterActuator", function(){
         });
 
         describe("offspring", function() {
-          it("should have its parent's mind", function(){
-            expect(offspring.mind).toEqual(rob.mind);
+          it("should have its parent's genes", function(){
+            expect(offspring.genes).toEqual(rob.genes);
           });
 
           it("should be oriented to the left of its parent", function(){
@@ -249,9 +223,13 @@ describe("CritterActuator", function(){
       });
 
       describe("when there is an open position to the right", function() {
-        var offspring;
+        var offspring, mutantGenes;
 
         beforeEach(function() {
+          mutantGenes = [['action', 'TURN_LEFT']];
+          spyOn(singletonContext.geneMutator, 'mutate')
+            .and.returnValue(mutantGenes);
+
           critterActuator.reproduceCritter(rob);
           offspring = world.getThingAt(offspringLocation);
         });
@@ -261,8 +239,10 @@ describe("CritterActuator", function(){
         });
 
         describe("offspring", function() {
-          it("should have its parent's mind", function(){
-            expect(offspring.mind).toEqual(rob.mind);
+          it("should have a mutated version of its parent's mind", function(){
+            expect(offspring.genes).toEqual(mutantGenes);
+            expect(offspring.getActions()).toEqual(Critter.Actions.TURN_LEFT);
+
           });
 
           it("should be oriented to the right of its parent", function(){
@@ -318,39 +298,6 @@ describe("CritterActuator", function(){
         });
       });
     });
-
-    describe("when the critter doesn't have enough mana to reproduce", function(){
-      beforeEach(function(){
-        rob.vitals.mana = 1;
-        critterActuator.reproduceCritter(rob);
-      });
-
-      it("should not create offspring", function(){
-        expect(world.things.length).toEqual(originalWorldSize);
-      });
-    });
-
-    describe("when the critter has exactly the amount of mana to reproduce", function() {
-      beforeEach(function(){
-        rob.vitals.mana = Critter.Actions.REPRODUCE.cost;
-        critterActuator.reproduceCritter(rob);
-      });
-
-      it("should produce both offspring", function() {
-        expect(world.things.length).toEqual(originalWorldSize + 2);
-      });
-    });
-
-    describe("when the critter has more than enough mana to reproduce", function() {
-      beforeEach(function() {
-        rob.vitals.mana = Critter.Actions.REPRODUCE.cost + 1;
-        critterActuator.reproduceCritter(rob);
-      });
-
-      it("should produce both offspring", function() {
-        expect(world.things.length).toEqual(originalWorldSize + 2);
-      });
-    });
   });
 
   describe("#incrementCounterOnCritter", function () {
@@ -364,12 +311,6 @@ describe("CritterActuator", function(){
       critterActuator.incrementCounterOnCritter(anna);
       expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER + 1);
     });
-
-    it("should not cost any mana", function () {
-      expect(anna.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA);
-      critterActuator.incrementCounterOnCritter(anna);
-      expect(anna.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA);
-    });
   });
 
   describe("#decrementCounterOnCritter", function () {
@@ -382,12 +323,6 @@ describe("CritterActuator", function(){
       expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER);
       critterActuator.decrementCounterOnCritter(anna);
       expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER - 1);
-    });
-
-    it("should not cost any mana", function () {
-      expect(anna.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA);
-      critterActuator.decrementCounterOnCritter(anna);
-      expect(anna.vitals.mana).toBe(Critter.DEFAULT_STARTING_MANA);
     });
   });
 

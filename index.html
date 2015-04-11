@@ -10,6 +10,7 @@
 <script src="src/CardinalDirection.js"></script>
 <script src="src/Configuration.js"></script>
 <script src="src/CritterActuator.js"></script>
+<script src="src/GeneMutator.js"></script>
 <script src="src/OrdialScheduler.js"></script>
 <script src="src/PauseView.js"></script>
 <script src="src/RelativeDirection.js"></script>
@@ -56,45 +57,53 @@
   });
 </script>
 
+<button id="runCode">Run Code!</button>
 <h3>Active Code</h3>
+
 <textarea id="code">
-  var isSomethingInFrontOfMe = function(stimuli) {
-    return stimuli.thingInFrontOfMe;
-  };
-  var isThingInFrontOfMeEdible = function(stimuli) {
-    return stimuli.thingInFrontOfMe instanceof Resource;
-  };
-  var isNothingToTheLeftOfMe = function(stimuli) {
-    return !stimuli.thingToTheLeftOfMe;
-  };
+     var isSomethingInFrontOfMe = function(stimuli) {
+      return stimuli.thingInFrontOfMe;
+    };
+    var isThingInFrontOfMeEdible = function(stimuli) {
+      return stimuli.thingInFrontOfMe instanceof Resource;
+    };
+    var isNothingToTheLeftOfMe = function(stimuli) {
+      return !stimuli.thingToTheLeftOfMe;
+    };
 
-  var turnLeftOrTurnRight = new DecisionNode(isNothingToTheLeftOfMe, Critter.Actions.TURN_LEFT, Critter.Actions.TURN_RIGHT);
-  var eatItOrThink = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, turnLeftOrTurnRight);
-  var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, eatItOrThink, Critter.Actions.MOVE_FORWARD);
-  var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
-  var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
+    var turnLeftOrTurnRight = new DecisionNode(isNothingToTheLeftOfMe, Critter.Actions.TURN_LEFT, Critter.Actions.TURN_RIGHT);
+    var eatItOrThink = new DecisionNode(isThingInFrontOfMeEdible, Critter.Actions.MOVE_FORWARD, turnLeftOrTurnRight);
+    var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, eatItOrThink, Critter.Actions.MOVE_FORWARD);
+    var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
 
-  function getCoord() {
-    return Math.floor(Math.random() * 10);
-  }
+  
+  var mindGenes =[['condition', 'resourceInFront'], ['action', 'MOVE_FORWARD'],['condition','resourceToTheRight'],['action','REPRODUCE'],['action','REPRODUCE'],['action','TURN_RIGHT'],['condition','resourceToTheLeft'],['action','REPRODUCE'],['action','REPRODUCE'],['action','TURN_LEFT'],['action','REPRODUCE']];
+  
+  
+    function getCoord() {
+      return Math.floor(Math.random() * Math.min(world.height, world.width));
+    }
 
-  function getCoords() {
-    return {x: getCoord(), y: getCoord()};
-  }
+    function getCoords() {
+      return {x: getCoord(), y: getCoord()};
+    }
 
-  for(var i = 0; i < 50; i++) {
-    world.place(new Resource(), getCoords());
-  }
-  for(var i = 0; i < 50; i++) {
-    var blocker = new Rock();
-    world.place(blocker, getCoords());
-  }
+    for(var i = 0; i < 550; i++) {
+      world.place(new Resource(), getCoords());
+    }
+    for(var i = 0; i < 150; i++) {
+      var blocker = new Rock();
+      world.place(blocker, getCoords());
+    }
 
-  rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
-  world.place(rob, getCoords());
+    rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
+    world.place(rob, getCoords());
+    
+    var deb = new Critter({genes: mindGenes});
+    deb.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
+    world.place(deb, getCoords());
 </textarea>
 <br/>
-<button id="runCode">Run</button>
 
 <h3>Finding food</h3>
 <textarea>
@@ -113,6 +122,11 @@
     var moveForwardOrThink = new DecisionNode(isSomethingInFrontOfMe, eatItOrThink, Critter.Actions.MOVE_FORWARD);
     var rob = new Critter({mind: new CritterMind({decisionTree: moveForwardOrThink})});
 
+  
+  var mindGenes =[['condition', 'resourceInFront'], ['action', 'MOVE_FORWARD'],['condition','resourceToTheRight'],null,null,['action','TURN_RIGHT'],['condition','resourceToTheLeft'],null,null,['action','TURN_LEFT'],['action','REPRODUCE']];
+  
+  var deb = new Critter({genes: mindGenes});
+  
     function getCoord() {
       return Math.floor(Math.random() * 10);
     }
@@ -131,6 +145,10 @@
 
     rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
     world.place(rob, getCoords());
+  
+    deb.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
+    world.place(deb, getCoords());
+    
 </textarea>
 
 <h3>Zig Zag</h3>
