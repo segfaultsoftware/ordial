@@ -31,7 +31,6 @@ describe("Critter Mutation", function () {
       world.update();
       expect(cloneChild).toBeDefined();
       expect(world.contains(cloneChild)).toBe(false);
-      console.log(mutantChild.genes);
       expect(mutantChild.direction).toEqual(CardinalDirection.NORTH);
 
       expect(world.things.length).toBe(3);

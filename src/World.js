@@ -1,8 +1,8 @@
 $(function() {
   World = Backbone.Model.extend({
     initialize: function() {
-      this.width = 40;
-      this.height = 25;
+      this.width = 50;
+      this.height = 20;
       this.tiles = [];
       this.things = [];
     },

@@ -42,10 +42,10 @@ $(function() {
     thingToTheRight: new Condition('stimuli', 'thingToTheRightOfMe'),
     thingToTheLeft: new Condition('stimuli', 'thingToTheLeftOfMe'),
     
-    mana10: new Condition('vitals', 'mana', 'Equals', 10),
-    mana5: new Condition('vitals', 'mana', 'Equals', 5),
-    mana1: new Condition('vitals', 'mana', 'Equals', 1),
-    mana20: new Condition('vitals', 'mana', 'Equals', 20),
+    mana10: new Condition('vitals', 'mana', 'Equals', 100),
+    mana5: new Condition('vitals', 'mana', 'Equals', 50),
+    mana1: new Condition('vitals', 'mana', 'Equals', 10),
+    mana20: new Condition('vitals', 'mana', 'Equals', 200),
     
     counter0: new Condition('vitals', 'counter', 'Equals', 0),
     counter1: new Condition('vitals', 'counter', 'Equals', 1),

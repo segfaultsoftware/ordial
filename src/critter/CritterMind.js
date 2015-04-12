@@ -12,7 +12,7 @@ $(function() {
 
     getActionsForNode: function(stimuli, vitals, currentNode){
       if (!currentNode){
-        return Critter.Actions.STARE_OFF_INTO_SPACE;
+        return Critter.Actions.STARE_OFF_INTO_SPACE ;
       } else if(currentNode.type === DecisionNode.TYPE) {
         if (currentNode.condition(stimuli, vitals)) {
           return this.getActionsForNode(stimuli, vitals, currentNode.leftNode);
