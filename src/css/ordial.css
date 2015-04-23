@@ -116,6 +116,10 @@
   padding: 0;
   border: 0;
 }
+.tile {
+  width: inherit;
+  height: inherit;
+}
 textarea,
 .ace_editor {
   width: 900px;

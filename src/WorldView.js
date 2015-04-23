@@ -3,37 +3,40 @@ $(function() {
     render: function() {
       // render the grid
       // render the world inhabitants
-
-
-      this.$el.html("<table border='1'>");
+      var tableEl = document.createElement('table');
+      this.$el.html('');
       for(var row = 0; row < this.model.height; row++) {
-        var rowHtml = "<tr>";
+        var rowEl = document.createElement('tr');
         for(var col = 0; col < this.model.width; col++){
           var thing = this.model.getThingAt({x: col, y: row});
           var thingView = this.renderThingAt(thing);
-          rowHtml += "<td>" + thingView + "</td>";
+          var tdEl = document.createElement('td');
+          if(thingView){
+            tdEl.appendChild(thingView);
+          }
+          rowEl.appendChild(tdEl);
         }
-        rowHtml += "</tr>";
-        this.$("table").append(rowHtml);
+        tableEl.appendChild(rowEl);
       }
+      this.el.appendChild(tableEl);
       return this;
     },
 
     renderThingAt: function(thing){
-      var view = undefined;
+      var view;
 
-      if(thing != undefined && thing != null){
+      if(thing){
         if(thing instanceof Critter){
-          view = new CritterView({model: thing}).render();
+          view = new CritterView({model: thing});
         }
         else if (thing instanceof Resource) {
-          view = new ResourceView().render();
+          view = new ResourceView();
         }
         else if (thing instanceof Rock) {
-          view = new RockView().render();
+          view = new RockView();
         }
       }
-      return view ? view.render().el.innerHTML : "";
+      return view ? view.render().el: null;
     }
   });
 });
