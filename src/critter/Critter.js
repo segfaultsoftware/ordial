@@ -17,7 +17,7 @@ $(function() {
         this.genes = [];
       }
 
-      this.color = _.sample(["lavender", "black", "blue", "orange", "eggshell", "pink", "teal", "purple"]);
+      this.color = window.singletonContext.randomNumberGenerator.sample(["lavender", "black", "blue", "orange", "eggshell", "pink", "teal", "purple"]);
       var vitalOverrides = (options && options.vitals) || {};
       this.vitals = _.defaults(vitalOverrides, defaultVitals());
     },

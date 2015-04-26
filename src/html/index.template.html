@@ -56,7 +56,7 @@
   
   
     function getCoord() {
-      return Math.floor(Math.random() * Math.min(world.height, world.width));
+      return Math.floor(window.singletonContext.randomNumberGenerator.random() * Math.min(world.height, world.width));
     }
 
     function getCoords() {
@@ -71,11 +71,11 @@
       world.place(blocker, getCoords());
     }
 
-    rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
+    rob.direction = window.singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
     world.place(rob, getCoords());
     
     var deb = new Critter({genes: mindGenes});
-    deb.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
+    deb.direction = window.singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
     world.place(deb, getCoords());
 </textarea>
 <br/>
@@ -103,7 +103,7 @@
   var deb = new Critter({genes: mindGenes});
   
     function getCoord() {
-      return Math.floor(Math.random() * 10);
+      return Math.floor(window.singletonContext.randomNumberGenerator.random() * 10);
     }
 
     function getCoords() {
@@ -118,10 +118,10 @@
       world.place(blocker, getCoords());
     }
 
-    rob.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
+    rob.direction = window.singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
     world.place(rob, getCoords());
   
-    deb.direction = _.sample(CardinalDirection.ALL_DIRECTIONS);
+    deb.direction = window.singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
     world.place(deb, getCoords());
     
 </textarea>

@@ -1,7 +1,7 @@
 describe("Resource Spawning", function () {
   var world;
   beforeEach(function () {
-    Math.seedrandom(1);
+    window.singletonContext.randomNumberGenerator.seedrandom(1);
     world = window.singletonContext.world = new World();
   });
 

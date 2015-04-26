@@ -42,7 +42,7 @@ $(function() {
       var cloneGenes = critter.replicateGenes();
       var mutantGenes = singletonContext.geneMutator.mutate(critter.replicateGenes());
 
-      if (Math.floor(Math.random() * 1000) % 2) {
+      if (Math.floor(window.singletonContext.randomNumberGenerator.random() * 1000) % 2) {
         createOffspringInDirection(RelativeDirection.LEFT, cloneGenes);
         createOffspringInDirection(RelativeDirection.RIGHT, mutantGenes);
       }

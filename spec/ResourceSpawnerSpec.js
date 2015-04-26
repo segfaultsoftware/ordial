@@ -12,7 +12,7 @@ describe("ResourceSpawner", function () {
         world.width = 2;
         world.height = 1;
 
-        Math.seedrandom(1);
+        window.singletonContext.randomNumberGenerator.seedrandom(1);
         spawner.spawn();
         expect(world.getThingAt({x: 0, y: 0})).not.toBeNull();
         expect(world.getThingAt({x: 1, y: 0})).toBeNull();
@@ -21,7 +21,7 @@ describe("ResourceSpawner", function () {
         world.width = 2;
         world.height = 1;
 
-        Math.seedrandom(3);
+        window.singletonContext.randomNumberGenerator.seedrandom(3);
         spawner.spawn();
         expect(world.getThingAt({x: 1, y: 0})).not.toBeNull();
         expect(world.getThingAt({x: 0, y: 0})).toBeNull();
@@ -34,7 +34,7 @@ describe("ResourceSpawner", function () {
           world.width = 2;
           world.height = 1;
 
-          Math.seedrandom(1);
+          window.singletonContext.randomNumberGenerator.seedrandom(1);
           world.place(new Resource(), {x: 0, y: 0});
         });
 

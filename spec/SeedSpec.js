@@ -22,12 +22,12 @@ describe("Seed", function() {
       seedValue = 'wertq';
       seed = new Seed();
       seed.set('seedValue', seedValue);
-      spyOn(Math, "seedrandom");
+      spyOn(window.singletonContext.randomNumberGenerator, "seedrandom");
     });
 
     it('should call Math.seedrandom with the seed value', function(){
       seed.seedRandom();
-      expect(Math.seedrandom).toHaveBeenCalledWith(seedValue);
+      expect(window.singletonContext.randomNumberGenerator.seedrandom).toHaveBeenCalledWith(seedValue);
     });
   });
 });

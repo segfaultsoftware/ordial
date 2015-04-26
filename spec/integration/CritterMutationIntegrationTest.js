@@ -9,7 +9,7 @@ describe("Critter Mutation", function () {
     var resource, blockingThing;
 
     beforeEach(function () {
-      Math.seedrandom(1);
+      window.singletonContext.randomNumberGenerator.seedrandom(1);
       var mindGenes = [['action', 'REPRODUCE']];
       Critter.DEFAULT_STARTING_MANA = Critter.Actions.REPRODUCE.cost;
       rob = new Critter({genes: mindGenes});

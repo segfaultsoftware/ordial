@@ -3,13 +3,13 @@ $(function() {
     initialize: function() {
       this.set('isFinalized', false);
       if (!this.get('seedValue')) {
-        Math.seedrandom();
-        this.set('seedValue', Math.random());
+        window.singletonContext.randomNumberGenerator.seedrandom();
+        this.set('seedValue', window.singletonContext.randomNumberGenerator.random());
       }
     },
 
     seedRandom: function(){
-      Math.seedrandom(this.get('seedValue'));
+      window.singletonContext.randomNumberGenerator.seedrandom(this.get('seedValue'));
     }
   });
 });
