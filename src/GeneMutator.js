@@ -4,7 +4,8 @@ $(function() {
       var mutatorFunction = window.singletonContext.randomNumberGenerator.sample([
         this.swap,
         this.insert,
-        this.remove
+        this.remove,
+        this.replace
       ]);
       return _.bind(mutatorFunction, this)(genes);
     },
@@ -26,6 +27,11 @@ $(function() {
     remove: function(genes){
       var indexToDelete = window.singletonContext.randomNumberGenerator.random(genes.length -1);
       genes.splice(indexToDelete, 1);
+      return genes;
+    },
+    replace: function(genes) {
+      var index = window.singletonContext.randomNumberGenerator.random(genes.length - 1);
+      genes[index] = this.randomGene();
       return genes;
     },
     randomGene: function() {

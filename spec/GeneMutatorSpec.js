@@ -11,15 +11,17 @@ describe("GeneMutator", function(){
     });
     
     describe("selecting a type of mutation", function(){
-      var swapResult, insertResult, removeResult;
+      var swapResult, insertResult, removeResult, replaceResult;
       beforeEach(function(){
         swapResult = ['swapped'];
         insertResult = ['inserted'];
         removeResult = ['removed'];
+        replaceResult = ['replace'];
 
         spyOn(mutator, 'swap').and.returnValue(swapResult);
         spyOn(mutator, 'insert').and.returnValue(insertResult);
         spyOn(mutator, 'remove').and.returnValue(removeResult);
+        spyOn(mutator, 'replace').and.returnValue(replaceResult);
       });
 
       it("can swap", function(){
@@ -41,6 +43,13 @@ describe("GeneMutator", function(){
         var result = mutator.mutate(genes);
         expect(mutator.remove).toHaveBeenCalledWith(genes);
         expect(result).toBe(removeResult);
+      });
+
+      it("can replace", function() {
+        window.singletonContext.randomNumberGenerator.stubRandom([3]);
+        var result = mutator.mutate(genes);
+        expect(mutator.replace).toHaveBeenCalledWith(genes);
+        expect(result).toBe(replaceResult);
       });
     });
   });
@@ -107,6 +116,17 @@ describe("GeneMutator", function(){
       window.singletonContext.randomNumberGenerator.stubRandom([3]);
       var result = mutator.remove(genes);
       expect(result).toEqual([1,2,4]);
+    });
+  });
+
+  describe("#replace", function() {
+    it("changes the value of a random gene", function() {
+      spyOn(mutator, 'randomGene').and.returnValue('foo');
+      window.singletonContext.randomNumberGenerator.stubRandom([2]);
+      var result = mutator.replace(genes);
+      expect(result.length).toEqual(5);
+      var indexOfNewGene = result.indexOf('foo');
+      expect(indexOfNewGene).not.toEqual(-1);
     });
   });
 

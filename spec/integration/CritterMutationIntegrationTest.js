@@ -6,10 +6,21 @@ describe("Critter Mutation", function () {
   });
 
   describe("when a critter reproduces", function () {
-    var resource, blockingThing;
-
     beforeEach(function () {
-      window.singletonContext.randomNumberGenerator.seedrandom(1);
+      var randomForWhichMutant = 0;
+      var randomForMutateReplace = 3;
+      var randomForReplaceIndex = 0;
+      var randomForRandomGeneAction = 1;
+      var randomForTurnLeft = 1;
+
+      window.singletonContext.randomNumberGenerator.stubRandom([
+        randomForWhichMutant,
+        randomForMutateReplace,
+        randomForReplaceIndex,
+        randomForRandomGeneAction,
+        randomForTurnLeft
+      ]);
+
       var mindGenes = [['action', 'REPRODUCE']];
       Critter.DEFAULT_STARTING_MANA = Critter.Actions.REPRODUCE.cost;
       rob = new Critter({genes: mindGenes});
