@@ -82,6 +82,10 @@ describe("Critter", function() {
   });
 
   describe("#canEat", function() {
+    beforeEach(function() {
+      rob = new Critter();
+    });
+
     it('for a resource should return true', function() {
       expect(rob.canEat(new Resource())).toBe(true);
     });
@@ -94,6 +98,7 @@ describe("Critter", function() {
   describe("#eat", function () {
     var originalMana, resourceMana, resource;
     beforeEach(function () {
+      rob = new Critter();
       resource = new Resource();
       originalMana = rob.vitals.mana;
       resourceMana = resource.mana;
@@ -111,6 +116,35 @@ describe("Critter", function() {
         rob.eat(undefined);
         expect(rob.vitals.mana).toEqual(originalMana);
       });
+    });
+  });
+
+  describe("#replicateGenes", function() {
+    var deepGenes;
+
+    beforeEach(function() {
+      spyOn(singletonContext.mindFactory, 'create').and.returnValue(null);
+
+      deepGenes = [
+        ['foo', ['bar', 'baz']]
+      ];
+      rob = new Critter({genes: deepGenes});
+    });
+
+    it("should return a deep clone of the current genes", function() {
+      var replicatedGenes = rob.replicateGenes();
+      expect(replicatedGenes).toEqual(deepGenes);
+
+      replicatedGenes[0][0] = 'derp';
+
+      expect(replicatedGenes).not.toEqual(deepGenes);
+
+      var justInCase = rob.replicateGenes();
+      expect(justInCase).toEqual(deepGenes);
+
+      justInCase[0][1][1] = 'blarg';
+
+      expect(justInCase).not.toEqual(deepGenes);
     });
   });
 });

@@ -39,17 +39,17 @@ $(function() {
         }
       }
 
-        var cloneGenes = critter.genes;
-        var mutantGenes = singletonContext.geneMutator.mutate(_.clone(critter.genes));
-        
-        if (Math.floor(Math.random() * 1000) % 2) {
-          createOffspringInDirection(RelativeDirection.LEFT, cloneGenes);
-          createOffspringInDirection(RelativeDirection.RIGHT, mutantGenes);
-        }
-        else {
-          createOffspringInDirection(RelativeDirection.RIGHT, mutantGenes);
-          createOffspringInDirection(RelativeDirection.LEFT, cloneGenes);
-        }
+      var cloneGenes = critter.replicateGenes();
+      var mutantGenes = singletonContext.geneMutator.mutate(critter.replicateGenes());
+
+      if (Math.floor(Math.random() * 1000) % 2) {
+        createOffspringInDirection(RelativeDirection.LEFT, cloneGenes);
+        createOffspringInDirection(RelativeDirection.RIGHT, mutantGenes);
+      }
+      else {
+        createOffspringInDirection(RelativeDirection.RIGHT, mutantGenes);
+        createOffspringInDirection(RelativeDirection.LEFT, cloneGenes);
+      }
     },
 
     incrementCounterOnCritter: function(critter) {

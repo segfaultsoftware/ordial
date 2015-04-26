@@ -34,6 +34,10 @@ $(function() {
       if (yummyMorsel && yummyMorsel.mana) {
         this.vitals.mana += yummyMorsel.mana;
       }
+    },
+
+    replicateGenes: function() {
+      return $.extend(true, [], this.genes);
     }
   });
 
