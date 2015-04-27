@@ -11,9 +11,16 @@ $(function() {
       this.pauseView = new PauseView({paused: this.paused, el:'#pauseContainer'});
       this.pauseView.render();
 
+      this.timeoutControlsView = new TimeoutControlsView({el: '#timeoutControlsContainer'});
+      this.timeoutControlsView.render();
+
       var ordial = this;
       this.listenTo(this.pauseView, 'pauseButtonClicked', function() {
         ordial.togglePause();
+      });
+
+      this.listenTo(this.timeoutControlsView, 'timeout:changed', function(event) {
+        window.singletonContext.scheduler.timeout = event.timeout;
       });
     },
 
@@ -44,6 +51,5 @@ $(function() {
       this.seedView.disableInput();
       this.seedView.render();
     }
-
   });
 });

@@ -187,4 +187,13 @@ describe("Ordial", function() {
       });
     })
   });
+
+  describe("the scheduler", function() {
+    it("should be controllable by slider", function() {
+      // its only undefined because we have it as a spyObj; it should default to 1000
+      expect(window.singletonContext.scheduler.timeout).toBeUndefined();
+      ordial.timeoutControlsView.trigger("timeout:changed", {timeout: 200});
+      expect(window.singletonContext.scheduler.timeout).toEqual(200);
+    });
+  });
 });

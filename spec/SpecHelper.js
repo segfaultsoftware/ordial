@@ -16,4 +16,6 @@ beforeEach(function () {
       };
     }
   });
+
+  $("#testing-area").html("");
 });

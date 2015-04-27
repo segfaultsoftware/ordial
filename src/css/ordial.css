@@ -120,6 +120,11 @@
   width: inherit;
   height: inherit;
 }
+#timeoutControlsContainer {
+  margin-top: 2px;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
 textarea,
 .ace_editor {
   width: 900px;
