@@ -24,17 +24,18 @@
 <script src="src/World.js"></script>
 <script src="src/critter/Condition.js"></script>
 <script src="src/critter/Critter.js"></script>
+<script src="src/critter/CritterManaView.js"></script>
 <script src="src/critter/CritterMind.js"></script>
 <script src="src/critter/CritterView.js"></script>
 <script src="src/critter/DecisionNode.js"></script>
 <script src="src/critter/MindFactory.js"></script>
+<script src="src/ordial.js"></script>
 <script src="src/views/PauseView.js"></script>
 <script src="src/views/ResourceView.js"></script>
 <script src="src/views/RockView.js"></script>
 <script src="src/views/SeedView.js"></script>
 <script src="src/views/TimeoutControlsView.js"></script>
 <script src="src/views/WorldView.js"></script>
-<script src="src/ordial.js"></script>
 
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
@@ -45,7 +46,11 @@
   <div id="pauseContainer"></div>
   <div id="timeoutControlsContainer"></div>
   <div id="world"></div>
+  <div class="button" id="runCode">Run Code!</div>
+  <div id="critterManaContainer"></div>
 </div>
+
+<div id="testing-area"></div>
 
 <script type="text/javascript">
   $(function() {
@@ -60,7 +65,6 @@
   });
 </script>
 
-<button id="runCode">Run Code!</button>
 <h3>Active Code</h3>
 
 <textarea id="code">

@@ -9,6 +9,7 @@ SingletonContext = function() {
     this.mindFactory = new MindFactory();
     this.geneMutator = new GeneMutator();
     this.randomNumberGenerator = new RandomNumberGenerator();
+    this.eventBus = _.extend({}, Backbone.Events);
   } catch (e) {
     throw 'Syntax error in SingletonContext.initialize' + e;
   }

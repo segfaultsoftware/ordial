@@ -10,7 +10,7 @@ $(function() {
       this.trigger("pauseButtonClicked");
     },
     render: function(){
-      this.$el.html('<button id="pause-button">'+this.buttonText()+'</button>');
+      this.$el.html('<div class="button" id="pause-button">'+this.buttonText()+'</div>');
       return this;
     },
     buttonText: function(){

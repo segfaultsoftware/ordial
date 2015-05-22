@@ -120,11 +120,6 @@
   width: inherit;
   height: inherit;
 }
-#timeoutControlsContainer {
-  margin-top: 2px;
-  margin-bottom: 4px;
-  font-size: 14px;
-}
 textarea,
 .ace_editor {
   width: 900px;
@@ -133,4 +128,23 @@ textarea,
 }
 body {
   font-family: sans-serif;
+}
+#critterManaContainer {
+  margin-top: 5px;
+}
+#critterManaContainer label {
+  font-size: 12px;
+  margin-right: 5px;
+  color: #886D88;
+}
+.button {
+  display: inline-flex;
+  cursor: default;
+  background-color: #C163C3;
+  border: 0px;
+  color: #F1C9F2;
+  border-radius: 3px;
+  padding: 4px 10px;
+  margin-top: 5px;
+  margin-right: 5px;
 }

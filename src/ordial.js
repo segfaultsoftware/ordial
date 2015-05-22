@@ -13,7 +13,10 @@ $(function() {
 
       this.timeoutControlsView = new TimeoutControlsView({el: '#timeoutControlsContainer'});
       this.timeoutControlsView.render();
-
+      
+      this.critterManaView = new CritterManaView({ el:'#critterManaContainer'});
+      this.critterManaView.render();
+      
       var ordial = this;
       this.listenTo(this.pauseView, 'pauseButtonClicked', function() {
         ordial.togglePause();
@@ -38,6 +41,7 @@ $(function() {
 
       if(!this.paused){
         window.singletonContext.world.update();
+        this.critterManaView.render();
         window.singletonContext.scheduler.schedule(this);
       }
     },

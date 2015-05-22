@@ -1,11 +1,11 @@
 describe("CritterView", function() {
+  var rob, critterView;
+  beforeEach(function() {
+    rob = new Critter();
+    critterView = new CritterView({model: rob});
+  });
+  
   describe("#render", function() {
-    var rob, critterView;
-    beforeEach(function() {
-      rob = new Critter();
-      critterView = new CritterView({model: rob});
-    });
-
     describe("directions", function () {
       it('should draw Rob facing the north', function(){
         rob.direction = CardinalDirection.NORTH;
@@ -44,6 +44,19 @@ describe("CritterView", function() {
         expect(critterView.$el.find('.critter').hasClass('lavender')).toBeFalsy();
         expect(critterView.$el.find('.critter').hasClass('orange')).toBeTruthy();
       });
+    });
+  });
+
+  describe("clicking on the critter", function(){
+    beforeEach(function(){
+      critterView.render();
+    });
+    it("should trigger a global critterSelectedOnMap event with the critter model", function(){
+      var callbackSpy = jasmine.createSpy();
+      singletonContext.eventBus.bind('critterSelectedOnMap', callbackSpy);
+      critterView.$el.find(".critter").click();
+
+      expect(callbackSpy).toHaveBeenCalledWith(rob);
     });
   });
 });
