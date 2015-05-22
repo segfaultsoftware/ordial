@@ -3,6 +3,10 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     watch: {
+      html: {
+        files:['src/html/*.html'],
+        tasks: 'includeSource'
+      },
       less: {
         files: ['src/**/*.less'],
         tasks: 'exec:compile_less'
