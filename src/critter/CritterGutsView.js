@@ -1,22 +1,19 @@
-$(function() {
+$(function () {
   CritterGutsView = Backbone.View.extend({
-    initialize: function(){
-     this.model = {mana:'(no critter selected)'}; window.singletonContext.eventBus.bind('critterSelectedOnMap', _.bind(this.setCritter, this));
+    initialize: function () {
+      this.model = {};
+      window.singletonContext.eventBus.bind('critterSelectedOnMap', _.bind(this.setCritter, this));
     },
-    setCritter: function(critter){
-      this.model = critter.vitals;
+    setCritter: function (critter) {
+      this.model = critter;
       this.render();
     },
 
-    template: function() {
-      return _.template(
-        '<label>Mana</label><span class="critter-mana">' +
-        '<%= mana %>' +
-        '</span>',
-        this.model);
+    template: function () {
+      return JST['src/templates/critterGuts.template.html'](this.model);
     },
 
-    render: function(){
+    render: function () {
       this.$el.html(this.template());
       return this;
     }

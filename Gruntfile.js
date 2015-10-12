@@ -18,6 +18,10 @@ module.exports = function(grunt) {
       includeNewSpecs: {
         files: ['spec/**/*.js'],
         tasks: 'includeSource:spec'
+      },
+      buildTemplates: {
+        files: ['src/templates/**/*.html'],
+        tasks: 'jst:compile'
       }
     },
     exec: {
@@ -41,6 +45,14 @@ module.exports = function(grunt) {
           'SpecRunner.html': 'src/html/SpecRunner.template.html'
         }
       }
+    },
+
+    jst: {
+      compile: {
+        files: {
+          "templates.js": ["src/templates/**/*.html"]
+        }
+      }
     }
   });
 
@@ -48,5 +60,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-include-source');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.registerTask('default', ['connect:server', 'watch']);
 };
