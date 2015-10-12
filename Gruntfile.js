@@ -1,10 +1,10 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
     watch: {
       html: {
-        files:['src/html/*.html'],
+        files: ['src/html/*.html'],
         tasks: 'includeSource'
       },
       less: {
@@ -61,5 +61,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-include-source');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jst');
-  grunt.registerTask('default', ['connect:server', 'watch']);
+  grunt.registerTask('default', ['includeSource', 'exec:compile_less', 'jst:compile', 'connect:server', 'watch']);
 };
