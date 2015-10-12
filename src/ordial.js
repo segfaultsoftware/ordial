@@ -14,7 +14,7 @@ $(function() {
       this.timeoutControlsView = new TimeoutControlsView({el: '#timeoutControlsContainer'});
       this.timeoutControlsView.render();
       
-      this.critterManaView = new CritterManaView({ el:'#critterManaContainer'});
+      this.critterManaView = new CritterGutsView({ el:'#critterManaContainer'});
       this.critterManaView.render();
       
       var ordial = this;

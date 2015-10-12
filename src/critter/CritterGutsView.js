@@ -1,5 +1,5 @@
 $(function() {
-  CritterManaView = Backbone.View.extend({
+  CritterGutsView = Backbone.View.extend({
     initialize: function(){
      this.model = {mana:'(no critter selected)'}; window.singletonContext.eventBus.bind('critterSelectedOnMap', _.bind(this.setCritter, this));
     },
