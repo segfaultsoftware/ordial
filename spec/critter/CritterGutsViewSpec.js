@@ -23,10 +23,13 @@ describe("CritterGutsView", function(){
       expect(value).toEqual('42');
     });
 
-    it("renders the critter's genes", function(){
-      var value = gutsView.$el.find('.critter-genes').text();
+    it("renders the genes value", function(){
+      var value = $('.gene').text();
+      expect(value).toMatch('resou');
+    });
 
-      expect(value).toMatch('.*condition.*resourceInFront');
+    it("renders all the critter's genes", function(){
+      expect($('.gene').length).toEqual(1);
     });
 
     describe("when the critter's mana changes", function(){

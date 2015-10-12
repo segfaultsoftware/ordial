@@ -9,9 +9,7 @@ __p += '<div class="critter-guts">\n  ';
  if(typeof vitals !== "undefined") { ;
 __p += '\n    <label>Mana</label>\n    <span class="critter-mana">' +
 ((__t = ( vitals.mana )) == null ? '' : __t) +
-'</span>\n\n    <label>Genes</label>\n    <span class="critter-genes">' +
-((__t = ( genes )) == null ? '' : __t) +
-'</span>\n\n  ';
+'</span>\n  ';
  } else { ;
 __p += '\n    <div class="message">(no critter selected)</div>\n  ';
  } ;

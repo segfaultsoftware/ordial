@@ -14,11 +14,13 @@
   <script type="text/javascript" src="node_modules/underscore/underscore.js"></script>
   <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
   <script type="text/javascript" src="node_modules/backbone/backbone.js"></script>
+  <script type="text/javascript" src="node_modules/snapsvg/dist/snap.svg.js"></script>
 
   <script type="text/javascript" src="/vendor/seedrandom/seedrandom.js"></script>
   <script type="text/javascript" src="/templates.js"></script>
 
   <!-- include source files here... -->
+  <script src="src/BinaryTreeGraphHelper.js"></script>
   <script src="src/CardinalDirection.js"></script>
   <script src="src/Configuration.js"></script>
   <script src="src/CritterActuator.js"></script>
@@ -52,6 +54,7 @@
   <link rel="stylesheet" type="text/css" href="src/css/ordial.css">
 
   <!-- include spec files here... -->
+  <script src="spec/BinaryTreeGraphHelperSpec.js"></script>
   <script src="spec/CardinalDirectionSpec.js"></script>
   <script src="spec/CritterActuatorSpec.js"></script>
   <script src="spec/GeneMutatorSpec.js"></script>
@@ -78,10 +81,11 @@
 </head>
 
 <body>
-  <div id="ordial">
+  <div id="ordial" style="display:none;">
     <div id="seedContainer"></div>
     <div id="pauseContainer"></div>
     <div id="world"></div>
+    <svg id="mind-graph"></svg>
   </div>
   
   <div id="testing-area"></div>
