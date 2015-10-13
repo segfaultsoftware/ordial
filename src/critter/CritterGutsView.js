@@ -21,11 +21,7 @@ $(function () {
 
       var genes = this.model.genes;
 
-      var transformCoordinate = function (number) {
-        return (number + 1) * 50;
-      };
-
-      var binaryTreeGraphHelper = new BinaryTreeGraphHelper(genes);
+      var binaryTreeGraphHelper = new BinaryTreeGraphHelper(genes, 25);
 
       _.each(genes, function renderLines(gene, index) {
         var coords = binaryTreeGraphHelper.getCoords(index);
@@ -33,19 +29,18 @@ $(function () {
         if (binaryTreeGraphHelper.hasLeftChild(index)) {
           var leftChildCoords = binaryTreeGraphHelper.getLeftChildCoords(index);
           graph.line(
-            transformCoordinate(coords.column),
-            transformCoordinate(coords.row),
-            transformCoordinate(leftChildCoords.column),
-            transformCoordinate(leftChildCoords.row));
+            coords.x, coords.y,
+            leftChildCoords.x,
+            leftChildCoords.y);
         }
 
         if (binaryTreeGraphHelper.hasRightChild(index)) {
           var rightChildCoords = binaryTreeGraphHelper.getRightChildCoords(index);
           graph.line(
-            transformCoordinate(coords.column),
-            transformCoordinate(coords.row),
-            transformCoordinate(rightChildCoords.column),
-            transformCoordinate(rightChildCoords.row));
+            coords.x,
+            coords.y,
+            rightChildCoords.x,
+            rightChildCoords.y);
         }
       });
 
@@ -56,11 +51,12 @@ $(function () {
         var imageSize = 25;
         var image = graph.image(
           '/src/assets/mind/' + gene[0] + 's/' + gene[1] + '.png',
-          transformCoordinate(coords.column) - imageSize / 2,
-          transformCoordinate(coords.row) - imageSize / 2, imageSize, imageSize
+          coords.x -imageSize/2,
+          coords.y -imageSize/2,
+          imageSize, imageSize
         ).addClass("gene");
         image.hover(function() {
-          hoverText = graph.text(transformCoordinate(coords.column), transformCoordinate(coords.row), gene[0] +": " + gene[1]).addClass("popup");
+          hoverText = graph.text(coords.x, coords.y, gene[0] +": " + gene[1]).addClass("popup");
         }, function() {
           hoverText.remove();
         });

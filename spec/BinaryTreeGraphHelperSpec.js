@@ -1,80 +1,110 @@
 describe("BinaryTreeGraphHelper", function () {
-  var binaryTreeGraphHelper;
+  var binaryTreeGraphHelper, iconSize;
   beforeEach(function () {
-    binaryTreeGraphHelper = new BinaryTreeGraphHelper();
+    iconSize = 25;
+
+    var data = ['a', 'b', 'c', 'd'];
+    binaryTreeGraphHelper = new BinaryTreeGraphHelper(data, 25);
+  });
+
+  describe("#getRowAndColumn", function () {
+    it("returns an object with the row and column attributes", function () {
+      expect(binaryTreeGraphHelper.getRowAndColumn(0)).toEqual({row: 0, column: 0});
+      expect(binaryTreeGraphHelper.getRowAndColumn(1)).toEqual({row: 1, column: 0});
+      expect(binaryTreeGraphHelper.getRowAndColumn(2)).toEqual({row: 1, column: 1});
+      expect(binaryTreeGraphHelper.getRowAndColumn(3)).toEqual({row: 2, column: 0});
+      expect(binaryTreeGraphHelper.getRowAndColumn(34)).toEqual({row: 5, column: 3});
+    });
+  });
+
+  describe("#columnsInRow", function () {
+    it("returns the number of columns in a given row", function () {
+      expect(binaryTreeGraphHelper.columnsInRow(0)).toEqual(1);
+      expect(binaryTreeGraphHelper.columnsInRow(1)).toEqual(2);
+      expect(binaryTreeGraphHelper.columnsInRow(2)).toEqual(4);
+      expect(binaryTreeGraphHelper.columnsInRow(4)).toEqual(16);
+    });
   });
 
   describe("#getCoords", function () {
-    it("returns an object with the row and column attributes", function () {
-      expect(binaryTreeGraphHelper.getCoords(0)).toEqual({row: 0, column: 0});
-      expect(binaryTreeGraphHelper.getCoords(1)).toEqual({row: 1, column: 0});
-      expect(binaryTreeGraphHelper.getCoords(2)).toEqual({row: 1, column: 1});
-      expect(binaryTreeGraphHelper.getCoords(3)).toEqual({row: 2, column: 0});
-      expect(binaryTreeGraphHelper.getCoords(34)).toEqual({row: 5, column: 3});
+    describe("when there are 3 rows", function () {
+      describe("index 0", function () {
+        it("is centered above the base of the tree", function () {
+          expect(binaryTreeGraphHelper.getCoords(0)).toEqual({x: ((4 + 4) * 25) / 2, y: 25});
+        });
+      });
+
+      describe("the first element in the bottom row", function () {
+        it("is on the far left plus a padding of icon size", function () {
+          expect(binaryTreeGraphHelper.getCoords(3).x).toEqual(25);
+        });
+
+        it("is at the bottom.", function () {
+          expect(binaryTreeGraphHelper.getCoords(3).y).toEqual(125);
+        });
+      });
+
+      describe("the last element in the bottom row", function () {
+        it("is on the far right minus a padding of icon size", function () {
+          expect(binaryTreeGraphHelper.getCoords(6).x).toEqual(175);
+        });
+      });
     });
   });
 
   describe("#getLeftChildCoords", function () {
-    it("returns an object with the row and column attributes", function () {
-      expect(binaryTreeGraphHelper.getLeftChildCoords(0)).toEqual({row: 1, column: 0});
-      expect(binaryTreeGraphHelper.getLeftChildCoords(1)).toEqual({row: 2, column: 0});
-      expect(binaryTreeGraphHelper.getLeftChildCoords(2)).toEqual({row: 2, column: 2});
-      expect(binaryTreeGraphHelper.getLeftChildCoords(3)).toEqual({row: 3, column: 0});
-      expect(binaryTreeGraphHelper.getLeftChildCoords(34)).toEqual({row: 6, column: 6});
+    it("returns the coordinates for the left child", function () {
+      expect(binaryTreeGraphHelper.getLeftChildCoords(0)).toEqual(binaryTreeGraphHelper.getCoords(1));
     });
   });
 
   describe("#getRightChildCoords", function () {
-    it("returns an object with the row and column attributes", function () {
-      expect(binaryTreeGraphHelper.getRightChildCoords(0)).toEqual({row: 1, column: 1});
-      expect(binaryTreeGraphHelper.getRightChildCoords(1)).toEqual({row: 2, column: 1});
-      expect(binaryTreeGraphHelper.getRightChildCoords(2)).toEqual({row: 2, column: 3});
-      expect(binaryTreeGraphHelper.getRightChildCoords(3)).toEqual({row: 3, column: 1});
-      expect(binaryTreeGraphHelper.getRightChildCoords(34)).toEqual({row: 6, column: 7});
+    it("returns the coordinates for the right child", function () {
+      expect(binaryTreeGraphHelper.getRightChildCoords(0)).toEqual(binaryTreeGraphHelper.getCoords(2));
     });
   });
 
-  describe("#hasLeftChild", function(){
-    beforeEach(function() {
-      var data = ['a',undefined,'c','d','e','f','g','h','i','j','k'];
+  describe("#hasLeftChild", function () {
+    beforeEach(function () {
+      var data = ['a', undefined, 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'];
       binaryTreeGraphHelper = new BinaryTreeGraphHelper(data);
     });
 
-    it('returns true', function() {
+    it('returns true', function () {
       expect(binaryTreeGraphHelper.hasLeftChild(2)).toBeTruthy();
     });
 
-    describe("when the child index is outside the array", function(){
-      it("returns false", function(){
+    describe("when the child index is outside the array", function () {
+      it("returns false", function () {
         expect(binaryTreeGraphHelper.hasLeftChild(8)).toBeFalsy();
       });
     });
 
-    describe("when the child is undefined", function(){
-      it("returns false", function(){
+    describe("when the child is undefined", function () {
+      it("returns false", function () {
         expect(binaryTreeGraphHelper.hasLeftChild(0)).toBeFalsy();
       });
     });
   });
 
-  describe("#hasRightChild", function(){
-    beforeEach(function() {
-      var data = ['a','b',undefined,'d','e','f','g','h','i','j','k'];
+  describe("#hasRightChild", function () {
+    beforeEach(function () {
+      var data = ['a', 'b', undefined, 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'];
       binaryTreeGraphHelper = new BinaryTreeGraphHelper(data);
     });
 
-    it('returns true', function() {
+    it('returns true', function () {
       expect(binaryTreeGraphHelper.hasRightChild(1)).toBeTruthy();
     });
 
-    describe("when the child index is outside the array", function(){
-      it("returns false", function(){
+    describe("when the child index is outside the array", function () {
+      it("returns false", function () {
         expect(binaryTreeGraphHelper.hasRightChild(8)).toBeFalsy();
       });
     });
 
-    describe("when the child is undefined", function(){
-      it("returns false", function(){
+    describe("when the child is undefined", function () {
+      it("returns false", function () {
         expect(binaryTreeGraphHelper.hasRightChild(0)).toBeFalsy();
       });
     });
