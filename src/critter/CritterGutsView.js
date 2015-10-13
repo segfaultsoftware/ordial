@@ -16,7 +16,9 @@ $(function () {
     render: function () {
       this.$el.html(this.template());
 
-      var transformCoordinate = function(number) { return (number + 1) * 50; };
+      var transformCoordinate = function (number) {
+        return (number + 1) * 50;
+      };
 
       var graph = Snap('#mind-graph');
       graph.clear();
@@ -27,7 +29,17 @@ $(function () {
       _.each(genes, function (gene, index) {
         var coords = binaryTreeGraphHelper.getCoords(index);
 
-        graph.text(transformCoordinate(coords.column), transformCoordinate(coords.row), "" + gene[1].substr(0, 5)).addClass("gene");
+        var hoverText;
+        var image = graph.image(
+          '/src/assets/mind/' + gene[0] + 's/' + gene[1] + '.png',
+          transformCoordinate(coords.column),
+          transformCoordinate(coords.row), 25, 25
+        ).addClass("gene");
+        image.hover(function() {
+            hoverText = graph.text(transformCoordinate(coords.column), transformCoordinate(coords.row), gene[0] +": " + gene[1]).addClass("popup");
+          }, function() {
+            hoverText.remove();
+          });
 
         if (binaryTreeGraphHelper.hasLeftChild(index)) {
           var leftChildCoords = binaryTreeGraphHelper.getLeftChildCoords(index);

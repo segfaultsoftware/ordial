@@ -1,7 +1,7 @@
 describe("CritterGutsView", function(){
   var rob, gutsView;
   beforeEach(function(){
-    rob = new Critter({genes:[['condition', 'resourceInFront']]});
+    rob = new Critter({genes:[['condition', 'resourceInFront'], ['action', 'REPRODUCE']]});
     rob.vitals.mana = 42;
     gutsView = new CritterGutsView();
   });
@@ -23,13 +23,28 @@ describe("CritterGutsView", function(){
       expect(value).toEqual('42');
     });
 
-    it("renders the genes value", function(){
-      var value = $('.gene').text();
-      expect(value).toMatch('resou');
+    it("renders all the critter's genes", function(){
+      expect($('.gene').length).toEqual(2);
     });
 
-    it("renders all the critter's genes", function(){
-      expect($('.gene').length).toEqual(1);
+    describe("when hovering over a gene", function(){
+      beforeEach(function(){
+        $('.gene')[0].dispatchEvent(new MouseEvent('mouseover'));
+      });
+
+      it("displays the full text", function(){
+        expect($('.popup').text()).toEqual('condition: resourceInFront')
+      });
+
+      describe("and then unhovering", function(){
+        beforeEach(function(){
+          $('.gene')[0].dispatchEvent(new MouseEvent('mouseout'));
+        });
+
+        it("removes the text", function(){
+          expect($('.popup')).not.toExist();
+        });
+      });
     });
 
     describe("when the critter's mana changes", function(){
