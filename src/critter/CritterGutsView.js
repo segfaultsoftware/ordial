@@ -16,52 +16,57 @@ $(function () {
     render: function () {
       this.$el.html(this.template());
 
-      var graph = Snap('#mind-graph');
+      var genes = this.model.genes;
+      var graph = Snap('#mind-graph').attr({width: 0, height: 0});
       graph.clear();
 
-      var genes = this.model.genes;
+      if (genes) {
+        var binaryTreeGraphHelper = new BinaryTreeGraphHelper(genes, 25);
+        graph.attr({width: binaryTreeGraphHelper.getWidth(), height: binaryTreeGraphHelper.getHeight()});
 
-      var binaryTreeGraphHelper = new BinaryTreeGraphHelper(genes, 25);
+        _.each(genes, function renderLines(gene, index) {
+          var coords = binaryTreeGraphHelper.getCoords(index);
 
-      _.each(genes, function renderLines(gene, index) {
-        var coords = binaryTreeGraphHelper.getCoords(index);
+          if (binaryTreeGraphHelper.hasLeftChild(index)) {
+            var leftChildCoords = binaryTreeGraphHelper.getLeftChildCoords(index);
+            graph.line(
+              coords.x, coords.y,
+              leftChildCoords.x,
+              leftChildCoords.y);
+          }
 
-        if (binaryTreeGraphHelper.hasLeftChild(index)) {
-          var leftChildCoords = binaryTreeGraphHelper.getLeftChildCoords(index);
-          graph.line(
-            coords.x, coords.y,
-            leftChildCoords.x,
-            leftChildCoords.y);
-        }
-
-        if (binaryTreeGraphHelper.hasRightChild(index)) {
-          var rightChildCoords = binaryTreeGraphHelper.getRightChildCoords(index);
-          graph.line(
-            coords.x,
-            coords.y,
-            rightChildCoords.x,
-            rightChildCoords.y);
-        }
-      });
-
-      _.each(genes, function renderImage(gene, index) {
-        var coords = binaryTreeGraphHelper.getCoords(index);
-
-        var hoverText;
-        var imageSize = 25;
-        var image = graph.image(
-          '/src/assets/mind/' + gene[0] + 's/' + gene[1] + '.png',
-          coords.x -imageSize/2,
-          coords.y -imageSize/2,
-          imageSize, imageSize
-        ).addClass("gene");
-        image.hover(function() {
-          hoverText = graph.text(coords.x, coords.y, gene[0] +": " + gene[1]).addClass("popup");
-        }, function() {
-          hoverText.remove();
+          if (binaryTreeGraphHelper.hasRightChild(index)) {
+            var rightChildCoords = binaryTreeGraphHelper.getRightChildCoords(index);
+            graph.line(
+              coords.x,
+              coords.y,
+              rightChildCoords.x,
+              rightChildCoords.y);
+          }
         });
 
-      });
+        _.each(genes, function renderImage(gene, index) {
+          var coords = binaryTreeGraphHelper.getCoords(index);
+
+          var hoverText;
+          var imageSize = 25;
+          var image = graph.image(
+            '/src/assets/mind/' + gene[0] + 's/' + gene[1] + '.png',
+            coords.x - imageSize / 2,
+            coords.y - imageSize / 2,
+            imageSize, imageSize
+          ).addClass("gene");
+          image.hover(function () {
+            hoverText = graph.text(coords.x, coords.y, gene[0] + ": " + gene[1]).addClass("popup");
+          }, function () {
+            hoverText.remove();
+          });
+
+        });
+      }
+      else {
+
+      }
 
       return this;
     }

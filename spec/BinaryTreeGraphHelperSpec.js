@@ -7,6 +7,18 @@ describe("BinaryTreeGraphHelper", function () {
     binaryTreeGraphHelper = new BinaryTreeGraphHelper(data, 25);
   });
 
+  describe('#getWidth', function() {
+    it('returns the minimum width needed to fit the graph', function() {
+      expect(binaryTreeGraphHelper.getWidth()).toEqual(200);
+    });
+  });
+
+  describe('getHeight', function() {
+    it('returns the minimum height needed to fit the graph', function() {
+      expect(binaryTreeGraphHelper.getHeight()).toEqual(3 * 25 * 2);
+    });
+  });
+
   describe("#getRowAndColumn", function () {
     it("returns an object with the row and column attributes", function () {
       expect(binaryTreeGraphHelper.getRowAndColumn(0)).toEqual({row: 0, column: 0});

@@ -149,9 +149,7 @@ body {
   margin-right: 5px;
 }
 #mind-graph {
-  width: 500px;
-  height: 500px;
-  background-color: green;
+  background-color: #FBE6F9;
 }
 #mind-graph line {
   stroke: pink;

@@ -8,6 +8,19 @@
       return index * 2 + 1;
     };
 
+    this.getRowCount = function () {
+      return this.getRowAndColumn(data.length).row + 1;
+    };
+
+    this.getWidth = function () {
+      var treeBottomColumnCount = Math.pow(2, this.getRowCount() - 1);
+      return treeBottomColumnCount * this.columnWidth();
+    };
+
+    this.getHeight = function () {
+      return this.getRowCount() * this.rowHeight();
+    };
+
     this.getRowAndColumn = function (index) {
       var row = Math.floor(Math.log2(index + 1));
       return {
@@ -32,22 +45,26 @@
       return !!data[leftChildIndex(index)];
     };
 
-    this.columnsInRow = function(row){
+    this.columnsInRow = function (row) {
       return Math.pow(2, row);
+    };
+
+    this.columnWidth = function () {
+      return iconSize * 2;
+    };
+
+    this.rowHeight = function () {
+      return this.columnWidth();
     };
 
     this.getCoords = function (index) {
       var rowAndColumn = this.getRowAndColumn(index);
-      var lastRow = this.getRowAndColumn(data.length).row;
-      var treeBottomColumnCount = Math.pow(2, lastRow);
-      var columnWidth = iconSize * 2;
-      var treeWidth = treeBottomColumnCount * columnWidth;
-      var centerX = treeWidth / 2;
+      var centerX = this.getWidth() / 2;
       var padding = iconSize;
 
-      var columnOffsetFromCenter = (rowAndColumn.column - (this.columnsInRow(rowAndColumn.row) - 1) / 2) * columnWidth;
+      var columnOffsetFromCenter = (rowAndColumn.column - (this.columnsInRow(rowAndColumn.row) - 1) / 2) * this.columnWidth();
 
-      return {x: centerX + columnOffsetFromCenter, y: (rowAndColumn.row) * columnWidth + padding};
+      return {x: centerX + columnOffsetFromCenter, y: (rowAndColumn.row) * this.columnWidth() + padding};
     };
   };
 })();
