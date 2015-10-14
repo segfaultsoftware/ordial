@@ -11,17 +11,19 @@ describe("GeneMutator", function(){
     });
     
     describe("selecting a type of mutation", function(){
-      var swapResult, insertResult, removeResult, replaceResult;
+      var swapResult, insertResult, removeResult, replaceResult, subMutateResult;
       beforeEach(function(){
         swapResult = ['swapped'];
         insertResult = ['inserted'];
         removeResult = ['removed'];
         replaceResult = ['replace'];
+        subMutateResult = ['subMutate'];
 
         spyOn(mutator, 'swap').and.returnValue(swapResult);
         spyOn(mutator, 'insert').and.returnValue(insertResult);
         spyOn(mutator, 'remove').and.returnValue(removeResult);
         spyOn(mutator, 'replace').and.returnValue(replaceResult);
+        spyOn(mutator, 'subMutate').and.returnValue(subMutateResult);
       });
 
       it("can swap", function(){
@@ -50,6 +52,13 @@ describe("GeneMutator", function(){
         var result = mutator.mutate(genes);
         expect(mutator.replace).toHaveBeenCalledWith(genes);
         expect(result).toBe(replaceResult);
+      });
+
+      it("can subMutate", function() {
+        window.singletonContext.randomNumberGenerator.stubRandom([4]);
+        var result = mutator.mutate(genes);
+        expect(mutator.subMutate).toHaveBeenCalledWith(genes);
+        expect(result).toBe(subMutateResult);
       });
     });
   });
@@ -130,11 +139,55 @@ describe("GeneMutator", function(){
     });
   });
 
+  describe("#subMutate", function(){
+    describe("when the randomly selected gene is an action gene", function(){
+      beforeEach(function(){
+        genes = [['action', ['reproduce']]];
+      });
+
+      it("calls the subMutator on the given gene's action array", function(){
+        var mutatedActionArray = ['reproduce','mutated action'];
+        spyOn(window.singletonContext.subMutator, 'mutate').and.returnValue(mutatedActionArray);
+        var result = mutator.subMutate(genes);
+        expect(window.singletonContext.subMutator.mutate).toHaveBeenCalledWith(['reproduce']);
+        var item = _.find(result, function(gene){
+          return (gene[0] == 'action' && gene[1] == mutatedActionArray)
+        });
+
+        expect(item).toBeDefined();
+      });
+
+      describe('when the action gene has a single action', function(){
+        beforeEach(function(){
+          genes = [['action', 'reproduce']];
+        });
+
+        it("calls the subMutator with the action as an array", function(){
+          spyOn(window.singletonContext.subMutator, 'mutate');
+          mutator.subMutate(genes);
+          expect(window.singletonContext.subMutator.mutate).toHaveBeenCalledWith(['reproduce']);
+        });
+      });
+    });
+
+    describe("when the randomly selected gene is a decision node", function(){
+      beforeEach(function(){
+        genes = [['condition', ['inSpace']]];
+      });
+
+      it("does not submutate", function(){
+        spyOn(window.singletonContext.subMutator, 'mutate');
+        mutator.subMutate(genes);
+        expect(window.singletonContext.subMutator.mutate).not.toHaveBeenCalled();
+      });
+    });
+  });
+
   describe("#randomAction", function(){
     it("returns a random action gene", function(){
       window.singletonContext.randomNumberGenerator.stubRandom([3, 6]);
       expect(mutator.randomAction()).toEqual(['action', 'REPRODUCE']);
-      expect(mutator.randomAction()).toEqual(['action', 'DECREMENT_COUNTER']);                  
+      expect(mutator.randomAction()).toEqual(['action', 'DECREMENT_COUNTER']);
     });
   });
 

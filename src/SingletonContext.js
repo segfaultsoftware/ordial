@@ -8,6 +8,7 @@ SingletonContext = function() {
     this.critterActuator = new CritterActuator();
     this.mindFactory = new MindFactory();
     this.geneMutator = new GeneMutator();
+    this.subMutator = new SubMutator();
     this.randomNumberGenerator = new RandomNumberGenerator();
     this.eventBus = _.extend({}, Backbone.Events);
   } catch (e) {

@@ -5,7 +5,8 @@ $(function() {
         this.swap,
         this.insert,
         this.remove,
-        this.replace
+        this.replace,
+        this.subMutate
       ]);
       return _.bind(mutatorFunction, this)(genes);
     },
@@ -32,6 +33,13 @@ $(function() {
     replace: function(genes) {
       var index = window.singletonContext.randomNumberGenerator.random(genes.length - 1);
       genes[index] = this.randomGene();
+      return genes;
+    },
+    subMutate: function(genes) {
+      var index = window.singletonContext.randomNumberGenerator.random(genes.length - 1);
+      if (genes[index][0] == 'action') {
+        genes[index] = ['action', window.singletonContext.subMutator.mutate(_.flatten([genes[index][1]]))];
+      }
       return genes;
     },
     randomGene: function() {
