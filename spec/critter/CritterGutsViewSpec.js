@@ -33,7 +33,7 @@ describe("CritterGutsView", function(){
       });
 
       it("displays the full text", function(){
-        expect($('.popup').text()).toEqual('condition: resourceInFront')
+        expect($('.popup').text()).toEqual('"resourceInFront"');
       });
 
       describe("and then unhovering", function(){

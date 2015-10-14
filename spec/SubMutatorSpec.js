@@ -55,12 +55,23 @@ describe("SubMutator", function(){
       window.singletonContext.randomNumberGenerator.stubRandom([2, 4, 1, 4]);
     });
 
-    it("randomly swaps a gene into a new location", function(){
+    it("randomly swaps an action into a new location", function(){
       var result = mutator.swap(actions);
       expect(result).toEqual([ 1, 2, 5, 4, 3 ]);
 
       result = mutator.swap(actions);
       expect(result).toEqual([ 1, 3, 5, 4, 2]);
+    });
+
+    describe('when there are no actions in the array', function(){
+      beforeEach(function(){
+        actions = [];
+      });
+
+      it("returns an empty array", function(){
+        var result = mutator.swap(actions);
+        expect(result).toEqual([]);
+      });
     });
   });
 
@@ -112,8 +123,8 @@ describe("SubMutator", function(){
       window.singletonContext.randomNumberGenerator.stubRandom([2]);
       var result = mutator.replace(actions);
       expect(result.length).toEqual(5);
-      var indexOfNewGene = result.indexOf('FOO_ACTION');
-      expect(indexOfNewGene).not.toEqual(-1);
+      var indexOfNewAction = result.indexOf('FOO_ACTION');
+      expect(indexOfNewAction).not.toEqual(-1);
     });
   });
 });

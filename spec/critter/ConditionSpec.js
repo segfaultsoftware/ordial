@@ -79,5 +79,32 @@ describe("Condition", function(){
         });
       });
     });
+
+    describe("comparing with LessThan", function(){
+      var condition;
+      beforeEach(function(){
+        condition = new Condition('stimuli','someSense', 'LessThan', 1234);
+      });
+
+      describe("when the sense has the lesser value", function(){
+        beforeEach(function(){
+          stimuli.someSense = 1233;
+        });
+
+        it("returns true", function(){
+          expect(condition.evaluate(stimuli, vitals)).toBe(true);
+        });
+      });
+
+      describe("when the sense has the greater value", function(){
+        beforeEach(function(){
+          stimuli.someSense = 1235;
+        });
+
+        it("returns false", function(){
+          expect(condition.evaluate(stimuli, vitals)).toBe(false);
+        });
+      });
+    });
   });
 });

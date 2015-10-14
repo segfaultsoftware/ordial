@@ -12,6 +12,10 @@ $(function() {
     };
 
     this.random = function() {
+      if(arguments[0] < 0){
+        console.error("random called with ", arguments[0])
+      }
+
       if (this.nextRandoms.length > 0) {
         return this.nextRandoms.shift();
       }

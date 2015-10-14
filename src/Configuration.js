@@ -1,3 +1,3 @@
 Configuration = function() {
-  this.resourceSpawnRate = 0.33;
+  this.resourceSpawnRate = 1;
 };

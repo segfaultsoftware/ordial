@@ -23,8 +23,11 @@ $(function() {
     Equals: function(first, second){
       return first == second;
     },
+    LessThan: function(first, second){
+      return first < second;
+    },
     IsA: function(object, className){
-      return object instanceof eval(className)
+      return object instanceof eval(className);
     }
   };
   
@@ -41,12 +44,14 @@ $(function() {
     thingInFront: new Condition('stimuli', 'thingInFrontOfMe'),
     thingToTheRight: new Condition('stimuli', 'thingToTheRightOfMe'),
     thingToTheLeft: new Condition('stimuli', 'thingToTheLeftOfMe'),
-    
-    mana10: new Condition('vitals', 'mana', 'Equals', 10),
-    mana5: new Condition('vitals', 'mana', 'Equals', 5),
-    mana1: new Condition('vitals', 'mana', 'Equals', 1),
-    mana20: new Condition('vitals', 'mana', 'Equals', 20),
-    
+
+    manaUnder100: new Condition('vitals', 'mana', 'LessThan', 100),
+    manaUnder50: new Condition('vitals', 'mana', 'LessThan', 50),
+    manaUnder10: new Condition('vitals', 'mana', 'LessThan', 10),
+    manaUnder200: new Condition('vitals', 'mana', 'LessThan', 200),
+    manaUnder300: new Condition('vitals', 'mana', 'LessThan', 300),
+    manaUnder400: new Condition('vitals', 'mana', 'LessThan', 400),
+
     counter0: new Condition('vitals', 'counter', 'Equals', 0),
     counter1: new Condition('vitals', 'counter', 'Equals', 1),
     counter2: new Condition('vitals', 'counter', 'Equals', 2),

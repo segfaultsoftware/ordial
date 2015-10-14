@@ -11,12 +11,14 @@ $(function() {
       return _.bind(mutatorFunction, this)(genes);
     },
     swap: function(genes){
-      var index1 = window.singletonContext.randomNumberGenerator.random(genes.length - 1);
-      var gene1 = genes[index1];
+      if(genes.length > 0){
+        var index1 = window.singletonContext.randomNumberGenerator.random(genes.length - 1);
+        var gene1 = genes[index1];
 
-      var index2 = window.singletonContext.randomNumberGenerator.random(genes.length -1);
-      genes[index1] = genes[index2];
-      genes[index2] = gene1;
+        var index2 = window.singletonContext.randomNumberGenerator.random(genes.length -1);
+        genes[index1] = genes[index2];
+        genes[index2] = gene1;
+      }
       return genes;
     },
     insert: function(genes){
@@ -26,8 +28,10 @@ $(function() {
       return genes;
     },
     remove: function(genes){
-      var indexToDelete = window.singletonContext.randomNumberGenerator.random(genes.length -1);
-      genes.splice(indexToDelete, 1);
+      if(genes.length > 0){
+        var indexToDelete = window.singletonContext.randomNumberGenerator.random(genes.length -1);
+        genes.splice(indexToDelete, 1);
+      }
       return genes;
     },
     replace: function(genes) {

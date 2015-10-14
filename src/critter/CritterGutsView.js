@@ -13,9 +13,8 @@ $(function () {
       return JST['src/templates/critterGuts.template.html'](this.model);
     },
 
-    render: function () {
-      this.$el.html(this.template());
-
+    renderDendrogram: function(){
+      this.prevModel = this.model;
       var genes = this.model.genes;
       var graph = Snap('#mind-graph').attr({width: 0, height: 0});
       graph.clear();
@@ -46,26 +45,43 @@ $(function () {
         });
 
         _.each(genes, function renderImage(gene, index) {
-          var coords = binaryTreeGraphHelper.getCoords(index);
+          if (gene) {
+            var coords = binaryTreeGraphHelper.getCoords(index);
 
-          var hoverText;
-          var imageSize = 25;
-          var image = graph.image(
-            '/src/assets/mind/' + gene[0] + 's/' + gene[1] + '.png',
-            coords.x - imageSize / 2,
-            coords.y - imageSize / 2,
-            imageSize, imageSize
-          ).addClass("gene");
-          image.hover(function () {
-            hoverText = graph.text(coords.x, coords.y, gene[0] + ": " + gene[1]).addClass("popup");
-          }, function () {
-            hoverText.remove();
-          });
+            var hoverText;
+            var imageSize = 25;
+            var circle = graph.circle(coords.x, coords.y, imageSize/2).attr({fill:'white'});
+
+            var image = graph.image(
+              '/src/assets/mind/' + gene[0] + 's/' + gene[1] + '.png',
+              coords.x - imageSize / 2,
+              coords.y - imageSize / 2,
+              imageSize, imageSize
+            ).addClass("gene");
+
+
+            circle.hover(function () {
+              hoverText = graph.text(coords.x, coords.y, JSON.stringify(gene[1])).addClass("popup");
+            }, function () {
+              hoverText.remove();
+            });
+
+            image.hover(function () {
+              hoverText = graph.text(coords.x, coords.y, JSON.stringify(gene[1])).addClass("popup");
+            }, function () {
+              hoverText.remove();
+            });
+          }
 
         });
       }
-      else {
+    },
 
+    render: function () {
+      this.$el.html(this.template());
+
+      if(this.prevModel != this.model){
+        this.renderDendrogram();
       }
 
       return this;

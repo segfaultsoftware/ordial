@@ -23,11 +23,13 @@ $(function() {
         var conditionName = templateEntry[1];
         var condition = Condition.Collection[conditionName];
         if(!condition){
+          console.error('invalid condition name: "' + conditionName + '"');
           throw 'invalid condition name: "' + conditionName + '"';
         }
         
         return new DecisionNode(_.bind(condition.evaluate, condition));
       } else {
+        console.error('unknown node type in tree: ' + nodeType);
         throw 'unknown node type in tree: ' + nodeType;
       }
     },

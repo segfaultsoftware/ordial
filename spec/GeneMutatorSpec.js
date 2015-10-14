@@ -64,16 +64,28 @@ describe("GeneMutator", function(){
   });
 
   describe("#swap", function(){
-    beforeEach(function() {
-      window.singletonContext.randomNumberGenerator.stubRandom([2, 4, 1, 4]);
+    describe("when there are several genes", function(){
+      beforeEach(function() {
+        window.singletonContext.randomNumberGenerator.stubRandom([2, 4, 1, 4]);
+      });
+
+      it("randomly swaps a gene into a new location", function(){
+        var result = mutator.swap(genes);
+        expect(result).toEqual([ 1, 2, 5, 4, 3 ]);
+
+        result = mutator.swap(genes);
+        expect(result).toEqual([ 1, 3, 5, 4, 2]);
+      });
     });
 
-    it("randomly swaps a gene into a new location", function(){
-      var result = mutator.swap(genes);
-      expect(result).toEqual([ 1, 2, 5, 4, 3 ]);
+    describe("when there are no genes", function(){
+      beforeEach(function(){
+        genes = [];
+      });
 
-      result = mutator.swap(genes);
-      expect(result).toEqual([ 1, 3, 5, 4, 2]);
+      it("returns an empty array", function(){
+        expect(mutator.swap(genes)).toEqual([]);
+      });
     });
   });
 
@@ -125,6 +137,16 @@ describe("GeneMutator", function(){
       window.singletonContext.randomNumberGenerator.stubRandom([3]);
       var result = mutator.remove(genes);
       expect(result).toEqual([1,2,4]);
+    });
+
+    describe("when there are no genes", function(){
+      beforeEach(function(){
+        genes = [];
+      });
+
+      it("returns an empty array", function(){
+        expect(mutator.remove(genes)).toEqual([]);
+      });
     });
   });
 

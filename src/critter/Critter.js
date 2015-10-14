@@ -48,15 +48,15 @@ $(function() {
     },
     TURN_LEFT: {
       key: 'turn left',
-      cost: 10
+      cost: 5
     },
     TURN_RIGHT: {
       key: 'turn right',
-      cost: 10
+      cost: 5
     },
     REPRODUCE: {
       key: 'reproduce',
-      cost: 100
+      cost: 200
     },
     STARE_OFF_INTO_SPACE: {
       key: 'noop',
