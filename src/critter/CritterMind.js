@@ -16,12 +16,10 @@ $(function() {
       } else if(currentNode.type === DecisionNode.TYPE) {
         if (currentNode.condition(stimuli, vitals)) {
           return this.getActionsForNode(stimuli, vitals, currentNode.leftNode);
-        }
-        else {
+        } else {
           return this.getActionsForNode(stimuli, vitals, currentNode.rightNode);
         }
-      }
-      else {
+      } else {
         return currentNode;
       }
     },

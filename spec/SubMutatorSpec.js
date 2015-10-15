@@ -62,17 +62,6 @@ describe("SubMutator", function(){
       result = mutator.swap(actions);
       expect(result).toEqual([ 1, 3, 5, 4, 2]);
     });
-
-    describe('when there are no actions in the array', function(){
-      beforeEach(function(){
-        actions = [];
-      });
-
-      it("returns an empty array", function(){
-        var result = mutator.swap(actions);
-        expect(result).toEqual([]);
-      });
-    });
   });
 
   describe("#insert", function(){
@@ -115,6 +104,13 @@ describe("SubMutator", function(){
       var result = mutator.remove(actions);
       expect(result).toEqual([1,2,4]);
     });
+
+    describe("when it removes the last action from the array", function(){
+      it("leaves STARE_OFF_INTO_SPACE", function(){
+        var result = mutator.remove(['SOME_ACTION']);
+        expect(result).toEqual(['STARE_OFF_INTO_SPACE']);
+      });
+    })
   });
 
   describe("#replace", function() {

@@ -23,7 +23,7 @@ $(function () {
 
         var imageSize = 50;
         var binaryTreeGraphHelper = new BinaryTreeGraphHelper(genes, imageSize);
-        graph.attr({width: binaryTreeGraphHelper.getWidth(), height: binaryTreeGraphHelper.getHeight()});
+        graph.attr({width: Math.max(800, binaryTreeGraphHelper.getWidth()), height: binaryTreeGraphHelper.getHeight()});
 
         _.each(genes, function renderLines(gene, index) {
           var coords = binaryTreeGraphHelper.getCoords(index);

@@ -14,6 +14,15 @@ describe("MindFactory", function(){
         ]).getActions(stimuli, vitals))
           .toEqual(Critter.Actions.MOVE_FORWARD); 
       });
+
+      describe("when the action is empty", function(){
+        it("returns the STARE_OFF_INTO_SPACE action", function(){
+          expect(mindFactory.create([
+            ['action', []]
+          ]).getActions(stimuli, vitals))
+            .toEqual(Critter.Actions.STARE_OFF_INTO_SPACE);
+        });
+      });
     });
 
     describe("when the first item is a condition", function(){

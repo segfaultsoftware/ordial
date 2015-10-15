@@ -1,6 +1,6 @@
 $(function () {
   SubMutator = Backbone.Model.extend({
-    mutate: function (actions) {
+    mutate: function(actions) {
       var mutatorFunction = window.singletonContext.randomNumberGenerator.sample([
         this.swap,
         this.insert,
@@ -12,14 +12,12 @@ $(function () {
       return result;
     },
     swap: function(actions) {
-      if (actions.length > 1) {
-        var index1 = window.singletonContext.randomNumberGenerator.random(actions.length - 1);
-        var action1 = actions[index1];
+      var index1 = window.singletonContext.randomNumberGenerator.random(actions.length - 1);
+      var action1 = actions[index1];
 
-        var index2 = window.singletonContext.randomNumberGenerator.random(actions.length - 1);
-        actions[index1] = actions[index2];
-        actions[index2] = action1;
-      }
+      var index2 = window.singletonContext.randomNumberGenerator.random(actions.length - 1);
+      actions[index1] = actions[index2];
+      actions[index2] = action1;
       return actions;
     },
     insert: function(actions) {
@@ -31,6 +29,9 @@ $(function () {
     remove: function(actions) {
       var indexToDelete = window.singletonContext.randomNumberGenerator.random(actions.length - 1);
       actions.splice(indexToDelete, 1);
+      if (actions.length == 0) {
+        actions.push('STARE_OFF_INTO_SPACE');
+      }
       return actions;
     },
     replace: function(actions) {

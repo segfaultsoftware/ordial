@@ -4,7 +4,7 @@ $(function() {
       return new CritterMind({
         decisionTree: this.getNodeWithChildren(template, 0)
       });
-    }, 
+    },
     getNodeFromTemplateEntry: function(templateEntry){
       var nodeType = templateEntry[0];
       if(nodeType == 'action'){
@@ -16,6 +16,8 @@ $(function() {
         });
         if(actions.length == 1){
           return actions[0];
+        } else if (actions.length == 0) {
+          return Critter.Actions.STARE_OFF_INTO_SPACE;
         } else {
           return actions;
         }
@@ -26,14 +28,14 @@ $(function() {
           console.error('invalid condition name: "' + conditionName + '"');
           throw 'invalid condition name: "' + conditionName + '"';
         }
-        
+
         return new DecisionNode(_.bind(condition.evaluate, condition));
       } else {
         console.error('unknown node type in tree: ' + nodeType);
         throw 'unknown node type in tree: ' + nodeType;
       }
     },
-    
+
     getLeftNode: function(template, parentIndex){
       return this.getNodeWithChildren(template, 2*parentIndex + 1);
     },
