@@ -9,7 +9,7 @@
     };
 
     this.getRowCount = function () {
-      return this.getRowAndColumn(data.length).row + 1;
+      return this.getRowAndColumn(data.length - 1).row + 1;
     };
 
     this.getWidth = function () {

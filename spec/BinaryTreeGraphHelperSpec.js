@@ -14,8 +14,37 @@ describe("BinaryTreeGraphHelper", function () {
   });
 
   describe('getHeight', function() {
-    it('returns the minimum height needed to fit the graph', function() {
-      expect(binaryTreeGraphHelper.getHeight()).toEqual(3 * 25 * 2);
+    describe("when there are 4 items", function(){
+      beforeEach(function(){
+        var data = ['a', 'b', 'c', 'd'];
+        binaryTreeGraphHelper = new BinaryTreeGraphHelper(data, 25);
+      });
+
+      it('returns enough height for 3 rows', function() {
+        expect(binaryTreeGraphHelper.getHeight()).toEqual(3 * 50);
+      });
+    });
+
+    describe("when there are 7 items", function(){
+      beforeEach(function(){
+        var data = ['a', 'b', 'c', 'd', '5', '6', '007'];
+        binaryTreeGraphHelper = new BinaryTreeGraphHelper(data, 25);
+      });
+
+      it('returns enough height for 3 rows', function() {
+        expect(binaryTreeGraphHelper.getHeight()).toEqual(3 * 50);
+      });
+    });
+
+    describe("when there are 8 items", function(){
+      beforeEach(function(){
+        var data = ['a', 'b', 'c', 'd', '5', '6', '007', 'eight!'];
+        binaryTreeGraphHelper = new BinaryTreeGraphHelper(data, 25);
+      });
+
+      it('returns enough height for 4 rows', function() {
+        expect(binaryTreeGraphHelper.getHeight()).toEqual(4 * 50);
+      });
     });
   });
 
@@ -27,6 +56,12 @@ describe("BinaryTreeGraphHelper", function () {
       expect(binaryTreeGraphHelper.getRowAndColumn(3)).toEqual({row: 2, column: 0});
       expect(binaryTreeGraphHelper.getRowAndColumn(34)).toEqual({row: 5, column: 3});
     });
+
+    describe("the seventh item", function(){
+      it("is the fourth item in the third row", function(){
+        expect(binaryTreeGraphHelper.getRowAndColumn(6)).toEqual({row: 2, column: 3});
+      });
+    })
   });
 
   describe("#columnsInRow", function () {

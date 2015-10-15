@@ -153,4 +153,11 @@ body {
 }
 #mind-graph line {
   stroke: pink;
+  stroke-width: 4;
+}
+#mind-graph .node-type-action {
+  background-color: lightblue;
+}
+#mind-graph .node-type-condition {
+  background-color: palegreen;
 }

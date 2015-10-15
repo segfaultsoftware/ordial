@@ -54,11 +54,14 @@ $(function() {
 
     counter0: new Condition('vitals', 'counter', 'Equals', 0),
     counter1: new Condition('vitals', 'counter', 'Equals', 1),
-    counter2: new Condition('vitals', 'counter', 'Equals', 2),
-    counter3: new Condition('vitals', 'counter', 'Equals', 3),
-    counter5: new Condition('vitals', 'counter', 'Equals', 5),
-    counter10: new Condition('vitals', 'counter', 'Equals', 10),
-    counter20: new Condition('vitals', 'counter', 'Equals', 20),
-    counter80: new Condition('vitals', 'counter', 'Equals', 80),
+
+    counterUnder0: new Condition('vitals', 'counter', 'LessThan', 0),
+    counterUnder1: new Condition('vitals', 'counter', 'LessThan', 1),
+    counterUnder2: new Condition('vitals', 'counter', 'LessThan', 2),
+    counterUnder5: new Condition('vitals', 'counter', 'LessThan', 5),
+    counterUnder10: new Condition('vitals', 'counter', 'LessThan', 10),
+    counterUnder30: new Condition('vitals', 'counter', 'LessThan', 20),
+    counterUnder80: new Condition('vitals', 'counter', 'LessThan', 80),
+    counterUnder200: new Condition('vitals', 'counter', 'LessThan', 80),
   };
 });
