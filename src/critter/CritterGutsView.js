@@ -49,13 +49,24 @@ $(function () {
         _.each(genes, function renderImage(gene, index) {
           if (gene) {
             var coords = binaryTreeGraphHelper.getCoords(index);
+            var geneType = gene[0];
+            var geneValue = gene[1];
 
+            var typeColor = geneType == 'action' ? 'lightgreen' : '#b1c9ed';
 
-            var typeColor = gene[0] == 'action' ? 'lightgreen' : '#b1c9ed';
+            var displayImageName = geneValue;
+            if(_.isArray(geneValue)){
+              displayImageName = _.first(geneValue);
+              if(geneValue.length > 1){
+                graph.circle(coords.x - 5, coords.y - 5, imageSize * 0.8).attr({fill: typeColor});
+              }
+            }
+
             var typeCircle = graph.circle(coords.x, coords.y, imageSize * 0.8).attr({fill: typeColor});
             var circle = graph.circle(coords.x, coords.y, imageSize * 0.7).attr({fill: 'white'});
+
             var image = graph.image(
-              '/src/assets/mind/' + gene[0] + 's/' + gene[1] + '.png',
+              '/src/assets/mind/' + geneType + 's/' + displayImageName + '.png',
               coords.x - imageSize / 2,
               coords.y - imageSize / 2,
               imageSize, imageSize
