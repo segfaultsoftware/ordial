@@ -2,6 +2,14 @@ $(function() {
   WorldView = Backbone.View.extend({
     initialize: function(){
       this.subviews = [];
+
+      for(var row = 0; row < this.model.height; row++) {
+        this.subviews[row] = [];
+        for (var col = 0; col < this.model.width; col++) {
+          var thing = this.model.getThingAt({x: col, y: row});
+          this.subviews[row][col] = new TileView({model:thing});
+        }
+      }
     },
 
     template: function () {
@@ -11,7 +19,12 @@ $(function() {
     render: function() {
       // render the grid
       // render the world inhabitants
-      this.$el.html(this.template(this.model));
+
+      if(!this.alreadyRendered){
+        this.$el.html(this.template(this.model));
+      }
+      console.log('worlde resue', this.alreadyRendered)
+      this.alreadyRendered = true;
 
       for(var row = 0; row < this.model.height; row++) {
         for(var col = 0; col < this.model.width; col++){
@@ -26,15 +39,6 @@ $(function() {
     replaceSubView:function(coordinates, thing){
       var row = coordinates.row;
       var col = coordinates.col;
-
-      if(!this.subviews[row]) {
-        this.subviews[row] = [];
-      }
-
-      if(!this.subviews[row][col]){
-        this.subviews[row][col] = new TileView({model:thing});
-      }
-
       var subview = this.subviews[row][col];
       subview.model = thing;
       subview.setElement(this.$('#thing-'+row+'-' + col)).render();

@@ -36,7 +36,10 @@ $(function() {
     },
 
     updateWorld: function() {
-      this.worldView = new WorldView({model: window.singletonContext.world, el: '#world'});
+      if(!this.worldView){
+        this.worldView = new WorldView({model: window.singletonContext.world, el: '#world'});
+      }
+
       this.worldView.render();
 
       if(!this.paused){

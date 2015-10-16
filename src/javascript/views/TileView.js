@@ -23,7 +23,11 @@ $(function(){
           tileType = 'rock';
         }
       }
-      this.$el.html(this.template(tileType));
+      if(!this.alreadyRendered){
+        this.$el.html(this.template(tileType));
+      }
+      console.log('tilr resue', this.areadyRendered);
+      this.areadyRendered = true;
       return this;
     }
   });
