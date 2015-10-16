@@ -19,6 +19,7 @@
   "dependencies": {
     "backbone": "1.1.x",
     "jquery": "2.1.x",
+    "raphael": "^2.1.4",
     "snapsvg": "^0.4.0",
     "underscore": "1.5.x"
   },

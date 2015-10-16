@@ -16,7 +16,10 @@ $(function() {
       
       this.critterManaView = new CritterGutsView({ el:'#critterManaContainer'});
       this.critterManaView.render();
-      
+
+      this.worldView = new WorldView({model: window.singletonContext.world, el: '#world'});
+      this.worldView.render();
+
       var ordial = this;
       this.listenTo(this.pauseView, 'pauseButtonClicked', function() {
         ordial.togglePause();
@@ -36,7 +39,6 @@ $(function() {
     },
 
     updateWorld: function() {
-      this.worldView = new WorldView({model: window.singletonContext.world, el: '#world'});
       this.worldView.render();
 
       if(!this.paused){
