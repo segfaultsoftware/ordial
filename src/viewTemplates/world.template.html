@@ -1,0 +1,11 @@
+<table>
+  <% for(var row = 0; row < height; row++) { %>
+    <tr>
+      <% for(var col = 0; col < width; col++) { %>
+        <td>
+          <div class="tile" dat="def" id="thing-<%=row%>-<%=col%>"></div>
+        </td>
+      <% } %>
+    </tr>
+  <% } %>
+</table>
