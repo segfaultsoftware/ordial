@@ -20,7 +20,7 @@ module.exports = function (grunt) {
         tasks: 'includeSource:spec'
       },
       buildTemplates: {
-        files: ['src/templates/**/*.html'],
+        files: ['src/viewTemplates/**/*.html'],
         tasks: 'jst:compile'
       }
     },
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
     jst: {
       compile: {
         files: {
-          "templates.js": ["src/templates/**/*.html"]
+          "templates.js": ["src/viewTemplates/**/*.html"]
         }
       }
     }

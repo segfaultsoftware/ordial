@@ -10,7 +10,7 @@ $(function () {
     },
 
     template: function () {
-      return JST['src/templates/critterGuts.template.html'](this.model);
+      return JST['src/viewTemplates/critterGuts.template.html'](this.model);
     },
 
     renderDendrogram: function () {
