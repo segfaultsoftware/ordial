@@ -1,11 +1,37 @@
 describe("Ordial", function() {
-  var ordial, ordialScheduler;
+  var ordial, ordialScheduler, loaderPromise;
 
   beforeEach(function() {
     window.singletonContext.scheduler = jasmine.createSpyObj("fake scheduler", ['schedule']);
     window.singletonContext.world = new World();
 
+    loaderPromise = jasmine.createSpyObj('loaderPromise', ["load"]);
+    spyOn(PIXI.loader, "add").and.returnValue(loaderPromise);
     ordial = new Ordial();
+  });
+
+  describe("loading images", function() {
+    it("loads images from a spritesheet", function() {
+      expect(PIXI.loader.add).toHaveBeenCalledWith('/src/assets/spriteSheet/ordialSprites.json');
+    });
+
+    describe("after the images are loaded", function() {
+      var fakeWorldView, loadCallback;
+      beforeEach(function() {
+        fakeWorldView = jasmine.createSpyObj('worldView', ['render']);
+        spyOn(window, 'WorldView').and.returnValue(fakeWorldView);
+        loaderPromise.load.and.callFake(function(callback) {
+          loadCallback = callback;
+        });
+      });
+
+      it("renders the worldView", function() {
+        ordial = new Ordial();
+        fakeWorldView.render.calls.reset();
+        loadCallback();
+        expect(fakeWorldView.render).toHaveBeenCalled();
+      });
+    });
   });
 
   it("should have a pause button", function() {
@@ -13,7 +39,7 @@ describe("Ordial", function() {
     expect(ordial.$el.find("#pause-button").text()).toEqual('resume');
   });
 
-  it("should default to paused", function(){
+  it("should default to paused", function() {
     expect(ordial.paused).toBeTruthy();
   });
 
@@ -29,7 +55,7 @@ describe("Ordial", function() {
       expect(ordial.$el.find('#seed-input').val()).not.toEqual(firstVal);
     });
 
-    it('should not just use the next call to Math.random as the seed', function(){
+    it('should not just use the next call to Math.random as the seed', function() {
       ordial.$el.find('#seed-input').val('abc').blur();
       ordial.$el.find('#pause-button').click();
 
@@ -64,9 +90,9 @@ describe("Ordial", function() {
       })
     });
 
-    describe('user changing the seed value and after starting the world', function(){
+    describe('user changing the seed value and after starting the world', function() {
       var firstVal, secondVal;
-      beforeEach(function(){
+      beforeEach(function() {
         ordial.$el.find('#seed-input').val('abc').blur();
         ordial.$el.find('#pause-button').click();
         firstVal = window.singletonContext.randomNumberGenerator.random();
@@ -77,12 +103,12 @@ describe("Ordial", function() {
         ordial.$el.find('#pause-button').click();
       });
 
-      it('should produce the same random numbers as previously with the same seed', function(){
+      it('should produce the same random numbers as previously with the same seed', function() {
         expect(window.singletonContext.randomNumberGenerator.random()).toEqual(firstVal);
         expect(window.singletonContext.randomNumberGenerator.random()).toEqual(secondVal);
       });
 
-      it('should produce different random numbers with a different seed', function(){
+      it('should produce different random numbers with a different seed', function() {
         ordial = new Ordial({scheduler: ordialScheduler});
         ordial.render();
         ordial.$el.find('#seed-input').val('abcd').blur();
@@ -112,7 +138,7 @@ describe("Ordial", function() {
       expect(ordial.paused).toBeTruthy();
     });
 
-    describe("when unpausing", function(){
+    describe("when unpausing", function() {
       beforeEach(function() {
         ordial.$el.find('#pause-button').click();
       });
@@ -120,7 +146,7 @@ describe("Ordial", function() {
       it("should updateWorld", function() {
         expect(ordial.updateWorld).toHaveBeenCalled();
       });
-      
+
       it('should change text to "pause"', function() {
         expect(ordial.$el.find('#pause-button').text()).toEqual('pause');
       });
@@ -142,7 +168,7 @@ describe("Ordial", function() {
     });
   });
 
-  describe("updateWorld", function(){
+  describe("updateWorld", function() {
     describe("when not paused", function() {
       beforeEach(function() {
         ordial.paused = false;
@@ -153,7 +179,7 @@ describe("Ordial", function() {
         expect(ordial.$('#world').length).toBe(1);
       });
 
-      it("should update the world", function(){
+      it("should update the world", function() {
         spyOn(window.singletonContext.world, "update");
         ordial.updateWorld();
         expect(window.singletonContext.world.update).toHaveBeenCalled();
@@ -165,8 +191,8 @@ describe("Ordial", function() {
       });
     });
 
-    describe("when paused", function(){
-      beforeEach(function(){
+    describe("when paused", function() {
+      beforeEach(function() {
         ordial.paused = true;
       });
 
@@ -175,7 +201,7 @@ describe("Ordial", function() {
         expect(ordial.$('#world').length).toBe(1);
       });
 
-      it("should not update the world", function(){
+      it("should not update the world", function() {
         spyOn(window.singletonContext.world, "update");
         ordial.updateWorld();
         expect(window.singletonContext.world.update).not.toHaveBeenCalled();

@@ -15,6 +15,7 @@
   <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
   <script type="text/javascript" src="node_modules/backbone/backbone.js"></script>
   <script type="text/javascript" src="node_modules/snapsvg/dist/snap.svg.js"></script>
+  <script type="text/javascript" src="node_modules/pixi.js/bin/pixi.js"></script>
   <script type="text/javascript" src="node_modules/jasmine-jquery/lib/jasmine-jquery.js"></script>
 
   <script type="text/javascript" src="/vendor/seedrandom/seedrandom.js"></script>
@@ -42,7 +43,6 @@
   <script src="src/javascript/critter/Critter.js"></script>
   <script src="src/javascript/critter/CritterGutsView.js"></script>
   <script src="src/javascript/critter/CritterMind.js"></script>
-  <script src="src/javascript/critter/CritterView.js"></script>
   <script src="src/javascript/critter/DecisionNode.js"></script>
   <script src="src/javascript/critter/MindFactory.js"></script>
   <script src="src/javascript/ordial.js"></script>
@@ -70,7 +70,6 @@
   <script src="spec/critter/CritterGutsViewSpec.js"></script>
   <script src="spec/critter/CritterMindSpec.js"></script>
   <script src="spec/critter/CritterSpec.js"></script>
-  <script src="spec/critter/CritterViewSpec.js"></script>
   <script src="spec/critter/MindFactorySpec.js"></script>
   <script src="spec/integration/CritterMutationIntegrationTest.js"></script>
   <script src="spec/integration/DecisionMakingFromMemoryIntegrationTest.js"></script>
@@ -84,13 +83,16 @@
 </head>
 
 <body>
-  <div id="ordial" style="display:none;">
+  <div id="testing-area"></div>
+  <div id="ordial" style="
+    position: absolute;
+    visibility: hidden;
+    top: 0;
+    left: 0;">
     <div id="seedContainer"></div>
     <div id="pauseContainer"></div>
     <div id="world"></div>
     <svg id="mind-graph"></svg>
   </div>
-  
-  <div id="testing-area"></div>
 </body>
 </html>

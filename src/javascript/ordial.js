@@ -5,6 +5,15 @@ $(function() {
     initialize: function() {
       this.paused = true;
 
+      PIXI.loader.add('/src/assets/spriteSheet/ordialSprites.json')
+        .load(_.bind(function(){
+
+          this.worldView = new WorldView({model: window.singletonContext.world, el: '#world'});
+          this.worldView.render();
+
+        }, this));
+
+
       this.seedView = new SeedView({model: new Seed(), el:'#seedContainer'});
       this.seedView.render();
 
@@ -13,10 +22,10 @@ $(function() {
 
       this.timeoutControlsView = new TimeoutControlsView({el: '#timeoutControlsContainer'});
       this.timeoutControlsView.render();
-      
+
       this.critterManaView = new CritterGutsView({ el:'#critterManaContainer'});
       this.critterManaView.render();
-      
+
       var ordial = this;
       this.listenTo(this.pauseView, 'pauseButtonClicked', function() {
         ordial.togglePause();
@@ -36,8 +45,9 @@ $(function() {
     },
 
     updateWorld: function() {
-      this.worldView = new WorldView({model: window.singletonContext.world, el: '#world'});
-      this.worldView.render();
+      if(this.worldView){
+        this.worldView.render();
+      }
 
       if(!this.paused){
         window.singletonContext.world.update();
