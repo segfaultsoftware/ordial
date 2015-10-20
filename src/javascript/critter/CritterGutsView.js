@@ -4,8 +4,8 @@ $(function () {
       this.model = {};
       window.singletonContext.eventBus.bind('critterSelectedOnMap', _.bind(this.setCritter, this));
     },
-    setCritter: function (critter) {
-      this.model = critter;
+    setCritter: function (options) {
+      this.model = options.critter;
       this.render();
     },
 
@@ -104,7 +104,7 @@ $(function () {
     render: function () {
       this.$el.html(this.template());
 
-      if (this.prevModel != this.model) {
+      if (this.model && (this.prevModel != this.model)) {
         this.renderDendrogram();
       }
 

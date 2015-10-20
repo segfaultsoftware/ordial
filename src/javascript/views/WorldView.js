@@ -1,16 +1,22 @@
 $(function() {
   WorldView = Backbone.View.extend({
-    initialize: function() {
+    initialize: function(options) {
       this.cellSize = 20;
+      this.graphics = new PIXI.Graphics();
+
+      this.highlightView = options.highlightView ||
+        new HighlightView({graphics: this.graphics, cellSize:this.cellSize});
+
       this.renderer = PIXI.autoDetectRenderer(
         this.model.width * this.cellSize,
         this.model.height * this.cellSize,
         {backgroundColor: 0xCEB89D});
 
       this.sprites = [];
-
       var stage = new PIXI.Container();
-      var texture = PIXI.utils.TextureCache["rock.png"];
+      stage.addChild(this.graphics);
+
+      var texture = PIXI.utils.TextureCache["emptyTile.png"];
       for(var gridX = 0; gridX < this.model.width; gridX++) {
         this.sprites[gridX] = [];
         for(var gridY = 0; gridY < this.model.height; gridY++) {
@@ -23,7 +29,12 @@ $(function() {
           sprite.on('mousedown', (function(gridX, gridY) {
             return function() {
               var thing = worldView.model.getThingAt({x: gridX, y: gridY});
-              window.singletonContext.eventBus.trigger('critterSelectedOnMap', thing);
+              worldView.model.selectedCritter = thing;
+              window.singletonContext.eventBus.trigger('critterSelectedOnMap',
+                {
+                  critter:thing,
+                  location: {gridX:gridX, gridY:gridY}
+                });
             };
           })(gridX, gridY));
           stage.addChild(sprite);
@@ -33,6 +44,8 @@ $(function() {
     },
 
     render: function() {
+      this.graphics.clear();
+      this.graphics.beginFill(0xFFFFFF, 0.5);
       this.$el.html('');
       for(var gridX = 0; gridX < this.model.width; gridX++) {
         for(var gridY = 0; gridY < this.model.height; gridY++) {
@@ -47,7 +60,10 @@ $(function() {
           sprite.texture = texture;
         }
       }
+
+      this.highlightView.render();
       this.renderer.render(this.stage);
+
       this.el.appendChild(this.renderer.view);
       return this;
     },

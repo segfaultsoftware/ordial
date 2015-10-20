@@ -22,6 +22,10 @@ $(function() {
               switch(action) {
                 case Critter.Actions.MOVE_FORWARD:
                   critterActuator.moveCritterForward(thing);
+                  if(world.selectedCritter === thing){
+                    window.singletonContext.eventBus.trigger('critterMoved',
+                      {critter:thing, location:{gridX:thing.location.x, gridY:thing.location.y}});
+                  }
                   break;
 
                 case Critter.Actions.TURN_LEFT:

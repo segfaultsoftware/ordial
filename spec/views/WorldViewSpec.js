@@ -15,6 +15,7 @@ describe("WorldView", function() {
     }
     PIXI_LOADED_SHEET = true;
   });
+
   describe("initialize", function() {
     it('creates a renderer', function() {
       expect(worldView.renderer).toBeDefined();
@@ -101,6 +102,20 @@ describe("WorldView", function() {
     });
   });
 
+  describe("#render", function(){
+    var highlightView;
+    beforeEach(function(){
+      highlightView = new HighlightView({});
+      worldView = new WorldView({model: world, el: '#world', highlightView: highlightView});
+      spyOn(highlightView, 'render');
+    });
+
+    it("renders the highlight view", function(){
+      worldView.render();
+      expect(highlightView.render).toHaveBeenCalled();
+    });
+  });
+
   describe("in a world with Rob", function() {
     var rob, robLocation;
     beforeEach(function() {
@@ -131,7 +146,13 @@ describe("WorldView", function() {
         var canvasElement = document.getElementsByTagName("canvas")[0];
         canvasElement.dispatchEvent(event);
 
-        expect(callbackSpy).toHaveBeenCalledWith(rob);
+        expect(callbackSpy).toHaveBeenCalledWith({critter:rob, location:{gridX:0, gridY:0}});
+      });
+
+      it("sets the selected critter on the world model", function(){
+        var canvasElement = document.getElementsByTagName("canvas")[0];
+        canvasElement.dispatchEvent(event);
+        expect(world.selectedCritter).toBe(rob);
       });
     });
   });

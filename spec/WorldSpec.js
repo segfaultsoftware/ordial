@@ -56,6 +56,37 @@ describe("World", function() {
         world.update();
         expect(critterActuator.moveCritterForward).toHaveBeenCalledWith(rob);
       });
+
+      describe("when the critter is selected", function(){
+        var critterMovedCallback;
+        beforeEach(function(){
+          critterMovedCallback = jasmine.createSpy();
+          rob = new Critter({genes:[['action', 'MOVE_FORWARD']]});
+          world.place(rob, {x:1, y:1});
+          world.selectedCritter = rob;
+          window.singletonContext.eventBus.bind('critterMoved', critterMovedCallback);
+        });
+
+        it("triggers an event with the critter's new location", function() {
+          world.update();
+          expect(critterMovedCallback).toHaveBeenCalledWith({critter:rob, location:{gridX:1, gridY:0}})
+        });
+      });
+
+      describe("when the critter is not selected", function(){
+        var critterMovedCallback;
+        beforeEach(function(){
+          critterMovedCallback = jasmine.createSpy();
+          rob = new Critter();
+          world.place(rob, {x:1, y:1});
+          window.singletonContext.eventBus.bind('critterMoved', critterMovedCallback);
+        });
+
+        it("does not trigger an event", function() {
+          world.update();
+          expect(critterMovedCallback).not.toHaveBeenCalled();
+        });
+      });
     });
 
     describe("when the getActions is TURN_LEFT", function () {
