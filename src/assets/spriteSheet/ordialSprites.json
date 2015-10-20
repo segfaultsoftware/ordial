@@ -63,7 +63,7 @@
 	"sourceSize": {"w":50,"h":50},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_east_black.png":
+"emptyTile.png":
 {
 	"frame": {"x":158,"y":68,"w":20,"h":20},
 	"rotated": false,
@@ -72,7 +72,7 @@
 	"sourceSize": {"w":20,"h":20},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_east_blue.png":
+"ordial_critter_east_black.png":
 {
 	"frame": {"x":180,"y":68,"w":20,"h":20},
 	"rotated": false,
@@ -81,7 +81,7 @@
 	"sourceSize": {"w":20,"h":20},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_east_eggshell.png":
+"ordial_critter_east_blue.png":
 {
 	"frame": {"x":202,"y":68,"w":20,"h":20},
 	"rotated": false,
@@ -90,7 +90,7 @@
 	"sourceSize": {"w":20,"h":20},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_east_lavender.png":
+"ordial_critter_east_eggshell.png":
 {
 	"frame": {"x":2,"y":120,"w":20,"h":20},
 	"rotated": false,
@@ -99,7 +99,7 @@
 	"sourceSize": {"w":20,"h":20},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_east_orange.png":
+"ordial_critter_east_lavender.png":
 {
 	"frame": {"x":24,"y":120,"w":20,"h":20},
 	"rotated": false,
@@ -108,7 +108,7 @@
 	"sourceSize": {"w":20,"h":20},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_east_pink.png":
+"ordial_critter_east_orange.png":
 {
 	"frame": {"x":46,"y":120,"w":20,"h":20},
 	"rotated": false,
@@ -117,7 +117,7 @@
 	"sourceSize": {"w":20,"h":20},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_east_purple.png":
+"ordial_critter_east_pink.png":
 {
 	"frame": {"x":68,"y":120,"w":20,"h":20},
 	"rotated": false,
@@ -126,7 +126,7 @@
 	"sourceSize": {"w":20,"h":20},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_east_teal.png":
+"ordial_critter_east_purple.png":
 {
 	"frame": {"x":90,"y":120,"w":20,"h":20},
 	"rotated": false,
@@ -135,7 +135,7 @@
 	"sourceSize": {"w":20,"h":20},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_north_black.png":
+"ordial_critter_east_teal.png":
 {
 	"frame": {"x":112,"y":120,"w":20,"h":20},
 	"rotated": false,
@@ -144,7 +144,7 @@
 	"sourceSize": {"w":20,"h":20},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_north_blue.png":
+"ordial_critter_north_black.png":
 {
 	"frame": {"x":134,"y":120,"w":20,"h":20},
 	"rotated": false,
@@ -153,7 +153,7 @@
 	"sourceSize": {"w":20,"h":20},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_north_eggshell.png":
+"ordial_critter_north_blue.png":
 {
 	"frame": {"x":156,"y":120,"w":20,"h":20},
 	"rotated": false,
@@ -162,7 +162,7 @@
 	"sourceSize": {"w":20,"h":20},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_north_lavender.png":
+"ordial_critter_north_eggshell.png":
 {
 	"frame": {"x":178,"y":120,"w":20,"h":20},
 	"rotated": false,
@@ -171,9 +171,18 @@
 	"sourceSize": {"w":20,"h":20},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"ordial_critter_north_orange.png":
+"ordial_critter_north_lavender.png":
 {
 	"frame": {"x":200,"y":120,"w":20,"h":20},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
+	"sourceSize": {"w":20,"h":20},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ordial_critter_north_orange.png":
+{
+	"frame": {"x":222,"y":120,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -272,7 +281,7 @@
 },
 "ordial_critter_south_teal.png":
 {
-	"frame": {"x":2,"y":164,"w":20,"h":20},
+	"frame": {"x":222,"y":142,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -281,7 +290,7 @@
 },
 "ordial_critter_west_black.png":
 {
-	"frame": {"x":24,"y":164,"w":20,"h":20},
+	"frame": {"x":2,"y":164,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -290,7 +299,7 @@
 },
 "ordial_critter_west_blue.png":
 {
-	"frame": {"x":46,"y":164,"w":20,"h":20},
+	"frame": {"x":24,"y":164,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -299,7 +308,7 @@
 },
 "ordial_critter_west_eggshell.png":
 {
-	"frame": {"x":68,"y":164,"w":20,"h":20},
+	"frame": {"x":46,"y":164,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -308,7 +317,7 @@
 },
 "ordial_critter_west_lavender.png":
 {
-	"frame": {"x":90,"y":164,"w":20,"h":20},
+	"frame": {"x":68,"y":164,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -317,7 +326,7 @@
 },
 "ordial_critter_west_orange.png":
 {
-	"frame": {"x":112,"y":164,"w":20,"h":20},
+	"frame": {"x":90,"y":164,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -326,7 +335,7 @@
 },
 "ordial_critter_west_pink.png":
 {
-	"frame": {"x":134,"y":164,"w":20,"h":20},
+	"frame": {"x":112,"y":164,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -335,7 +344,7 @@
 },
 "ordial_critter_west_purple.png":
 {
-	"frame": {"x":156,"y":164,"w":20,"h":20},
+	"frame": {"x":134,"y":164,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -344,7 +353,7 @@
 },
 "ordial_critter_west_teal.png":
 {
-	"frame": {"x":178,"y":164,"w":20,"h":20},
+	"frame": {"x":156,"y":164,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -353,7 +362,7 @@
 },
 "resource.png":
 {
-	"frame": {"x":200,"y":164,"w":20,"h":20},
+	"frame": {"x":178,"y":164,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -401,8 +410,8 @@
 	"version": "1.0",
 	"image": "ordialSprites.png",
 	"format": "RGBA8888",
-	"size": {"w":238,"h":252},
+	"size": {"w":244,"h":252},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:b897a12a3d9f13a1d24f2960d3037cdb:c085b8560f707225c61612609082ff13:a7bae1a3a03f19c1bb694a7af647a839$"
+	"smartupdate": "$TexturePacker:SmartUpdate:28d77ecf24a35275f5fd97d31d840a18:9f5fce25a278099307b9c2646fd2da32:a7bae1a3a03f19c1bb694a7af647a839$"
 }
 }

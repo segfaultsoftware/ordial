@@ -1,8 +1,19 @@
+PIXI_LOADED_SHEET = false;
 describe("WorldView", function() {
   var world, worldView;
-  beforeEach(function() {
+  beforeEach(function(done) {
     world = new World();
-    worldView = new WorldView({model: world, el: '#world'});
+    if(!PIXI_LOADED_SHEET) {
+      PIXI.loader.add('/src/assets/spriteSheet/ordialSprites.json')
+        .load(_.bind(function() {
+          worldView = new WorldView({model: world, el: '#world'});
+          done();
+        }));
+    } else {
+      worldView = new WorldView({model: world, el: '#world'});
+      done();
+    }
+    PIXI_LOADED_SHEET = true;
   });
   describe("initialize", function() {
     it('creates a renderer', function() {
@@ -97,25 +108,21 @@ describe("WorldView", function() {
       rob.direction = CardinalDirection.NORTH;
       world.place(rob, {x: 0, y: 0});
       robLocation = {x: 0.5 * worldView.cellSize, y: 0.5 * worldView.cellSize};
-
       worldView.render();
     });
 
     describe("clicking on the critter", function() {
       var event;
-      beforeEach(function(done) {
+      beforeEach(function() {
         var element = $("canvas")[0];
         var rect = element.getBoundingClientRect();
 
         event = new MouseEvent("mousedown", {
           clientX: rect.left + robLocation.x,
-          clientY: rect.top + robLocation.y});
+          clientY: rect.top + robLocation.y
+        });
 
-        PIXI.loader.add('/src/assets/spriteSheet/ordialSprites.json')
-          .load(_.bind(function(){
-            worldView.render();
-            done();
-          }, this));
+        worldView.render();
       });
 
       it("should trigger a global critterSelectedOnMap event with the critter model", function() {
