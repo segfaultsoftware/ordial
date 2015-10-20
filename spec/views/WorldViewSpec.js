@@ -96,7 +96,7 @@ describe("WorldView", function() {
       rob = new Critter();
       rob.direction = CardinalDirection.NORTH;
       world.place(rob, {x: 0, y: 0});
-      robLocation = {x: 0 * worldView.cellSize, y: 0 * worldView.cellSize};
+      robLocation = {x: 0.5 * worldView.cellSize, y: 0.5 * worldView.cellSize};
 
       worldView.render();
     });
@@ -108,8 +108,8 @@ describe("WorldView", function() {
         var rect = element.getBoundingClientRect();
 
         event = new MouseEvent("mousedown", {
-          clientX: rect.left + robLocation.x + 1,
-          clientY: rect.top + robLocation.y + 1});
+          clientX: rect.left + robLocation.x,
+          clientY: rect.top + robLocation.y});
 
         PIXI.loader.add('/src/assets/spriteSheet/ordialSprites.json')
           .load(_.bind(function(){

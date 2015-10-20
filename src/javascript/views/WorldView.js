@@ -1,11 +1,11 @@
 $(function() {
   WorldView = Backbone.View.extend({
     initialize: function() {
-      this.cellSize = 15;
+      this.cellSize = 20;
       this.renderer = PIXI.autoDetectRenderer(
         this.model.width * this.cellSize,
         this.model.height * this.cellSize,
-        {backgroundColor: 0x1099bb});
+        {backgroundColor: 0xCEB89D});
     },
 
     render: function() {

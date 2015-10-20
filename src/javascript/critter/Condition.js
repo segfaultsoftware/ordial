@@ -62,6 +62,6 @@ $(function() {
     counterUnder10: new Condition('vitals', 'counter', 'LessThan', 10),
     counterUnder30: new Condition('vitals', 'counter', 'LessThan', 20),
     counterUnder80: new Condition('vitals', 'counter', 'LessThan', 80),
-    counterUnder200: new Condition('vitals', 'counter', 'LessThan', 80),
+    counterUnder200: new Condition('vitals', 'counter', 'LessThan', 200),
   };
 });
