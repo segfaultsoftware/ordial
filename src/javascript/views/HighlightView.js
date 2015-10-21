@@ -4,7 +4,7 @@ $(function() {
       this.graphics = options.graphics;
       this.cellSize = options.cellSize;
       window.singletonContext.eventBus.bind('critterSelectedOnMap', _.bind(this.setLocation, this));
-      window.singletonContext.eventBus.bind('critterMoved', _.bind(this.setLocation, this));
+      window.singletonContext.eventBus.bind('selectedCritterMoved', _.bind(this.setLocation, this));
     },
 
     setLocation: function(options) {

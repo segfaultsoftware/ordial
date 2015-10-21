@@ -64,7 +64,7 @@ describe("World", function() {
           rob = new Critter({genes:[['action', 'MOVE_FORWARD']]});
           world.place(rob, {x:1, y:1});
           world.selectedCritter = rob;
-          window.singletonContext.eventBus.bind('critterMoved', critterMovedCallback);
+          window.singletonContext.eventBus.bind('selectedCritterMoved', critterMovedCallback);
         });
 
         it("triggers an event with the critter's new location", function() {
@@ -79,7 +79,7 @@ describe("World", function() {
           critterMovedCallback = jasmine.createSpy();
           rob = new Critter();
           world.place(rob, {x:1, y:1});
-          window.singletonContext.eventBus.bind('critterMoved', critterMovedCallback);
+          window.singletonContext.eventBus.bind('selectedCritterMoved', critterMovedCallback);
         });
 
         it("does not trigger an event", function() {
