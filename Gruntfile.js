@@ -25,7 +25,7 @@ module.exports = function (grunt) {
       }
     },
     exec: {
-      compile_less: 'lessc ./src/less/ordial.less ./src/css/ordial.css'
+      compile_less: './node_modules/.bin/lessc ./src/less/ordial.less ./src/css/ordial.css'
     },
     connect: {
       server: {

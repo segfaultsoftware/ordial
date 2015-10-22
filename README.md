@@ -1,12 +1,11 @@
-ordial
+Ordial
 ======
-Ordial is an evolution simulator (that does not yet simulate evolution)
+Ordial is an evolution simulator
 
 We've been running locally with
-```python -m SimpleHTTPServer```
+```grunt```
 
-There is a grunt task to compile/watch changes to .less files.
-first you will need to install lessc.
+First you will need to install grunt-cli.
 
-```npm install less -g```
+```npm install grunt-cli -g```
 
