@@ -1,10 +1,10 @@
 (function () {
   BinaryTreeGraphHelper = function (data, iconSize) {
-    var rightChildIndex = function (index) {
+    this.rightChildIndex = function (index) {
       return index * 2 + 2;
     };
 
-    var leftChildIndex = function (index) {
+    this.leftChildIndex = function (index) {
       return index * 2 + 1;
     };
 
@@ -34,15 +34,15 @@
     };
 
     this.getRightChildCoords = function (index) {
-      return this.getCoords(rightChildIndex(index));
+      return this.getCoords(this.rightChildIndex(index));
     };
 
     this.hasRightChild = function (index) {
-      return !!data[rightChildIndex(index)];
+      return !!data[this.rightChildIndex(index)];
     };
 
     this.hasLeftChild = function (index) {
-      return !!data[leftChildIndex(index)];
+      return !!data[this.leftChildIndex(index)];
     };
 
     this.columnsInRow = function (row) {

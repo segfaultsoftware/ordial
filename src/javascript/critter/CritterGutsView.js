@@ -3,6 +3,7 @@ $(function () {
     initialize: function () {
       this.model = {};
       window.singletonContext.eventBus.bind('critterSelectedOnMap', _.bind(this.setCritter, this));
+      this.graph = Snap('#mind-graph').attr({width: 0, height: 0});
     },
     setCritter: function (options) {
       this.model = options.critter;
@@ -13,13 +14,37 @@ $(function () {
       return JST['src/viewTemplates/critterGuts.template.html'](this.model);
     },
 
+    filter: function(genes){
+      genes = _.clone(genes) || [];
+      var binaryTreeGraphHelper = new BinaryTreeGraphHelper(genes, 1234);
+      if(window.singletonContext.configuration.hideJunkDna){
+        _.each(genes, function(gene, index){
+          if(!gene || gene[0] == 'action'){
+            if(binaryTreeGraphHelper.hasLeftChild(index)){
+              genes[binaryTreeGraphHelper.leftChildIndex(index)] = null;
+            }
+            if(binaryTreeGraphHelper.hasRightChild(index)) {
+              genes[binaryTreeGraphHelper.rightChildIndex(index)] = null;
+            }
+          }
+        });
+      }
+
+      var lastNonNullIndex = _.findLastIndex(genes, function(gene){
+        return !!gene;
+      });
+      genes.splice(lastNonNullIndex + 1);
+      return genes;
+    },
+
     renderDendrogram: function () {
       this.prevModel = this.model;
       var genes = this.model.genes;
-      var graph = Snap('#mind-graph').attr({width: 0, height: 0});
+      var graph = this.graph;
       graph.clear();
 
       if (genes) {
+        genes = this.filter(genes);
 
         var imageSize = 50;
         var binaryTreeGraphHelper = new BinaryTreeGraphHelper(genes, imageSize);

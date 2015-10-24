@@ -7,8 +7,8 @@ $(function() {
 
     template: function() {
       return _.template('<input id="seed-input" type="text" ' +
-        '<% if (isFinalized) { %>disabled="disabled"<% } %> ' +
-        'value="<%= seedValue %>"/>', this.model.attributes);
+        '<% if(isFinalized) { %>disabled="disabled"<% } %> ' +
+        'value="<%= seedValue %>"/>');
     },
 
     disableInput: function() {
@@ -23,7 +23,7 @@ $(function() {
     },
 
     render: function(){
-      this.$el.html(this.template());
+      this.$el.html(this.template()(this.model.attributes));
       return this;
     }
   });

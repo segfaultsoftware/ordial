@@ -21,7 +21,7 @@
     "jquery": "2.1.x",
     "pixi.js": "git+https://github.com/pixijs/pixi.js.git",
     "snapsvg": "^0.4.0",
-    "underscore": "1.5.x"
+    "underscore": "1.8.x"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
