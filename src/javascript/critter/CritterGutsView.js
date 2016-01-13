@@ -5,6 +5,11 @@ $(function () {
       window.singletonContext.eventBus.bind('critterSelectedOnMap', _.bind(this.setCritter, this));
       this.graph = Snap('#mind-graph').attr({width: 0, height: 0});
     },
+
+    events: {
+      'click #hide-junk-dna-checkbox': 'toggleJunkDna'
+    },
+
     setCritter: function (options) {
       this.model = options.critter;
       this.render();
@@ -35,6 +40,10 @@ $(function () {
       });
       genes.splice(lastNonNullIndex + 1);
       return genes;
+    },
+
+    toggleJunkDna: function() {
+      window.singletonContext.configuration.hideJunkDna = !window.singletonContext.configuration.hideJunkDna;
     },
 
     renderDendrogram: function () {

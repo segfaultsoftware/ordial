@@ -13,7 +13,11 @@ __p += '\n    <label>Mana</label>\n    <span class="critter-mana">' +
  } else { ;
 __p += '\n    <div class="message">(no critter selected)</div>\n  ';
  } ;
-__p += '\n</div>\n';
+__p += '\n    <input id="hide-junk-dna-checkbox" type="checkbox" ';
+ if(window.singletonContext.configuration.hideJunkDna){ ;
+__p += '\n    checked\n  ';
+ } ;
+__p += '\n    />\n</div>\n';
 
 }
 return __p

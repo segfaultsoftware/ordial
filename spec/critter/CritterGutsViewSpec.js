@@ -111,4 +111,56 @@ describe("CritterGutsView", function() {
       });
     });
   });
+
+  describe("hide junk dna checkbox", function(){
+    var checkbox;
+    beforeEach(function(){
+      checkbox = gutsView.render().$el.find('.critter-guts input[type=checkbox]#hide-junk-dna-checkbox');
+    });
+
+    it("a hide junk dna checkbox is visible", function() {
+      expect(checkbox).toExist();
+    });
+
+    describe("when the config value for hideJunkDna is true", function() {
+      beforeEach(function(){
+        window.singletonContext.configuration.hideJunkDna = true;
+      });
+
+      it("is checked", function(){
+        checkbox = gutsView.render().$el.find('.critter-guts input[type=checkbox]#hide-junk-dna-checkbox');
+        expect(checkbox).toBeChecked();
+      });
+
+      describe("when the hide junk dna button is clicked", function(){
+        it("sets the configuration.hideJunkDna false", function(){
+          checkbox.trigger('click');
+          expect(window.singletonContext.configuration.hideJunkDna).toBeFalsy();
+        });
+      });
+    });
+
+    describe("when the config value for hideJunk is false", function(){
+      beforeEach(function(){
+        window.singletonContext.configuration.hideJunkDna = false;
+      });
+
+      it("is not checked", function(){
+        checkbox = gutsView.render().$el.find('.critter-guts input[type=checkbox]#hide-junk-dna-checkbox');
+        expect(checkbox).not.toBeChecked();
+      });
+
+      describe("when the hide junk dna button is clicked", function(){
+        var checkbox;
+        beforeEach(function(){
+          checkbox = gutsView.render().$el.find('.critter-guts input[type=checkbox]#hide-junk-dna-checkbox')
+        });
+
+        it("sets the configuration.hideJunkDna true", function(){
+          checkbox.trigger('click');
+          expect(window.singletonContext.configuration.hideJunkDna).toBeTruthy();
+        });
+      });
+    });
+  });
 });

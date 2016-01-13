@@ -5,4 +5,8 @@
   <% } else { %>
     <div class="message">(no critter selected)</div>
   <% } %>
+    <input id="hide-junk-dna-checkbox" type="checkbox" <% if(window.singletonContext.configuration.hideJunkDna){ %>
+    checked
+  <% } %>
+    />
 </div>
