@@ -44,6 +44,7 @@ $(function () {
 
     toggleJunkDna: function() {
       window.singletonContext.configuration.hideJunkDna = !window.singletonContext.configuration.hideJunkDna;
+      this.renderDendrogram();
     },
 
     renderDendrogram: function () {

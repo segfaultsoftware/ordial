@@ -137,6 +137,12 @@ describe("CritterGutsView", function() {
           checkbox.trigger('click');
           expect(window.singletonContext.configuration.hideJunkDna).toBeFalsy();
         });
+
+        it("rerenders the dendrogram", function(){
+          spyOn(gutsView, 'renderDendrogram');
+          checkbox.trigger('click');
+          expect(gutsView.renderDendrogram).toHaveBeenCalled();
+        });
       });
     });
 
@@ -159,6 +165,12 @@ describe("CritterGutsView", function() {
         it("sets the configuration.hideJunkDna true", function(){
           checkbox.trigger('click');
           expect(window.singletonContext.configuration.hideJunkDna).toBeTruthy();
+        });
+
+        it("rerenders the dendrogram", function(){
+          spyOn(gutsView, 'renderDendrogram');
+          checkbox.trigger('click');
+          expect(gutsView.renderDendrogram).toHaveBeenCalled();
         });
       });
     });
