@@ -17,7 +17,7 @@ $(function() {
         this.genes = [];
       }
 
-      this.color = window.singletonContext.randomNumberGenerator.sample(["lavender", "black", "blue", "orange", "eggshell", "pink", "teal", "purple"]);
+      this.color = window.singletonContext.randomNumberGenerator.sample(["lavender", "black", "blue", "orange", "pink", "teal", "purple"]);
       var vitalOverrides = (options && options.vitals) || {};
       this.vitals = _.defaults(vitalOverrides, defaultVitals());
     },
@@ -34,6 +34,15 @@ $(function() {
       if (yummyMorsel && yummyMorsel.mana) {
         this.vitals.mana += yummyMorsel.mana;
       }
+    },
+    
+    isDead: function() {
+      return this.vitals.mana < 1;
+    },
+    
+    decay: function() {
+      this.color = "eggshell";
+      this.vitals.decay++;
     },
 
     replicateGenes: function() {
@@ -75,7 +84,8 @@ $(function() {
   function defaultVitals() {
     return {
       counter: Critter.DEFAULT_STARTING_COUNTER,
-      mana: Critter.DEFAULT_STARTING_MANA
+      mana: Critter.DEFAULT_STARTING_MANA,
+      decay: -1
     };
   }
 

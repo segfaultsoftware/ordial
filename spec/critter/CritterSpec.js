@@ -16,7 +16,7 @@ describe("Critter", function() {
       });
 
       it("should set a random color", function () {
-        expect(["lavender", "black", "blue", "orange", "eggshell","pink", "teal","purple"]).toContain(rob.color);
+        expect(["lavender", "black", "blue", "orange", "pink", "teal","purple"]).toContain(rob.color);
       });
 
       it('gives critters their very own vitals', function(){
@@ -145,6 +145,25 @@ describe("Critter", function() {
       justInCase[0][1][1] = 'blarg';
 
       expect(justInCase).not.toEqual(deepGenes);
+    });
+  });
+  
+  describe("#decay", function(){
+    var rob;
+    beforeEach(function(){
+      rob = new Critter();
+    });
+    
+    it("decays the critter", function(){
+      rob.decay();
+      expect(rob.vitals.decay).toEqual(0);
+      rob.decay();
+      expect(rob.vitals.decay).toEqual(1);
+    });
+    
+    it("sets the critter's color to eggshell", function(){
+      rob.decay();
+      expect(rob.color).toEqual("eggshell");
     });
   });
 });

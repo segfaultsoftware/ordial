@@ -59,7 +59,13 @@ $(function() {
         }
       });
 
-      _.each(deadThings, function(thing){ world.remove(thing);});
+      _.each(deadThings, function(thing){ 
+        thing.decay();
+        debugger
+        if(thing.vitals.decay >= singletonContext.configuration.decompositionTime) {
+          world.remove(thing);
+        }
+      });
 
       window.singletonContext.resourceSpawner.spawn();
     },

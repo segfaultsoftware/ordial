@@ -3,6 +3,7 @@ describe("Critter Mutation", function () {
 
   beforeEach(function () {
     world = singletonContext.world = new World();
+    singletonContext.configuration.decompositionTime = 0;
   });
 
   describe("when a critter reproduces", function () {

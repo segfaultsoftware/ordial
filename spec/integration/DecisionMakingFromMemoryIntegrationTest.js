@@ -28,7 +28,7 @@ describe("Decision making from memory", function () {
       expect(anna.location).toEqual({x:2, y:7});
       expect(anna.direction).toEqual(CardinalDirection.NORTH);
       world.update();
-      expect(world.contains(anna)).toBeFalsy();
+      expect(anna.isDead()).toBeTruthy();
     });
   });
 });

@@ -149,23 +149,50 @@ describe("World", function() {
       expect(kim.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.REPRODUCE.cost);
     });
 
-    describe("when the critter does not have enough mana to perform the action", function(){
-      it("should remove the critters", function() {
-        rob.vitals.mana = 1;
+    
+    describe("when the critter is dead", function(){
+      beforeEach(function () {
+        rob.vitals.mana = -10;      
+      });
+      
+      it('decays', function () {
+        rob.vitals.decay = 0;
+        world.update();
+        expect(rob.vitals.decay).toEqual(1);
+      });
+      
+      it("should remove decayed critters", function() {
+        rob.vitals.decay = singletonContext.configuration.decompositionTime;
         world.update();
         expect(world.things).not.toContain(rob);
         expect(world.things).toContain(zoe);
-        expect(world.things).not.toContain(kim);
+        expect(world.things).toContain(kim);
       });
-
-      it("should not perform the action", function(){
+    });
+    
+    describe("when the critter does not have enough mana to perform the action", function(){
+      beforeEach(function () {
         rob.vitals.mana = 1;
+      });
+      
+      it("should kill the critter", function(){
+        world.update();
+        expect(rob.vitals.decay).toEqual(0);
+        expect(rob.isDead()).toBe(true);
+      });
+      
+      it("does not remove the critter from the world", function () {
+        world.update();
+        expect(world.things).toContain(rob);
+      });
+      
+      it("should not perform the action", function(){
         spyOn(critterActuator, 'moveCritterForward');
         world.update();
         expect(critterActuator.moveCritterForward).not.toHaveBeenCalledWith(rob);
       });
-
     });
+    
     describe("when there are multiple actions", function(){
       var fred, originalMana;
       beforeEach(function () {
