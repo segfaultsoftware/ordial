@@ -61,7 +61,6 @@ $(function() {
 
       _.each(deadThings, function(thing){ 
         thing.decay();
-        debugger
         if(thing.vitals.decay >= singletonContext.configuration.decompositionTime) {
           world.remove(thing);
         }
