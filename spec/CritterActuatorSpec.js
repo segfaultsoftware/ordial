@@ -145,6 +145,7 @@ describe("CritterActuator", function() {
         var offspring;
 
         beforeEach(function() {
+           window.singletonContext.randomNumberGenerator.stubRandom([0]);
           critterActuator.reproduceCritter(rob);
           offspring = world.getThingAt(offspringLocation);
         });
@@ -229,26 +230,47 @@ describe("CritterActuator", function() {
           mutantGenes = [['action', 'TURN_LEFT']];
           spyOn(singletonContext.geneMutator, 'mutate')
             .and.returnValue(mutantGenes);
-
-          critterActuator.reproduceCritter(rob);
-          offspring = world.getThingAt(offspringLocation);
         });
 
         it("should create a critter to the right", function() {
+          critterActuator.reproduceCritter(rob);
+          offspring = world.getThingAt(offspringLocation);
           expect(offspring).not.toBeFalsy();
         });
 
         describe("offspring", function() {
-          it("should have a mutated version of its parent's mind", function() {
-            expect(offspring.genes).toEqual(mutantGenes);
-            expect(offspring.getActions()).toEqual(Critter.Actions.TURN_LEFT);
-
-          });
-
-          it("should be oriented to the right of its parent", function() {
-            expect(offspring.direction).toEqual(
+         it("should be oriented to the right of its parent", function() {
+            
+           critterActuator.reproduceCritter(rob);
+          offspring = world.getThingAt(offspringLocation);
+           expect(offspring.direction).toEqual(
               CardinalDirection.getDirectionAfterRotation(rob.direction, RelativeDirection.RIGHT)
             );
+          });
+
+          describe("half of the time", function(){
+            beforeEach(function(){
+              window.singletonContext.randomNumberGenerator.stubRandom([0]);
+              critterActuator.reproduceCritter(rob);
+          offspring = world.getThingAt(offspringLocation);
+            });
+            
+            it("should have its parent's genes", function() {
+              expect(offspring.genes).toEqual(rob.genes);
+            });
+          });
+          
+          describe("the other half of the the time", function(){
+            beforeEach(function(){
+              window.singletonContext.randomNumberGenerator.stubRandom([1]);
+              critterActuator.reproduceCritter(rob);
+          offspring = world.getThingAt(offspringLocation);
+            });
+            
+            it("should have a mutated version of its parent's mind", function() {
+              expect(offspring.genes).toEqual(mutantGenes);
+              expect(offspring.getActions()).toEqual(Critter.Actions.TURN_LEFT);
+            });
           });
         });
       });

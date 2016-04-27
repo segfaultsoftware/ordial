@@ -42,13 +42,13 @@ $(function() {
       var cloneGenes = critter.replicateGenes();
       var mutantGenes = singletonContext.geneMutator.mutate(critter.replicateGenes());
 
-      if (Math.floor(window.singletonContext.randomNumberGenerator.random() * 1000) % 2) {
+      if (window.singletonContext.randomNumberGenerator.random(1)) {
         createOffspringInDirection(RelativeDirection.LEFT, cloneGenes);
         createOffspringInDirection(RelativeDirection.RIGHT, mutantGenes);
       }
       else {
-        createOffspringInDirection(RelativeDirection.RIGHT, mutantGenes);
-        createOffspringInDirection(RelativeDirection.LEFT, cloneGenes);
+        createOffspringInDirection(RelativeDirection.LEFT, mutantGenes);
+        createOffspringInDirection(RelativeDirection.RIGHT, cloneGenes);
       }
     },
 
