@@ -58,6 +58,20 @@ $(function() {
 
     decrementCounterOnCritter: function(critter) {
       critter.vitals.counter--;
+    },
+    
+    moveForwardAndEatCritter: function(critter) {
+      var world = singletonContext.world;
+
+      var nextLocation = world.getTileInDirection(RelativeDirection.FORWARD, critter);
+      var thing = world.getThingAt(nextLocation);
+      if(thing instanceof Critter && thing.isDead) {
+        delete thing.getActions;
+        world.remove(thing);
+        critter.eat({mana: 300});
+      }
+      
+      this.moveCritterForward(critter);
     }
   });
 });

@@ -47,6 +47,10 @@ $(function() {
                 case Critter.Actions.DECREMENT_COUNTER:
                   critterActuator.decrementCounterOnCritter(thing);
                   break;
+                  
+                case Critter.Actions.MOVE_FORWARD_AND_EAT_CRITTER:
+                  critterActuator.moveForwardAndEatCritter(thing);
+                  break;
               }
             }
 

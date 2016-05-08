@@ -15,6 +15,9 @@ $(function() {
           return Critter.Actions[actionName];
         });
         if(actions.length == 1){
+          if(!actions[0]){
+            console.warn("no action to map for " + templateEntry);
+          }
           return actions[0];
         } else if (actions.length == 0) {
           return Critter.Actions.STARE_OFF_INTO_SPACE;

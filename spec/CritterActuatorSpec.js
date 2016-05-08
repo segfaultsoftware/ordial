@@ -322,6 +322,49 @@ describe("CritterActuator", function() {
     });
   });
 
+  describe('#moveForwardAndEatCritter', function() {
+    var sigfried;
+    var theGhostOfCritterPast;
+    
+    describe('when there is nothing in the way', function() {
+      beforeEach(function() {
+        sigfried = new Critter();
+        world.place(sigfried, {x:5, y:3});
+      });
+      it('moves a critter forward', function () {
+        critterActuator.moveForwardAndEatCritter(sigfried);
+        expect(sigfried.location).toEqual({x:5, y:2});
+      });
+    });
+    
+    describe('when there is a critter in the way', function (){
+      beforeEach(function() {
+        theGhostOfCritterPast = new Critter();
+        theGhostOfCritterPast.vitals.mana = -1;
+        world.place(theGhostOfCritterPast, {x:5, y:2});
+
+        sigfried = new Critter();
+        world.place(sigfried, {x:5, y:3});
+      });
+      
+      it('removes the corpse', function () {
+        critterActuator.moveForwardAndEatCritter(sigfried);
+        expect(world.contains(theGhostOfCritterPast)).toBe(false);
+      });
+      
+      it('moves a critter forward', function () {
+        critterActuator.moveForwardAndEatCritter(sigfried);
+        expect(sigfried.location).toEqual({x:5, y:2});
+      });
+      
+      it('feeds the critter 300 mana', function() {
+        var hungryMana = sigfried.vitals.mana;
+        critterActuator.moveForwardAndEatCritter(sigfried);
+        expect(sigfried.vitals.mana).toEqual(hungryMana + 300);
+      });
+    });
+  });
+  
   describe("#incrementCounterOnCritter", function() {
     var anna;
     beforeEach(function() {

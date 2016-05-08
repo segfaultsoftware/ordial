@@ -78,6 +78,10 @@ $(function() {
     DECREMENT_COUNTER: {
       key: 'decrement counter',
       cost: 1
+    },
+    MOVE_FORWARD_AND_EAT_CRITTER: {
+      key: 'move forward and eat critter',
+      cost: 20
     }
   };
 

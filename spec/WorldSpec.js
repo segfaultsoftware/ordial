@@ -1,5 +1,5 @@
 describe("World", function() {
-  var world, rob, zoe, kim, joe, stimulusPackager;
+  var world, rob, zoe, kim, joe, ben, stimulusPackager;
 
   beforeEach(function() {
     stimulusPackager = jasmine.createSpyObj('packager', ['package']);
@@ -9,6 +9,7 @@ describe("World", function() {
     zoe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT })});
     kim = new Critter({mind: new CritterMind({action: Critter.Actions.REPRODUCE })});
     joe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_RIGHT })});
+    ben = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD_AND_EAT_CRITTER })});
   });
 
   describe("#update", function(){
@@ -25,6 +26,7 @@ describe("World", function() {
       world.place(zoe, zoesOriginalLocation);
       world.place(kim, kimsOriginalLocation);
       world.place(joe, joesOriginalLocation);
+      world.place(ben, {x: 5, y: 5});
     });
 
     it("should call getActions on all critters", function(){
@@ -96,8 +98,16 @@ describe("World", function() {
         expect(critterActuator.turnCritterLeft).toHaveBeenCalledWith(zoe);
       });
     });
+    
+    describe("when the getActions is MOVE_FORWARD_AND_EAT_CRITTER", function(){
+      it("should call moveForwardAndEatCritter", function(){
+        spyOn(critterActuator, 'moveForwardAndEatCritter');
+        world.update();
+        expect(critterActuator.moveForwardAndEatCritter).toHaveBeenCalledWith(ben);
+      });
+    });
 
-    describe("when the getActions is TURN_RIGHT", function () {
+    describe("when the getActions is TURN_RIGHT", function ( ) {
       it("should call #turnCritterRight", function () {
         spyOn(critterActuator, 'turnCritterRight');
         world.update();
@@ -215,6 +225,10 @@ describe("World", function() {
         world.update();
         expect(fred.vitals.mana).toEqual(1);
       });
+    });
+    
+    describe("when the critter was removed during the update of another critter", function(){
+      
     });
   });
 
