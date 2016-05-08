@@ -8,19 +8,8 @@ describe("Critter Mutation", function () {
 
   describe("when a critter reproduces", function () {
     beforeEach(function () {
-      var randomForWhichMutant = 0;
-      var randomForMutateReplace = 3;
-      var randomForReplaceIndex = 0;
-      var randomForRandomGeneAction = 1;
-      var randomForTurnLeft = 1;
-
-      window.singletonContext.randomNumberGenerator.stubRandom([
-        randomForWhichMutant,
-        randomForMutateReplace,
-        randomForReplaceIndex,
-        randomForRandomGeneAction,
-        randomForTurnLeft
-      ]);
+   //TODO: make this less fragile, more meaningful
+window.singletonContext.randomNumberGenerator.stubRandom([0, 4, 0, 3, 0, 1, 1, 5, 1, 0.5, 1, 1, 3, 0, 0, 5, 3, 0.5 ]);
 
       var mindGenes = [['action', 'REPRODUCE']];
       Critter.DEFAULT_STARTING_MANA = Critter.Actions.REPRODUCE.cost;
