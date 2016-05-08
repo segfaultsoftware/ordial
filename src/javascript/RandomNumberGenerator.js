@@ -16,18 +16,20 @@ $(function() {
         console.error("random called with ", arguments[0])
       }
 
+      var result;
       if (this.nextRandoms.length > 0) {
-        return this.nextRandoms.shift();
+        result = this.nextRandoms.shift();
       }
       else if (arguments.length === 2) {
-        return _.random(arguments[0], arguments[1]);
+        result = _.random(arguments[0], arguments[1]);
       }
       else if (arguments.length === 1) {
-        return _.random(arguments[0]);
+        result = _.random(arguments[0]);
       }
       else {
-        return Math.random();
+        result = Math.random();
       }
+      return result;
     };
 
     this.sample = function(array) {
