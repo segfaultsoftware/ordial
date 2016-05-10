@@ -101,7 +101,7 @@ describe("Critter", function() {
       rob = new Critter();
       resource = new Resource();
       originalMana = rob.vitals.mana;
-      resourceMana = resource.mana;
+      resourceMana = resource.manaPerServing;
     });
 
     describe("when eating a resource", function() {

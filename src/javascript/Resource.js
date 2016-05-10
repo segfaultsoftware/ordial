@@ -1,7 +1,7 @@
 $(function() {
   Resource = Backbone.Model.extend({
     initialize: function(){
-      this.mana = Resource.DEFAULT_MANA_VALUE;
+      this.manaPerServing = Resource.DEFAULT_MANA_VALUE;
     }
   });
 

@@ -79,7 +79,7 @@ describe("CritterActuator", function() {
       });
 
       it("should increase rob's mana by the resource's value", function() {
-        expect(rob.vitals.mana).toEqual(originalMana + resource.mana);
+        expect(rob.vitals.mana).toEqual(originalMana + resource.manaPerServing);
       });
     });
   });
@@ -213,7 +213,7 @@ describe("CritterActuator", function() {
 
         it("should increment the critter's mana by the resource's mana", function() {
           var child = world.getThingAt(offspringLocation);
-          expect(child.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA + resource.mana);
+          expect(child.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA + resource.manaPerServing);
         });
       });
     });

@@ -31,8 +31,8 @@ $(function() {
     },
 
     eat: function(yummyMorsel) {
-      if (yummyMorsel && yummyMorsel.mana) {
-        this.vitals.mana += yummyMorsel.mana;
+      if (yummyMorsel && yummyMorsel.manaPerServing) {
+        this.vitals.mana += yummyMorsel.manaPerServing;
       }
     },
     
