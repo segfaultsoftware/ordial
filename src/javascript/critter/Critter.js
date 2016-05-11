@@ -20,6 +20,8 @@ $(function() {
       this.color = window.singletonContext.randomNumberGenerator.sample(["lavender", "black", "blue", "orange", "pink", "teal", "purple"]);
       var vitalOverrides = (options && options.vitals) || {};
       this.vitals = _.defaults(vitalOverrides, defaultVitals());
+      
+      this.manaPerServing = Critter.DEFAULT_MANA_PER_SERVING;
     },
 
     getActions : function(stimuli) {
@@ -78,6 +80,10 @@ $(function() {
     DECREMENT_COUNTER: {
       key: 'decrement counter',
       cost: 1
+    },
+    MOVE_FORWARD_AND_EAT_CRITTER: {
+      key: 'move forward and eat critter',
+      cost: 20
     }
   };
 
@@ -91,4 +97,5 @@ $(function() {
 
   Critter.DEFAULT_STARTING_COUNTER = 0;
   Critter.DEFAULT_STARTING_MANA = 50;
+  Critter.DEFAULT_MANA_PER_SERVING = 50;
 });

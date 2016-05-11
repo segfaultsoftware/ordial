@@ -58,6 +58,22 @@ $(function() {
 
     decrementCounterOnCritter: function(critter) {
       critter.vitals.counter--;
+    },
+    
+    moveForwardAndEatCritter: function(critter) {
+     var isDeadCritter = function(thing){
+       return thing instanceof Critter &&
+         thing.isDead();
+     };
+      var world = singletonContext.world;
+
+      var nextLocation = world.getTileInDirection(RelativeDirection.FORWARD, critter);
+      var thingAtNextLocation = world.getThingAt(nextLocation);
+      if (!thingAtNextLocation || critter.canEat(thingAtNextLocation)
+         || isDeadCritter(thingAtNextLocation)) {
+        world.place(critter, nextLocation);
+        critter.eat(thingAtNextLocation);
+      }
     }
   });
 });

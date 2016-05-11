@@ -12,7 +12,7 @@ $(function() {
       var critterActuator = singletonContext.critterActuator;
       var deadThings = [];
       _.each(_.shuffle(this.things), function(thing){
-        if (thing.getActions) {
+        if (thing.getActions && thing.location) {
           var stimuli = window.singletonContext.stimulusPackager.package(world, thing);
           var actions = thing.getActions(stimuli);
           actions = _.isArray(actions) ? actions : [actions];
@@ -46,6 +46,10 @@ $(function() {
 
                 case Critter.Actions.DECREMENT_COUNTER:
                   critterActuator.decrementCounterOnCritter(thing);
+                  break;
+                  
+                case Critter.Actions.MOVE_FORWARD_AND_EAT_CRITTER:
+                  critterActuator.moveForwardAndEatCritter(thing);
                   break;
               }
             }
