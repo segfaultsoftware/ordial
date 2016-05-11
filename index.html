@@ -74,8 +74,6 @@
 <h3>Active Code</h3>
 
 <textarea id="code">
-  var mindGenes =[['condition', 'resourceInFront'], ['action', 'MOVE_FORWARD'],['condition','resourceToTheRight'],['action','REPRODUCE'],['action','REPRODUCE'],['action','REPRODUCE'],['action','TURN_RIGHT'],['condition','resourceToTheLeft'],['action','REPRODUCE'],['action','REPRODUCE'],['action','TURN_LEFT'],['action','REPRODUCE']];
-
 
     function getCoord() {
       return Math.floor(window.singletonContext.randomNumberGenerator.random() * Math.min(world.height, world.width));
@@ -89,8 +87,8 @@
       world.place(new Resource(), getCoords());
     }
     for(var i = 0; i < 50; i++) {
-      var blocker = new Rock();
-      world.place(blocker, getCoords());
+      var rock = new Rock();
+      world.place(rock, getCoords());
     }
 
     var mindGenes =[
