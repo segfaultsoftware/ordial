@@ -39,6 +39,13 @@ describe("CritterSerializer", function(){
                        [["condition", "critterInFront"], ["action", ["MOVE_FORWARD", "MOVE_FORWARD"]]]
                        );
     });
+    
+    it("sets the type to critter", function(){
+      serializedCritter = critterSerializer.serialize(critter);
+      parsedCritter = JSON.parse(serializedCritter);
+      expect(parsedCritter.type).toEqual("critter");
+    });
+    
   });
   
   describe("#deserialize", function(){

@@ -1,11 +1,16 @@
 var CritterSerializer = function(){
   this.serialize = function(critter){
-    return JSON.stringify({
+    return JSON.stringify(this.preserialize(critter));
+  };
+  
+  this.preserialize = function(critter){
+    return {
       vitals: critter.vitals,
       color: critter.color,
       direction: critter.direction,
-      genes: critter.genes
-    });
+      genes: critter.genes,
+      type: "critter"
+    };
   };
   
   this.deserialize = function(critterJson){

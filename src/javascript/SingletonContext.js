@@ -6,6 +6,7 @@ SingletonContext = function() {
     this.resourceSpawner = new ResourceSpawner();
     this.configuration = new Configuration();
     this.critterActuator = new CritterActuator();
+    this.critterSerializer = new CritterSerializer();
     this.mindFactory = new MindFactory();
     this.geneMutator = new GeneMutator();
     this.subMutator = new SubMutator();
