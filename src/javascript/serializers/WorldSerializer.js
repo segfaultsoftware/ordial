@@ -19,4 +19,30 @@ var WorldSerializer = function(){
       things: preserializedThings
     });
   };
+  
+  this.deserialize = function(serializedWorld){
+    var pojoWorld = JSON.parse(serializedWorld);
+    var world = new World();
+    _.each(pojoWorld.things, function(pojoThing){
+      var thing;
+
+      switch(pojoThing.type) {
+        case "rock":
+          thing = new Rock();
+          break;
+        case "critter":
+          thing = new Critter(pojoThing);
+          break;
+        case "resource":
+          thing = new Resource();
+          break;
+        default:
+          console.error("failed to deserialize item of type:" + pojoThing.type);
+          break;
+      }
+      world.place(thing, pojoThing.location);    
+    });
+    
+    return world;
+  };
 };

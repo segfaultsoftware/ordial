@@ -46,6 +46,12 @@ describe("CritterSerializer", function(){
       expect(parsedCritter.type).toEqual("critter");
     });
     
+    it("includes the location", function(){
+      critter.location = {x: 123, y:77};
+      serializedCritter = critterSerializer.serialize(critter);
+      parsedCritter = JSON.parse(serializedCritter);
+      expect(parsedCritter.location).toEqual({x: 123, y:77});
+    });
   });
   
   describe("#deserialize", function(){

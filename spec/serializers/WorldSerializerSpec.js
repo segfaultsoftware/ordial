@@ -43,4 +43,26 @@ describe("WorldSerializer", function(){
       expect(parsedWorld.things[0].some).toBe('critter json');
     });
   });
+  
+  describe("#deserialize", function(){
+    var serializedWorld;
+    beforeEach(function(){
+      var world = new World();
+      world.place(new Critter(), {x: 3, y:4});
+      world.place(new Resource(), {x: 4, y:4});
+      world.place(new Rock(), {x: 5, y:4});
+      
+      serializedWorld = worldSerializer.serialize(world);
+    });
+    it("returns a world", function(){
+      var world = worldSerializer.deserialize(serializedWorld);
+      expect(world instanceof World);
+    });
+    
+    it("places the things in the world", function(){
+       var world = worldSerializer.deserialize(serializedWorld);
+      expect(world.things.length).toBe(3);
+      expect(world.tiles[3][4] instanceof Critter).toBeTruthy();
+    });
+  });
 });

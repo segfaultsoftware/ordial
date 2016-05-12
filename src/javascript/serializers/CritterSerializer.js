@@ -9,6 +9,7 @@ var CritterSerializer = function(){
       color: critter.color,
       direction: critter.direction,
       genes: critter.genes,
+      location: critter.location,
       type: "critter"
     };
   };
