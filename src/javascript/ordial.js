@@ -22,6 +22,9 @@ $(function() {
 
       this.timeoutControlsView = new TimeoutControlsView({el: '#timeoutControlsContainer'});
       this.timeoutControlsView.render();
+      this.saveControlsView = new SaveControlsView({
+        el: '#saveControlsContainer'});
+      this.saveControlsView.render();
 
       this.critterManaView = new CritterGutsView({ el:'#critterManaContainer'});
       this.critterManaView.render();
