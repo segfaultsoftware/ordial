@@ -64,5 +64,15 @@ describe("WorldSerializer", function(){
       expect(world.things.length).toBe(3);
       expect(world.tiles[3][4] instanceof Critter).toBeTruthy();
     });
+    
+    describe("when passed a world", function(){
+      it("deserializes into that world", function(){
+        var world = new World();
+        world.place(new Rock(), {x:4, y:7});
+        var deserializedWorld = worldSerializer.deserialize(serializedWorld, world);
+        expect(world.things.length).toBe(3);
+        expect(world).toBe(deserializedWorld);
+      });
+    });
   });
 });

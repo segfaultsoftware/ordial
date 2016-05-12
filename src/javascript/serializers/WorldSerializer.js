@@ -20,9 +20,12 @@ var WorldSerializer = function(){
     });
   };
   
-  this.deserialize = function(serializedWorld){
+  this.deserialize = function(serializedWorld, targetWorld){
     var pojoWorld = JSON.parse(serializedWorld);
-    var world = new World();
+    if(targetWorld){
+      targetWorld.initialize();
+    }
+    var world = targetWorld || new World();
     _.each(pojoWorld.things, function(pojoThing){
       var thing;
 
