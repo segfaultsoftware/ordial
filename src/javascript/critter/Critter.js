@@ -20,7 +20,7 @@ $(function() {
       if(options && options.color){
         this.color = options.color;
       } else {
-        this.color = window.singletonContext.randomNumberGenerator.sample(["lavender", "black", "blue", "orange", "pink", "teal", "purple"]);
+        this.color = window.singletonContext.randomNumberGenerator.sample(["lavender", "black", "blue", "orange", "pink", "teal", "purple", "eggshell"]);
       }
       
       var vitalOverrides = (options && options.vitals) || {};
@@ -48,7 +48,6 @@ $(function() {
     },
     
     decay: function() {
-      this.color = "eggshell";
       this.vitals.decay++;
     },
 

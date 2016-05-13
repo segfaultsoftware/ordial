@@ -61,6 +61,12 @@ describe("WorldView", function() {
         thing.color = "lavender"
       });
 
+      describe("dead critters", function(){
+        it("is drawn as dead", function(){
+          thing.vitals.mana = -1;
+          expect(worldView.imageForModel(thing)).toEqual('ordial_critter_dead.png');
+        });
+      });
       describe("directions", function() {
         it('should draw the critter facing the north', function() {
           thing.direction = CardinalDirection.NORTH;

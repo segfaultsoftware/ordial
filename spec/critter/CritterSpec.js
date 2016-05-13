@@ -16,7 +16,7 @@ describe("Critter", function() {
       });
 
       it("should set a random color", function () {
-        expect(["lavender", "black", "blue", "orange", "pink", "teal","purple"]).toContain(rob.color);
+        expect(["lavender", "black", "blue", "orange", "pink", "teal","purple", "eggshell"]).toContain(rob.color);
       });
 
       it('gives critters their very own vitals', function(){
@@ -160,10 +160,6 @@ describe("Critter", function() {
       rob.decay();
       expect(rob.vitals.decay).toEqual(1);
     });
-    
-    it("sets the critter's color to eggshell", function(){
-      rob.decay();
-      expect(rob.color).toEqual("eggshell");
-    });
+
   });
 });

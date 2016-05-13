@@ -70,7 +70,11 @@ $(function() {
 
     imageForModel: function(thing) {
       if(thing instanceof Critter) {
-        return "ordial_critter_" + thing.direction.toLowerCase() + "_" + thing.color + ".png";
+        if(thing.isDead()){
+          return "ordial_critter_dead.png";
+        } else {
+          return "ordial_critter_" + thing.direction.toLowerCase() + "_" + thing.color + ".png";
+        }
       }
       else if(thing instanceof Resource) {
         return 'resource.png';
