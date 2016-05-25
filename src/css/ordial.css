@@ -33,6 +33,12 @@ body {
   stroke: pink;
   stroke-width: 4;
 }
+#mind-graph line.left {
+  stroke: palegreen;
+}
+#mind-graph line.right {
+  stroke: pink;
+}
 #mind-graph .node-type-action {
   background-color: lightblue;
 }

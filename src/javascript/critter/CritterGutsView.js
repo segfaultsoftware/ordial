@@ -60,24 +60,40 @@ $(function () {
         var binaryTreeGraphHelper = new BinaryTreeGraphHelper(genes, imageSize);
         graph.attr({width: Math.max(800, binaryTreeGraphHelper.getWidth()), height: binaryTreeGraphHelper.getHeight()});
 
+         var midpoint = function(coords1, coords2){
+            return {
+              x: ( coords1.x + coords2.x)/2,
+              y: ( coords1.y + coords2.y)/2
+            };
+          };
+        
         _.each(genes, function renderLines(gene, index) {
           var coords = binaryTreeGraphHelper.getCoords(index);
 
           if (binaryTreeGraphHelper.hasLeftChild(index)) {
             var leftChildCoords = binaryTreeGraphHelper.getLeftChildCoords(index);
             graph.line(
-              coords.x, coords.y,
-              leftChildCoords.x,
-              leftChildCoords.y);
+                    coords.x,
+                    coords.y,
+                    leftChildCoords.x,
+                    leftChildCoords.y)
+                  .addClass('left');
+            
+            var leftMidpoint = midpoint(coords, leftChildCoords);
+            graph.text(leftMidpoint.x - 10, leftMidpoint.y + 5, 'Yes');
           }
-
+                                     
           if (binaryTreeGraphHelper.hasRightChild(index)) {
             var rightChildCoords = binaryTreeGraphHelper.getRightChildCoords(index);
             graph.line(
-              coords.x,
-              coords.y,
-              rightChildCoords.x,
-              rightChildCoords.y);
+                    coords.x,
+                    coords.y,
+                    rightChildCoords.x,
+                    rightChildCoords.y)
+                  .addClass('right');
+            
+            var rightMidpoint = midpoint(coords, rightChildCoords);
+            graph.text(rightMidpoint.x - 5, rightMidpoint.y + 5, 'No');
           }
         });
 
