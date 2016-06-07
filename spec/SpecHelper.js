@@ -1,6 +1,6 @@
 beforeEach(function () {
-  window.singletonContext = new SingletonContext();
-  window.singletonContext.configuration.resourceSpawnRate = 0.0;
+  singletonContext = new SingletonContext();
+  singletonContext.configuration.resourceSpawnRate = 0.0;
 
   jasmine.addMatchers({
     toMatchArray: function () {

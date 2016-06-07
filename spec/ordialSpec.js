@@ -2,8 +2,8 @@ describe("Ordial", function() {
   var ordial, ordialScheduler, loaderPromise;
 
   beforeEach(function() {
-    window.singletonContext.scheduler = jasmine.createSpyObj("fake scheduler", ['schedule']);
-    window.singletonContext.world = new World();
+    singletonContext.scheduler = jasmine.createSpyObj("fake scheduler", ['schedule']);
+    singletonContext.world = new World();
 
     loaderPromise = jasmine.createSpyObj('loaderPromise', ["load"]);
     spyOn(PIXI.loader, "add").and.returnValue(loaderPromise);
@@ -62,7 +62,7 @@ describe("Ordial", function() {
       ordial = new Ordial({scheduler: ordialScheduler});
       ordial.render();
       ordial.$el.find('#pause-button').click();
-      var undefinedRandomVal = window.singletonContext.randomNumberGenerator.random();
+      var undefinedRandomVal = singletonContext.randomNumberGenerator.random();
 
       ordial = new Ordial({scheduler: ordialScheduler});
       ordial.render();
@@ -72,21 +72,21 @@ describe("Ordial", function() {
       ordial = new Ordial({scheduler: ordialScheduler});
       ordial.render();
       ordial.$el.find('#pause-button').click();
-      expect(window.singletonContext.randomNumberGenerator.random()).not.toEqual(undefinedRandomVal);
+      expect(singletonContext.randomNumberGenerator.random()).not.toEqual(undefinedRandomVal);
     });
 
     describe('with different seeds after starting the world', function() {
       var firstVal;
       beforeEach(function() {
         ordial.$el.find('#pause-button').click();
-        firstVal = window.singletonContext.randomNumberGenerator.random();
+        firstVal = singletonContext.randomNumberGenerator.random();
         ordial = new Ordial({scheduler: ordialScheduler});
         ordial.render();
         ordial.$el.find('#pause-button').click();
       });
 
       it('should lead to different random numbers', function() {
-        expect(window.singletonContext.randomNumberGenerator.random()).not.toEqual(firstVal);
+        expect(singletonContext.randomNumberGenerator.random()).not.toEqual(firstVal);
       })
     });
 
@@ -95,8 +95,8 @@ describe("Ordial", function() {
       beforeEach(function() {
         ordial.$el.find('#seed-input').val('abc').blur();
         ordial.$el.find('#pause-button').click();
-        firstVal = window.singletonContext.randomNumberGenerator.random();
-        secondVal = window.singletonContext.randomNumberGenerator.random();
+        firstVal = singletonContext.randomNumberGenerator.random();
+        secondVal = singletonContext.randomNumberGenerator.random();
         ordial = new Ordial({scheduler: ordialScheduler});
         ordial.render();
         ordial.$el.find('#seed-input').val('abc').blur();
@@ -104,8 +104,8 @@ describe("Ordial", function() {
       });
 
       it('should produce the same random numbers as previously with the same seed', function() {
-        expect(window.singletonContext.randomNumberGenerator.random()).toEqual(firstVal);
-        expect(window.singletonContext.randomNumberGenerator.random()).toEqual(secondVal);
+        expect(singletonContext.randomNumberGenerator.random()).toEqual(firstVal);
+        expect(singletonContext.randomNumberGenerator.random()).toEqual(secondVal);
       });
 
       it('should produce different random numbers with a different seed', function() {
@@ -113,8 +113,8 @@ describe("Ordial", function() {
         ordial.render();
         ordial.$el.find('#seed-input').val('abcd').blur();
         ordial.$el.find('#pause-button').click();
-        expect(window.singletonContext.randomNumberGenerator.random()).not.toEqual(firstVal);
-        expect(window.singletonContext.randomNumberGenerator.random()).not.toEqual(secondVal);
+        expect(singletonContext.randomNumberGenerator.random()).not.toEqual(firstVal);
+        expect(singletonContext.randomNumberGenerator.random()).not.toEqual(secondVal);
       });
     })
   });
@@ -180,14 +180,14 @@ describe("Ordial", function() {
       });
 
       it("should update the world", function() {
-        spyOn(window.singletonContext.world, "update");
+        spyOn(singletonContext.world, "update");
         ordial.updateWorld();
-        expect(window.singletonContext.world.update).toHaveBeenCalled();
+        expect(singletonContext.world.update).toHaveBeenCalled();
       });
 
       it('should defer an updateWorld for later', function() {
         ordial.updateWorld();
-        expect(window.singletonContext.scheduler.schedule).toHaveBeenCalledWith(ordial);
+        expect(singletonContext.scheduler.schedule).toHaveBeenCalledWith(ordial);
       });
     });
 
@@ -202,14 +202,14 @@ describe("Ordial", function() {
       });
 
       it("should not update the world", function() {
-        spyOn(window.singletonContext.world, "update");
+        spyOn(singletonContext.world, "update");
         ordial.updateWorld();
-        expect(window.singletonContext.world.update).not.toHaveBeenCalled();
+        expect(singletonContext.world.update).not.toHaveBeenCalled();
       });
 
       it('should not defer an updatedWorld for later', function() {
         ordial.updateWorld();
-        expect(window.singletonContext.scheduler.schedule).not.toHaveBeenCalled();
+        expect(singletonContext.scheduler.schedule).not.toHaveBeenCalled();
       });
     })
   });
@@ -217,9 +217,9 @@ describe("Ordial", function() {
   describe("the scheduler", function() {
     it("should be controllable by slider", function() {
       // its only undefined because we have it as a spyObj; it should default to 1000
-      expect(window.singletonContext.scheduler.timeout).toBeUndefined();
+      expect(singletonContext.scheduler.timeout).toBeUndefined();
       ordial.timeoutControlsView.trigger("timeout:changed", {timeout: 200});
-      expect(window.singletonContext.scheduler.timeout).toEqual(200);
+      expect(singletonContext.scheduler.timeout).toEqual(200);
     });
   });
 });

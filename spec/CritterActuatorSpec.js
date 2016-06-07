@@ -130,7 +130,7 @@ describe("CritterActuator", function() {
     var offspringLocation, originalWorldSize;
     beforeEach(function() {
       var robsDirection = CardinalDirection.ALL_DIRECTIONS[
-        Math.floor(window.singletonContext.randomNumberGenerator.random() * CardinalDirection.ALL_DIRECTIONS.length)
+        Math.floor(singletonContext.randomNumberGenerator.random() * CardinalDirection.ALL_DIRECTIONS.length)
         ];
       rob.direction = robsDirection;
       originalWorldSize = world.things.length;
@@ -145,7 +145,7 @@ describe("CritterActuator", function() {
         var offspring;
 
         beforeEach(function() {
-           window.singletonContext.randomNumberGenerator.stubRandom([0]);
+           singletonContext.randomNumberGenerator.stubRandom([0]);
           critterActuator.reproduceCritter(rob);
           offspring = world.getThingAt(offspringLocation);
         });
@@ -250,7 +250,7 @@ describe("CritterActuator", function() {
 
           describe("half of the time", function(){
             beforeEach(function(){
-              window.singletonContext.randomNumberGenerator.stubRandom([0]);
+              singletonContext.randomNumberGenerator.stubRandom([0]);
               critterActuator.reproduceCritter(rob);
           offspring = world.getThingAt(offspringLocation);
             });
@@ -262,7 +262,7 @@ describe("CritterActuator", function() {
           
           describe("the other half of the the time", function(){
             beforeEach(function(){
-              window.singletonContext.randomNumberGenerator.stubRandom([1]);
+              singletonContext.randomNumberGenerator.stubRandom([1]);
               critterActuator.reproduceCritter(rob);
           offspring = world.getThingAt(offspringLocation);
             });

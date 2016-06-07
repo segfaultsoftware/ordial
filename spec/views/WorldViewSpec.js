@@ -23,8 +23,8 @@ describe("WorldView", function() {
 
     describe('the grid', function() {
       beforeEach(function() {
-        world.height = Math.ceil(window.singletonContext.randomNumberGenerator.random() * 100);
-        world.width = Math.ceil(window.singletonContext.randomNumberGenerator.random() * 100);
+        world.height = Math.ceil(singletonContext.randomNumberGenerator.random() * 100);
+        world.width = Math.ceil(singletonContext.randomNumberGenerator.random() * 100);
         worldView = new WorldView({model: world, el: '#world'});
         worldView.render();
       });

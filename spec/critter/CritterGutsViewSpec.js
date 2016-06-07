@@ -10,7 +10,7 @@ describe("CritterGutsView", function() {
     describe("when configuration.hideJunkDna is true", function(){
       var genes;
       beforeEach(function(){
-        window.singletonContext.configuration.hideJunkDna = true;
+        singletonContext.configuration.hideJunkDna = true;
         genes = [
           ['condition', 'resourceToTheRight'],
           ['action', 'REPRODUCE'],
@@ -60,7 +60,7 @@ describe("CritterGutsView", function() {
 
   describe("when a critter is selected on the map", function() {
     beforeEach(function() {
-      window.singletonContext.eventBus.trigger('critterSelectedOnMap', {critter: rob, location: null});
+      singletonContext.eventBus.trigger('critterSelectedOnMap', {critter: rob, location: null});
     });
 
     it("renders the critter's mana", function() {
@@ -102,7 +102,7 @@ describe("CritterGutsView", function() {
 
     describe("and then deselected", function() {
       beforeEach(function() {
-        window.singletonContext.eventBus.trigger('critterSelectedOnMap', {critter:null, location:null});
+        singletonContext.eventBus.trigger('critterSelectedOnMap', {critter:null, location:null});
       });
 
       it("renders a message about no critter being selected", function() {
@@ -124,7 +124,7 @@ describe("CritterGutsView", function() {
 
     describe("when the config value for hideJunkDna is true", function() {
       beforeEach(function(){
-        window.singletonContext.configuration.hideJunkDna = true;
+        singletonContext.configuration.hideJunkDna = true;
       });
 
       it("is checked", function(){
@@ -135,7 +135,7 @@ describe("CritterGutsView", function() {
       describe("when the hide junk dna button is clicked", function(){
         it("sets the configuration.hideJunkDna false", function(){
           checkbox.trigger('click');
-          expect(window.singletonContext.configuration.hideJunkDna).toBeFalsy();
+          expect(singletonContext.configuration.hideJunkDna).toBeFalsy();
         });
 
         it("rerenders the dendrogram", function(){
@@ -148,7 +148,7 @@ describe("CritterGutsView", function() {
 
     describe("when the config value for hideJunk is false", function(){
       beforeEach(function(){
-        window.singletonContext.configuration.hideJunkDna = false;
+        singletonContext.configuration.hideJunkDna = false;
       });
 
       it("is not checked", function(){
@@ -164,7 +164,7 @@ describe("CritterGutsView", function() {
 
         it("sets the configuration.hideJunkDna true", function(){
           checkbox.trigger('click');
-          expect(window.singletonContext.configuration.hideJunkDna).toBeTruthy();
+          expect(singletonContext.configuration.hideJunkDna).toBeTruthy();
         });
 
         it("rerenders the dendrogram", function(){

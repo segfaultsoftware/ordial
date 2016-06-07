@@ -17,9 +17,9 @@ describe("StimulusPackager", function () {
     beforeEach(function () {
       world = new World();
 
-      critterLocation = {x: window.singletonContext.randomNumberGenerator.random(1, world.width - 2), //leave room for blocker
-        y: window.singletonContext.randomNumberGenerator.random(1, world.height - 2)};
-      var critterDirection = window.singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
+      critterLocation = {x: singletonContext.randomNumberGenerator.random(1, world.width - 2), //leave room for blocker
+        y: singletonContext.randomNumberGenerator.random(1, world.height - 2)};
+      var critterDirection = singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
       critter = new Critter();
       critter.direction = critterDirection;
 

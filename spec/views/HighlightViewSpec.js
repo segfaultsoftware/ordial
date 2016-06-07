@@ -10,7 +10,7 @@ describe("HighlightView", function() {
       beforeEach(function(){
         spyOn(graphics, 'drawRect');
 
-        window.singletonContext.eventBus.trigger('critterSelectedOnMap',
+        singletonContext.eventBus.trigger('critterSelectedOnMap',
           {critter: null, location: {gridX: 123, gridY: 10}});
       });
 
@@ -24,7 +24,7 @@ describe("HighlightView", function() {
       beforeEach(function() {
         spyOn(graphics, 'drawRect');
 
-        window.singletonContext.eventBus.trigger('selectedCritterMoved',
+        singletonContext.eventBus.trigger('selectedCritterMoved',
           {critter: null, location: {gridX: 124, gridY: 400}});
       });
 

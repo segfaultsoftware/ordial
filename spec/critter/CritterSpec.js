@@ -41,7 +41,7 @@ describe("Critter", function() {
       beforeEach(function(){
         genes = [['action', 'MOVE_FORWARD']];
         createdMind = new CritterMind();
-        mindFactory = window.singletonContext.mindFactory;
+        mindFactory = singletonContext.mindFactory;
       });
       it("generates a mind", function(){
         spyOn(mindFactory, 'create').and.returnValue(createdMind);

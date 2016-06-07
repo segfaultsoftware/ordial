@@ -30,7 +30,7 @@ $(function() {
             return function() {
               var thing = worldView.model.getThingAt({x: gridX, y: gridY});
               worldView.model.selectedCritter = thing;
-              window.singletonContext.eventBus.trigger('critterSelectedOnMap',
+              singletonContext.eventBus.trigger('critterSelectedOnMap',
                 {
                   critter:thing,
                   location: {gridX:gridX, gridY:gridY}

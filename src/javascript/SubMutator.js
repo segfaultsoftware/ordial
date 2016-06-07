@@ -1,7 +1,7 @@
 $(function () {
   SubMutator = Backbone.Model.extend({
     mutate: function(actions) {
-      var mutatorFunction = window.singletonContext.randomNumberGenerator.sample([
+      var mutatorFunction = singletonContext.randomNumberGenerator.sample([
         this.swap,
         this.insert,
         this.remove,
@@ -12,22 +12,22 @@ $(function () {
       return result;
     },
     swap: function(actions) {
-      var index1 = window.singletonContext.randomNumberGenerator.random(actions.length - 1);
+      var index1 = singletonContext.randomNumberGenerator.random(actions.length - 1);
       var action1 = actions[index1];
 
-      var index2 = window.singletonContext.randomNumberGenerator.random(actions.length - 1);
+      var index2 = singletonContext.randomNumberGenerator.random(actions.length - 1);
       actions[index1] = actions[index2];
       actions[index2] = action1;
       return actions;
     },
     insert: function(actions) {
       var newAction = this.randomAction();
-      var insertionIndex = window.singletonContext.randomNumberGenerator.random(actions.length - 1);
+      var insertionIndex = singletonContext.randomNumberGenerator.random(actions.length - 1);
       actions.splice(insertionIndex, 0, newAction);
       return actions;
     },
     remove: function(actions) {
-      var indexToDelete = window.singletonContext.randomNumberGenerator.random(actions.length - 1);
+      var indexToDelete = singletonContext.randomNumberGenerator.random(actions.length - 1);
       actions.splice(indexToDelete, 1);
       if (actions.length == 0) {
         actions.push('STARE_OFF_INTO_SPACE');
@@ -35,12 +35,12 @@ $(function () {
       return actions;
     },
     replace: function(actions) {
-      var index = window.singletonContext.randomNumberGenerator.random(actions.length - 1);
+      var index = singletonContext.randomNumberGenerator.random(actions.length - 1);
       actions[index] = this.randomAction();
       return actions;
     },
     randomAction: function() {
-      return window.singletonContext.randomNumberGenerator.sample(_.keys(Critter.Actions));
+      return singletonContext.randomNumberGenerator.sample(_.keys(Critter.Actions));
     }
   })
 });

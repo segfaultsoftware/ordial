@@ -8,7 +8,7 @@ $(function() {
       PIXI.loader.add('/src/assets/spriteSheet/ordialSprites.json')
         .load(_.bind(function(){
 
-          this.worldView = new WorldView({model: window.singletonContext.world, el: '#world'});
+          this.worldView = new WorldView({model: singletonContext.world, el: '#world'});
           this.worldView.render();
 
         }, this));
@@ -35,7 +35,7 @@ $(function() {
       });
 
       this.listenTo(this.timeoutControlsView, 'timeout:changed', function(event) {
-        window.singletonContext.scheduler.timeout = event.timeout;
+        singletonContext.scheduler.timeout = event.timeout;
       });
     },
 
@@ -53,9 +53,9 @@ $(function() {
       }
 
       if(!this.paused){
-        window.singletonContext.world.update();
+        singletonContext.world.update();
         this.critterManaView.render();
-        window.singletonContext.scheduler.schedule(this);
+        singletonContext.scheduler.schedule(this);
       }
     },
 

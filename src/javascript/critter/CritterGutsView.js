@@ -2,7 +2,7 @@ $(function () {
   CritterGutsView = Backbone.View.extend({
     initialize: function () {
       this.model = {};
-      window.singletonContext.eventBus.bind('critterSelectedOnMap', _.bind(this.setCritter, this));
+      singletonContext.eventBus.bind('critterSelectedOnMap', _.bind(this.setCritter, this));
       this.graph = Snap('#mind-graph').attr({width: 0, height: 0});
     },
 
@@ -22,7 +22,7 @@ $(function () {
     filter: function(genes){
       genes = _.clone(genes) || [];
       var binaryTreeGraphHelper = new BinaryTreeGraphHelper(genes, 1234);
-      if(window.singletonContext.configuration.hideJunkDna){
+      if(singletonContext.configuration.hideJunkDna){
         _.each(genes, function(gene, index){
           if(!gene || gene[0] == 'action'){
             if(binaryTreeGraphHelper.hasLeftChild(index)){
@@ -43,7 +43,7 @@ $(function () {
     },
 
     toggleJunkDna: function() {
-      window.singletonContext.configuration.hideJunkDna = !window.singletonContext.configuration.hideJunkDna;
+      singletonContext.configuration.hideJunkDna = !singletonContext.configuration.hideJunkDna;
       this.renderDendrogram();
     },
 

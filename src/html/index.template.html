@@ -29,10 +29,10 @@
 
 <script type="text/javascript">
   $(function() {
-    window.singletonContext = new SingletonContext();
-    window.singletonContext.ordial = new Ordial();
+    singletonContext = new SingletonContext();
+    singletonContext.ordial = new Ordial();
 
-    var world = window.singletonContext.world;
+    var world = singletonContext.world;
     $("#runCode").click(function() {
       world.initialize();
       eval($("#code").val());
@@ -45,7 +45,7 @@
 <textarea id="code">
 
     function getCoord() {
-      return Math.floor(window.singletonContext.randomNumberGenerator.random() * Math.min(world.height, world.width));
+      return Math.floor(singletonContext.randomNumberGenerator.random() * Math.min(world.height, world.width));
     }
 
     function getCoords() {
@@ -71,11 +71,11 @@
     ];
 
     var deb = new Critter({genes: mindGenes});
-    deb.direction = window.singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
+    deb.direction = singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
     world.place(deb, getCoords());
 
     var deb2 = new Critter({genes: mindGenes});
-    deb2.direction = window.singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
+    deb2.direction = singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
     world.place(deb2, getCoords());
 </textarea>
 <br/>
@@ -103,7 +103,7 @@
   var deb = new Critter({genes: mindGenes});
   
     function getCoord() {
-      return Math.floor(window.singletonContext.randomNumberGenerator.random() * 10);
+      return Math.floor(singletonContext.randomNumberGenerator.random() * 10);
     }
 
     function getCoords() {
@@ -118,10 +118,10 @@
       world.place(blocker, getCoords());
     }
 
-    rob.direction = window.singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
+    rob.direction = singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
     world.place(rob, getCoords());
   
-    deb.direction = window.singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
+    deb.direction = singletonContext.randomNumberGenerator.sample(CardinalDirection.ALL_DIRECTIONS);
     world.place(deb, getCoords());
     
 </textarea>

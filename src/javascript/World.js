@@ -13,7 +13,7 @@ $(function() {
       var deadThings = [];
       _.each(_.shuffle(this.things), function(thing){
         if (thing.getActions && thing.location) {
-          var stimuli = window.singletonContext.stimulusPackager.package(world, thing);
+          var stimuli = singletonContext.stimulusPackager.package(world, thing);
           var actions = thing.getActions(stimuli);
           actions = _.isArray(actions) ? actions : [actions];
 
@@ -23,7 +23,7 @@ $(function() {
                 case Critter.Actions.MOVE_FORWARD:
                   critterActuator.moveCritterForward(thing);
                   if(world.selectedCritter === thing){
-                    window.singletonContext.eventBus.trigger('selectedCritterMoved',
+                    singletonContext.eventBus.trigger('selectedCritterMoved',
                       {critter:thing, location:{gridX:thing.location.x, gridY:thing.location.y}});
                   }
                   break;
@@ -70,7 +70,7 @@ $(function() {
         }
       });
 
-      window.singletonContext.resourceSpawner.spawn();
+      singletonContext.resourceSpawner.spawn();
     },
 
     place: function(thing, location){

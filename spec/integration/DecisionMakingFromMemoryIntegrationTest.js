@@ -3,7 +3,7 @@ describe("Decision making from memory", function () {
   describe("when a critter wants to do something different every turn", function () {
     var anna;
     beforeEach(function () {
-      world = window.singletonContext.world;
+      world = singletonContext.world;
       var zig = ['action', ['TURN_RIGHT', 'MOVE_FORWARD', 'DECREMENT_COUNTER']];
       var zag = ['action', ['TURN_LEFT', 'MOVE_FORWARD', 'INCREMENT_COUNTER']];
       var mindGenes = [['condition', 'counter0'], zig, zag];

@@ -27,35 +27,35 @@ describe("GeneMutator", function(){
       });
 
       it("can swap", function(){
-        window.singletonContext.randomNumberGenerator.stubRandom([0]);
+        singletonContext.randomNumberGenerator.stubRandom([0]);
         var result = mutator.mutate(genes);
         expect(mutator.swap).toHaveBeenCalledWith(genes);
         expect(result).toBe(swapResult);
       });
 
       it("can insert", function(){
-        window.singletonContext.randomNumberGenerator.stubRandom([1]);
+        singletonContext.randomNumberGenerator.stubRandom([1]);
         var result = mutator.mutate(genes);
         expect(mutator.insert).toHaveBeenCalledWith(genes);
         expect(result).toBe(insertResult);
       });
 
       it("can remove", function(){
-        window.singletonContext.randomNumberGenerator.stubRandom([2]);
+        singletonContext.randomNumberGenerator.stubRandom([2]);
         var result = mutator.mutate(genes);
         expect(mutator.remove).toHaveBeenCalledWith(genes);
         expect(result).toBe(removeResult);
       });
 
       it("can replace", function() {
-        window.singletonContext.randomNumberGenerator.stubRandom([3]);
+        singletonContext.randomNumberGenerator.stubRandom([3]);
         var result = mutator.mutate(genes);
         expect(mutator.replace).toHaveBeenCalledWith(genes);
         expect(result).toBe(replaceResult);
       });
 
       it("can subMutate", function() {
-        window.singletonContext.randomNumberGenerator.stubRandom([4]);
+        singletonContext.randomNumberGenerator.stubRandom([4]);
         var result = mutator.mutate(genes);
         expect(mutator.subMutate).toHaveBeenCalledWith(genes);
         expect(result).toBe(subMutateResult);
@@ -66,7 +66,7 @@ describe("GeneMutator", function(){
   describe("#swap", function(){
     describe("when there are several genes", function(){
       beforeEach(function() {
-        window.singletonContext.randomNumberGenerator.stubRandom([2, 4, 1, 4]);
+        singletonContext.randomNumberGenerator.stubRandom([2, 4, 1, 4]);
       });
 
       it("randomly swaps a gene into a new location", function(){
@@ -102,11 +102,11 @@ describe("GeneMutator", function(){
       var newGene = ['some', 'gene'];
       spyOn(mutator, 'randomGene').and.returnValue(newGene);
 
-      window.singletonContext.randomNumberGenerator.stubRandom([4]);
+      singletonContext.randomNumberGenerator.stubRandom([4]);
       var result = mutator.insert(genes);
       expect(result[4]).toEqual(newGene);
 
-      window.singletonContext.randomNumberGenerator.stubRandom([0]);
+      singletonContext.randomNumberGenerator.stubRandom([0]);
       result = mutator.insert(genes);
       expect(result[0]).toEqual(newGene);
     });
@@ -114,7 +114,7 @@ describe("GeneMutator", function(){
     it("can insert a random action", function(){
       var actionGene = ['action', 'SOME_ACTION'];
       spyOn(mutator, 'randomAction').and.returnValue(actionGene);
-      window.singletonContext.randomNumberGenerator.stubRandom([1]);
+      singletonContext.randomNumberGenerator.stubRandom([1]);
       var result = mutator.insert(genes);
       expect(result.indexOf(actionGene)).not.toBe(-1);
     });
@@ -122,7 +122,7 @@ describe("GeneMutator", function(){
     it("can insert a random condition", function(){
       var conditionGene = ['condition', 'someCondition'];
       spyOn(mutator, 'randomCondition').and.returnValue(conditionGene);
-      window.singletonContext.randomNumberGenerator.stubRandom([0]);
+      singletonContext.randomNumberGenerator.stubRandom([0]);
       var result = mutator.insert(genes);
       expect(result.indexOf(conditionGene)).not.toBe(-1);
     });
@@ -130,11 +130,11 @@ describe("GeneMutator", function(){
 
   describe("#remove", function(){
     it("randomly removes a gene", function(){
-      window.singletonContext.randomNumberGenerator.stubRandom([2]);
+      singletonContext.randomNumberGenerator.stubRandom([2]);
       var result = mutator.remove(genes);
       expect(result).toEqual([1,2,4,5]);
 
-      window.singletonContext.randomNumberGenerator.stubRandom([3]);
+      singletonContext.randomNumberGenerator.stubRandom([3]);
       var result = mutator.remove(genes);
       expect(result).toEqual([1,2,4]);
     });
@@ -153,7 +153,7 @@ describe("GeneMutator", function(){
   describe("#replace", function() {
     it("changes the value of a random gene", function() {
       spyOn(mutator, 'randomGene').and.returnValue('foo');
-      window.singletonContext.randomNumberGenerator.stubRandom([2]);
+      singletonContext.randomNumberGenerator.stubRandom([2]);
       var result = mutator.replace(genes);
       expect(result.length).toEqual(5);
       var indexOfNewGene = result.indexOf('foo');
@@ -169,9 +169,9 @@ describe("GeneMutator", function(){
 
       it("calls the subMutator on the given gene's action array", function(){
         var mutatedActionArray = ['reproduce','mutated action'];
-        spyOn(window.singletonContext.subMutator, 'mutate').and.returnValue(mutatedActionArray);
+        spyOn(singletonContext.subMutator, 'mutate').and.returnValue(mutatedActionArray);
         var result = mutator.subMutate(genes);
-        expect(window.singletonContext.subMutator.mutate).toHaveBeenCalledWith(['reproduce']);
+        expect(singletonContext.subMutator.mutate).toHaveBeenCalledWith(['reproduce']);
         var item = _.find(result, function(gene){
           return (gene[0] == 'action' && gene[1] == mutatedActionArray)
         });
@@ -185,9 +185,9 @@ describe("GeneMutator", function(){
         });
 
         it("calls the subMutator with the action as an array", function(){
-          spyOn(window.singletonContext.subMutator, 'mutate');
+          spyOn(singletonContext.subMutator, 'mutate');
           mutator.subMutate(genes);
-          expect(window.singletonContext.subMutator.mutate).toHaveBeenCalledWith(['reproduce']);
+          expect(singletonContext.subMutator.mutate).toHaveBeenCalledWith(['reproduce']);
         });
       });
     });
@@ -198,16 +198,16 @@ describe("GeneMutator", function(){
       });
 
       it("does not submutate", function(){
-        spyOn(window.singletonContext.subMutator, 'mutate');
+        spyOn(singletonContext.subMutator, 'mutate');
         mutator.subMutate(genes);
-        expect(window.singletonContext.subMutator.mutate).not.toHaveBeenCalled();
+        expect(singletonContext.subMutator.mutate).not.toHaveBeenCalled();
       });
     });
   });
 
   describe("#randomAction", function(){
     it("returns a random action gene", function(){
-      window.singletonContext.randomNumberGenerator.stubRandom([3, 6]);
+      singletonContext.randomNumberGenerator.stubRandom([3, 6]);
       expect(mutator.randomAction()).toEqual(['action', 'REPRODUCE']);
       expect(mutator.randomAction()).toEqual(['action', 'DECREMENT_COUNTER']);
     });
@@ -215,7 +215,7 @@ describe("GeneMutator", function(){
 
   describe("#randomCondition", function(){
     it("returns a random condition gene", function(){ 
-      window.singletonContext.randomNumberGenerator.stubRandom([3, 4]);
+      singletonContext.randomNumberGenerator.stubRandom([3, 4]);
       expect(mutator.randomCondition()).toEqual(['condition', 'critterInFront']);
       expect(mutator.randomCondition()).toEqual(['condition', 'critterToTheRight']);
     });

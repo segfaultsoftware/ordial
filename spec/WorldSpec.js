@@ -3,7 +3,7 @@ describe("World", function() {
 
   beforeEach(function() {
     stimulusPackager = jasmine.createSpyObj('packager', ['package']);
-    window.singletonContext.stimulusPackager = stimulusPackager;
+    singletonContext.stimulusPackager = stimulusPackager;
     world = singletonContext.world = new World();
     rob = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD })});
     zoe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT })});
@@ -16,7 +16,7 @@ describe("World", function() {
     var critterActuator;
     beforeEach(function() {
       critterActuator = singletonContext.critterActuator = new CritterActuator();
-      window.singletonContext.randomNumberGenerator.seedrandom('foo');
+      singletonContext.randomNumberGenerator.seedrandom('foo');
       var robsOriginalLocation, zoesOriginalLocation, kimsOriginalLocation, joesOriginalLocation;
       robsOriginalLocation = {x: 1, y: 1};
       zoesOriginalLocation = {x: 4, y: 4};
@@ -66,7 +66,7 @@ describe("World", function() {
           rob = new Critter({genes:[['action', 'MOVE_FORWARD']]});
           world.place(rob, {x:1, y:1});
           world.selectedCritter = rob;
-          window.singletonContext.eventBus.bind('selectedCritterMoved', critterMovedCallback);
+          singletonContext.eventBus.bind('selectedCritterMoved', critterMovedCallback);
         });
 
         it("triggers an event with the critter's new location", function() {
@@ -81,7 +81,7 @@ describe("World", function() {
           critterMovedCallback = jasmine.createSpy();
           rob = new Critter();
           world.place(rob, {x:1, y:1});
-          window.singletonContext.eventBus.bind('selectedCritterMoved', critterMovedCallback);
+          singletonContext.eventBus.bind('selectedCritterMoved', critterMovedCallback);
         });
 
         it("does not trigger an event", function() {
@@ -248,8 +248,8 @@ describe("World", function() {
     describe('in a tile within the world', function() {
       beforeEach(function() {
         location = {
-          x: Math.floor(window.singletonContext.randomNumberGenerator.random() * 5),
-          y: Math.floor(window.singletonContext.randomNumberGenerator.random() * 5)
+          x: Math.floor(singletonContext.randomNumberGenerator.random() * 5),
+          y: Math.floor(singletonContext.randomNumberGenerator.random() * 5)
         };
 
         spyOn(console, "error").and.callThrough();
@@ -367,7 +367,7 @@ describe("World", function() {
 
     describe("for an y within the world bounds", function() {
       beforeEach(function() {
-        y = Math.floor(window.singletonContext.randomNumberGenerator.random() * 8);
+        y = Math.floor(singletonContext.randomNumberGenerator.random() * 8);
       });
 
       it("should return false for an x less than zero", function() {
@@ -375,7 +375,7 @@ describe("World", function() {
       });
 
       it("should return true for an x within the world bounds", function() {
-        expect(world.isLocationInsideWorld({x: Math.floor(window.singletonContext.randomNumberGenerator.random() * 8), y: y})).toBeTruthy();
+        expect(world.isLocationInsideWorld({x: Math.floor(singletonContext.randomNumberGenerator.random() * 8), y: y})).toBeTruthy();
       });
 
       it("should return false for an x greater than width", function() {
@@ -385,7 +385,7 @@ describe("World", function() {
 
     describe("for an x within the world bounds", function() {
       beforeEach(function() {
-        x = Math.floor(window.singletonContext.randomNumberGenerator.random() * 8);
+        x = Math.floor(singletonContext.randomNumberGenerator.random() * 8);
       });
 
       it("should return false for a y less than zero", function() {
@@ -393,7 +393,7 @@ describe("World", function() {
       });
 
       it("should return true for a y within the world bounds", function() {
-        expect(world.isLocationInsideWorld({x: x, y: Math.floor(window.singletonContext.randomNumberGenerator.random() * 8)})).toBeTruthy();
+        expect(world.isLocationInsideWorld({x: x, y: Math.floor(singletonContext.randomNumberGenerator.random() * 8)})).toBeTruthy();
       });
 
       it("should return true for a y greater than height", function() {
