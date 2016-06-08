@@ -1,4 +1,4 @@
-describe("Critteria Death", function(){
+describe("Critter Death", function(){
   var world, critter;
   beforeEach(function () {
     world = singletonContext.world = new World();
@@ -12,9 +12,9 @@ describe("Critteria Death", function(){
       
       for(var i = 0; i < singletonContext.configuration.decompositionTime; i++){
         world.update();
-        expect(critter.isDead()).toBeTruthy();
-        expect(world.contains(critter)).toBe(true);
       }
+      expect(critter.isDead()).toBeTruthy();
+      expect(world.contains(critter)).toBe(true);
 
       world.update();
       
@@ -24,6 +24,9 @@ describe("Critteria Death", function(){
     it("another critter can eat the corpse", function(){
       var rex = new Critter({vitals: {mana: 300}, genes: [['action', 'MOVE_FORWARD_AND_EAT_CRITTER']]});
       world.place(rex, {x: 1, y: 1});
+      
+      //depending on which critter's update step runs first, the critter may die after Rex moves
+      world.update();
       world.update();
       expect(world.contains(critter)).toBe(false);
       expect(rex.vitals.mana).toBeGreaterThan(300);

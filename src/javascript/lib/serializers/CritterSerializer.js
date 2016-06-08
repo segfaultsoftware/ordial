@@ -1,4 +1,4 @@
-var CritterSerializer = function(){
+CritterSerializer = function(){
   this.serialize = function(critter){
     return JSON.stringify(this.preserialize(critter));
   };

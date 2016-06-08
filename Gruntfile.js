@@ -65,7 +65,6 @@ module.exports = function (grunt) {
         headless: {
           src: [
             'src/javascript/server/shims.js',
-            '/vendor/seedrandom/seedrandom.js',
             'src/javascript/lib/**/*.js',
             'src/javascript/server/**/*.js'],
           dest: 'headless.js',

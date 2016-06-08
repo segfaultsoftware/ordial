@@ -4,7 +4,6 @@ var HeadlessOrdial = function(){
   this.updateWorld = function(){
     singletonContext.world.update();
     singletonContext.scheduler.schedule(this);
-    console.warn(singletonContext.worldSerializer.serialize(singletonContext.world));
   }
   
 }

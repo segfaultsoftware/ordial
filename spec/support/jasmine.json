@@ -1,0 +1,12 @@
+{
+  "spec_dir": "spec",
+  "spec_files": [
+    "lib/**/*[sS]pec.js"
+  ],
+  "helpers": [
+    "../headless.js",
+    "support/serverSpecHelper.js"
+  ],
+  "stopSpecOnExpectationFailure": false,
+  "random": false
+}

@@ -44,7 +44,7 @@ describe("Condition", function(){
     describe("comparing with IsA", function(){
       var condition;
       beforeEach(function(){
-        window.SomeType = function(){};
+        SomeType = function(){};
         condition = new Condition('stimuli','someSense', 'IsA', 'SomeType');
       });
       it("returns false", function(){

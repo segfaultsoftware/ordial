@@ -39,9 +39,13 @@ GeneMutator = Backbone.Model.extend({
     return genes;
   },
   subMutate: function(genes) {
-    var index = singletonContext.randomNumberGenerator.random(genes.length - 1);
-    if (genes[index][0] == 'action') {
-      genes[index] = ['action', singletonContext.subMutator.mutate(_.flatten([genes[index][1]]))];
+    if(genes.length > 0 ){
+      var index = singletonContext.randomNumberGenerator.random(genes.length - 1);
+      if (genes[index][0] == 'action') {
+        genes[index] = ['action', singletonContext.subMutator.mutate(_.flatten([genes[index][1]]))];
+      }
+    } else {
+      debugger;
     }
     return genes;
   },

@@ -1,4 +1,4 @@
-var WorldSerializer = function(){
+WorldSerializer = function(){
   this.serialize = function(world){
     var preserializedThings = _.map(world.things, function(thing){
       var result = { location: thing.location };

@@ -53,11 +53,12 @@ describe("MindFactory", function(){
 
     describe("when the first item is multiple actions", function(){
       it("creates a mind with those action", function(){
-        expect(mindFactory.create([
+        var actions = mindFactory.create([
           ['action', ['MOVE_FORWARD', 'TURN_LEFT']]
-        ]).getActions(stimuli, vitals))
-          .toEqual([Critter.Actions.MOVE_FORWARD, 
-                    Critter.Actions.TURN_LEFT]); 
+        ]).getActions(stimuli, vitals);
+        expect(actions.length).toBe(2);
+        expect(actions[0]).toBe(Critter.Actions.MOVE_FORWARD);
+        expect(actions[1]).toBe(Critter.Actions.TURN_LEFT);
       });
     });
   });
