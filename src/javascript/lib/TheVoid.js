@@ -1,3 +1,1 @@
-$(function() {
-  TheVoid = "A tile not in the world";
-});
+TheVoid = "A tile not in the world";

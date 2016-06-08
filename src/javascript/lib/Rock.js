@@ -1,4 +1,2 @@
-$(function() {
-  Rock = Backbone.Model.extend({
-  });
+Rock = Backbone.Model.extend({
 });

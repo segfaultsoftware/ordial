@@ -1,7 +1,5 @@
-$(function(){
-  RelativeDirection = {
-    FORWARD: "FORWARD",
-    LEFT: "LEFT",
-    RIGHT: "RIGHT"
-  };
-});
+RelativeDirection = {
+  FORWARD: "FORWARD",
+  LEFT: "LEFT",
+  RIGHT: "RIGHT"
+};
