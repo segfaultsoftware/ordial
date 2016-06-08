@@ -12,8 +12,13 @@ module.exports = function (grunt) {
         tasks: 'exec:compile_less'
       },
       includeNewSources: {
-        files: ['src/**/*.js'],
+        files: ['src/javascript/lib/**/*.js', 'src/javascript/browser/**/*.js'],
         tasks: 'includeSource'
+      },
+      rebuildHeadless: {
+        files: ['src/javascript/lib/**/*.js',
+                'src/javascript/server/**/*.js'],
+        tasks: 'concat'
       },
       includeNewSpecs: {
         files: ['spec/**/*.js'],
@@ -46,20 +51,34 @@ module.exports = function (grunt) {
         }
       }
     },
-
     jst: {
       compile: {
         files: {
           "templates.js": ["src/viewTemplates/**/*.html"]
         }
       }
+    },
+    concat: {
+        options: {
+          separator: '\n\n/*********/\n\n',
+        },
+        headless: {
+          src: [
+            'src/javascript/server/shims.js',
+            '/vendor/seedrandom/seedrandom.js',
+            'src/javascript/lib/**/*.js',
+            'src/javascript/server/**/*.js'],
+          dest: 'headless.js',
+        },
     }
+
   });
 
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-include-source');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jst');
-  grunt.registerTask('default', ['includeSource', 'exec:compile_less', 'jst:compile', 'connect:server', 'watch']);
+  grunt.registerTask('default', ['includeSource', 'exec:compile_less', 'jst:compile', 'concat', 'connect:server', 'watch']);
 };
