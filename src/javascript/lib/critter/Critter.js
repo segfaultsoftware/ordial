@@ -84,6 +84,10 @@ Critter.Actions = {
     key: 'decrement counter',
     cost: 1
   },
+  RESET_COUNTER: {
+    key: 'reset counter',
+    cost: 1
+  },
   MOVE_FORWARD_AND_EAT_CRITTER: {
     key: 'move forward and eat critter',
     cost: 20

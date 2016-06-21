@@ -58,6 +58,10 @@ CritterActuator = Backbone.Model.extend({
   decrementCounterOnCritter: function(critter) {
     critter.vitals.counter--;
   },
+  
+  resetCounterOnCritter: function(critter) {
+    critter.vitals.counter = Critter.DEFAULT_STARTING_COUNTER;
+  },
 
   moveForwardAndEatCritter: function(critter) {
    var isDeadCritter = function(thing){

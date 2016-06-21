@@ -152,6 +152,16 @@ describe("World", function() {
       });
     });
 
+    describe("when the getActions is RESET_COUNTER", function(){
+      it("should call resetCounterOnCritter", function(){
+        var coleman = new Critter({mind: new CritterMind({action: Critter.Actions.RESET_COUNTER})});
+        world.place(coleman, {x:0, y:0});
+        spyOn(critterActuator, 'resetCounterOnCritter');
+        world.update();
+        expect(critterActuator.resetCounterOnCritter).toHaveBeenCalledWith(coleman);
+      });
+    });
+      
     it("should update the critters' mana", function () {
       world.update();
       expect(zoe.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA - Critter.Actions.TURN_LEFT.cost);

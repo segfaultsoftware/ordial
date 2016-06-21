@@ -404,5 +404,13 @@ describe("CritterActuator", function() {
     });
   });
 
-
+  describe("#resetCounterOnCritter", function(){
+    it("sets the vitals counter to the default value", function(){
+      var anna = new Critter({ vitals: { counter: 10 } });
+      
+      expect(anna.vitals.counter).not.toBe(Critter.DEFAULT_STARTING_COUNTER);
+      critterActuator.resetCounterOnCritter(anna);   
+      expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER);
+    });
+  });
 });
