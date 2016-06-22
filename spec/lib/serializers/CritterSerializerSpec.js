@@ -25,10 +25,10 @@ describe("CritterSerializer", function(){
     });
     
     it("includes the direction", function(){
-      critter.direction = CardinalDirection.NORTH;
+      critter.direction = CardinalDirection.WEST;
       serializedCritter = critterSerializer.serialize(critter);
       parsedCritter = JSON.parse(serializedCritter);
-      expect(parsedCritter.direction).toEqual(CardinalDirection.NORTH);
+      expect(parsedCritter.direction).toEqual(CardinalDirection.WEST);
     });
     
     it("includes the genes", function(){
@@ -78,7 +78,7 @@ describe("CritterSerializer", function(){
     
     it("sets the direction", function(){
       critter = critterSerializer.deserialize(serializedCritter);
-      expect(critter.direction).toBe(CardinalDirection.NORTH);
+      expect(critter.direction).toBe(CardinalDirection.SOUTH);
     });
     
     it("sets the genes", function(){

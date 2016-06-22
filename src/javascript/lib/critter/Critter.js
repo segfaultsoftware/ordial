@@ -1,6 +1,9 @@
 Critter = Backbone.Model.extend({
   initialize: function(options) {
     this.direction = CardinalDirection.NORTH;
+    if (options && options.direction) {
+      this.direction = options.direction;
+    }
 
     if(options && options.mind){
       this.mind = options.mind;
