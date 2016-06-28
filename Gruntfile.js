@@ -69,8 +69,17 @@ module.exports = function (grunt) {
             'src/javascript/server/**/*.js'],
           dest: 'headless.js',
         },
+        vendorize: {
+          src: [
+            "node_modules/underscore/underscore.js",
+            "node_modules/jquery/dist/jquery.js",
+            "node_modules/backbone/backbone.js",
+            "node_modules/snapsvg/dist/snap.svg.js",
+            "node_modules/pixi.js/bin/pixi.js"
+          ],
+          dest: 'vendor/dependencies.js'
+        }
     }
-
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');

@@ -2,3 +2,4 @@ spec/**/.DS_Store
 .idea/
 headless.js
 node_modules/
+vendor/dependencies.js
