@@ -8,8 +8,7 @@ describe("Critter Mutation", function () {
 
   describe("when a critter reproduces", function () {
     beforeEach(function () {
-   //TODO: make this less fragile, more meaningful
-singletonContext.randomNumberGenerator.stubRandom([0, 4, 0, 3, 0, 1, 1, 5, 1, 0.5, 1, 1, 3, 0, 0, 5, 3, 0.5 ]);
+      singletonContext.randomNumberGenerator.stubRandom(stubRandomScript());
 
       var mindGenes = [['action', 'REPRODUCE']];
       Critter.DEFAULT_STARTING_MANA = Critter.Actions.REPRODUCE.cost;
@@ -37,4 +36,25 @@ singletonContext.randomNumberGenerator.stubRandom([0, 4, 0, 3, 0, 1, 1, 5, 1, 0.
       expect(world.things.length).toBe(3);
     });
   });
+
+  function stubRandomScript() {
+    return [
+      0, // color in Critter initializer
+      4, // mutate method in GeneMutator
+      0, // subMutate method in GeneMutator
+      3, // mutate method in SubMutator
+      0, // replace method in SubMutator
+      1, // randomAction method in SubMutator
+      1, // reproduceCritter in CritterActuator
+      5, // color in Critter initializer
+      0.5, // spawn for ResourceSpawner
+      1, // mutate in GeneMutator
+      1, // randomGene in GeneMutator
+      3, // randomAction in GeneMutator
+      0, // insert in GeneMutator
+      0, // reproduceCritter in CritterActuator
+      5, // color in Critter initializer
+      0.5 // spawn for ResourceSpawner
+    ];
+  }
 });

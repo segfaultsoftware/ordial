@@ -27,10 +27,10 @@ CritterActuator = Backbone.Model.extend({
 
   reproduceCritter: function(critter){
     var world = singletonContext.world;
-    function createOffspringInDirection(relativeDirection, genes){
+    function createOffspringInDirection(relativeDirection, critterPlans){
       var offspringLocation = world.getTileInDirection(relativeDirection, critter);
       var contentsOfTile = world.getThingAt(offspringLocation);
-      var offspring = new Critter({genes: genes});
+      var offspring = new Critter(critterPlans);
       if ((!contentsOfTile || offspring.canEat(contentsOfTile)) && world.isLocationInsideWorld(offspringLocation)) {
         offspring.direction = CardinalDirection.getDirectionAfterRotation(critter.direction, relativeDirection);
         world.place(offspring, offspringLocation);
@@ -42,12 +42,14 @@ CritterActuator = Backbone.Model.extend({
     var mutantGenes = singletonContext.geneMutator.mutate(critter.replicateGenes());
 
     if (singletonContext.randomNumberGenerator.random(1)) {
-      createOffspringInDirection(RelativeDirection.LEFT, cloneGenes);
-      createOffspringInDirection(RelativeDirection.RIGHT, mutantGenes);
+      debugger;
+      createOffspringInDirection(RelativeDirection.LEFT, {genes: cloneGenes, color: critter.color});
+      createOffspringInDirection(RelativeDirection.RIGHT, {genes: mutantGenes});
     }
     else {
-      createOffspringInDirection(RelativeDirection.LEFT, mutantGenes);
-      createOffspringInDirection(RelativeDirection.RIGHT, cloneGenes);
+      debugger;
+      createOffspringInDirection(RelativeDirection.LEFT, {genes: mutantGenes});
+      createOffspringInDirection(RelativeDirection.RIGHT, {genes: cloneGenes, color: critter.color});
     }
   },
 

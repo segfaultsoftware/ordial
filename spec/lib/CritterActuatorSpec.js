@@ -2,7 +2,7 @@ describe("CritterActuator", function() {
   var critterActuator, robsOriginalLocation, zoesOriginalLocation;
   var world, rob;
   beforeEach(function() {
-    rob = new Critter({genes: [['action', 'MOVE_FORWARD']]});
+    rob = new Critter({genes: [['action', 'MOVE_FORWARD']], color: 'doesnotexist'});
     critterActuator = new CritterActuator();
     world = singletonContext.world = new World();
     world.place(rob, {x: 4, y: 1});
@@ -145,7 +145,12 @@ describe("CritterActuator", function() {
         var offspring;
 
         beforeEach(function() {
-           singletonContext.randomNumberGenerator.stubRandom([0]);
+          singletonContext.randomNumberGenerator.stubRandom([
+            0, // mutate
+            0, // swap
+            0, // swap
+            1  // which side the clone pops up on
+          ]);
           critterActuator.reproduceCritter(rob);
           offspring = world.getThingAt(offspringLocation);
         });
@@ -157,6 +162,10 @@ describe("CritterActuator", function() {
         describe("offspring", function() {
           it("should have its parent's genes", function() {
             expect(offspring.genes).toEqual(rob.genes);
+          });
+
+          it("should have its parent's color", function() {
+            expect(offspring.color).toEqual(rob.color);
           });
 
           it("should be oriented to the left of its parent", function() {
@@ -252,11 +261,15 @@ describe("CritterActuator", function() {
             beforeEach(function(){
               singletonContext.randomNumberGenerator.stubRandom([0]);
               critterActuator.reproduceCritter(rob);
-          offspring = world.getThingAt(offspringLocation);
+              offspring = world.getThingAt(offspringLocation);
             });
             
             it("should have its parent's genes", function() {
               expect(offspring.genes).toEqual(rob.genes);
+            });
+
+            it("should have its parent's color", function() {
+              expect(offspring.color).toEqual(rob.color);
             });
           });
           
@@ -264,12 +277,16 @@ describe("CritterActuator", function() {
             beforeEach(function(){
               singletonContext.randomNumberGenerator.stubRandom([1]);
               critterActuator.reproduceCritter(rob);
-          offspring = world.getThingAt(offspringLocation);
+              offspring = world.getThingAt(offspringLocation);
             });
             
             it("should have a mutated version of its parent's mind", function() {
               expect(offspring.genes).toEqual(mutantGenes);
               expect(offspring.getActions()).toEqual(Critter.Actions.TURN_LEFT);
+            });
+
+            it("should not have its parent's color", function() {
+              expect(offspring.color).not.toEqual(rob.color);
             });
           });
         });
@@ -376,7 +393,6 @@ describe("CritterActuator", function() {
     });
   });
     });
-    
   
   describe("#incrementCounterOnCritter", function() {
     var anna;
