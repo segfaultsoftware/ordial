@@ -42,12 +42,10 @@ CritterActuator = Backbone.Model.extend({
     var mutantGenes = singletonContext.geneMutator.mutate(critter.replicateGenes());
 
     if (singletonContext.randomNumberGenerator.random(1)) {
-      debugger;
       createOffspringInDirection(RelativeDirection.LEFT, {genes: cloneGenes, color: critter.color});
       createOffspringInDirection(RelativeDirection.RIGHT, {genes: mutantGenes});
     }
     else {
-      debugger;
       createOffspringInDirection(RelativeDirection.LEFT, {genes: mutantGenes});
       createOffspringInDirection(RelativeDirection.RIGHT, {genes: cloneGenes, color: critter.color});
     }
