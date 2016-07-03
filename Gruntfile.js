@@ -28,10 +28,6 @@ module.exports = function (grunt) {
         files: ['src/viewTemplates/**/*.html'],
         tasks: 'jst:compile'
       },
-      public: {
-        files: ['src/**'],
-        tasks: 'copy'
-      },
       express: {
         files: ['headless.js'],
         tasks: ['express:dev'],
@@ -77,47 +73,39 @@ module.exports = function (grunt) {
       }
     },
     concat: {
-        options: {
-          separator: '\n\n/*********/\n\n',
-        },
-        headless: {
-          src: [
-            'src/javascript/server/shims.js',
-            'src/javascript/lib/**/*.js',
-            'src/javascript/server/**/*.js'],
-          dest: 'headless.js',
-        },
-        vendorize: {
-          src: [
-            "node_modules/underscore/underscore.js",
-            "node_modules/jquery/dist/jquery.js",
-            "node_modules/backbone/backbone.js",
-            "node_modules/snapsvg/dist/snap.svg.js",
-            "node_modules/pixi.js/bin/pixi.js",
+      options: {
+        separator: '\n\n/*********/\n\n',
+      },
+      headless: {
+        src: [
+          'src/javascript/server/shims.js',
+          'src/javascript/lib/**/*.js',
+          'src/javascript/server/**/*.js'],
+        dest: 'headless.js'
+      },
+      vendorize: {
+        src: [
+          "node_modules/underscore/underscore.js",
+          "node_modules/jquery/dist/jquery.js",
+          "node_modules/backbone/backbone.js",
+          "node_modules/snapsvg/dist/snap.svg.js",
+          "node_modules/pixi.js/bin/pixi.js",
 
-            //TODO i don't like this being in a prod vendorize
-            "node_modules/jasmine-jquery/lib/jasmine-jquery.js"
-          ],
-          dest: 'vendor/dependencies.js'
-        }
-    },
-    copy: {
-      main: {
-        expand: true,
-        src: ['src/**'],
-        dest: 'public/copied/'
+          //TODO i don't like this being in a prod vendorize
+          "node_modules/jasmine-jquery/lib/jasmine-jquery.js"
+        ],
+        dest: 'vendor/dependencies.js'
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-include-source');
 
-  grunt.registerTask('default', ['includeSource', 'exec:compile_less', 'jst:compile', 'concat', 'copy', 'express:dev', 'watch']);
+  grunt.registerTask('default', ['includeSource', 'exec:compile_less', 'jst:compile', 'concat', 'express:dev', 'watch']);
 };

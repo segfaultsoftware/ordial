@@ -17,9 +17,15 @@ app.post('/world', function(request, response){
 });
 
 app.use(express.static('public/compiled'));
-app.use(express.static('public/copied'));
-app.use('/spec', express.static('spec'));
 app.use('/vendor', express.static('vendor'));
+
+app.use('/src/assets', express.static('src/assets'));
+app.use('/src/css', express.static('src/css'));
+app.use('/src/javascript/browser', express.static('src/javascript/browser'));
+app.use('/src/javascript/lib', express.static('src/javascript/lib'));
+
+
+app.use('/spec', express.static('spec'));
 
 app.listen(3000, function () {
   console.log('App listening on port 3000!');
