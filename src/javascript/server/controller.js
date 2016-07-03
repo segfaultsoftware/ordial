@@ -16,6 +16,11 @@ app.post('/world', function(request, response){
   response.send(request.body);
 });
 
+app.use(express.static('public/compiled'));
+app.use(express.static('public/copied'));
+app.use('/spec', express.static('spec'));
+app.use('/vendor', express.static('vendor'));
+
 app.listen(3000, function () {
   console.log('App listening on port 3000!');
 });

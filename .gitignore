@@ -3,3 +3,5 @@ spec/**/.DS_Store
 headless.js
 node_modules/
 vendor/dependencies.js
+npm-*.log
+*.swp
