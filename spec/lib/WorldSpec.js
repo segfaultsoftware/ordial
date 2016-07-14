@@ -258,8 +258,8 @@ describe("World", function() {
     describe('in a tile within the world', function() {
       beforeEach(function() {
         location = {
-          x: Math.floor(singletonContext.randomNumberGenerator.random() * 5),
-          y: Math.floor(singletonContext.randomNumberGenerator.random() * 5)
+          x: singletonContext.randomNumberGenerator.random(0, 4),
+          y: singletonContext.randomNumberGenerator.random(0, 4)
         };
 
         spyOn(console, "error").and.callThrough();
@@ -377,7 +377,7 @@ describe("World", function() {
 
     describe("for an y within the world bounds", function() {
       beforeEach(function() {
-        y = Math.floor(singletonContext.randomNumberGenerator.random() * 8);
+        y = singletonContext.randomNumberGenerator.random(0, 7);
       });
 
       it("should return false for an x less than zero", function() {
@@ -385,7 +385,7 @@ describe("World", function() {
       });
 
       it("should return true for an x within the world bounds", function() {
-        expect(world.isLocationInsideWorld({x: Math.floor(singletonContext.randomNumberGenerator.random() * 8), y: y})).toBeTruthy();
+        expect(world.isLocationInsideWorld({x: singletonContext.randomNumberGenerator.random(0, 7), y: y})).toBeTruthy();
       });
 
       it("should return false for an x greater than width", function() {
@@ -395,7 +395,7 @@ describe("World", function() {
 
     describe("for an x within the world bounds", function() {
       beforeEach(function() {
-        x = Math.floor(singletonContext.randomNumberGenerator.random() * 8);
+        x = singletonContext.randomNumberGenerator.random(0, 7);
       });
 
       it("should return false for a y less than zero", function() {
@@ -403,7 +403,7 @@ describe("World", function() {
       });
 
       it("should return true for a y within the world bounds", function() {
-        expect(world.isLocationInsideWorld({x: x, y: Math.floor(singletonContext.randomNumberGenerator.random() * 8)})).toBeTruthy();
+        expect(world.isLocationInsideWorld({x: x, y: singletonContext.randomNumberGenerator.random(0, 7)})).toBeTruthy();
       });
 
       it("should return true for a y greater than height", function() {

@@ -3,7 +3,7 @@ Seed = Backbone.Model.extend({
     this.set('isFinalized', false);
     if (!this.get('seedValue')) {
       singletonContext.randomNumberGenerator.seedrandom();
-      this.set('seedValue', singletonContext.randomNumberGenerator.random());
+      this.set('seedValue', singletonContext.randomNumberGenerator.random(1000000000));
     }
   },
 

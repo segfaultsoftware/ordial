@@ -130,7 +130,7 @@ describe("CritterActuator", function() {
     var offspringLocation, originalWorldSize;
     beforeEach(function() {
       var robsDirection = CardinalDirection.ALL_DIRECTIONS[
-        Math.floor(singletonContext.randomNumberGenerator.random() * CardinalDirection.ALL_DIRECTIONS.length)
+        singletonContext.randomNumberGenerator.random(0,  CardinalDirection.ALL_DIRECTIONS.length - 1)
         ];
       rob.direction = robsDirection;
       originalWorldSize = world.things.length;

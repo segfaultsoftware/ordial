@@ -1,4 +1,15 @@
-RandomNumberGenerator = function() {
+RandomNumberGenerator = function(options) {
+
+  this._random = _.random;
+  this._sample = _.sample;
+
+  if (options && options.random) {
+    this._random = options.random;
+  }
+  if (options && options.sample) {
+    this._sample = options.sample;
+  }
+
   this.nextRandoms = [];
 
   this.seedrandom = function(seed) {
@@ -20,13 +31,13 @@ RandomNumberGenerator = function() {
       result = this.nextRandoms.shift();
     }
     else if (arguments.length === 2) {
-      result = _.random(arguments[0], arguments[1]);
+      result = this._random(arguments[0], arguments[1]);
     }
     else if (arguments.length === 1) {
-      result = _.random(arguments[0]);
+      result = this._random(arguments[0]);
     }
     else {
-      result = Math.random();
+      throw new Error('Unexpected arguments');
     }
     return result;
   };
@@ -36,7 +47,7 @@ RandomNumberGenerator = function() {
       return array[this.nextRandoms.shift()];
     }
     else {
-      return _.sample(array);
+      return this._sample(array);
     }
   };
 

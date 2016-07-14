@@ -62,7 +62,7 @@ describe("Ordial", function() {
       ordial = new Ordial({scheduler: ordialScheduler});
       ordial.render();
       ordial.$el.find('#pause-button').click();
-      var undefinedRandomVal = singletonContext.randomNumberGenerator.random();
+      var undefinedRandomVal = singletonContext.randomNumberGenerator.random(1000000);
 
       ordial = new Ordial({scheduler: ordialScheduler});
       ordial.render();
@@ -72,21 +72,21 @@ describe("Ordial", function() {
       ordial = new Ordial({scheduler: ordialScheduler});
       ordial.render();
       ordial.$el.find('#pause-button').click();
-      expect(singletonContext.randomNumberGenerator.random()).not.toEqual(undefinedRandomVal);
+      expect(singletonContext.randomNumberGenerator.random(1000000)).not.toEqual(undefinedRandomVal);
     });
 
     describe('with different seeds after starting the world', function() {
       var firstVal;
       beforeEach(function() {
         ordial.$el.find('#pause-button').click();
-        firstVal = singletonContext.randomNumberGenerator.random();
+        firstVal = singletonContext.randomNumberGenerator.random(1000000);
         ordial = new Ordial({scheduler: ordialScheduler});
         ordial.render();
         ordial.$el.find('#pause-button').click();
       });
 
       it('should lead to different random numbers', function() {
-        expect(singletonContext.randomNumberGenerator.random()).not.toEqual(firstVal);
+        expect(singletonContext.randomNumberGenerator.random(1000000)).not.toEqual(firstVal);
       })
     });
 
@@ -95,8 +95,8 @@ describe("Ordial", function() {
       beforeEach(function() {
         ordial.$el.find('#seed-input').val('abc').blur();
         ordial.$el.find('#pause-button').click();
-        firstVal = singletonContext.randomNumberGenerator.random();
-        secondVal = singletonContext.randomNumberGenerator.random();
+        firstVal = singletonContext.randomNumberGenerator.random(1000000);
+        secondVal = singletonContext.randomNumberGenerator.random(1000000);
         ordial = new Ordial({scheduler: ordialScheduler});
         ordial.render();
         ordial.$el.find('#seed-input').val('abc').blur();
@@ -104,8 +104,8 @@ describe("Ordial", function() {
       });
 
       it('should produce the same random numbers as previously with the same seed', function() {
-        expect(singletonContext.randomNumberGenerator.random()).toEqual(firstVal);
-        expect(singletonContext.randomNumberGenerator.random()).toEqual(secondVal);
+        expect(singletonContext.randomNumberGenerator.random(1000000)).toEqual(firstVal);
+        expect(singletonContext.randomNumberGenerator.random(1000000)).toEqual(secondVal);
       });
 
       it('should produce different random numbers with a different seed', function() {
@@ -113,8 +113,8 @@ describe("Ordial", function() {
         ordial.render();
         ordial.$el.find('#seed-input').val('abcd').blur();
         ordial.$el.find('#pause-button').click();
-        expect(singletonContext.randomNumberGenerator.random()).not.toEqual(firstVal);
-        expect(singletonContext.randomNumberGenerator.random()).not.toEqual(secondVal);
+        expect(singletonContext.randomNumberGenerator.random(1000000)).not.toEqual(firstVal);
+        expect(singletonContext.randomNumberGenerator.random(1000000)).not.toEqual(secondVal);
       });
     })
   });

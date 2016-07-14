@@ -74,7 +74,7 @@
 <textarea id="code">
 
     function getCoord() {
-      return Math.floor(singletonContext.randomNumberGenerator.random() * Math.min(world.height, world.width));
+      return singletonContext.randomNumberGenerator.random(Math.min(world.height, world.width) - 1);
     }
 
     function getCoords() {
