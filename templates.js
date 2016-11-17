@@ -27,7 +27,7 @@ this["JST"]["src/viewTemplates/saveControls.template.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class="button save-button">Save...</div>\n<div class="button load-button">Load...</div>\n<textarea class="load-text"></textarea>';
+__p += '<div class="button save-button">Save</div>\n<div class="button load-button">Load</div>\n<textarea class="load-text"></textarea>';
 
 }
 return __p
