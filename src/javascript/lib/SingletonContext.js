@@ -4,6 +4,7 @@ SingletonContext = function() {
     this.world = new World();
     this.stimulusPackager = new StimulusPackager();
     this.resourceSpawner = new ResourceSpawner();
+    this.soundSilencer = new SoundSilencer();
     this.configuration = new Configuration();
     this.critterActuator = new CritterActuator();
     this.critterSerializer = new CritterSerializer();

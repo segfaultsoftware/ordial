@@ -72,7 +72,7 @@ World = Backbone.Model.extend({
         world.remove(thing);
       }
     });
-
+    singletonContext.soundSilencer.silenceWorld();
     singletonContext.resourceSpawner.spawn();
   },
 

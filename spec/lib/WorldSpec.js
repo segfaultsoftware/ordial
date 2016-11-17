@@ -29,6 +29,12 @@ describe("World", function() {
       world.place(ben, {x: 5, y: 5});
     });
 
+    it("silences all the sounds in the world", function(){
+      spyOn(singletonContext.soundSilencer, "silenceWorld");
+      world.update();
+      expect(singletonContext.soundSilencer.silenceWorld).toHaveBeenCalled();
+    });
+
     it("should call getActions on all critters", function(){
       spyOn(rob, "getActions").and.callThrough();
       spyOn(zoe, "getActions").and.callThrough();
