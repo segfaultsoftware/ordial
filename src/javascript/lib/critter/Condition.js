@@ -40,6 +40,10 @@ Condition.Collection = {
   critterToTheRight: new Condition('stimuli', 'thingToTheRightOfMe', 'IsA', 'Critter'),
   critterToTheLeft: new Condition('stimuli', 'thingToTheLeftOfMe', 'IsA', 'Critter'),
 
+  soundInFront: new Condition('stimuli', 'thingInFrontOfMe', 'IsA', 'Sound'),
+  soundToTheLeft: new Condition('stimuli', 'thingToTheLeftOfMe', 'IsA', 'Sound'),
+  soundToTheRight: new Condition('stimuli', 'thingToTheRightOfMe', 'IsA', 'Sound'),
+
   thingInFront: new Condition('stimuli', 'thingInFrontOfMe'),
   thingToTheRight: new Condition('stimuli', 'thingToTheRightOfMe'),
   thingToTheLeft: new Condition('stimuli', 'thingToTheLeftOfMe'),

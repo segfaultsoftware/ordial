@@ -63,6 +63,23 @@ CritterActuator = Backbone.Model.extend({
     critter.vitals.counter = Critter.DEFAULT_STARTING_COUNTER;
   },
 
+  produceSound: function(critter) {
+    var world = singletonContext.world;
+
+    function createSoundInDirection(relativeDirection){
+      var location = world.getTileInDirection(relativeDirection, critter);
+      var contentsOfTile = world.getThingAt(location);
+      if (!contentsOfTile && world.isLocationInsideWorld(location)) {
+        world.place(new Sound(), location);
+      }
+    }
+
+    createSoundInDirection(RelativeDirection.FORWARD);
+    createSoundInDirection(RelativeDirection.LEFT);
+    createSoundInDirection(RelativeDirection.RIGHT);
+    createSoundInDirection(RelativeDirection.BEHIND);
+  },
+
   moveForwardAndEatCritter: function(critter) {
    var isDeadCritter = function(thing){
      return thing instanceof Critter &&

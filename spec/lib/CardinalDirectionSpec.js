@@ -67,5 +67,23 @@ describe("CardinalDirection", function() {
         expect(newDirection).toEqual(CardinalDirection.NORTH);
       });
     });
+
+    describe("rotating behind", function(){
+      it("from NORTH should return SOUTH", function() {
+        var newDirection = CardinalDirection.getDirectionAfterRotation(
+          CardinalDirection.NORTH,
+          RelativeDirection.BEHIND
+        );
+        expect(newDirection).toEqual(CardinalDirection.SOUTH);
+      });
+
+      it("from SOUTH should return NORTH", function() {
+        var newDirection = CardinalDirection.getDirectionAfterRotation(
+          CardinalDirection.SOUTH,
+          RelativeDirection.BEHIND
+        );
+        expect(newDirection).toEqual(CardinalDirection.NORTH);
+      });
+    })
   });
 });

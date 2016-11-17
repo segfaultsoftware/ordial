@@ -429,4 +429,22 @@ describe("CritterActuator", function() {
       expect(anna.vitals.counter).toBe(Critter.DEFAULT_STARTING_COUNTER);
     });
   });
+
+  describe("#produceSound", function(){
+    describe('when there is nothing in the way', function() {
+      var sigfried;
+      beforeEach(function() {
+        sigfried = new Critter();
+        world.place(sigfried, {x:5, y:3});
+      });
+
+      it('produces a sound on each side of the critter', function () {
+        critterActuator.produceSound(sigfried);
+        expect(world.getThingAt({x: 5, y:2})).toEqual(jasmine.any(Sound));
+        expect(world.getThingAt({x: 4, y:3})).toEqual(jasmine.any(Sound));
+        expect(world.getThingAt({x: 6, y:3})).toEqual(jasmine.any(Sound));
+        expect(world.getThingAt({x: 5, y:4})).toEqual(jasmine.any(Sound));
+      });
+    });
+  });
 });
