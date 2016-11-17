@@ -94,6 +94,10 @@ Critter.Actions = {
   MOVE_FORWARD_AND_EAT_CRITTER: {
     key: 'move forward and eat critter',
     cost: 20
+  },
+  MAKE_SOUND: {
+    key: 'make a sound',
+    cost: 1
   }
 };
 

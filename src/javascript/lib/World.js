@@ -54,6 +54,9 @@ World = Backbone.Model.extend({
               case Critter.Actions.RESET_COUNTER:
                 critterActuator.resetCounterOnCritter(thing);
                 break;
+              case Critter.Actions.MAKE_SOUND:
+                critterActuator.produceSound(thing);
+                break;
             }
           }
 
