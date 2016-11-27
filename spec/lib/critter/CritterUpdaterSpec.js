@@ -221,7 +221,7 @@ describe("CritterUpdater", function(){
         world.place(rob, {x:1, y:1});
         spyOn(rob, "getActions").and.callThrough();
         critterUpdater.update();
-        expect(stimulusPackager.package).toHaveBeenCalledWith(world, rob);
+        expect(stimulusPackager.package).toHaveBeenCalledWith(rob);
         expect(rob.getActions).toHaveBeenCalledWith(somethingInteresting);
       });
 

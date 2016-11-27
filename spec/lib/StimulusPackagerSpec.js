@@ -8,14 +8,14 @@ describe("StimulusPackager", function () {
   describe("#package", function () {
     var critter, world, critterLocation, thingLocation;
 
-    function placeAndGetStimuli(critter, at, facing) {
-      world.place(critter, at);
-      critter.direction = facing;
-      return packager.package(world, critter);
+    function placeAndGetStimuli(critter, location, direction) {
+      world.place(critter, location);
+      critter.direction = direction;
+      return packager.package(critter);
     }
 
     beforeEach(function () {
-      world = new World();
+      singletonContext.world = world = new World();
 
       critterLocation = {x: singletonContext.randomNumberGenerator.random(1, world.width - 2), //leave room for blocker
         y: singletonContext.randomNumberGenerator.random(1, world.height - 2)};
@@ -37,14 +37,14 @@ describe("StimulusPackager", function () {
         });
         
         it("should be the blocker", function () {
-          var stimuli = packager.package(world, critter);
+          var stimuli = packager.package(critter);
           expect(stimuli.thingInFrontOfMe).toBe(blocker);
         });
       });
 
       describe("when there's nothing in front of the critter", function () {
         it("should be null", function () {
-          var stimuli = packager.package(world, critter);
+          var stimuli = packager.package(critter);
           expect(stimuli.thingInFrontOfMe).toBeNull();
         });
       });
@@ -77,14 +77,14 @@ describe("StimulusPackager", function () {
         });
         
         it("should be the blocker", function () {
-          var stimuli = packager.package(world, critter);
+          var stimuli = packager.package(critter);
           expect(stimuli.thingToTheRightOfMe).toBe(blocker);
         });
       });
 
       describe("when there's nothing to the right of the critter", function () {
         it("should be null", function () {
-          var stimuli = packager.package(world, critter);
+          var stimuli = packager.package(critter);
           expect(stimuli.thingToTheRightOfMe).toBeNull();
         });
       });
@@ -117,14 +117,14 @@ describe("StimulusPackager", function () {
         });
         
         it("should be the blocker", function () {
-          var stimuli = packager.package(world, critter);
+          var stimuli = packager.package(critter);
           expect(stimuli.thingToTheLeftOfMe).toBe(blocker);
         });
       });
 
       describe("when there's nothing to the left of the critter", function () {
         it("should be null", function () {
-          var stimuli = packager.package(world, critter);
+          var stimuli = packager.package(critter);
           expect(stimuli.thingToTheLeftOfMe).toBeNull();
         });
       });

@@ -6,8 +6,7 @@ var CritterUpdater = function(){
       var deadThings = [];
       _.each(_.shuffle(world.things), function(thing){
         if (thing.getActions && thing.location) {
-          debugger;
-          var stimuli = stimulusPackager.package(world, thing);
+          var stimuli = stimulusPackager.package(thing);
           var actions = thing.getActions(stimuli);
           actions = _.isArray(actions) ? actions : [actions];
 

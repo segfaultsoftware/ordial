@@ -7,6 +7,7 @@ SingletonContext = function() {
     this.soundSilencer = new SoundSilencer();
     this.configuration = new Configuration();
     this.critterActuator = new CritterActuator();
+    this.critterUpdater = new CritterUpdater();
     this.critterSerializer = new CritterSerializer();
     this.worldSerializer = new WorldSerializer();
     this.mindFactory = new MindFactory();
