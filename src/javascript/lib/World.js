@@ -50,7 +50,7 @@ World = Backbone.Model.extend({
               case Critter.Actions.MOVE_FORWARD_AND_EAT_CRITTER:
                 critterActuator.moveForwardAndEatCritter(thing);
                 break;
-                
+
               case Critter.Actions.RESET_COUNTER:
                 critterActuator.resetCounterOnCritter(thing);
                 break;

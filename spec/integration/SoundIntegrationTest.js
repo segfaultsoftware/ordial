@@ -3,7 +3,7 @@ describe("Sound", function(){
     var world, rob, harry;
     beforeEach(function () {
       world = singletonContext.world = new World();
-      var makeSound = [['action', ['MAKE_SOUND']]];
+      var makeSound = [['condition', 'counterUnder1'],['action', ['MAKE_SOUND', 'INCREMENT_COUNTER']]];
       rob = new Critter({genes: makeSound});
 
       var turnWhenSound = [['condition', 'soundInFront'], ['action', 'TURN_RIGHT']];
@@ -13,10 +13,14 @@ describe("Sound", function(){
       world.place(rob, {x: 2, y:2});
     });
 
-    it("another critter can react to the sound", function(){
+    it("another critter can react to the sound on the next update", function(){
       //TODO: SOUND should be both placed and removed between rather than during critter update cycles
-      // this test currently fails about half the time.
+
       world.update();
+      expect(harry.direction).toBe(CardinalDirection.NORTH);
+
+      world.update();
+
       expect(harry.direction).toBe(CardinalDirection.EAST);
     });
   });
