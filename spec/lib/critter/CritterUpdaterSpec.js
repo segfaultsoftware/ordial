@@ -263,5 +263,6 @@ describe("CritterUpdater", function(){
    expect(critterActuator.moveCritterForward).not.toHaveBeenCalledWith(fred);
         });
       });
+
     });
 });

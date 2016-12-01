@@ -1,8 +1,9 @@
 describe("StimulusPackager", function () {
-  var packager;
+  var packager, worldNavigator;
 
   beforeEach(function () {
     packager = new StimulusPackager();
+    worldNavigator = singletonContext.worldNavigator;
   });
 
   describe("#package", function () {
@@ -32,7 +33,7 @@ describe("StimulusPackager", function () {
 
         beforeEach(function () {
           blocker = {};
-          thingLocation = world.getTileInDirection(RelativeDirection.FORWARD, critter);
+          thingLocation = worldNavigator.getTileInDirection(RelativeDirection.FORWARD, critter);
           world.place(blocker, thingLocation);
         });
         
@@ -72,7 +73,7 @@ describe("StimulusPackager", function () {
 
         beforeEach(function () {
           blocker = new Rock();
-          thingLocation = world.getTileInDirection(RelativeDirection.RIGHT, critter);
+          thingLocation = worldNavigator.getTileInDirection(RelativeDirection.RIGHT, critter);
           world.place(blocker, thingLocation);
         });
         
@@ -112,7 +113,7 @@ describe("StimulusPackager", function () {
 
         beforeEach(function () {
           blocker = new Rock();
-          thingLocation = world.getTileInDirection(RelativeDirection.LEFT, critter);
+          thingLocation = worldNavigator.getTileInDirection(RelativeDirection.LEFT, critter);
           world.place(blocker, thingLocation);
         });
         

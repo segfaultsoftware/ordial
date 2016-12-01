@@ -2,7 +2,7 @@ PIXI_LOADED_SHEET = false;
 describe("WorldView", function() {
   var world, worldView;
   beforeEach(function(done) {
-    world = new World();
+    world = singletonContext.world = new World();
     if(!PIXI_LOADED_SHEET) {
       PIXI.loader.add('/src/assets/spriteSheet/ordialSprites.json')
         .load(_.bind(function() {
@@ -147,7 +147,7 @@ describe("WorldView", function() {
       });
 
       it("should trigger a global critterSelectedOnMap event with the critter model", function() {
-        var callbackSpy = jasmine.createSpy();
+        var callbackSpy = jasmine.createSpy("selectionCallbackSpy");
         singletonContext.eventBus.bind('critterSelectedOnMap', callbackSpy);
         var canvasElement = document.getElementsByTagName("canvas")[0];
         canvasElement.dispatchEvent(event);

@@ -28,7 +28,7 @@ $(function() {
           var worldView = this;
           sprite.on('mousedown', (function(gridX, gridY) {
             return function() {
-              var thing = worldView.model.getThingAt({x: gridX, y: gridY});
+              var thing = singletonContext.worldNavigator.getThingAt({x: gridX, y: gridY});
               worldView.model.selectedCritter = thing;
               singletonContext.eventBus.trigger('critterSelectedOnMap',
                 {

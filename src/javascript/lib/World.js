@@ -17,8 +17,9 @@ World = Backbone.Model.extend({
   place: function(thing, location){
     var x = location.x;
     var y = location.y;
+    var navigator = singletonContext.worldNavigator;
 
-    if(!this.isLocationInsideWorld(location)) {
+    if(!navigator.isLocationInsideWorld(location)) {
       if(!thing.location){
         throw new Error("Placing thing outside the world at " + x + "," + y, thing);
       }
@@ -58,56 +59,7 @@ World = Backbone.Model.extend({
     delete thing.location;
   },
 
-  isLocationInsideWorld: function(location){
-    return location.x >= 0 && location.x < this.width &&
-      location.y >= 0 && location.y < this.height;
-  },
-
   getThingAt: function(location){
-    return this.tiles[location.x] ? this.tiles[location.x][location.y] : null;
+    return singletonContext.worldNavigator.getThingAt(location);
   },
-
-  getTileInDirection: function(direction, thing){
-    function getOffsetInFrontOf(thingDirection){
-      var xDelta = 0, yDelta = 0;
-      switch (thingDirection){
-        case CardinalDirection.WEST:
-          xDelta = -1;
-          break;
-        case CardinalDirection.NORTH:
-          yDelta = -1;
-          break;
-        case CardinalDirection.EAST:
-          xDelta = 1;
-          break;
-        case CardinalDirection.SOUTH:
-          yDelta = 1;
-          break;
-      }
-      return {xDelta: xDelta, yDelta: yDelta};
-    }
-
-    var offset;
-    if (direction == RelativeDirection.FORWARD){
-      offset = getOffsetInFrontOf(thing.direction);
-    }
-    else {
-      var cardinalDirectionAfterRotation = CardinalDirection.getDirectionAfterRotation(thing.direction, direction);
-      offset = getOffsetInFrontOf(cardinalDirectionAfterRotation);
-    }
-
-    return {x: thing.location.x + offset.xDelta, y: thing.location.y + offset.yDelta};
-  },
-
-  getFreeTiles: function() {
-    var freeTiles = [];
-    for (var y = 0; y < this.height; y++) {
-      for (var x = 0; x < this.width; x++) {
-        if (!this.tiles[x] || !this.tiles[x][y]) {
-          freeTiles.push({x: x, y: y});
-        }
-      }
-    }
-    return freeTiles;
-  }
 });

@@ -1,10 +1,11 @@
 describe("CritterActuator", function() {
   var critterActuator, robsOriginalLocation, zoesOriginalLocation;
-  var world, rob;
+  var world, rob, worldNavigator;
   beforeEach(function() {
     rob = new Critter({genes: [['action', 'MOVE_FORWARD']], color: 'doesnotexist'});
     critterActuator = new CritterActuator();
     world = singletonContext.world = new World();
+    worldNavigator = singletonContext.worldNavigator;
     world.place(rob, {x: 4, y: 1});
   });
 
@@ -71,7 +72,7 @@ describe("CritterActuator", function() {
       });
 
       it('should remove the resource from the tile', function() {
-        expect(world.getThingAt({x: 4, y: 0})).not.toEqual(resource);
+        expect(worldNavigator.getThingAt({x: 4, y: 0})).not.toEqual(resource);
       });
 
       it('should remove the resource from the world', function() {
@@ -138,7 +139,7 @@ describe("CritterActuator", function() {
 
     describe("left child", function() {
       beforeEach(function() {
-        offspringLocation = world.getTileInDirection(RelativeDirection.LEFT, rob);
+        offspringLocation = worldNavigator.getTileInDirection(RelativeDirection.LEFT, rob);
       });
 
       describe("when there is an open position to the left", function() {
@@ -152,7 +153,7 @@ describe("CritterActuator", function() {
             1  // which side the clone pops up on
           ]);
           critterActuator.reproduceCritter(rob);
-          offspring = world.getThingAt(offspringLocation);
+          offspring = worldNavigator.getThingAt(offspringLocation);
         });
 
         it("should create a critter to the left", function() {
@@ -180,13 +181,13 @@ describe("CritterActuator", function() {
         var robsLocation;
 
         beforeEach(function() {
-          robsLocation = world.getTileInDirection(RelativeDirection.LEFT, rob);
+          robsLocation = worldNavigator.getTileInDirection(RelativeDirection.LEFT, rob);
           world.place(rob, robsLocation);
           critterActuator.reproduceCritter(rob);
         });
 
         it("should not create a critter to the left", function() {
-          expect(world.getThingAt(robsLocation)).toEqual(rob);
+          expect(worldNavigator.getThingAt(robsLocation)).toEqual(rob);
         });
       });
 
@@ -213,7 +214,7 @@ describe("CritterActuator", function() {
         });
 
         it("should create a critter to the left", function() {
-          expect(world.getThingAt(offspringLocation) instanceof Critter).toBe(true);
+          expect(worldNavigator.getThingAt(offspringLocation) instanceof Critter).toBe(true);
         });
 
         it("should remove the resource", function() {
@@ -221,7 +222,7 @@ describe("CritterActuator", function() {
         });
 
         it("should increment the critter's mana by the resource's mana", function() {
-          var child = world.getThingAt(offspringLocation);
+          var child = worldNavigator.getThingAt(offspringLocation);
           expect(child.vitals.mana).toEqual(Critter.DEFAULT_STARTING_MANA + resource.manaPerServing);
         });
       });
@@ -229,7 +230,7 @@ describe("CritterActuator", function() {
 
     describe("right child", function() {
       beforeEach(function() {
-        offspringLocation = world.getTileInDirection(RelativeDirection.RIGHT, rob);
+        offspringLocation = worldNavigator.getTileInDirection(RelativeDirection.RIGHT, rob);
       });
 
       describe("when there is an open position to the right", function() {
@@ -243,7 +244,7 @@ describe("CritterActuator", function() {
 
         it("should create a critter to the right", function() {
           critterActuator.reproduceCritter(rob);
-          offspring = world.getThingAt(offspringLocation);
+          offspring = worldNavigator.getThingAt(offspringLocation);
           expect(offspring).not.toBeFalsy();
         });
 
@@ -251,7 +252,7 @@ describe("CritterActuator", function() {
          it("should be oriented to the right of its parent", function() {
             
            critterActuator.reproduceCritter(rob);
-          offspring = world.getThingAt(offspringLocation);
+          offspring = worldNavigator.getThingAt(offspringLocation);
            expect(offspring.direction).toEqual(
               CardinalDirection.getDirectionAfterRotation(rob.direction, RelativeDirection.RIGHT)
             );
@@ -261,7 +262,7 @@ describe("CritterActuator", function() {
             beforeEach(function(){
               singletonContext.randomNumberGenerator.stubRandom([0]);
               critterActuator.reproduceCritter(rob);
-              offspring = world.getThingAt(offspringLocation);
+              offspring = worldNavigator.getThingAt(offspringLocation);
             });
             
             it("should have its parent's genes", function() {
@@ -277,7 +278,7 @@ describe("CritterActuator", function() {
             beforeEach(function(){
               singletonContext.randomNumberGenerator.stubRandom([1]);
               critterActuator.reproduceCritter(rob);
-              offspring = world.getThingAt(offspringLocation);
+              offspring = worldNavigator.getThingAt(offspringLocation);
             });
             
             it("should have a mutated version of its parent's mind", function() {
@@ -296,13 +297,13 @@ describe("CritterActuator", function() {
         var robsLocation;
 
         beforeEach(function() {
-          robsLocation = world.getTileInDirection(RelativeDirection.RIGHT, rob);
+          robsLocation = worldNavigator.getTileInDirection(RelativeDirection.RIGHT, rob);
           world.place(rob, robsLocation);
           critterActuator.reproduceCritter(rob);
         });
 
         it("should not create a critter to the right", function() {
-          expect(world.getThingAt(robsLocation)).toEqual(rob);
+          expect(worldNavigator.getThingAt(robsLocation)).toEqual(rob);
         });
       });
 
@@ -329,7 +330,7 @@ describe("CritterActuator", function() {
         });
 
         it("should create a critter to the right", function() {
-          expect(world.getThingAt(offspringLocation) instanceof Critter).toBe(true);
+          expect(worldNavigator.getThingAt(offspringLocation) instanceof Critter).toBe(true);
         });
 
         it("should remove the resource", function() {
@@ -440,10 +441,10 @@ describe("CritterActuator", function() {
 
       it('produces a sound on each side of the critter', function () {
         critterActuator.produceSound(sigfried);
-        expect(world.getThingAt({x: 5, y:2})).toEqual(jasmine.any(Sound));
-        expect(world.getThingAt({x: 4, y:3})).toEqual(jasmine.any(Sound));
-        expect(world.getThingAt({x: 6, y:3})).toEqual(jasmine.any(Sound));
-        expect(world.getThingAt({x: 5, y:4})).toEqual(jasmine.any(Sound));
+        expect(worldNavigator.getThingAt({x: 5, y:2})).toEqual(jasmine.any(Sound));
+        expect(worldNavigator.getThingAt({x: 4, y:3})).toEqual(jasmine.any(Sound));
+        expect(worldNavigator.getThingAt({x: 6, y:3})).toEqual(jasmine.any(Sound));
+        expect(worldNavigator.getThingAt({x: 5, y:4})).toEqual(jasmine.any(Sound));
       });
     });
   });

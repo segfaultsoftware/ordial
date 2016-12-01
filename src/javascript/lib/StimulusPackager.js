@@ -1,10 +1,10 @@
 StimulusPackager = Backbone.Model.extend({
   getThingInDirection: function(relativeDirection, critter) {
-    var world = singletonContext.world;
+    var worldNavigator = singletonContext.worldNavigator;
 
-    var tileInDirection = world.getTileInDirection(relativeDirection, critter);
-    var thingInDirection = world.getThingAt(tileInDirection) || null;
-    if (!world.isLocationInsideWorld(tileInDirection)) {
+    var tileInDirection = worldNavigator.getTileInDirection(relativeDirection, critter);
+    var thingInDirection = worldNavigator.getThingAt(tileInDirection) || null;
+    if (!worldNavigator.isLocationInsideWorld(tileInDirection)) {
       thingInDirection = TheVoid;
     }
 

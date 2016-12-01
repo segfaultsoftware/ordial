@@ -1,9 +1,10 @@
 CritterActuator = Backbone.Model.extend({
   moveCritterForward: function(critter){
     var world = singletonContext.world;
+    var worldNavigator = singletonContext.worldNavigator;
 
-    var nextLocation = world.getTileInDirection(RelativeDirection.FORWARD, critter);
-    var thingAtNextLocation = world.getThingAt(nextLocation);
+    var nextLocation = worldNavigator.getTileInDirection(RelativeDirection.FORWARD, critter);
+    var thingAtNextLocation = worldNavigator.getThingAt(nextLocation);
     if (!thingAtNextLocation || critter.canEat(thingAtNextLocation)) {
       world.place(critter, nextLocation);
       critter.eat(thingAtNextLocation);
@@ -27,11 +28,13 @@ CritterActuator = Backbone.Model.extend({
 
   reproduceCritter: function(critter){
     var world = singletonContext.world;
+    var worldNavigator = singletonContext.worldNavigator;
+
     function createOffspringInDirection(relativeDirection, critterPlans){
-      var offspringLocation = world.getTileInDirection(relativeDirection, critter);
-      var contentsOfTile = world.getThingAt(offspringLocation);
+      var offspringLocation = worldNavigator.getTileInDirection(relativeDirection, critter);
+      var contentsOfTile = worldNavigator.getThingAt(offspringLocation);
       var offspring = new Critter(critterPlans);
-      if ((!contentsOfTile || offspring.canEat(contentsOfTile)) && world.isLocationInsideWorld(offspringLocation)) {
+      if ((!contentsOfTile || offspring.canEat(contentsOfTile)) && worldNavigator.isLocationInsideWorld(offspringLocation)) {
         offspring.direction = CardinalDirection.getDirectionAfterRotation(critter.direction, relativeDirection);
         world.place(offspring, offspringLocation);
         offspring.eat(contentsOfTile);
@@ -65,11 +68,13 @@ CritterActuator = Backbone.Model.extend({
 
   produceSound: function(critter) {
     var world = singletonContext.world;
+    var worldNavigator = singletonContext.worldNavigator;
+
 
     function createSoundInDirection(relativeDirection){
-      var location = world.getTileInDirection(relativeDirection, critter);
-      var contentsOfTile = world.getThingAt(location);
-      if (!contentsOfTile && world.isLocationInsideWorld(location)) {
+      var location = worldNavigator.getTileInDirection(relativeDirection, critter);
+      var contentsOfTile = worldNavigator.getThingAt(location);
+      if (!contentsOfTile && worldNavigator.isLocationInsideWorld(location)) {
         world.place(new Sound(), location);
       }
     }
@@ -81,14 +86,17 @@ CritterActuator = Backbone.Model.extend({
   },
 
   moveForwardAndEatCritter: function(critter) {
-   var isDeadCritter = function(thing){
-     return thing instanceof Critter &&
-       thing.isDead();
-   };
+    var worldNavigator = singletonContext.worldNavigator;
+
+    var isDeadCritter = function(thing){
+      return thing instanceof Critter &&
+      thing.isDead();
+    };
+
     var world = singletonContext.world;
 
-    var nextLocation = world.getTileInDirection(RelativeDirection.FORWARD, critter);
-    var thingAtNextLocation = world.getThingAt(nextLocation);
+    var nextLocation = worldNavigator.getTileInDirection(RelativeDirection.FORWARD, critter);
+    var thingAtNextLocation = worldNavigator.getThingAt(nextLocation);
     if (!thingAtNextLocation || critter.canEat(thingAtNextLocation)
        || isDeadCritter(thingAtNextLocation)) {
       world.place(critter, nextLocation);

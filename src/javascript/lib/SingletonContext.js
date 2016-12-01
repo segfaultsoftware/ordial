@@ -10,6 +10,7 @@ SingletonContext = function() {
     this.critterUpdater = new CritterUpdater();
     this.critterSerializer = new CritterSerializer();
     this.worldSerializer = new WorldSerializer();
+    this.worldNavigator = new WorldNavigator();
     this.mindFactory = new MindFactory();
     this.geneMutator = new GeneMutator();
     this.subMutator = new SubMutator();

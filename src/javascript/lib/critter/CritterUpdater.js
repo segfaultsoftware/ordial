@@ -4,6 +4,7 @@ var CritterUpdater = function(){
       var stimulusPackager = singletonContext.stimulusPackager;
       var critterActuator = singletonContext.critterActuator;
       var deadThings = [];
+      var soundLocations = [];
       _.each(_.shuffle(world.things), function(thing){
         if (thing.getActions && thing.location) {
           var stimuli = stimulusPackager.package(thing);
@@ -49,7 +50,7 @@ var CritterUpdater = function(){
                   critterActuator.resetCounterOnCritter(thing);
                   break;
                 case Critter.Actions.MAKE_SOUND:
-                  critterActuator.produceSound(thing);
+                  soundLocations.push({x: thing.location.x, y: thing.location.y});
                   break;
               }
             }
