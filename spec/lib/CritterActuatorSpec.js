@@ -441,6 +441,8 @@ describe("CritterActuator", function() {
 
       it('produces a sound on each side of the critter', function () {
         critterActuator.produceSound(sigfried);
+        expect(worldNavigator.getThingAt({x: 5, y:2})).toBeFalsy();
+        singletonContext.soundBox.applySoundsToWorld();
         expect(worldNavigator.getThingAt({x: 5, y:2})).toEqual(jasmine.any(Sound));
         expect(worldNavigator.getThingAt({x: 4, y:3})).toEqual(jasmine.any(Sound));
         expect(worldNavigator.getThingAt({x: 6, y:3})).toEqual(jasmine.any(Sound));

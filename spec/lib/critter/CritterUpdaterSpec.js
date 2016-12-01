@@ -211,6 +211,16 @@ describe("CritterUpdater", function(){
           });
       });
 
+      describe("when the critter's getAction is MAKE_SOUND", function(){
+        it("makes a sound", function(){
+          var cher = new Critter({mind: new CritterMind({action: Critter.Actions.MAKE_SOUND })});
+          world.place(cher,{x: 2, y:3});
+          spyOn(critterActuator, "produceSound");
+          world.update();
+          expect(critterActuator.produceSound).toHaveBeenCalledWith(cher);
+        });
+      });
+
       it("should get the critter's action based on its stimuli", function () {
         var stimulusPackager = jasmine.createSpyObj('packager', ['package']);
         singletonContext.stimulusPackager = stimulusPackager;

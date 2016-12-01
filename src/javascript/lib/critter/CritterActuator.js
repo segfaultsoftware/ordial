@@ -67,7 +67,7 @@ CritterActuator = Backbone.Model.extend({
   },
 
   produceSound: function(critter) {
-    var world = singletonContext.world;
+    var soundBox = singletonContext.soundBox;
     var worldNavigator = singletonContext.worldNavigator;
 
 
@@ -75,7 +75,7 @@ CritterActuator = Backbone.Model.extend({
       var location = worldNavigator.getTileInDirection(relativeDirection, critter);
       var contentsOfTile = worldNavigator.getThingAt(location);
       if (!contentsOfTile && worldNavigator.isLocationInsideWorld(location)) {
-        world.place(new Sound(), location);
+        soundBox.makeFutureSound(new Sound(), location);
       }
     }
 

@@ -10,7 +10,8 @@ World = Backbone.Model.extend({
     var world = this;
 
     singletonContext.critterUpdater.update();
-    singletonContext.soundSilencer.silenceWorld();
+    singletonContext.soundBox.silenceWorld();
+    singletonContext.soundBox.applySoundsToWorld();
     singletonContext.resourceSpawner.spawn();
   },
 

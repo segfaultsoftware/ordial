@@ -13,16 +13,22 @@ describe("World", function() {
   });
 
   describe("#update", function(){
+    it("places sounds in the world", function(){
+      spyOn(singletonContext.soundBox, "applySoundsToWorld");
+      world.update();
+      expect(singletonContext.soundBox.applySoundsToWorld).toHaveBeenCalled();
+
+    });
+
     it("updates the critters");
 
     it("spawns resources");
 
     it("silences all the sounds in the world", function(){
-      spyOn(singletonContext.soundSilencer, "silenceWorld");
+      spyOn(singletonContext.soundBox, "silenceWorld");
       world.update();
-      expect(singletonContext.soundSilencer.silenceWorld).toHaveBeenCalled();
+      expect(singletonContext.soundBox.silenceWorld).toHaveBeenCalled();
     });
-
   });
 
 
