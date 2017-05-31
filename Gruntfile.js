@@ -89,7 +89,7 @@ module.exports = function (grunt) {
           "node_modules/jquery/dist/jquery.js",
           "node_modules/backbone/backbone.js",
           "node_modules/snapsvg/dist/snap.svg.js",
-          "node_modules/pixi.js/bin/pixi.js",
+          "node_modules/pixi.js/dist/pixi.js",
 
           //TODO i don't like this being in a prod vendorize
           "node_modules/jasmine-jquery/lib/jasmine-jquery.js"
