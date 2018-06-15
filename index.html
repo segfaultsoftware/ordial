@@ -16,6 +16,7 @@
 <script src="src/javascript/lib/Resource.js"></script>
 <script src="src/javascript/lib/ResourceSpawner.js"></script>
 <script src="src/javascript/lib/Rock.js"></script>
+<script src="src/javascript/lib/Sound.js"></script>
 <script src="src/javascript/lib/Seed.js"></script>
 <script src="src/javascript/lib/SingletonContext.js"></script>
 <script src="src/javascript/lib/StimulusPackager.js"></script>
@@ -74,7 +75,7 @@
 <textarea id="code">
 
     function getCoord() {
-      return Math.floor(singletonContext.randomNumberGenerator.random() * Math.min(world.height, world.width));
+      return Math.floor(singletonContext.randomNumberGenerator.random(Math.min(world.height, world.width) - 1));
     }
 
     function getCoords() {
