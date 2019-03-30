@@ -1,3 +1,9 @@
+var WorldNavigator = require("../../src/javascript/lib/WorldNavigator");
+var Rock = require("../../src/javascript/lib/models/Rock");
+var RelativeDirection = require("../../src/javascript/lib/models/RelativeDirection");
+var CardinalDirection = require("../../src/javascript/lib/models/CardinalDirection");
+var Critter = require("../../src/javascript/lib/critter/Critter");
+
 describe("WorldNavigator", function(){
   var navigator, world;
   beforeEach(function(){

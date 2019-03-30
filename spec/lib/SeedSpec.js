@@ -1,3 +1,5 @@
+var Seed = require("../../src/javascript/lib/models/Seed");
+
 describe("Seed", function() {
   var seed;
   it('should default isFinalized to false', function() {

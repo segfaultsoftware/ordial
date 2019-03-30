@@ -1,3 +1,5 @@
+var Critter = require("./Critter");
+
 var CritterUpdater = function(){
   this.update = function(){
       var world = singletonContext.world;
@@ -71,3 +73,5 @@ var CritterUpdater = function(){
       });
   }
 }
+
+module.exports = CritterUpdater;

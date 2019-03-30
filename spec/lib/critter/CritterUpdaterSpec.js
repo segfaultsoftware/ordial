@@ -1,3 +1,7 @@
+var CritterUpdater = require("../../../src/javascript/lib/critter/CritterUpdater");
+var Critter = require("../../../src/javascript/lib/critter/Critter");
+var CritterMind = require("../../../src/javascript/lib/critter/CritterMind");
+
 describe("CritterUpdater", function(){
     var critterUpdater, world;
     beforeEach(function(){

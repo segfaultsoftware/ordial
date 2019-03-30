@@ -1,3 +1,7 @@
+var SoundBox = require("../../src/javascript/lib/SoundBox");
+var Sound = require("../../src/javascript/lib/models/Sound");
+var Rock = require("../../src/javascript/lib/models/Rock");
+
 describe("SoundBox", function(){
   var sound, soundBox, location, world;
   beforeEach(function(){

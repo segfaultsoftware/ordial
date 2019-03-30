@@ -1,3 +1,6 @@
+var Critter = require("../../../src/javascript/lib/critter/Critter");
+var MindFactory = require("../../../src/javascript/lib/critter_production/MindFactory");
+
 describe("MindFactory", function(){
   var mindFactory, stimuli, vitals;
   beforeEach(function(){

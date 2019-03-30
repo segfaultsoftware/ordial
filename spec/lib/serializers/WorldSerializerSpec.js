@@ -1,3 +1,9 @@
+var Critter = require("../../../src/javascript/lib/critter/Critter");
+var World = require("../../../src/javascript/lib/World");
+var Rock = require("../../../src/javascript/lib/models/Rock");
+var Resource = require("../../../src/javascript/lib/models/Resource");
+var WorldSerializer = require("../../../src/javascript/lib/serializers/WorldSerializer");
+
 describe("WorldSerializer", function(){
   var worldSerializer;
   beforeEach(function(){

@@ -1,3 +1,7 @@
+var Critter = require("../../../src/javascript/lib/critter/Critter");
+var CritterSerializer = require("../../../src/javascript/lib/serializers/CritterSerializer");
+var CardinalDirection = require("../../../src/javascript/lib/models/CardinalDirection");
+
 describe("CritterSerializer", function(){
   var critterSerializer;
   beforeEach(function(){

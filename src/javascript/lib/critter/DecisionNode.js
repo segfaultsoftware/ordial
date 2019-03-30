@@ -8,3 +8,5 @@ DecisionNode = Backbone.Model.extend({
 });
 
 DecisionNode.TYPE = "Decision";
+
+module.exports = DecisionNode;

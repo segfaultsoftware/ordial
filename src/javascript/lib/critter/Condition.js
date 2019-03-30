@@ -1,32 +1,31 @@
-Condition = Backbone.Model.extend({
-  initialize: function(sensoryGroup, propertyName, comparatorName, rightValue ) {
-    this.sensoryGroup = sensoryGroup;
-    this.propertyName = propertyName;
-    this.comparator = Condition.Comparators[comparatorName] || Condition.Comparators.Exists;
-    this.rightValue = rightValue;
-  },
-  evaluate: function evaluate(stimuli, vitals){
-    var sensoryGroups = {stimuli:stimuli, vitals:vitals};
+function Condition(sensoryGroup, propertyName, comparatorName, rightValue) {
+  this.sensoryGroup = sensoryGroup;
+  this.propertyName = propertyName;
+  this.comparator = Condition.Comparators[comparatorName] || Condition.Comparators.Exists;
+  this.rightValue = rightValue;
+
+  this.evaluate = function evaluate(stimuli, vitals) {
+    var sensoryGroups = { stimuli: stimuli, vitals: vitals };
     var propertyValue = sensoryGroups[this.sensoryGroup][this.propertyName];
-    if(!sensoryGroups[this.sensoryGroup].hasOwnProperty(this.propertyName)){
+    if (!sensoryGroups[this.sensoryGroup].hasOwnProperty(this.propertyName)) {
       console.warn('property "' + this.propertyName + '" not found in ' + this.sensoryGroup);
     }
     return this.comparator(propertyValue, this.rightValue);
   }
-});
+}
 
 Condition.Comparators = {
-  Exists: function(value){
-    return !! value;
+  Exists: function (value) {
+    return !!value;
   },
-  Equals: function(first, second){
+  Equals: function (first, second) {
     return first == second;
   },
-  LessThan: function(first, second){
+  LessThan: function (first, second) {
     return first < second;
   },
-  IsA: function(object, className){
-    return object instanceof eval(className);
+  IsA: function (object, className) {
+    return !! (object && Object.getPrototypeOf(object).constructor.name === className);
   }
 };
 
@@ -67,3 +66,5 @@ Condition.Collection = {
   counterUnder80: new Condition('vitals', 'counter', 'LessThan', 80),
   counterUnder200: new Condition('vitals', 'counter', 'LessThan', 200),
 };
+
+module.exports = Condition;

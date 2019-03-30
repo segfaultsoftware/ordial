@@ -1,3 +1,5 @@
+var Backbone = require("backbone");
+
 Seed = Backbone.Model.extend({
   initialize: function() {
     this.set('isFinalized', false);
@@ -11,3 +13,5 @@ Seed = Backbone.Model.extend({
     singletonContext.randomNumberGenerator.seedrandom(this.get('seedValue'));
   }
 });
+
+module.exports = Seed;

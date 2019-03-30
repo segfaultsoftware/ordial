@@ -5,7 +5,7 @@ CardinalDirection = {
   WEST: 'WEST'
 };
 
-CardinalDirection.getDirectionAfterRotation = function(startingDirection, rotationDirection) {
+CardinalDirection.getDirectionAfterRotation = function (startingDirection, rotationDirection) {
   var cardinalIndex = _.indexOf(CardinalDirection.ALL_DIRECTIONS, startingDirection) +
     CardinalDirection.ALL_DIRECTIONS.length;
   var relativeIndex = _.indexOf(RelativeDirection.ALL_DIRECTIONS, rotationDirection) +
@@ -22,3 +22,5 @@ CardinalDirection.ALL_DIRECTIONS = [
   CardinalDirection.SOUTH,
   CardinalDirection.WEST
 ];
+
+module.exports = CardinalDirection;

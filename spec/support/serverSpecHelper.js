@@ -1,3 +1,5 @@
+var SingletonContext = require("../../src/javascript/lib/SingletonContext");
+
 beforeEach(function () {
   singletonContext = new SingletonContext();
   singletonContext.configuration.resourceSpawnRate = 0.0;

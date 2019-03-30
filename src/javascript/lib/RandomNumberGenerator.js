@@ -1,4 +1,6 @@
-RandomNumberGenerator = function(options) {
+require("../../../vendor/seedrandom/seedrandom");
+
+RandomNumberGenerator = function (options) {
 
   this._random = _.random;
   this._sample = _.sample;
@@ -12,46 +14,43 @@ RandomNumberGenerator = function(options) {
 
   this.nextRandoms = [];
 
-  this.seedrandom = function(seed) {
+  this.seedrandom = function (seed) {
     if (seed !== undefined) {
       return Math.seedrandom(seed);
-    }
-    else {
+    } else {
       return Math.seedrandom();
     }
   };
 
-  this.random = function() {
-    if(arguments[0] < 0){
+  this.random = function () {
+    if (arguments[0] < 0) {
       console.error("random called with ", arguments[0])
     }
 
     var result;
     if (this.nextRandoms.length > 0) {
       result = this.nextRandoms.shift();
-    }
-    else if (arguments.length === 2) {
+    } else if (arguments.length === 2) {
       result = this._random(arguments[0], arguments[1]);
-    }
-    else if (arguments.length === 1) {
+    } else if (arguments.length === 1) {
       result = this._random(arguments[0]);
-    }
-    else {
+    } else {
       throw new Error('Unexpected arguments');
     }
     return result;
   };
 
-  this.sample = function(array) {
+  this.sample = function (array) {
     if (this.nextRandoms.length > 0) {
       return array[this.nextRandoms.shift()];
-    }
-    else {
+    } else {
       return this._sample(array);
     }
   };
 
-  this.stubRandom = function(nextRandoms) {
+  this.stubRandom = function (nextRandoms) {
     this.nextRandoms = nextRandoms;
   }
 };
+
+module.exports = RandomNumberGenerator;

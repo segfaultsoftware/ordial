@@ -1,12 +1,18 @@
-WorldSerializer = function(){
-  this.serialize = function(world){
-    var preserializedThings = _.map(world.things, function(thing){
+var Rock = require("../models/Rock");
+var Resource = require("../models/Resource");
+var Critter = require("../critter/Critter");
+var World = require("../World");
+var _ = require("underscore");
+
+WorldSerializer = function () {
+  this.serialize = function (world) {
+    var preserializedThings = _.map(world.things, function (thing) {
       var result = { location: thing.location };
-      if(thing instanceof Rock){
+      if (thing instanceof Rock) {
         result.type = "rock";
-      } else if (thing instanceof Resource){
+      } else if (thing instanceof Resource) {
         result.type = "resource";
-      } else if(thing instanceof Critter){
+      } else if (thing instanceof Critter) {
         result = singletonContext.critterSerializer.preserialize(thing);
       } else {
         console.error("cannot serialize unknown type: " + thing);
@@ -19,17 +25,17 @@ WorldSerializer = function(){
       things: preserializedThings
     });
   };
-  
-  this.deserialize = function(serializedWorld, targetWorld){
+
+  this.deserialize = function (serializedWorld, targetWorld) {
     var pojoWorld = JSON.parse(serializedWorld);
-    if(targetWorld){
+    if (targetWorld) {
       targetWorld.initialize();
     }
     var world = targetWorld || new World();
-    _.each(pojoWorld.things, function(pojoThing){
+    _.each(pojoWorld.things, function (pojoThing) {
       var thing;
 
-      switch(pojoThing.type) {
+      switch (pojoThing.type) {
         case "rock":
           thing = new Rock();
           break;
@@ -43,9 +49,11 @@ WorldSerializer = function(){
           console.error("failed to deserialize item of type:" + pojoThing.type);
           break;
       }
-      world.place(thing, pojoThing.location);    
+      world.place(thing, pojoThing.location);
     });
-    
+
     return world;
   };
 };
+
+module.exports = WorldSerializer;

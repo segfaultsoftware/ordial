@@ -1,3 +1,5 @@
+var Condition = require("../../../src/javascript/lib/critter/Condition");
+
 describe("Condition", function(){
   describe("#evaluator", function(){
     var stimuli, vitals;
@@ -42,9 +44,9 @@ describe("Condition", function(){
     });
 
     describe("comparing with IsA", function(){
-      var condition;
+      var condition, SomeType;
       beforeEach(function(){
-        SomeType = function(){};
+        SomeType = function SomeType(){};
         condition = new Condition('stimuli','someSense', 'IsA', 'SomeType');
       });
       it("returns false", function(){

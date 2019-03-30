@@ -1,54 +1,53 @@
-World = Backbone.Model.extend({
-  initialize: function() {
+function World() {
+  this.initialize = function () {
     this.width = 40;
     this.height = 25;
     this.tiles = [];
     this.things = [];
-  },
+  };
 
-  update: function(){
-    var world = this;
+  this.initialize();
 
+  this.update = function () {
     singletonContext.critterUpdater.update();
     singletonContext.soundBox.silenceWorld();
     singletonContext.soundBox.applySoundsToWorld();
     singletonContext.resourceSpawner.spawn();
-  },
+  }
 
-  place: function(thing, location){
+  this.place = function (thing, location) {
     var x = location.x;
     var y = location.y;
     var navigator = singletonContext.worldNavigator;
 
-    if(!navigator.isLocationInsideWorld(location)) {
-      if(!thing.location){
+    if (!navigator.isLocationInsideWorld(location)) {
+      if (!thing.location) {
         throw new Error("Placing thing outside the world at " + x + "," + y, thing);
       }
-    }
-    else {
+    } else {
       var row = this.tiles[x] || [];
-      if(row[y]){
+      if (row[y]) {
         this.remove(row[y]);
       }
 
-      if(thing.location){
+      if (thing.location) {
         this.tiles[thing.location.x][thing.location.y] = null;
       }
 
       row[y] = thing;
       this.tiles[x] = row;
-      thing.location = {x:x, y:y};
+      thing.location = { x: x, y: y };
       if (!this.contains(thing)) {
         this.things.push(thing);
       }
     }
-  },
+  }
 
-  contains: function(thing) {
+  this.contains = function (thing) {
     return _.contains(this.things, thing);
-  },
+  }
 
-  remove: function(thing){
+  this.remove = function (thing) {
     var index = this.things.indexOf(thing);
     if (index >= 0) {
       this.things.splice(index, 1);
@@ -58,9 +57,11 @@ World = Backbone.Model.extend({
     }
 
     delete thing.location;
-  },
+  }
 
-  getThingAt: function(location){
+  this.getThingAt = function (location) {
     return singletonContext.worldNavigator.getThingAt(location);
-  },
-});
+  }
+};
+
+module.exports = World;

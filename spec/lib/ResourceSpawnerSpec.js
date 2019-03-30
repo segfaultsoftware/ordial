@@ -1,3 +1,6 @@
+var Resource = require("../../src/javascript/lib/models/Resource");
+var World = require("../../src/javascript/lib/World");
+
 describe("ResourceSpawner", function () {
   var spawner;
   describe("#spawn", function () {

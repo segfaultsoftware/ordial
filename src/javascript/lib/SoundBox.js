@@ -1,27 +1,32 @@
-SoundBox = function(){
+var Sound = require("./models/Sound");
+
+function SoundBox() {
   this.soundPlacements = [];
-  this.makeFutureSound = function(sound, location){
-    this.soundPlacements.push({sound: sound, location:location});
+
+  this.makeFutureSound = function (sound, location) {
+    this.soundPlacements.push({ sound: sound, location: location });
   };
 
-  this.applySoundsToWorld = function(){
-    _.each(this.soundPlacements, function(placement){
+  this.applySoundsToWorld = function () {
+    _.each(this.soundPlacements, function (placement) {
       singletonContext.world.place(placement.sound, placement.location);
     });
     this.soundPlacements = [];
   };
 
-  this.silenceWorld = function(){
+  this.silenceWorld = function () {
     var world = singletonContext.world;
     var sounds = [];
-    world.things.forEach(function(thing){
-      if(thing instanceof Sound){
+    world.things.forEach(function (thing) {
+      if (thing instanceof Sound) {
         sounds.push(thing);
       }
     });
 
-    sounds.forEach(function(sound){
+    sounds.forEach(function (sound) {
       world.remove(sound);
     });
   }
-};
+}
+
+module.exports = SoundBox;

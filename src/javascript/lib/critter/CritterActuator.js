@@ -1,5 +1,10 @@
-CritterActuator = Backbone.Model.extend({
-  moveCritterForward: function(critter){
+var Critter = require("./Critter");
+var Sound = require("../models/Sound");
+var CardinalDirection = require("../models/CardinalDirection");
+var RelativeDirection = require("../models/RelativeDirection");
+
+function CritterActuator() {
+  this.moveCritterForward = function(critter) {
     var world = singletonContext.world;
     var worldNavigator = singletonContext.worldNavigator;
 
@@ -9,28 +14,28 @@ CritterActuator = Backbone.Model.extend({
       world.place(critter, nextLocation);
       critter.eat(thingAtNextLocation);
     }
-  },
+  }
 
-  turnCritter: function(critter, direction, action) {
+  this.turnCritter = function(critter, direction, action) {
     critter.direction = CardinalDirection.getDirectionAfterRotation(
       critter.direction,
       direction
     );
-  },
+  }
 
-  turnCritterLeft: function(critter){
+  this.turnCritterLeft = function(critter) {
     return this.turnCritter(critter, RelativeDirection.LEFT, Critter.Actions.TURN_LEFT);
-  },
+  }
 
-  turnCritterRight: function(critter){
+  this.turnCritterRight = function(critter) {
     return this.turnCritter(critter, RelativeDirection.RIGHT, Critter.Actions.TURN_RIGHT);
-  },
+  }
 
-  reproduceCritter: function(critter){
+  this.reproduceCritter = function(critter) {
     var world = singletonContext.world;
     var worldNavigator = singletonContext.worldNavigator;
 
-    function createOffspringInDirection(relativeDirection, critterPlans){
+    function createOffspringInDirection(relativeDirection, critterPlans) {
       var offspringLocation = worldNavigator.getTileInDirection(relativeDirection, critter);
       var contentsOfTile = worldNavigator.getThingAt(offspringLocation);
       var offspring = new Critter(critterPlans);
@@ -45,33 +50,32 @@ CritterActuator = Backbone.Model.extend({
     var mutantGenes = singletonContext.geneMutator.mutate(critter.replicateGenes());
 
     if (singletonContext.randomNumberGenerator.random(1)) {
-      createOffspringInDirection(RelativeDirection.LEFT, {genes: cloneGenes, color: critter.color});
-      createOffspringInDirection(RelativeDirection.RIGHT, {genes: mutantGenes});
+      createOffspringInDirection(RelativeDirection.LEFT, { genes: cloneGenes, color: critter.color });
+      createOffspringInDirection(RelativeDirection.RIGHT, { genes: mutantGenes });
+    } else {
+      createOffspringInDirection(RelativeDirection.LEFT, { genes: mutantGenes });
+      createOffspringInDirection(RelativeDirection.RIGHT, { genes: cloneGenes, color: critter.color });
     }
-    else {
-      createOffspringInDirection(RelativeDirection.LEFT, {genes: mutantGenes});
-      createOffspringInDirection(RelativeDirection.RIGHT, {genes: cloneGenes, color: critter.color});
-    }
-  },
+  }
 
-  incrementCounterOnCritter: function(critter) {
+  this.incrementCounterOnCritter = function(critter) {
     critter.vitals.counter++;
-  },
+  }
 
-  decrementCounterOnCritter: function(critter) {
+  this.decrementCounterOnCritter = function(critter) {
     critter.vitals.counter--;
-  },
-  
-  resetCounterOnCritter: function(critter) {
-    critter.vitals.counter = Critter.DEFAULT_STARTING_COUNTER;
-  },
+  }
 
-  produceSound: function(critter) {
+  this.resetCounterOnCritter = function(critter) {
+    critter.vitals.counter = Critter.DEFAULT_STARTING_COUNTER;
+  }
+
+  this.produceSound = function(critter) {
     var soundBox = singletonContext.soundBox;
     var worldNavigator = singletonContext.worldNavigator;
 
 
-    function createSoundInDirection(relativeDirection){
+    function createSoundInDirection(relativeDirection) {
       var location = worldNavigator.getTileInDirection(relativeDirection, critter);
       var contentsOfTile = worldNavigator.getThingAt(location);
       if (!contentsOfTile && worldNavigator.isLocationInsideWorld(location)) {
@@ -83,14 +87,14 @@ CritterActuator = Backbone.Model.extend({
     createSoundInDirection(RelativeDirection.LEFT);
     createSoundInDirection(RelativeDirection.RIGHT);
     createSoundInDirection(RelativeDirection.BEHIND);
-  },
+  }
 
-  moveForwardAndEatCritter: function(critter) {
+  this.moveForwardAndEatCritter = function(critter) {
     var worldNavigator = singletonContext.worldNavigator;
 
-    var isDeadCritter = function(thing){
+    var isDeadCritter = function (thing) {
       return thing instanceof Critter &&
-      thing.isDead();
+        thing.isDead();
     };
 
     var world = singletonContext.world;
@@ -98,9 +102,11 @@ CritterActuator = Backbone.Model.extend({
     var nextLocation = worldNavigator.getTileInDirection(RelativeDirection.FORWARD, critter);
     var thingAtNextLocation = worldNavigator.getThingAt(nextLocation);
     if (!thingAtNextLocation || critter.canEat(thingAtNextLocation)
-       || isDeadCritter(thingAtNextLocation)) {
+      || isDeadCritter(thingAtNextLocation)) {
       world.place(critter, nextLocation);
       critter.eat(thingAtNextLocation);
     }
   }
-});
+}
+
+module.exports = CritterActuator;

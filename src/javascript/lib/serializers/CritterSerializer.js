@@ -1,3 +1,5 @@
+var Critter = require("../critter/Critter");
+
 CritterSerializer = function(){
   this.serialize = function(critter){
     return JSON.stringify(this.preserialize(critter));
@@ -18,3 +20,5 @@ CritterSerializer = function(){
     return new Critter(JSON.parse(critterJson));
   };
 };
+
+module.exports = CritterSerializer;

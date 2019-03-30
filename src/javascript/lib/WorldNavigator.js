@@ -1,3 +1,6 @@
+var CardinalDirection = require("./models/CardinalDirection");
+var RelativeDirection = require("./models/RelativeDirection");
+
 var WorldNavigator = function(){
   this.isLocationInsideWorld = function(location){
     var world = singletonContext.world;
@@ -55,3 +58,5 @@ var WorldNavigator = function(){
     return world.tiles[location.x] ? world.tiles[location.x][location.y] : null;
   };
 }
+
+module.exports = WorldNavigator;

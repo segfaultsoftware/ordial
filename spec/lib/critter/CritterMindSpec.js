@@ -1,3 +1,7 @@
+var CritterMind = require("../../../src/javascript/lib/critter/CritterMind");
+var Critter = require("../../../src/javascript/lib/critter/Critter");
+var DecisionNode = require("../../../src/javascript/lib/critter/DecisionNode");
+
 describe("CritterMind", function () {
   var stimuli, vitals, critterMind;
   beforeEach(function () {

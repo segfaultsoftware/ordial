@@ -1,3 +1,10 @@
+var Critter = require("../../src/javascript/lib/critter/Critter");
+var World = require("../../src/javascript/lib/World");
+var Rock = require("../../src/javascript/lib/models/Rock");
+var RelativeDirection = require("../../src/javascript/lib/models/RelativeDirection");
+var CardinalDirection = require("../../src/javascript/lib/models/CardinalDirection");
+var StimulusPackager = require("../../src/javascript/lib/StimulusPackager");
+
 describe("StimulusPackager", function () {
   var packager, worldNavigator;
 

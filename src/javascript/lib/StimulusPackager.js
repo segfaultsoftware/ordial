@@ -1,5 +1,8 @@
-StimulusPackager = Backbone.Model.extend({
-  getThingInDirection: function(relativeDirection, critter) {
+var TheVoid = require("./models/TheVoid");
+var RelativeDirection = require("./models/RelativeDirection");
+
+function StimulusPackager() {
+  this.getThingInDirection = function (relativeDirection, critter) {
     var worldNavigator = singletonContext.worldNavigator;
 
     var tileInDirection = worldNavigator.getTileInDirection(relativeDirection, critter);
@@ -9,13 +12,15 @@ StimulusPackager = Backbone.Model.extend({
     }
 
     return thingInDirection
-  },
+  };
 
-  package: function(critter){
+  this.package = function (critter) {
     return {
       thingInFrontOfMe: this.getThingInDirection(RelativeDirection.FORWARD, critter),
       thingToTheLeftOfMe: this.getThingInDirection(RelativeDirection.LEFT, critter),
       thingToTheRightOfMe: this.getThingInDirection(RelativeDirection.RIGHT, critter)
     };
   }
-});
+}
+
+module.exports = StimulusPackager;

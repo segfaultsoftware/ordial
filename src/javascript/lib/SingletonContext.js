@@ -1,4 +1,23 @@
-SingletonContext = function() {
+_ = require("underscore");
+Backbone = require("backbone");
+
+OrdialScheduler = require("./OrdialScheduler");
+World = require("./World");
+StimulusPackager = require("./StimulusPackager");
+ResourceSpawner = require("./ResourceSpawner");
+SoundBox = require("./SoundBox");
+Configuration = require("./Configuration");
+CritterActuator = require("./critter/CritterActuator");
+CritterUpdater = require("./critter/CritterUpdater");
+CritterSerializer = require("./serializers/CritterSerializer");
+WorldSerializer = require("./serializers/WorldSerializer");
+WorldNavigator = require("./WorldNavigator");
+MindFactory = require("./critter_production/MindFactory");
+GeneMutator = require("./critter_production/GeneMutator");
+SubMutator = require("./critter_production/SubMutator");
+RandomNumberGenerator = require("./RandomNumberGenerator");
+
+module.exports = function SingletonContext() {
   try {
     this.scheduler = new OrdialScheduler();
     this.world = new World();

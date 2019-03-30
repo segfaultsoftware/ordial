@@ -1,5 +1,7 @@
-ResourceSpawner = Backbone.Model.extend({
-  spawn: function() {
+var Resource = require("./models/Resource");
+
+function ResourceSpawner() {
+  this.spawn = function() {
     var world = singletonContext.world;
     var worldNavigator = singletonContext.worldNavigator;
 
@@ -10,4 +12,6 @@ ResourceSpawner = Backbone.Model.extend({
       }
     }
   }
-});
+}
+
+module.exports = ResourceSpawner;

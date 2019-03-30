@@ -5,9 +5,11 @@ RelativeDirection = {
   RIGHT: "RIGHT",
 };
 
-RelativeDirection.ALL_DIRECTIONS= [
+RelativeDirection.ALL_DIRECTIONS = [
   RelativeDirection.FORWARD,
   RelativeDirection.RIGHT,
   RelativeDirection.BEHIND,
   RelativeDirection.LEFT
 ]
+
+module.exports = RelativeDirection;

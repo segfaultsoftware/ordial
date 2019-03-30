@@ -1,2 +1,4 @@
-Rock = Backbone.Model.extend({
-});
+function Rock() {
+}
+
+module.exports = Rock;
