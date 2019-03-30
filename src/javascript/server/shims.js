@@ -1,5 +1,5 @@
-_ = require('underscore')._,
+_ = require('underscore')._;
 Backbone = require('backbone');
-Backbone.$ = $ = require('jQuery');
+Backbone.$ = $ = require('jquery');
 Math.seedrandom = require('./vendor/seedrandom/seedrandom.js');
 $.extend = require('extend');
