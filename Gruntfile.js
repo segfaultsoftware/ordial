@@ -92,7 +92,7 @@ module.exports = function (grunt) {
           "node_modules/pixi.js/dist/pixi.js",
 
           //TODO i don't like this being in a prod vendorize
-          "node_modules/jasmine-jquery/lib/jasmine-jquery.js"
+          // "node_modules/jasmine-jquery/lib/jasmine-jquery.js"
         ],
         dest: 'vendor/dependencies.js'
       }

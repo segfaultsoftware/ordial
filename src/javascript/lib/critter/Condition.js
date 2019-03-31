@@ -29,7 +29,6 @@ Condition.Comparators = {
   }
 };
 
-
 Condition.Collection = {
   resourceInFront: new Condition('stimuli', 'thingInFrontOfMe', 'IsA', 'Resource'),
   resourceToTheRight: new Condition('stimuli', 'thingToTheRightOfMe', 'IsA', 'Resource'),

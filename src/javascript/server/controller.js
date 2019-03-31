@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+require("./shims");
+require("./headlessOrdial");
 
 app.use(bodyParser.json());
 
@@ -8,10 +10,10 @@ app.get('/world', function (request, response) {
   response.send(singletonContext.worldSerializer.serialize(singletonContext.world));
 });
 
-app.post('/world', function(request, response){
+app.post('/world', function (request, response) {
   console.log(request.body);
   singletonContext.worldSerializer.deserialize(
-    JSON.stringify(request.body), 
+    JSON.stringify(request.body),
     singletonContext.world);
   response.send(request.body);
 });

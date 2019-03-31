@@ -17,7 +17,7 @@ GeneMutator = require("./critter_production/GeneMutator");
 SubMutator = require("./critter_production/SubMutator");
 RandomNumberGenerator = require("./RandomNumberGenerator");
 
-module.exports = function SingletonContext() {
+function SingletonContext() {
   try {
     this.scheduler = new OrdialScheduler();
     this.world = new World();
@@ -39,3 +39,4 @@ module.exports = function SingletonContext() {
     throw 'Syntax error in SingletonContext.initialize' + e;
   }
 };
+module.exports = SingletonContext;

@@ -3,37 +3,39 @@
 <title>Ordial</title>
 
 <script type="text/javascript" src="/vendor/dependencies.js"></script>
-<script type="text/javascript" src="/vendor/seedrandom/seedrandom.js"></script>
+<!--<script type="text/javascript" src="/vendor/seedrandom/seedrandom.js"></script>-->
 <script type="text/javascript" src="/templates.js"></script>
+<script type="text/javascript" src="/public/compiled/bundle.js"></script>
 
-<!-- include: "type": "js", "files": "src/javascript/lib/**/*.js" -->
-<!-- include: "type": "js", "files": "src/javascript/browser/**/*.js" -->
 
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-<link rel="stylesheet" type="text/css" href="src/css/ordial.css">
+<link rel="stylesheet" type="text/css" href="/src/css/ordial.css">
 
 <div id="ordial">
-  <div id="seedContainer"></div>
-  <div id="pauseContainer"></div>
-  <div id="timeoutControlsContainer"></div>
-  <div id="world"></div>
-  <div class="button" id="runCode">Run Code!</div>
-  <div id="saveControlsContainer"></div>
-  <div id="critterManaContainer"></div>
-  <svg id="mind-graph"></svg>
+    <div id="seedContainer"></div>
+    <div id="pauseContainer"></div>
+    <div id="timeoutControlsContainer"></div>
+    <div id="world"></div>
+    <button class="button" id="runCode">Run Code!</button>
+    <div id="saveControlsContainer"></div>
+    <div id="critterManaContainer"></div>
+    <svg id="mind-graph"></svg>
 </div>
 
 <script type="text/javascript">
-  $(function() {
-    singletonContext = new SingletonContext();
-    singletonContext.ordial = new Ordial();
+  $(function () {
+    setTimeout(function () {
 
-    var world = singletonContext.world;
-    $("#runCode").click(function() {
-      world.initialize();
-      eval($("#code").val());
-    });
+      singletonContext = new SingletonContext();
+      singletonContext.ordial = new Ordial();
+
+      var world = singletonContext.world;
+      $("#runCode").click(function () {
+        world.initialize();
+        eval($("#code").val());
+      });
+    }, 100)
   });
 </script>
 
@@ -79,14 +81,14 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
 <script>
-  $("textarea").each(function(){
+  $("textarea").each(function () {
     var $textarea = $(this);
     var $editarea = $("<div/>").insertAfter($textarea);
     var editor = ace.edit($editarea[0]);
     var session = editor.getSession();
     session.setValue($textarea.val());
     session.setMode("ace/mode/javascript");
-    session.on('change', function(){
+    session.on('change', function () {
       $textarea.val(editor.getSession().getValue());
     });
     $textarea.hide();

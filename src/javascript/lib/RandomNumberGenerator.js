@@ -1,4 +1,4 @@
-require("../../../vendor/seedrandom/seedrandom");
+require("../../vendor/seedrandom/seedrandom");
 
 RandomNumberGenerator = function (options) {
 

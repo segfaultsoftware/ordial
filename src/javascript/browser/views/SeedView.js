@@ -1,30 +1,32 @@
-$(function() {
-  SeedView = Backbone.View.extend({
+var Backbone = require("backbone");
 
-    events: {
-      'blur #seed-input' : 'saveSeed'
-    },
+SeedView = Backbone.View.extend({
 
-    template: function() {
-      return _.template('<input id="seed-input" type="text" ' +
-        '<% if(isFinalized) { %>disabled="disabled"<% } %> ' +
-        'value="<%= seedValue %>"/>');
-    },
+  events: {
+    'blur #seed-input': 'saveSeed'
+  },
 
-    disableInput: function() {
-      if(!this.model.get('isFinalized')){
-        this.model.set('isFinalized', true);
-        this.model.seedRandom();
-      }
-    },
+  template: function () {
+    return _.template('<input id="seed-input" type="text" ' +
+      '<% if(isFinalized) { %>disabled="disabled"<% } %> ' +
+      'value="<%= seedValue %>"/>');
+  },
 
-    saveSeed: function() {
-      this.model.set('seedValue', this.$el.find('#seed-input').val());
-    },
-
-    render: function(){
-      this.$el.html(this.template()(this.model.attributes));
-      return this;
+  disableInput: function () {
+    if (!this.model.get('isFinalized')) {
+      this.model.set('isFinalized', true);
+      this.model.seedRandom();
     }
-  });
+  },
+
+  saveSeed: function () {
+    this.model.set('seedValue', this.$el.find('#seed-input').val());
+  },
+
+  render: function () {
+    this.$el.html(this.template()(this.model.attributes));
+    return this;
+  }
 });
+
+module.exports = SeedView;
