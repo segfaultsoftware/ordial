@@ -5,6 +5,7 @@ var webpack = require('webpack');
 module.exports = {
   entry: './src/javascript/browser/ordial.js',
   target: 'web',
+  mode: 'development',
   output: {
     path: path.join(__dirname, 'public', 'compiled'),
     publicPath: '/public/',
