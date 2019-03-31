@@ -6,18 +6,10 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     watch: {
-      // html: {
-      //   files: ['src/html/*.html'],
-      //   tasks: 'includeSource'
-      // },
       less: {
         files: ['src/**/*.less'],
         tasks: 'exec:compile_less'
       },
-      // includeNewSources: {
-      //   files: ['src/javascript/lib/**/*.js', 'src/javascript/browser/**/*.js'],
-      //   tasks: 'includeSource'
-      // },
       // rebuildHeadless: {
       //   files: ['src/javascript/lib/**/*.js',
       //           'src/javascript/server/**/*.js'],
@@ -25,7 +17,7 @@ module.exports = function (grunt) {
       // },
       // includeNewSpecs: {
       //   files: ['spec/**/*.js'],
-      //   tasks: ['includeSource:spec']
+      //   tasks: ['webpack:specs']
       // },
       buildTemplates: {
         files: ['src/viewTemplates/**/*.html'],
@@ -53,18 +45,6 @@ module.exports = function (grunt) {
       server: {
         options: {
           port: 8000
-        }
-      }
-    },
-    includeSource: {
-      app: {
-        files: {
-          'public/compiled/index.html': 'src/html/index.template.html'
-        }
-      },
-      spec: {
-        files: {
-          'public/compiled/SpecRunner.html': 'src/html/SpecRunner.template.html'
         }
       }
     },
@@ -157,5 +137,5 @@ module.exports = function (grunt) {
   });
 
 
-  grunt.registerTask('default', ['createEntrypoint:specs', 'includeSource', 'exec:compile_less', 'jst:compile', 'express:dev', 'watch']);
+  grunt.registerTask('default', ['createEntrypoint:specs',  'exec:compile_less', 'jst:compile', 'concat:vendorize',  'express:dev','watch']);
 };

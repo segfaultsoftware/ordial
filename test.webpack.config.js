@@ -1,6 +1,4 @@
 var path = require('path');
-var webpack = require('webpack');
-// var nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: './compiled/specEntrypoint.js',
