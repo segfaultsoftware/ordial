@@ -1,3 +1,7 @@
+var WorldView = require("../../src/javascript/browser/views/WorldView");
+var World = require("../../src/javascript/lib/World");
+var Ordial = require("../../src/javascript/browser/ordial");
+
 describe("Ordial", function() {
   var ordial, ordialScheduler, loaderPromise;
 

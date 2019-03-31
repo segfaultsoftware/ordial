@@ -1,3 +1,5 @@
+var BinaryTreeGraphHelper = require("../../src/javascript/browser/BinaryTreeGraphHelper")
+
 describe("BinaryTreeGraphHelper", function () {
   var binaryTreeGraphHelper, iconSize;
   beforeEach(function () {

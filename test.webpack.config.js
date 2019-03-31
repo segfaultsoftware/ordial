@@ -3,12 +3,13 @@ var webpack = require('webpack');
 // var nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  entry: './src/javascript/browser/ordial.js',
+  entry: './compiled/specEntrypoint.js',
   target: 'web',
+  mode: 'development',
   output: {
     path: path.join(__dirname, 'public', 'compiled'),
     publicPath: '/public/',
-    filename: 'browserBundle.js'
+    filename: 'browserTestBundle.js'
   },
   module: {
     rules: [
@@ -25,6 +26,7 @@ module.exports = {
           path.resolve(__dirname, 'vendor'),
           path.resolve(__dirname, 'javascript'),
           path.resolve(__dirname, 'node_modules'),
+          path.resolve(__dirname, 'spec'),
         ]
       },
 

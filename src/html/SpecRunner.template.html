@@ -4,42 +4,41 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Jasmine Spec Runner v2.0.0</title>
 
-  <link rel="shortcut icon" type="image/png" href="vendor/jasmine/jasmine_favicon.png">
-  <link rel="stylesheet" type="text/css" href="/src/vendor/jasmine/jasmine.css">
+    <link rel="shortcut icon" type="image/png" href="/src/vendor/jasmine/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="/src/vendor/jasmine/jasmine.css">
 
-  <script type="text/javascript" src="/src/vendor/jasmine/jasmine.js"></script>
-  <script type="text/javascript" src="/src/vendor/jasmine/jasmine-html.js"></script>
-  <script type="text/javascript" src="/src/vendor/jasmine/boot.js"></script>
+    <script type="text/javascript" src="/src/vendor/jasmine/jasmine.js"></script>
+    <script type="text/javascript" src="/src/vendor/jasmine/jasmine-html.js"></script>
+    <script type="text/javascript" src="/src/vendor/jasmine/boot.js"></script>
 
-  <script type="text/javascript" src="/src/vendor/dependencies.js"></script>
 
-  <script type="text/javascript" src="/src/vendor/seedrandom/seedrandom.js"></script>
-  <script type="text/javascript" src="/templates.js"></script>
+    <script type="text/javascript" src="/vendor/dependencies.js"></script>
+    <script type="text/javascript" src="/templates.js"></script>
 
-  <!-- include source files here... -->
-  <!-- include: "type": "js", "files": "src/javascript/lib/**/*.js" -->
-  <!-- include: "type": "js", "files": "src/javascript/browser/**/*.js" -->
+    <script type="text/javascript" src="/public/compiled/browserBundle.js"></script>
+    <script type="text/javascript" src="/public/compiled/browserTestBundle.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="src/css/ordial.css">
-
-  <!-- include spec files here... -->
-  <script type="text/javascript" src="spec/SpecHelper.js"></script>
-  <!-- include: "type": "js", "files": "spec/browser/**/*.js" -->
-  <!-- include: "type": "js", "files": "spec/integration/**/*.js" -->
-  <!-- include: "type": "js", "files": "spec/lib/**/*.js" -->
+    <link rel="stylesheet" type="text/css" href="/src/css/ordial.css">
 </head>
-
 <body>
-  <div id="testing-area"></div>
-  <div id="ordial" style="
+<div id="testing-area"></div>
+<div id="ordial" style="
     position: absolute;
     visibility: hidden;
     top: 0;
     left: 0;">
+
     <div id="seedContainer"></div>
     <div id="pauseContainer"></div>
+    <div id="timeoutControlsContainer"></div>
     <div id="world"></div>
+    <button class="button" id="runCode">Run Code!</button>
+    <div id="saveControlsContainer"></div>
+    <div id="critterGutsContainer"></div>
     <svg id="mind-graph"></svg>
-  </div>
+</div>
+
 </body>
+
+
 </html>

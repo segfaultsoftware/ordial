@@ -1,3 +1,5 @@
+var WorldView = require("../../../src/javascript/browser/views/WorldView");
+
 PIXI_LOADED_SHEET = false;
 describe("WorldView", function() {
   var world, worldView;

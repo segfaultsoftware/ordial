@@ -1,29 +1,32 @@
+var path = require('path');
 module.exports = function (grunt) {
+
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
     watch: {
-      html: {
-        files: ['src/html/*.html'],
-        tasks: 'includeSource'
-      },
+      // html: {
+      //   files: ['src/html/*.html'],
+      //   tasks: 'includeSource'
+      // },
       less: {
         files: ['src/**/*.less'],
         tasks: 'exec:compile_less'
       },
-      includeNewSources: {
-        files: ['src/javascript/lib/**/*.js', 'src/javascript/browser/**/*.js'],
-        tasks: 'includeSource'
-      },
-      rebuildHeadless: {
-        files: ['src/javascript/lib/**/*.js',
-                'src/javascript/server/**/*.js'],
-        tasks: 'concat'
-      },
-      includeNewSpecs: {
-        files: ['spec/**/*.js'],
-        tasks: 'includeSource:spec'
-      },
+      // includeNewSources: {
+      //   files: ['src/javascript/lib/**/*.js', 'src/javascript/browser/**/*.js'],
+      //   tasks: 'includeSource'
+      // },
+      // rebuildHeadless: {
+      //   files: ['src/javascript/lib/**/*.js',
+      //           'src/javascript/server/**/*.js'],
+      //   tasks: 'concat'
+      // },
+      // includeNewSpecs: {
+      //   files: ['spec/**/*.js'],
+      //   tasks: ['includeSource:spec']
+      // },
       buildTemplates: {
         files: ['src/viewTemplates/**/*.html'],
         tasks: 'jst:compile'
@@ -72,6 +75,13 @@ module.exports = function (grunt) {
         }
       }
     },
+    copy: {
+      spec: {
+        files: [
+          { expand: true, src: ['spec/**'], dest: 'public/compiled/' }
+        ]
+      }
+    },
     concat: {
       options: {
         separator: '\n\n/*********/\n\n',
@@ -96,16 +106,56 @@ module.exports = function (grunt) {
         ],
         dest: 'vendor/dependencies.js'
       }
+    },
+    createEntrypoint: {
+      specs: {
+        options: {
+          beforeText: "require('../spec/SpecHelper');"
+        },
+        src: ["spec/**/*.js"],
+        dest: "compiled/specEntrypoint.js"
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-include-source');
 
-  grunt.registerTask('default', ['includeSource', 'exec:compile_less', 'jst:compile', 'concat', 'express:dev', 'watch']);
+  grunt.registerMultiTask('createEntrypoint', 'creates an entrypoint for all jasmine tests to get compiled by webpack', function () {
+    var options = this.options({
+      encoding: grunt.file.defaultEncoding,
+      // processContent/processContentExclude deprecated renamed to process/noProcess
+      processContent: false,
+      processContentExclude: [],
+      timestamp: false,
+      mode: false,
+      beforeText: "",
+      afterText: ""
+    });
+
+    this.files.forEach(function (srcDestPair) {
+      var workingDir = ".";
+
+      var dest = path.join(workingDir, srcDestPair.dest);
+      var sources = srcDestPair.src;
+      var content = sources.map(function (sourcePath) {
+        console.log('srcDestPair.dest', dest)
+
+        var relativePath = path.relative(path.dirname(dest), path.join(workingDir, sourcePath));
+        console.log('relativePath', relativePath)
+        return "require('" + relativePath + "');\n"
+      }).join("");
+
+      grunt.file.write(srcDestPair.dest, options.beforeText + "\n\n" + content + "\n"  + options.afterText);
+    });
+  });
+
+
+  grunt.registerTask('default', ['createEntrypoint:specs', 'includeSource', 'exec:compile_less', 'jst:compile', 'express:dev', 'watch']);
 };

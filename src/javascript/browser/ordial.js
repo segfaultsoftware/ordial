@@ -44,7 +44,7 @@ $(function () {
         el: '#saveControlsContainer'
       });
 
-      this.critterManaView = new CritterGutsView({ el: '#critterManaContainer' });
+      this.critterManaView = new CritterGutsView({ el: '#critterGutsContainer' });
 
       var ordial = this;
       this.listenTo(this.pauseView, 'pauseButtonClicked', function () {
