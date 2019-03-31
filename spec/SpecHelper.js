@@ -1,3 +1,5 @@
+require("jasmine-jquery");
+
 SingletonContext = require("../src/javascript/lib/SingletonContext");
 
 beforeEach(function () {

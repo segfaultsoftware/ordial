@@ -20,10 +20,9 @@ describe("Ordial", function() {
     });
 
     describe("after the images are loaded", function() {
-      var fakeWorldView, loadCallback;
+      var loadCallback;
       beforeEach(function() {
-        fakeWorldView = jasmine.createSpyObj('worldView', ['render']);
-        spyOn(window, 'WorldView').and.returnValue(fakeWorldView);
+        spyOn(WorldView.prototype, 'render');
         loaderPromise.load.and.callFake(function(callback) {
           loadCallback = callback;
         });
@@ -31,9 +30,9 @@ describe("Ordial", function() {
 
       it("renders the worldView", function() {
         ordial = new Ordial();
-        fakeWorldView.render.calls.reset();
+        WorldView.prototype.render.calls.reset();
         loadCallback();
-        expect(fakeWorldView.render).toHaveBeenCalled();
+        expect(WorldView.prototype.render).toHaveBeenCalled();
       });
     });
   });
