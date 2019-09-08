@@ -8,7 +8,7 @@ var HeadlessOrdial = function () {
     singletonContext.scheduler.schedule(this);
   }
 
-}
+};
 
 var ordial = new HeadlessOrdial();
 ordial.updateWorld();
