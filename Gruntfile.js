@@ -1,4 +1,6 @@
 var path = require('path');
+var webpackConfigs = require("./webpack.config");
+
 module.exports = function (grunt) {
 
 
@@ -10,21 +12,12 @@ module.exports = function (grunt) {
         files: ['src/**/*.less'],
         tasks: 'exec:compile_less'
       },
-      // rebuildHeadless: {
-      //   files: ['src/javascript/lib/**/*.js',
-      //           'src/javascript/server/**/*.js'],
-      //   tasks: 'concat'
-      // },
-      // includeNewSpecs: {
-      //   files: ['spec/**/*.js'],
-      //   tasks: ['webpack:specs']
-      // },
       buildTemplates: {
         files: ['src/viewTemplates/**/*.html'],
         tasks: 'jst:compile'
       },
       express: {
-        files: ['headless.js'],
+        files: ['public/compiled/serverBundle.js'],
         tasks: ['express:dev'],
         options: {
           spawn: false
@@ -32,12 +25,13 @@ module.exports = function (grunt) {
       }
     },
     exec: {
-      compile_less: './node_modules/.bin/lessc ./src/less/ordial.less ./src/css/ordial.css'
+      webpack: 'node_modules/webpack-cli/bin/cli.js',
+      compile_less: 'node_modules/less/bin/lessc src/less/ordial.less public/compiled/css/ordial.css'
     },
     express: {
       dev: {
         options: {
-          script: 'headless.js'
+          script: 'public/compiled/serverBundle.js'
         }
       }
     },
@@ -65,13 +59,6 @@ module.exports = function (grunt) {
     concat: {
       options: {
         separator: '\n\n/*********/\n\n',
-      },
-      headless: {
-        src: [
-          'src/javascript/server/shims.js',
-          'src/javascript/lib/**/*.js',
-          'src/javascript/server/**/*.js'],
-        dest: 'headless.js'
       },
       vendorize: {
         src: [
@@ -137,5 +124,5 @@ module.exports = function (grunt) {
   });
 
 
-  grunt.registerTask('default', ['createEntrypoint:specs',  'exec:compile_less', 'jst:compile', 'concat:vendorize',  'express:dev','watch']);
+  grunt.registerTask('default', ['createEntrypoint:specs',  'exec', 'jst:compile', 'concat:vendorize',  'express:dev','watch']);
 };

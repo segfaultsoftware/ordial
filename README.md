@@ -4,6 +4,7 @@ Ordial is an evolution simulator. A server runs in the background constantly sim
 simulation can be run in the browser.
 
 ### How to run
+
 We've been running locally with `grunt`
 
 First you will need to install grunt-cli.
