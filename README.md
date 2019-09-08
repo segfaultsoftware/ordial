@@ -23,6 +23,10 @@ Visit `localhost:3000`
 
 Paste the contents of the save world into the browser version to see your headless world.
 
+#### How to run tests
+
+visit `localhost:3000/SpecRunner.html`
+
 #### How to reset your server's state 
 
 - copy serialized world (e.g. from the gui)
