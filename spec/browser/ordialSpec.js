@@ -17,7 +17,7 @@ describe("Ordial", function () {
 
   describe("loading images", function () {
     it("loads images from a spritesheet", function () {
-      expect(PIXI.loader.add).toHaveBeenCalledWith('/assets/spriteSheet/ordialSprites.json');
+      expect(PIXI.loader.add).toHaveBeenCalledWith('/sim/assets/spriteSheet/ordialSprites.json');
     });
 
     describe("after the images are loaded", function () {

@@ -20,7 +20,7 @@ var Ordial = Backbone.View.extend({
   initialize: function () {
     this.paused = true;
 
-    PIXI.loader.add('/assets/spriteSheet/ordialSprites.json')
+    PIXI.loader.add('/sim/assets/spriteSheet/ordialSprites.json')
       .load(_.bind(function () {
 
         this.worldView = new WorldView({ model: singletonContext.world, el: '#world' });

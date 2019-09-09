@@ -6,7 +6,7 @@ describe("WorldView", function() {
   beforeEach(function(done) {
     world = singletonContext.world = new World();
     if(!PIXI_LOADED_SHEET) {
-      PIXI.loader.add('/assets/spriteSheet/ordialSprites.json')
+      PIXI.loader.add('/sim/assets/spriteSheet/ordialSprites.json')
         .load(_.bind(function() {
           worldView = new WorldView({model: world, el: '#world'});
           done();

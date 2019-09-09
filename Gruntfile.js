@@ -81,6 +81,10 @@ module.exports = function (grunt) {
         },
         src: ["spec/**/*.js"],
         dest: "compiled/specEntrypoint.js"
+      },
+      library: {
+        src: ["javascript/lib/**/*.js"],
+        dest: "compiled/libraryEntrypoint.js"
       }
     }
   });

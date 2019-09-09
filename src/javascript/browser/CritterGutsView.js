@@ -119,7 +119,7 @@ CritterGutsView = Backbone.View.extend({
           var circle = graph.circle(coords.x, coords.y, imageSize * 0.7).attr({ fill: 'white' });
 
           var image = graph.image(
-            '/assets/mind/' + geneType + 's/' + displayImageName + '.png',
+            '/sim/assets/mind/' + geneType + 's/' + displayImageName + '.png',
             coords.x - imageSize / 2,
             coords.y - imageSize / 2,
             imageSize, imageSize
