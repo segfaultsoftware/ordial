@@ -97,13 +97,13 @@ var browserTestConfig = {
 };
 
 var libraryConfig = {
-  entry: './compiled/libraryEntrypoint.js',
+  entry: './src/javascript/lib/index.js',
   target: 'web',
   mode: 'development',
   output: {
     path: path.join(__dirname, 'public', 'compiled'),
     publicPath: '/public/',
-    filename: 'library.js'
+    filename: 'ordial-core.js'
   },
   module: {
     rules: [
@@ -118,11 +118,10 @@ var libraryConfig = {
         include: [
           path.resolve(__dirname, 'vendor'),
           path.resolve(__dirname, 'javascript'),
-          path.resolve(__dirname, 'node_modules'),
-          path.resolve(__dirname, 'spec'),
+          path.resolve(__dirname, 'node_modules')
         ]
       },
     ]
   }
 };
-module.exports = [browserConfig, headlessServerConfig, browserTestConfig];
+module.exports = [browserConfig, headlessServerConfig, browserTestConfig, libraryConfig];

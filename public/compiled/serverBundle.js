@@ -1757,7 +1757,7 @@ eval("var Critter = __webpack_require__(/*! ./Critter */ \"./src/javascript/lib/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("DecisionNode = Backbone.Model.extend({\n  initialize: function(condition, leftNode, rightNode){\n    this.condition = condition;\n    this.leftNode = leftNode;\n    this.rightNode = rightNode;\n    this.type = DecisionNode.TYPE;\n  }\n});\n\nDecisionNode.TYPE = \"Decision\";\n\nmodule.exports = DecisionNode;\n\n\n//# sourceURL=webpack:///./src/javascript/lib/critter/DecisionNode.js?");
+eval("const DecisionNode = Backbone.Model.extend({\n  initialize: function(condition, leftNode, rightNode){\n    this.condition = condition;\n    this.leftNode = leftNode;\n    this.rightNode = rightNode;\n    this.type = DecisionNode.TYPE;\n  }\n});\n\nDecisionNode.TYPE = \"Decision\";\n\nmodule.exports = DecisionNode;\n\n\n//# sourceURL=webpack:///./src/javascript/lib/critter/DecisionNode.js?");
 
 /***/ }),
 
@@ -1801,7 +1801,7 @@ eval("var Critter = __webpack_require__(/*! ../critter/Critter */ \"./src/javasc
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("CardinalDirection = {\r\n  NORTH: 'NORTH',\r\n  SOUTH: 'SOUTH',\r\n  EAST: 'EAST',\r\n  WEST: 'WEST'\r\n};\r\n\r\nCardinalDirection.getDirectionAfterRotation = function (startingDirection, rotationDirection) {\r\n  var cardinalIndex = _.indexOf(CardinalDirection.ALL_DIRECTIONS, startingDirection) +\r\n    CardinalDirection.ALL_DIRECTIONS.length;\r\n  var relativeIndex = _.indexOf(RelativeDirection.ALL_DIRECTIONS, rotationDirection) +\r\n    RelativeDirection.ALL_DIRECTIONS.length;\r\n\r\n  cardinalIndex += relativeIndex;\r\n\r\n  return CardinalDirection.ALL_DIRECTIONS[cardinalIndex % CardinalDirection.ALL_DIRECTIONS.length];\r\n};\r\n\r\nCardinalDirection.ALL_DIRECTIONS = [\r\n  CardinalDirection.NORTH,\r\n  CardinalDirection.EAST,\r\n  CardinalDirection.SOUTH,\r\n  CardinalDirection.WEST\r\n];\r\n\r\nmodule.exports = CardinalDirection;\n\n//# sourceURL=webpack:///./src/javascript/lib/models/CardinalDirection.js?");
+eval("const CardinalDirection = {\r\n  NORTH: 'NORTH',\r\n  SOUTH: 'SOUTH',\r\n  EAST: 'EAST',\r\n  WEST: 'WEST'\r\n};\r\n\r\nCardinalDirection.getDirectionAfterRotation = function (startingDirection, rotationDirection) {\r\n  var cardinalIndex = _.indexOf(CardinalDirection.ALL_DIRECTIONS, startingDirection) +\r\n    CardinalDirection.ALL_DIRECTIONS.length;\r\n  var relativeIndex = _.indexOf(RelativeDirection.ALL_DIRECTIONS, rotationDirection) +\r\n    RelativeDirection.ALL_DIRECTIONS.length;\r\n\r\n  cardinalIndex += relativeIndex;\r\n\r\n  return CardinalDirection.ALL_DIRECTIONS[cardinalIndex % CardinalDirection.ALL_DIRECTIONS.length];\r\n};\r\n\r\nCardinalDirection.ALL_DIRECTIONS = [\r\n  CardinalDirection.NORTH,\r\n  CardinalDirection.EAST,\r\n  CardinalDirection.SOUTH,\r\n  CardinalDirection.WEST\r\n];\r\n\r\nmodule.exports = CardinalDirection;\n\n//# sourceURL=webpack:///./src/javascript/lib/models/CardinalDirection.js?");
 
 /***/ }),
 
@@ -1812,7 +1812,7 @@ eval("CardinalDirection = {\r\n  NORTH: 'NORTH',\r\n  SOUTH: 'SOUTH',\r\n  EAST:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("RelativeDirection = {\r\n  BEHIND: \"BEHIND\",\r\n  FORWARD: \"FORWARD\",\r\n  LEFT: \"LEFT\",\r\n  RIGHT: \"RIGHT\",\r\n};\r\n\r\nRelativeDirection.ALL_DIRECTIONS = [\r\n  RelativeDirection.FORWARD,\r\n  RelativeDirection.RIGHT,\r\n  RelativeDirection.BEHIND,\r\n  RelativeDirection.LEFT\r\n]\r\n\r\nmodule.exports = RelativeDirection;\n\n//# sourceURL=webpack:///./src/javascript/lib/models/RelativeDirection.js?");
+eval("const RelativeDirection = {\r\n  BEHIND: \"BEHIND\",\r\n  FORWARD: \"FORWARD\",\r\n  LEFT: \"LEFT\",\r\n  RIGHT: \"RIGHT\",\r\n};\r\n\r\nRelativeDirection.ALL_DIRECTIONS = [\r\n  RelativeDirection.FORWARD,\r\n  RelativeDirection.RIGHT,\r\n  RelativeDirection.BEHIND,\r\n  RelativeDirection.LEFT\r\n]\r\n\r\nmodule.exports = RelativeDirection;\n\n//# sourceURL=webpack:///./src/javascript/lib/models/RelativeDirection.js?");
 
 /***/ }),
 
@@ -1856,7 +1856,7 @@ eval("function Sound() {\n}\n\nmodule.exports = Sound;\n\n//# sourceURL=webpack:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("TheVoid = \"A tile not in the world\";\n\nmodule.exports = TheVoid;\n\n//# sourceURL=webpack:///./src/javascript/lib/models/TheVoid.js?");
+eval("const TheVoid = \"A tile not in the world\";\n\nmodule.exports = TheVoid;\n\n//# sourceURL=webpack:///./src/javascript/lib/models/TheVoid.js?");
 
 /***/ }),
 
@@ -1867,7 +1867,7 @@ eval("TheVoid = \"A tile not in the world\";\n\nmodule.exports = TheVoid;\n\n//#
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var Critter = __webpack_require__(/*! ../critter/Critter */ \"./src/javascript/lib/critter/Critter.js\");\n\nCritterSerializer = function(){\n  this.serialize = function(critter){\n    return JSON.stringify(this.preserialize(critter));\n  };\n  \n  this.preserialize = function(critter){\n    return {\n      vitals: critter.vitals,\n      color: critter.color,\n      direction: critter.direction,\n      genes: critter.genes,\n      location: critter.location,\n      type: \"critter\"\n    };\n  };\n  \n  this.deserialize = function(critterJson){\n    return new Critter(JSON.parse(critterJson));\n  };\n};\n\nmodule.exports = CritterSerializer;\n\n//# sourceURL=webpack:///./src/javascript/lib/serializers/CritterSerializer.js?");
+eval("var Critter = __webpack_require__(/*! ../critter/Critter */ \"./src/javascript/lib/critter/Critter.js\");\n\nconst CritterSerializer = function(){\n  this.serialize = function(critter){\n    return JSON.stringify(this.preserialize(critter));\n  };\n  \n  this.preserialize = function(critter){\n    return {\n      vitals: critter.vitals,\n      color: critter.color,\n      direction: critter.direction,\n      genes: critter.genes,\n      location: critter.location,\n      type: \"critter\"\n    };\n  };\n  \n  this.deserialize = function(critterJson){\n    return new Critter(JSON.parse(critterJson));\n  };\n};\n\nmodule.exports = CritterSerializer;\n\n//# sourceURL=webpack:///./src/javascript/lib/serializers/CritterSerializer.js?");
 
 /***/ }),
 
@@ -1878,7 +1878,7 @@ eval("var Critter = __webpack_require__(/*! ../critter/Critter */ \"./src/javasc
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var Rock = __webpack_require__(/*! ../models/Rock */ \"./src/javascript/lib/models/Rock.js\");\nvar Resource = __webpack_require__(/*! ../models/Resource */ \"./src/javascript/lib/models/Resource.js\");\nvar Critter = __webpack_require__(/*! ../critter/Critter */ \"./src/javascript/lib/critter/Critter.js\");\nvar World = __webpack_require__(/*! ../World */ \"./src/javascript/lib/World.js\");\nvar _ = __webpack_require__(/*! underscore */ \"./node_modules/underscore/underscore.js\");\n\nWorldSerializer = function () {\n  this.serialize = function (world) {\n    var preserializedThings = _.map(world.things, function (thing) {\n      var result = { location: thing.location };\n      if (thing instanceof Rock) {\n        result.type = \"rock\";\n      } else if (thing instanceof Resource) {\n        result.type = \"resource\";\n      } else if (thing instanceof Critter) {\n        result = singletonContext.critterSerializer.preserialize(thing);\n      } else {\n        console.error(\"cannot serialize unknown type: \" + thing);\n      }\n      return result;\n    });\n    return JSON.stringify({\n      width: world.width,\n      height: world.height,\n      things: preserializedThings\n    });\n  };\n\n  this.deserialize = function (serializedWorld, targetWorld) {\n    var pojoWorld = JSON.parse(serializedWorld);\n    if (targetWorld) {\n      targetWorld.initialize();\n    }\n    var world = targetWorld || new World();\n    _.each(pojoWorld.things, function (pojoThing) {\n      var thing;\n\n      switch (pojoThing.type) {\n        case \"rock\":\n          thing = new Rock();\n          break;\n        case \"critter\":\n          thing = new Critter(pojoThing);\n          break;\n        case \"resource\":\n          thing = new Resource();\n          break;\n        default:\n          console.error(\"failed to deserialize item of type:\" + pojoThing.type);\n          break;\n      }\n      world.place(thing, pojoThing.location);\n    });\n\n    return world;\n  };\n};\n\nmodule.exports = WorldSerializer;\n\n//# sourceURL=webpack:///./src/javascript/lib/serializers/WorldSerializer.js?");
+eval("const Rock = __webpack_require__(/*! ../models/Rock */ \"./src/javascript/lib/models/Rock.js\");\nconst Resource = __webpack_require__(/*! ../models/Resource */ \"./src/javascript/lib/models/Resource.js\");\nconst Critter = __webpack_require__(/*! ../critter/Critter */ \"./src/javascript/lib/critter/Critter.js\");\nconst World = __webpack_require__(/*! ../World */ \"./src/javascript/lib/World.js\");\nconst _ = __webpack_require__(/*! underscore */ \"./node_modules/underscore/underscore.js\");\n\nconst WorldSerializer = function () {\n  this.serialize = function (world) {\n    var preserializedThings = _.map(world.things, function (thing) {\n      var result = { location: thing.location };\n      if (thing instanceof Rock) {\n        result.type = \"rock\";\n      } else if (thing instanceof Resource) {\n        result.type = \"resource\";\n      } else if (thing instanceof Critter) {\n        result = singletonContext.critterSerializer.preserialize(thing);\n      } else {\n        console.error(\"cannot serialize unknown type: \" + thing);\n      }\n      return result;\n    });\n    return JSON.stringify({\n      width: world.width,\n      height: world.height,\n      things: preserializedThings\n    });\n  };\n\n  this.deserialize = function (serializedWorld, targetWorld) {\n    var pojoWorld = JSON.parse(serializedWorld);\n    if (targetWorld) {\n      targetWorld.initialize();\n    }\n    var world = targetWorld || new World();\n    _.each(pojoWorld.things, function (pojoThing) {\n      var thing;\n\n      switch (pojoThing.type) {\n        case \"rock\":\n          thing = new Rock();\n          break;\n        case \"critter\":\n          thing = new Critter(pojoThing);\n          break;\n        case \"resource\":\n          thing = new Resource();\n          break;\n        default:\n          console.error(\"failed to deserialize item of type:\" + pojoThing.type);\n          break;\n      }\n      world.place(thing, pojoThing.location);\n    });\n\n    return world;\n  };\n};\n\nmodule.exports = WorldSerializer;\n\n//# sourceURL=webpack:///./src/javascript/lib/serializers/WorldSerializer.js?");
 
 /***/ }),
 
