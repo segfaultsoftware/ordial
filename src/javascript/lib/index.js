@@ -1,6 +1,7 @@
 _ = require("underscore");
 Backbone = require("backbone");
 
+const SingletonContext = require("./SingletonContext");
 const OrdialScheduler = require("./OrdialScheduler");
 const World = require("./World");
 const StimulusPackager = require("./StimulusPackager");
@@ -28,10 +29,10 @@ const Condition = require("./critter/Condition");
 const CritterMind = require("./critter/CritterMind");
 const DecisionNode = require("./critter/DecisionNode");
 module.exports = {
-  Configuration,
-  OrdialScheduler,
-  RandomNumberGenerator,
   SingletonContext,
+  Configuration,
+  RandomNumberGenerator,
+  OrdialScheduler,
   World,
   StimulusPackager,
   ResourceSpawner,

@@ -98,7 +98,7 @@ var browserTestConfig = {
 
 var libraryConfig = {
   entry: './src/javascript/lib/index.js',
-  target: 'web',
+  target: 'node',
   mode: 'development',
   output: {
     path: path.join(__dirname, 'public', 'compiled'),
