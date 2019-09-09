@@ -1,6 +1,6 @@
 var Backbone = require("backbone");
 
-Seed = Backbone.Model.extend({
+const Seed = Backbone.Model.extend({
   initialize: function() {
     this.set('isFinalized', false);
     if (!this.get('seedValue')) {

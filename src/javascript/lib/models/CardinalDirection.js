@@ -1,4 +1,4 @@
-CardinalDirection = {
+const CardinalDirection = {
   NORTH: 'NORTH',
   SOUTH: 'SOUTH',
   EAST: 'EAST',

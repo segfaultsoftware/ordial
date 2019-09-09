@@ -1,10 +1,10 @@
-var Rock = require("../models/Rock");
-var Resource = require("../models/Resource");
-var Critter = require("../critter/Critter");
-var World = require("../World");
-var _ = require("underscore");
+const Rock = require("../models/Rock");
+const Resource = require("../models/Resource");
+const Critter = require("../critter/Critter");
+const World = require("../World");
+const _ = require("underscore");
 
-WorldSerializer = function () {
+const WorldSerializer = function () {
   this.serialize = function (world) {
     var preserializedThings = _.map(world.things, function (thing) {
       var result = { location: thing.location };

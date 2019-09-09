@@ -1,4 +1,4 @@
-RelativeDirection = {
+const RelativeDirection = {
   BEHIND: "BEHIND",
   FORWARD: "FORWARD",
   LEFT: "LEFT",

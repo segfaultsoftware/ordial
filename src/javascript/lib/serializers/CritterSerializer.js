@@ -1,6 +1,6 @@
 var Critter = require("../critter/Critter");
 
-CritterSerializer = function(){
+const CritterSerializer = function(){
   this.serialize = function(critter){
     return JSON.stringify(this.preserialize(critter));
   };

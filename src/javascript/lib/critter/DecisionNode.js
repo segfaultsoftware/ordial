@@ -1,4 +1,4 @@
-DecisionNode = Backbone.Model.extend({
+const DecisionNode = Backbone.Model.extend({
   initialize: function(condition, leftNode, rightNode){
     this.condition = condition;
     this.leftNode = leftNode;
