@@ -3,6 +3,7 @@ var webpack = require('webpack');
 // var nodeExternals = require('webpack-node-externals');
 
 var browserConfig = {
+  name: 'browserConfig',
   entry: './src/javascript/browser/ordial.js',
   target: 'web',
   mode: 'development',
@@ -34,6 +35,7 @@ var browserConfig = {
 };
 
 var headlessServerConfig = {
+  name: 'headlessServerConfig',
   entry: './src/javascript/server/controller.js',
   target: 'node',
   mode: 'development',
@@ -65,6 +67,7 @@ var headlessServerConfig = {
 };
 
 var browserTestConfig = {
+  name: 'browserTestConfig',
   entry: './compiled/specEntrypoint.js',
   target: 'web',
   mode: 'development',
@@ -97,6 +100,7 @@ var browserTestConfig = {
 };
 
 var libraryConfig = {
+  name: 'libraryConfig',
   entry: './src/javascript/lib/index.js',
   target: 'node',
   mode: 'development',

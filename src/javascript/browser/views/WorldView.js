@@ -27,7 +27,7 @@ var WorldView = Backbone.View.extend({
         this.sprites[gridX][gridY] = sprite;
         sprite.position.x = gridX * this.cellSize;
         sprite.position.y = gridY * this.cellSize;
-        var worldView = this;
+        let worldView = this;
         sprite.on('mousedown', (function (gridX, gridY) {
           return function () {
             var thing = singletonContext.worldNavigator.getThingAt({ x: gridX, y: gridY });

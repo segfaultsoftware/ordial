@@ -1,3 +1,5 @@
+var CardinalDirection = require("../../src/javascript/lib/models/CardinalDirection")
+
 describe("Decision making from memory", function () {
   var world;
   describe("when a critter wants to do something different every turn", function () {

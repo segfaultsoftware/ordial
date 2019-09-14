@@ -88,25 +88,6 @@ function CritterActuator() {
     createSoundInDirection(RelativeDirection.RIGHT);
     createSoundInDirection(RelativeDirection.BEHIND);
   }
-
-  this.moveForwardAndEatCritter = function(critter) {
-    var worldNavigator = singletonContext.worldNavigator;
-
-    var isDeadCritter = function (thing) {
-      return thing instanceof Critter &&
-        thing.isDead();
-    };
-
-    var world = singletonContext.world;
-
-    var nextLocation = worldNavigator.getTileInDirection(RelativeDirection.FORWARD, critter);
-    var thingAtNextLocation = worldNavigator.getThingAt(nextLocation);
-    if (!thingAtNextLocation || critter.canTrample(thingAtNextLocation)
-      || isDeadCritter(thingAtNextLocation)) {
-      world.place(critter, nextLocation);
-      critter.eat(thingAtNextLocation);
-    }
-  }
 }
 
 module.exports = CritterActuator;

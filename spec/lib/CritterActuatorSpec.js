@@ -347,61 +347,6 @@ describe("CritterActuator", function () {
     });
   });
 
-  describe('#moveForwardAndEatCritter', function () {
-    var sigfried;
-
-    describe('when there is nothing in the way', function () {
-      beforeEach(function () {
-        sigfried = new Critter();
-        world.place(sigfried, { x: 5, y: 3 });
-      });
-      it('moves a critter forward', function () {
-        critterActuator.moveForwardAndEatCritter(sigfried);
-        expect(sigfried.location).toEqual({ x: 5, y: 2 });
-      });
-    });
-
-    describe("when there is a critter in the way", function () {
-      var blockingCritter;
-      beforeEach(function () {
-        blockingCritter = new Critter();
-        world.place(blockingCritter, { x: 5, y: 2 });
-        sigfried = new Critter();
-        world.place(sigfried, { x: 5, y: 3 });
-      });
-
-      it("does not eat live critters", function () {
-        blockingCritter.vitals.mana = 100;
-        sigfried.vitals.mana = 25;
-        critterActuator.moveForwardAndEatCritter(sigfried);
-        expect(sigfried.location).toEqual({ x: 5, y: 3 });
-        expect(sigfried.vitals.mana).toEqual(25);
-      });
-
-      describe('when the blocking critter is dead', function () {
-        beforeEach(function () {
-          blockingCritter.vitals.mana = -1;
-        });
-
-        it('removes the corpse', function () {
-          critterActuator.moveForwardAndEatCritter(sigfried);
-          expect(world.contains(blockingCritter)).toBe(false);
-        });
-
-        it('moves a critter forward', function () {
-          critterActuator.moveForwardAndEatCritter(sigfried);
-          expect(sigfried.location).toEqual({ x: 5, y: 2 });
-        });
-
-        it('feeds the critter the nutritional value of the  dead critter', function () {
-          var hungryMana = sigfried.vitals.mana;
-          critterActuator.moveForwardAndEatCritter(sigfried);
-          expect(sigfried.vitals.mana).toEqual(hungryMana + blockingCritter.manaPerServing);
-        });
-      });
-    });
-  });
-
   describe("#incrementCounterOnCritter", function () {
     var anna;
     beforeEach(function () {

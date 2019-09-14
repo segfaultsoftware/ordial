@@ -1,3 +1,4 @@
+var CardinalDirection = require("../../src/javascript/lib/models/CardinalDirection")
 describe("MultipleActionsIntegrationTest Critters taking multiple actions per world tick", function () {
   var world, fred;
 

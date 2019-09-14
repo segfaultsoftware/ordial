@@ -1,3 +1,4 @@
+var CardinalDirection = require("../../src/javascript/lib/models/CardinalDirection")
 describe("Simple Decision Making", function () {
   var world, rob;
 

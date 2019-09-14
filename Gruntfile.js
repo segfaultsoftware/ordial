@@ -16,6 +16,10 @@ module.exports = function (grunt) {
         files: ['src/viewTemplates/**/*.html'],
         tasks: 'jst:compile'
       },
+      buildTests: {
+        files: ['spec/**', '/src/javascript/**'],
+        tasks: ['exec:webpack_tests']
+      },
       express: {
         files: ['public/compiled/serverBundle.js'],
         tasks: ['express:dev'],
@@ -26,6 +30,8 @@ module.exports = function (grunt) {
     },
     exec: {
       webpack: 'node_modules/webpack-cli/bin/cli.js',
+      webpack_lib: 'node_modules/webpack-cli/bin/cli.js --config-name libraryConfig',
+      webpack_tests: 'node_modules/webpack-cli/bin/cli.js --config-name browserTestConfig',
       compile_less: 'node_modules/less/bin/lessc src/less/ordial.less public/compiled/css/ordial.css'
     },
     express: {
@@ -128,5 +134,5 @@ module.exports = function (grunt) {
   });
 
 
-  grunt.registerTask('default', ['createEntrypoint:specs',  'exec', 'jst:compile', 'concat:vendorize',  'express:dev','watch']);
+  grunt.registerTask('default', ['createEntrypoint:specs',  'exec:webpack', 'exec:compile_less', 'jst:compile', 'concat:vendorize',  'express:dev','watch']);
 };

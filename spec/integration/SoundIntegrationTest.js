@@ -1,3 +1,7 @@
+var CardinalDirection = require("../../src/javascript/lib/models/CardinalDirection");
+var Critter = require("../../src/javascript/lib/critter/Critter");
+var World = require("../../src/javascript/lib/World");
+
 describe("Sound", function(){
   describe("when one critter makes a sound", function(){
     var world, rob, harry;

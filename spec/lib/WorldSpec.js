@@ -12,7 +12,7 @@ describe("World", function() {
     zoe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT })});
     kim = new Critter({mind: new CritterMind({action: Critter.Actions.REPRODUCE })});
     joe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_RIGHT })});
-    ben = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD_AND_EAT_CRITTER })});
+    ben = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD })});
   });
 
   describe("#update", function(){

@@ -1,6 +1,8 @@
 var Critter = require("../../../src/javascript/lib/critter/Critter");
 var CritterMind = require("../../../src/javascript/lib/critter/CritterMind");
 var Resource = require("../../../src/javascript/lib/models/Resource");
+var Rock = require("../../../src/javascript/lib/models/Rock");
+const Sound = require("../../../src/javascript/lib/models/Sound");
 
 describe("Critter", function () {
   var rob;
@@ -94,8 +96,23 @@ describe("Critter", function () {
       expect(rob.canTrample(new Resource())).toBe(true);
     });
 
+    it('for a sound should return true', function () {
+      expect(rob.canTrample(new Sound())).toBe(true);
+    });
+
+    it('for a rock should return false', function () {
+      expect(rob.canTrample(new Rock())).toBe(false);
+    });
+
     it('for a critter should return false', function () {
       expect(rob.canTrample(new Critter())).toBe(false);
+    });
+
+    describe("for a dead critter", () => {
+      it("should return true", () => {
+        let deadCritter = new Critter({vitals: {mana: -1}});
+        expect(rob.canTrample(deadCritter)).toBe(true);
+      });
     });
   });
 

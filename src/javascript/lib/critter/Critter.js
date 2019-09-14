@@ -1,5 +1,6 @@
 var CardinalDirection = require("../models/CardinalDirection");
 var Resource = require("../models/Resource");
+var Sound = require("../models/Sound");
 var _ = require('underscore');
 var clonedeep = require('lodash.clonedeep');
 
@@ -39,8 +40,9 @@ function Critter(options) {
   }
 
   this.canTrample = function (thing) {
-    return thing instanceof Resource;
-  }
+    return thing instanceof Resource || thing instanceof Sound ||
+      (thing instanceof Critter && thing.isDead());
+  };
 
   this.eat = function (yummyMorsel) {
     if (yummyMorsel && yummyMorsel.manaPerServing) {
@@ -93,10 +95,6 @@ Critter.Actions = {
   RESET_COUNTER: {
     key: 'reset counter',
     cost: 1
-  },
-  MOVE_FORWARD_AND_EAT_CRITTER: {
-    key: 'move forward and eat critter',
-    cost: 20
   },
   MAKE_SOUND: {
     key: 'make a sound',

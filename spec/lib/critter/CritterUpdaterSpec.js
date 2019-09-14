@@ -17,14 +17,13 @@ describe("CritterUpdater", function(){
 
 
       describe("when there are critters in the world", function(){
-         var rob, zoe, kim, joe, ben;
+         var rob, zoe, kim, joe;
 
           beforeEach(function() {
             rob = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD })});
             zoe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_LEFT })});
             kim = new Critter({mind: new CritterMind({action: Critter.Actions.REPRODUCE })});
             joe = new Critter({mind: new CritterMind({action: Critter.Actions.TURN_RIGHT })});
-            ben = new Critter({mind: new CritterMind({action: Critter.Actions.MOVE_FORWARD_AND_EAT_CRITTER })});
           });
 
           beforeEach(function(){
@@ -38,7 +37,6 @@ describe("CritterUpdater", function(){
             world.place(zoe, zoesOriginalLocation);
             world.place(kim, kimsOriginalLocation);
             world.place(joe, joesOriginalLocation);
-            world.place(ben, {x: 5, y: 5});
         });
 
           it("should call getActions on all critters", function(){
@@ -56,14 +54,6 @@ describe("CritterUpdater", function(){
               spyOn(critterActuator, 'turnCritterLeft');
               critterUpdater.update();
               expect(critterActuator.turnCritterLeft).toHaveBeenCalledWith(zoe);
-            });
-          });
-
-          describe("when the getActions is MOVE_FORWARD_AND_EAT_CRITTER", function(){
-            it("should call moveForwardAndEatCritter", function(){
-              spyOn(critterActuator, 'moveForwardAndEatCritter');
-              critterUpdater.update();
-              expect(critterActuator.moveForwardAndEatCritter).toHaveBeenCalledWith(ben);
             });
           });
 

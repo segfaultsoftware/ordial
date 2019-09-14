@@ -1,3 +1,6 @@
+var Seed = require("../../../src/javascript/lib/models/Seed");
+var SeedView = require("../../../src/javascript/browser/views/SeedView");
+
 describe("SeedView", function() {
   var seed, seedView;
 

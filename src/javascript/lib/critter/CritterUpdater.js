@@ -43,10 +43,6 @@ var CritterUpdater = function(){
                   critterActuator.decrementCounterOnCritter(thing);
                   break;
 
-                case Critter.Actions.MOVE_FORWARD_AND_EAT_CRITTER:
-                  critterActuator.moveForwardAndEatCritter(thing);
-                  break;
-
                 case Critter.Actions.RESET_COUNTER:
                   critterActuator.resetCounterOnCritter(thing);
                   break;

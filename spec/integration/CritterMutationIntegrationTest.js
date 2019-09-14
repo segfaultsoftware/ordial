@@ -1,3 +1,4 @@
+var CardinalDirection = require("../../src/javascript/lib/models/CardinalDirection")
 describe("Critter Mutation", function () {
   var world, rob;
 
