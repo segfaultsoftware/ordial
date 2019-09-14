@@ -85,17 +85,17 @@ describe("Critter", function () {
     });
   });
 
-  describe("#canEat", function () {
+  describe("#canTrample", function () {
     beforeEach(function () {
       rob = new Critter();
     });
 
     it('for a resource should return true', function () {
-      expect(rob.canEat(new Resource())).toBe(true);
+      expect(rob.canTrample(new Resource())).toBe(true);
     });
 
     it('for a critter should return false', function () {
-      expect(rob.canEat(new Critter())).toBe(false);
+      expect(rob.canTrample(new Critter())).toBe(false);
     });
   });
 

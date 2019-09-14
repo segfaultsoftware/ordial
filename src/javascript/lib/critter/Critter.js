@@ -38,8 +38,8 @@ function Critter(options) {
     return this.mind.getActions(stimuli, this.vitals);
   }
 
-  this.canEat = function (yummyMorsel) {
-    return yummyMorsel instanceof Resource;
+  this.canTrample = function (thing) {
+    return thing instanceof Resource;
   }
 
   this.eat = function (yummyMorsel) {

@@ -10,7 +10,7 @@ function CritterActuator() {
 
     var nextLocation = worldNavigator.getTileInDirection(RelativeDirection.FORWARD, critter);
     var thingAtNextLocation = worldNavigator.getThingAt(nextLocation);
-    if (!thingAtNextLocation || critter.canEat(thingAtNextLocation)) {
+    if (!thingAtNextLocation || critter.canTrample(thingAtNextLocation)) {
       world.place(critter, nextLocation);
       critter.eat(thingAtNextLocation);
     }
@@ -39,7 +39,7 @@ function CritterActuator() {
       var offspringLocation = worldNavigator.getTileInDirection(relativeDirection, critter);
       var contentsOfTile = worldNavigator.getThingAt(offspringLocation);
       var offspring = new Critter(critterPlans);
-      if ((!contentsOfTile || offspring.canEat(contentsOfTile)) && worldNavigator.isLocationInsideWorld(offspringLocation)) {
+      if ((!contentsOfTile || offspring.canTrample(contentsOfTile)) && worldNavigator.isLocationInsideWorld(offspringLocation)) {
         offspring.direction = CardinalDirection.getDirectionAfterRotation(critter.direction, relativeDirection);
         world.place(offspring, offspringLocation);
         offspring.eat(contentsOfTile);
@@ -101,7 +101,7 @@ function CritterActuator() {
 
     var nextLocation = worldNavigator.getTileInDirection(RelativeDirection.FORWARD, critter);
     var thingAtNextLocation = worldNavigator.getThingAt(nextLocation);
-    if (!thingAtNextLocation || critter.canEat(thingAtNextLocation)
+    if (!thingAtNextLocation || critter.canTrample(thingAtNextLocation)
       || isDeadCritter(thingAtNextLocation)) {
       world.place(critter, nextLocation);
       critter.eat(thingAtNextLocation);
