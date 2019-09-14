@@ -1,5 +1,6 @@
 var Critter = require("../../src/javascript/lib/critter/Critter");
 var CritterMind = require("../../src/javascript/lib/critter/CritterMind");
+const CardinalDirection = require("../../src/javascript/lib/models/CardinalDirection");
 describe("World", function() {
   var world, rob, zoe, kim, joe, ben, stimulusPackager;
 

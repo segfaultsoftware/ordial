@@ -4,6 +4,7 @@ var Rock = require("../../src/javascript/lib/models/Rock");
 var RelativeDirection = require("../../src/javascript/lib/models/RelativeDirection");
 var CardinalDirection = require("../../src/javascript/lib/models/CardinalDirection");
 var StimulusPackager = require("../../src/javascript/lib/StimulusPackager");
+const TheVoid = require("../../src/javascript/lib").TheVoid;
 
 describe("StimulusPackager", function () {
   var packager, worldNavigator;

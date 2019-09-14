@@ -9,7 +9,7 @@ function SoundBox() {
 
   this.applySoundsToWorld = function () {
     _.each(this.soundPlacements, function (placement) {
-      singletonContext.world.place(placement.sound, placement.location);
+      singletonContext.world.placeIfEmpty(placement.sound, placement.location);
     });
     this.soundPlacements = [];
   };

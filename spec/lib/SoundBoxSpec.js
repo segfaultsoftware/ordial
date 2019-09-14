@@ -36,6 +36,19 @@ describe("SoundBox", function(){
       soundBox.applySoundsToWorld();
       expect(soundBox.soundPlacements.length).toBe(0);
     });
+
+    describe("when there is something in the way of the sound-- like a resource or a critter", () => {
+      it("does not place the sound", () => {
+        soundBox.makeFutureSound(sound, location);
+        world.place(new Rock(), location);
+        spyOn(world, 'place');
+
+        soundBox.applySoundsToWorld();
+
+        expect(world.place).not.toHaveBeenCalled();
+
+      });
+    });
   });
 
   describe("#silenceWorld", function(){

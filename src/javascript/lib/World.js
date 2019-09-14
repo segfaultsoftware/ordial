@@ -15,16 +15,20 @@ function World() {
     singletonContext.resourceSpawner.spawn();
   }
 
+  this.placeIfEmpty = (thing, location) => {
+    var navigator = singletonContext.worldNavigator;
+
+    if (!navigator.getThingAt(location)) {
+      this.place(thing, location);
+    }
+  };
+
   this.place = function (thing, location) {
     var x = location.x;
     var y = location.y;
     var navigator = singletonContext.worldNavigator;
 
-    if (!navigator.isLocationInsideWorld(location)) {
-      if (!thing.location) {
-        throw new Error("Placing thing outside the world at " + x + "," + y, thing);
-      }
-    } else {
+    if (navigator.isLocationInsideWorld(location)) {
       var row = this.tiles[x] || [];
       if (row[y]) {
         this.remove(row[y]);
@@ -40,8 +44,10 @@ function World() {
       if (!this.contains(thing)) {
         this.things.push(thing);
       }
+    } else if (!thing.location) {
+      throw new Error("Placing thing outside the world at " + x + "," + y, thing);
     }
-  }
+  };
 
   this.contains = function (thing) {
     return _.contains(this.things, thing);

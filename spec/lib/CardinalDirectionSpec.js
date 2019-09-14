@@ -1,3 +1,5 @@
+const CardinalDirection = require("../../src/javascript/lib/models/CardinalDirection");
+const RelativeDirection = require("../../src/javascript/lib/models/RelativeDirection");
 describe("CardinalDirection", function() {
   describe("#getDirectionAfterRotation", function() {
     describe("rotating left", function() {

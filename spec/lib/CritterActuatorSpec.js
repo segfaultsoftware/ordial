@@ -3,6 +3,8 @@ var Critter = require("../../src/javascript/lib/critter/Critter");
 var CritterActuator = require("../../src/javascript/lib/critter/CritterActuator");
 var Resource = require("../../src/javascript/lib/models/Resource");
 var World = require("../../src/javascript/lib/World");
+const CardinalDirection = require("../../src/javascript/lib/models/CardinalDirection");
+const RelativeDirection = require("../../src/javascript/lib/models/RelativeDirection");
 describe("CritterActuator", function () {
   var critterActuator, robsOriginalLocation, zoesOriginalLocation;
   var world, rob, worldNavigator;

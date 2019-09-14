@@ -1,3 +1,4 @@
+const RelativeDirection = require("./RelativeDirection");
 const CardinalDirection = {
   NORTH: 'NORTH',
   SOUTH: 'SOUTH',
