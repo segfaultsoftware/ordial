@@ -13,6 +13,8 @@ var SingletonContext = require("../lib/SingletonContext");
 var Resource = require("../lib/models/Resource");
 var Rock = require("../lib/models/Rock");
 var Critter = require("../lib/critter/Critter");
+var CardinalDirection = require("../lib/models/CardinalDirection");
+var RelativeDirection = require("../lib/models/RelativeDirection");
 
 var Ordial = Backbone.View.extend({
   el: $('#ordial'),
@@ -93,6 +95,8 @@ $(function () {
   global.Rock = Rock;
   global.Critter = Critter;
   global.Ordial = Ordial;
+  global.CardinalDirection = CardinalDirection;
+  global.RelativeDirection = RelativeDirection;
 });
 
 module.exports = Ordial;
