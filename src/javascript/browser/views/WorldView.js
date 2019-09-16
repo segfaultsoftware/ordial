@@ -1,5 +1,6 @@
 var Backbone = require("backbone");
 var HighlightView = require("./HighlightView");
+var Sound = require("../../lib/models/Sound");
 
 var WorldView = Backbone.View.extend({
   initialize: function (options) {
@@ -81,6 +82,8 @@ var WorldView = Backbone.View.extend({
       return 'resource.png';
     } else if (thing instanceof Rock) {
       return 'rock.png';
+    } else if(thing instanceof Sound){
+      return 'sound.png';
     }
   }
 });

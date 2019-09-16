@@ -5,7 +5,7 @@ var HeadlessOrdial = function () {
   singletonContext = new SingletonContext();
   this.updateWorld = function () {
     singletonContext.world.update();
-    singletonContext.scheduler.schedule(this);
+    // singletonContext.scheduler.schedule(this);
   }
 
 };

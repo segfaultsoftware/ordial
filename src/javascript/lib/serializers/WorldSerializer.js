@@ -1,4 +1,5 @@
 const Rock = require("../models/Rock");
+const Sound = require("../models/Sound");
 const Resource = require("../models/Resource");
 const Critter = require("../critter/Critter");
 const World = require("../World");
@@ -12,6 +13,8 @@ const WorldSerializer = function () {
         result.type = "rock";
       } else if (thing instanceof Resource) {
         result.type = "resource";
+      } else if (thing instanceof Sound) {
+        result.type = "sound"
       } else if (thing instanceof Critter) {
         result = singletonContext.critterSerializer.preserialize(thing);
       } else {
@@ -44,6 +47,9 @@ const WorldSerializer = function () {
           break;
         case "resource":
           thing = new Resource();
+          break;
+        case "sound":
+          thing = new Sound();
           break;
         default:
           console.error("failed to deserialize item of type:" + pojoThing.type);
