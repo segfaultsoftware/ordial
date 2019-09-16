@@ -77,8 +77,7 @@ function CritterActuator() {
 
     function createSoundInDirection(relativeDirection) {
       var location = worldNavigator.getTileInDirection(relativeDirection, critter);
-      var contentsOfTile = worldNavigator.getThingAt(location);
-      if (!contentsOfTile && worldNavigator.isLocationInsideWorld(location)) {
+      if (worldNavigator.isLocationInsideWorld(location)) {
         soundBox.makeFutureSound(new Sound(), location);
       }
     }
