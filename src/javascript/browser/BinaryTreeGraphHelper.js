@@ -13,7 +13,7 @@ function BinaryTreeGraphHelper(data, iconSize) {
 
   this.getWidth = function () {
     var treeBottomColumnCount = Math.pow(2, this.getRowCount() - 1);
-    return treeBottomColumnCount * this.columnWidth();
+    return treeBottomColumnCount * this.columnWidth(this.getRowCount() - 1);
   };
 
   this.getHeight = function () {
@@ -48,12 +48,20 @@ function BinaryTreeGraphHelper(data, iconSize) {
     return Math.pow(2, row);
   };
 
-  this.columnWidth = function () {
-    return iconSize * 2;
+  this.columnWidth = function (row=0) {
+    if (this.isBottomRow(row)) {
+      return iconSize * 2;
+    } else {
+      return 1.8 * this.columnWidth(row + 1);
+    }
   };
 
   this.rowHeight = function () {
-    return this.columnWidth();
+    return iconSize * 2;
+  };
+
+  this.isBottomRow = (row) => {
+    return row + 1 >= this.getRowCount();
   };
 
   this.getCoords = function (index) {
@@ -61,9 +69,9 @@ function BinaryTreeGraphHelper(data, iconSize) {
     var centerX = this.getWidth() / 2;
     var padding = iconSize;
 
-    var columnOffsetFromCenter = (rowAndColumn.column - (this.columnsInRow(rowAndColumn.row) - 1) / 2) * this.columnWidth();
+    var columnOffsetFromCenter = (rowAndColumn.column - (this.columnsInRow(rowAndColumn.row) - 1) / 2) * this.columnWidth(rowAndColumn.row);
 
-    return { x: centerX + columnOffsetFromCenter, y: (rowAndColumn.row) * this.columnWidth() + padding };
+    return { x: centerX + columnOffsetFromCenter, y: (rowAndColumn.row) * this.rowHeight() + padding };
   };
 };
 
