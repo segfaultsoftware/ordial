@@ -1,9 +1,10 @@
 var Critter = require("../critter/Critter");
 var Condition = require("../critter/Condition");
+var BinaryTreeHelper = require("../BinaryTreeHelper");
 var _ = require("underscore");
 
 function GeneMutator() {
-  this.mutate = function(genes) {
+  this.mutate = function (genes) {
     var mutatorFunction = singletonContext.randomNumberGenerator.sample([
       this.swap,
       this.insert,
@@ -14,7 +15,7 @@ function GeneMutator() {
     return _.bind(mutatorFunction, this)(genes);
   }
 
-  this.swap = function(genes) {
+  this.swap = function (genes) {
     if (genes.length > 0) {
       var index1 = singletonContext.randomNumberGenerator.random(genes.length - 1);
       var gene1 = genes[index1];
@@ -26,14 +27,14 @@ function GeneMutator() {
     return genes;
   }
 
-  this.insert = function(genes) {
+  this.insert = function (genes) {
     var newGene = this.randomGene();
     var insertionIndex = singletonContext.randomNumberGenerator.random(genes.length - 1);
     genes.splice(insertionIndex, 0, newGene);
     return genes;
   }
 
-  this.remove = function(genes) {
+  this.remove = function (genes) {
     if (genes.length > 0) {
       var indexToDelete = singletonContext.randomNumberGenerator.random(genes.length - 1);
       genes.splice(indexToDelete, 1);
@@ -41,13 +42,13 @@ function GeneMutator() {
     return genes;
   }
 
-  this.replace = function(genes) {
+  this.replace = function (genes) {
     var index = singletonContext.randomNumberGenerator.random(genes.length - 1);
     genes[index] = this.randomGene();
     return genes;
   }
 
-  this.subMutate = function(genes) {
+  this.subMutate = function (genes) {
     if (genes.length > 0) {
       var index = singletonContext.randomNumberGenerator.random(genes.length - 1);
       if (genes[index][0] == 'action') {
@@ -59,7 +60,26 @@ function GeneMutator() {
     return genes;
   }
 
-  this.randomGene = function() {
+  this.treeCopy = (genes) => {
+    const treeHelp = new BinaryTreeHelper(genes);
+    var fromIndex = singletonContext.randomNumberGenerator.random(genes.length - 1);
+    var toIndex = singletonContext.randomNumberGenerator.random(genes.length - 1);
+
+    const genesClone = _.clone(genes);
+    const indicesToCopy = treeHelp.getDescendantIndices(fromIndex);
+    const indicesToReplace = treeHelp.getDescendantIndices(toIndex, indicesToCopy.length);
+
+    genes[toIndex] = genesClone[fromIndex];
+
+    _.each(indicesToCopy, (indexToCopy, i) => {
+      const indexToReplace = indicesToReplace[i];
+      genes[indexToReplace] = genesClone[indexToCopy];
+    });
+
+    return genes;
+  };
+
+  this.randomGene = function () {
     if (singletonContext.randomNumberGenerator.random(1)) {
       return this.randomAction();
     } else {
@@ -67,11 +87,11 @@ function GeneMutator() {
     }
   }
 
-  this.randomAction = function() {
+  this.randomAction = function () {
     return ['action', singletonContext.randomNumberGenerator.sample(_.keys(Critter.Actions))];
   }
 
-  this.randomCondition = function() {
+  this.randomCondition = function () {
     return ['condition', singletonContext.randomNumberGenerator.sample(_.keys(Condition.Collection))];
   }
 }

@@ -18,7 +18,8 @@ function StimulusPackager() {
     return {
       thingInFrontOfMe: this.getThingInDirection(RelativeDirection.FORWARD, critter),
       thingToTheLeftOfMe: this.getThingInDirection(RelativeDirection.LEFT, critter),
-      thingToTheRightOfMe: this.getThingInDirection(RelativeDirection.RIGHT, critter)
+      thingToTheRightOfMe: this.getThingInDirection(RelativeDirection.RIGHT, critter),
+      thingBehindMe: this.getThingInDirection(RelativeDirection.BEHIND, critter)
     };
   }
 }

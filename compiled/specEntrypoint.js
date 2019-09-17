@@ -16,6 +16,7 @@ require('../spec/integration/MultipleActionsIntegrationTest.js');
 require('../spec/integration/ResourceSpawningIntegrationTest.js');
 require('../spec/integration/SimpleDecisionMakingIntegrationTest.js');
 require('../spec/integration/SoundIntegrationTest.js');
+require('../spec/lib/BinaryTreeHelperSpec.js');
 require('../spec/lib/CardinalDirectionSpec.js');
 require('../spec/lib/CritterActuatorSpec.js');
 require('../spec/lib/ResourceSpawnerSpec.js');

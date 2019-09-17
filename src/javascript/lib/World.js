@@ -8,7 +8,7 @@ function World() {
 
   this.initialize();
 
-  this.update = function () {
+  this.update = function update() {
     singletonContext.critterUpdater.update();
     singletonContext.soundBox.silenceWorld();
     singletonContext.soundBox.applySoundsToWorld();

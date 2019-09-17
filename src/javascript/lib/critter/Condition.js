@@ -33,18 +33,22 @@ Condition.Collection = {
   resourceInFront: new Condition('stimuli', 'thingInFrontOfMe', 'IsA', 'Resource'),
   resourceToTheRight: new Condition('stimuli', 'thingToTheRightOfMe', 'IsA', 'Resource'),
   resourceToTheLeft: new Condition('stimuli', 'thingToTheLeftOfMe', 'IsA', 'Resource'),
+  resourceBehind: new Condition('stimuli', 'thingBehindMe', 'IsA', 'Resource'),
 
   critterInFront: new Condition('stimuli', 'thingInFrontOfMe', 'IsA', 'Critter'),
   critterToTheRight: new Condition('stimuli', 'thingToTheRightOfMe', 'IsA', 'Critter'),
   critterToTheLeft: new Condition('stimuli', 'thingToTheLeftOfMe', 'IsA', 'Critter'),
+  critterBehind: new Condition('stimuli', 'thingBehindMe', 'IsA', 'Critter'),
 
   soundInFront: new Condition('stimuli', 'thingInFrontOfMe', 'IsA', 'Sound'),
   soundToTheLeft: new Condition('stimuli', 'thingToTheLeftOfMe', 'IsA', 'Sound'),
   soundToTheRight: new Condition('stimuli', 'thingToTheRightOfMe', 'IsA', 'Sound'),
+  soundBehind: new Condition('stimuli', 'thingBehindMe', 'IsA', 'Sound'),
 
   thingInFront: new Condition('stimuli', 'thingInFrontOfMe'),
   thingToTheRight: new Condition('stimuli', 'thingToTheRightOfMe'),
   thingToTheLeft: new Condition('stimuli', 'thingToTheLeftOfMe'),
+  thingBehind: new Condition('stimuli', 'thingBehindMe'),
 
   manaUnder100: new Condition('vitals', 'mana', 'LessThan', 100),
   manaUnder50: new Condition('vitals', 'mana', 'LessThan', 50),

@@ -89,6 +89,31 @@ describe("GeneMutator", function(){
     });
   });
 
+  describe("#treeCopy", () => {
+    it("can copy a node downwards, adding new entries to the array", () => {
+      singletonContext.randomNumberGenerator.stubRandom([1, 4]);
+      var result = mutator.treeCopy(genes);
+
+      var s = undefined;
+      expect(result).toEqual([
+           1,
+         2,    3,
+        4,  2,  s, s,
+      s, s, 4, 5]);
+
+    });
+
+    it("can copy a child upward, overwriting ", () => {
+      singletonContext.randomNumberGenerator.stubRandom([1, 0]);
+      var result = mutator.treeCopy(genes);
+
+      expect(result).toEqual([
+        2,
+        4,  5,
+        4, 5]);
+    });
+  });
+
   describe("#insert", function(){
     it("inserts a gene", function(){
       var originalLength = genes.length;
@@ -215,8 +240,8 @@ describe("GeneMutator", function(){
 
   describe("#randomCondition", function(){
     it("returns a random condition gene", function(){ 
-      singletonContext.randomNumberGenerator.stubRandom([3, 4]);
-      expect(mutator.randomCondition()).toEqual(['condition', 'critterInFront']);
+      singletonContext.randomNumberGenerator.stubRandom([3, 5]);
+      expect(mutator.randomCondition()).toEqual(['condition', 'resourceBehind']);
       expect(mutator.randomCondition()).toEqual(['condition', 'critterToTheRight']);
     });
   });
