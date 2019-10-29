@@ -20,7 +20,7 @@
     "backbone": "1.1.x",
     "express": "^4.13.4",
     "extend": "^3.0.0",
-    "jquery": "^2.1.4",
+    "jquery": "^3.4.1",
     "pixi.js": "^4.5.2",
     "snapsvg": "^0.4.0",
     "underscore": "1.8.x"
