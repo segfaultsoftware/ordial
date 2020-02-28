@@ -17,7 +17,7 @@ module.exports = function (grunt) {
         tasks: 'jst:compile'
       },
       buildTests: {
-        files: ['spec/**', '/src/javascript/**'],
+        files: ['spec/**/*.js', '/src/javascript/**/*.js'],
         tasks: ['exec:webpack_tests']
       },
       express: {
