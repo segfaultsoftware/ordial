@@ -32,6 +32,26 @@ describe("Critter Death", function(){
       expect(world.contains(critter)).toBe(false);
       expect(rex.vitals.mana).toBeGreaterThan(300);
     });
+
+    describe("when another critter is eating it", () => {
+      it("dies and turns into a corpse", () => {
+        var rex = new Critter({vitals: {mana: 300}, genes: [['action', 'EAT_THING_IN_FRONT']]});
+        world.place(rex, {x: 1, y: 1});
+        critter.vitals.mana = 9;
+
+        world.update(); // -3
+        world.update(); // -2
+        world.update(); // -2
+        world.update(); // -1
+        world.update(); // -1
+        expect(critter.isDead()).toBeTruthy();
+        expect(world.contains(critter)).toBe(true);
+
+        world.update(); // rex eats the corpse
+
+        expect(world.contains(critter)).toBe(false);
+      });
+    });
   });
 });
 

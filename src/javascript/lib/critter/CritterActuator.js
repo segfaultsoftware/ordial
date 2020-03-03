@@ -16,6 +16,22 @@ function CritterActuator() {
     }
   }
 
+  this.eatThingInFront = function (critter) {
+    var worldNavigator = singletonContext.worldNavigator;
+    var world = singletonContext.world;
+
+    var locationInFront = worldNavigator.getTileInDirection(RelativeDirection.FORWARD, critter);
+    var thingAtNextLocation = worldNavigator.getThingAt(locationInFront);
+    if (thingAtNextLocation && critter.canTrample(thingAtNextLocation)) {
+      critter.eat(thingAtNextLocation);
+      world.remove(thingAtNextLocation);
+    } else if(thingAtNextLocation instanceof Critter){
+      var manaToEat = Math.round(thingAtNextLocation.vitals.mana * Critter.Actions.EAT_THING_IN_FRONT.critterConsumptionPercent / 100);
+      thingAtNextLocation.vitals.mana -= manaToEat;
+      critter.vitals.mana += manaToEat;
+    }
+  };
+
   this.turnCritter = function(critter, direction, action) {
     critter.direction = CardinalDirection.getDirectionAfterRotation(
       critter.direction,

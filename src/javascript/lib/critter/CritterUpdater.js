@@ -49,6 +49,9 @@ var CritterUpdater = function(){
                 case Critter.Actions.MAKE_SOUND:
                   critterActuator.produceSound(thing);
                   break;
+                case Critter.Actions.EAT_THING_IN_FRONT:
+                  critterActuator.eatThingInFront(thing);
+                  break;
               }
             }
 

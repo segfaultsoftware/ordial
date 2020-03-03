@@ -402,4 +402,59 @@ describe("CritterActuator", function () {
       });
     });
   });
+
+  describe("#eatThingInFront", () => {
+    var lynn, originalMana;
+    beforeEach(function () {
+      lynn = new Critter();
+      world.place(lynn, { x: 5, y: 3 });
+      originalMana = lynn.vitals.mana;
+    });
+
+    describe("when there is a resource in front of the critter", () => {
+      let resource, resourceLocation;
+      beforeEach(() => {
+        resource = new Resource();
+        resourceLocation = worldNavigator.getTileInDirection(RelativeDirection.FORWARD, lynn);
+
+        world.place(resource, resourceLocation)
+      });
+
+      it("removes the resource from the world", () => {
+        critterActuator.eatThingInFront(lynn);
+
+        expect(world.getThingAt(resourceLocation)).toBeUndefined();
+      });
+
+      it("increases the mana of the critter by the resource's mana amount", () => {
+        critterActuator.eatThingInFront(lynn);
+
+        expect(lynn.vitals.mana).toEqual(300 + Critter.DEFAULT_STARTING_MANA)
+      });
+    });
+
+    describe("when there is another living critter in front of the critter", () => {
+      let critter;
+      beforeEach(() => {
+        critter = new Critter();
+        let inFrontOfLynn = worldNavigator.getTileInDirection(RelativeDirection.FORWARD, lynn);
+
+        world.place(critter, inFrontOfLynn)
+      });
+
+      it("reduces the mana of the eaten critter by 20% (rounding)", () => {
+        critter.vitals.mana = 1000;
+        critterActuator.eatThingInFront(lynn);
+
+        expect(critter.vitals.mana).toEqual(800)
+      });
+
+      it("increases the mana of the eating critter by 20% of target critter's mana", () => {
+        critter.vitals.mana = 1000;
+        critterActuator.eatThingInFront(lynn);
+
+        expect(lynn.vitals.mana).toEqual(200 + Critter.DEFAULT_STARTING_MANA)
+      });
+    });
+  });
 });

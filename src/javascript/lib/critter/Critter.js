@@ -65,7 +65,7 @@ function Critter(options) {
 
 Critter.Actions = {
   MOVE_FORWARD: {
-    key: 'move_forward',
+    key: 'move forward',
     cost: 10
   },
   TURN_LEFT: {
@@ -81,7 +81,7 @@ Critter.Actions = {
     cost: 200
   },
   STARE_OFF_INTO_SPACE: {
-    key: 'noop',
+    key: 'stare off into space',
     cost: 1
   },
   INCREMENT_COUNTER: {
@@ -97,8 +97,13 @@ Critter.Actions = {
     cost: 1
   },
   MAKE_SOUND: {
-    key: 'make a sound',
-    cost: 1
+    key: 'make sound',
+    cost: 1,
+  },
+  EAT_THING_IN_FRONT: {
+    key: 'eat thing in front',
+    cost: 10,
+    critterConsumptionPercent: 20
   }
 };
 
