@@ -11,16 +11,16 @@ describe("TimeoutControlsView", function() {
       var listenerSpy = jasmine.createSpy('onTimeoutChanged');
       view.on('timeout:changed', listenerSpy);
 
-      view.$el.find('.slider').val(0).trigger('change');
+      view.$el.find('.slider').val(100).trigger('change');
       expect(listenerSpy).toHaveBeenCalledWith({timeout: 0});
 
       view.$el.find('.slider').val(50).trigger('change');
       expect(listenerSpy).toHaveBeenCalledWith({timeout: 1000});
 
-      view.$el.find('.slider').val(100).trigger('change');
+      view.$el.find('.slider').val(0).trigger('change');
       expect(listenerSpy).toHaveBeenCalledWith({timeout: 2000});
 
-      view.$el.find('.slider').val(20).trigger('change');
+      view.$el.find('.slider').val(80).trigger('change');
       expect(listenerSpy).toHaveBeenCalledWith({timeout: 400});
     });
   });

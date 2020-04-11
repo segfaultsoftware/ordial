@@ -258,7 +258,7 @@ eval("var Backbone = __webpack_require__(/*! backbone */ \"./node_modules/backbo
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var Backbone = __webpack_require__(/*! backbone */ \"./node_modules/backbone/backbone.js\");\n\nTimeoutControlsView = Backbone.View.extend({\n  events: {\n    'change .slider': 'onSliderChanged'\n  },\n\n  onSliderChanged: function () {\n    var sliderVal = this.$el.find('.slider').val();\n    var timeout = sliderVal / 100 * OrdialScheduler.DEFAULT_TIMEOUT * 2;\n    this.trigger('timeout:changed', { timeout: timeout });\n  },\n\n  render: function () {\n    this.$el.html('' +\n      '<div>' +\n      ' <span>Adjust timeout delay</span>' +\n      ' <input class=\"slider\" type=\"range\" />' +\n      '</div>'\n    );\n    return this;\n  }\n});\n\nmodule.exports = TimeoutControlsView;\n\n//# sourceURL=webpack:///./src/javascript/browser/views/TimeoutControlsView.js?");
+eval("var Backbone = __webpack_require__(/*! backbone */ \"./node_modules/backbone/backbone.js\");\n\nTimeoutControlsView = Backbone.View.extend({\n  events: {\n    'change .slider': 'onSliderChanged'\n  },\n\n  onSliderChanged: function () {\n    var sliderVal = this.$el.find('.slider').val();\n    var timeout = (100 - sliderVal) / 100 * OrdialScheduler.DEFAULT_TIMEOUT * 2;\n    this.trigger('timeout:changed', { timeout: timeout });\n  },\n\n  render: function () {\n    this.$el.html('' +\n      '<div>' +\n      ' <span>Speed</span>' +\n      ' <input class=\"slider\" type=\"range\" />' +\n      '</div>'\n    );\n    return this;\n  }\n});\n\nmodule.exports = TimeoutControlsView;\n\n//# sourceURL=webpack:///./src/javascript/browser/views/TimeoutControlsView.js?");
 
 /***/ }),
 
