@@ -1,3 +1,5 @@
+var Backbone = require("backbone");
+
 HighlightView = Backbone.View.extend({
   initialize: function (options) {
     this.graphics = options.graphics;
