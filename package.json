@@ -17,7 +17,8 @@
     "url": "https://github.com/segfaultsoftware/ordial.git"
   },
   "scripts": {
-    "start": "node public/compiled/serverBundle.js"
+    "start": "node public/compiled/serverBundle.js",
+    "test": "NODE_ENV=test testcafe --app 'grunt express:dev watch' --app-init-delay 2000 chrome testcafe/**/*[Tt]est.js"
   },
   "dependencies": {
     "backbone": "1.1.x",
@@ -47,6 +48,7 @@
     "grunt-include-source": "^1.1.0",
     "jasmine-jquery": "^2.1.1",
     "lodash.clonedeep": "^4.5.0",
+    "testcafe": "^1.8.4",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   }
