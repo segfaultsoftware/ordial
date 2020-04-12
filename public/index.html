@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="./compiled/css/ordial.css">
 
 <div id="ordial">
-    <div id="seedContainer"></div>
+    <div class="seedContainer"></div>
     <div id="pauseContainer"></div>
     <div id="timeoutControlsContainer"></div>
     <div id="world"></div>
@@ -28,6 +28,7 @@
 
       singletonContext = new SingletonContext();
       singletonContext.ordial = new Ordial();
+      singletonContext.ordial.render();
 
       var world = singletonContext.world;
       $("#runCode").click(function () {

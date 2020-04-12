@@ -32,3 +32,20 @@ __p += '<div class="button save-button">Save...</div>\n<div class="button load-b
 }
 return __p
 };
+
+this["JST"]["src/viewTemplates/seedView.template.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<input class="seed-input" type="text"\n    ';
+ if( isFinalized ) { ;
+__p += '\n        disabled="disabled"\n    ';
+ } ;
+__p += '\n    value="' +
+((__t = ( seedValue )) == null ? '' : __t) +
+'"\n/>';
+
+}
+return __p
+};

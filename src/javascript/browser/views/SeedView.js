@@ -1,16 +1,12 @@
-var Backbone = require("backbone");
+var Marionette = require("backbone.marionette");
+var _ = require('underscore');
 
-SeedView = Backbone.View.extend({
-
+SeedView = Marionette.View.extend({
   events: {
-    'blur #seed-input': 'saveSeed'
+    'blur .seed-input': 'saveSeed',
   },
 
-  template: function () {
-    return _.template('<input id="seed-input" type="text" ' +
-      '<% if(isFinalized) { %>disabled="disabled"<% } %> ' +
-      'value="<%= seedValue %>"/>');
-  },
+  template: JST['src/viewTemplates/seedView.template.html'],
 
   disableInput: function () {
     if (!this.model.get('isFinalized')) {
@@ -20,13 +16,8 @@ SeedView = Backbone.View.extend({
   },
 
   saveSeed: function () {
-    this.model.set('seedValue', this.$el.find('#seed-input').val());
+    this.model.set('seedValue', this.$el.find('.seed-input').val());
   },
-
-  render: function () {
-    this.$el.html(this.template()(this.model.attributes));
-    return this;
-  }
 });
 
 module.exports = SeedView;

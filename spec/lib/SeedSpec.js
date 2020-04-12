@@ -22,8 +22,7 @@ describe("Seed", function() {
     var seedValue;
     beforeEach(function(){
       seedValue = 'wertq';
-      seed = new Seed();
-      seed.set('seedValue', seedValue);
+      seed = new Seed({seedValue});
       spyOn(singletonContext.randomNumberGenerator, "seedrandom");
     });
 

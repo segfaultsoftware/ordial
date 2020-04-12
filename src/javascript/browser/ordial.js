@@ -1,6 +1,7 @@
 require("./shims");
 var $ = require("jquery");
 var _ = require("underscore");
+var Marionette = require("backbone.marionette");
 var SeedView = require("./views/SeedView");
 var PauseView = require("./views/PauseView");
 var CritterGutsView = require("./CritterGutsView");
@@ -16,45 +17,62 @@ var Critter = require("../lib/critter/Critter");
 var CardinalDirection = require("../lib/models/CardinalDirection");
 var RelativeDirection = require("../lib/models/RelativeDirection");
 
-var Ordial = Backbone.View.extend({
+var Ordial = Marionette.View.extend({
   el: $('#ordial'),
+  regions: {
+    seedContainer: '.seedContainer',
+    pauseContainer: '#pauseContainer',
+    timeoutControlsContainer: '#timeoutControlsContainer',
+    world: '#world',
+    runCode: '#runCode',
+    saveControlsContainer: '#saveControlsContainer',
+    mindGraph: '#mind-graph'
+  },
 
   initialize: function () {
     this.paused = true;
+    this.seed = new Seed();
+    this.pixiLoadCallback = _.bind(function () {
 
+      this.worldView = new WorldView({ model: singletonContext.world, el: '#world' });
+      this.worldView.render();
+
+    }, this);
+  },
+  onRender: function () {
     PIXI.loader.add('/sim/assets/spriteSheet/ordialSprites.json')
-      .load(_.bind(function () {
-
-        this.worldView = new WorldView({ model: singletonContext.world, el: '#world' });
-        this.worldView.render();
-
-      }, this));
-
-
-    this.seedView = new SeedView({ model: new Seed(), el: '#seedContainer' });
-
+      .load(this.pixiLoadCallback);
     this.pauseView = new PauseView({ paused: this.paused, el: '#pauseContainer' });
-
-    this.timeoutControlsView = new TimeoutControlsView({ el: '#timeoutControlsContainer' });
     this.saveControlsView = new SaveControlsView({
       el: '#saveControlsContainer'
     });
-
+    this.timeoutControlsView = new TimeoutControlsView({ el: '#timeoutControlsContainer' });
     this.critterManaView = new CritterGutsView({ el: '#critterGutsContainer' });
-
-    var ordial = this;
-    this.listenTo(this.pauseView, 'pauseButtonClicked', function () {
-      ordial.togglePause();
-    });
-
-    this.listenTo(this.timeoutControlsView, 'timeout:changed', function (event) {
-      singletonContext.scheduler.timeout = event.timeout;
-    });
-    this.seedView.render();
     this.pauseView.render();
     this.timeoutControlsView.render();
     this.saveControlsView.render();
     this.critterManaView.render();
+    this.seedView = new SeedView({ model: this.seed, el: this.$el.find('.seedContainer')[0] });
+    this.seedView.render();
+
+    var ordial = this;
+    this.listenTo(this.timeoutControlsView, 'timeout:changed', function (event) {
+      singletonContext.scheduler.timeout = event.timeout;
+    });
+    this.listenTo(this.pauseView, 'pauseButtonClicked', function () {
+      ordial.togglePause();
+    });
+  },
+
+  template: function () {
+    return ' <div class="seedContainer"></div>\n' +
+      '    <div id="pauseContainer"></div>\n' +
+      '    <div id="timeoutControlsContainer"></div>\n' +
+      '    <div id="world"></div>\n' +
+      '    <button class="button" id="runCode">Run Code!</button>\n' +
+      '    <div id="saveControlsContainer"></div>\n' +
+      '    <div id="critterGutsContainer"></div>\n' +
+      '    <svg id="mind-graph"></svg>'
   },
 
   togglePause: function () {
