@@ -7,20 +7,22 @@ var CritterGutsView = require("./CritterGutsView");
 var WorldView = require("./views/WorldView");
 var SaveControlsView = require("./views/SaveControlsView");
 var TimeoutControlsView = require("./views/TimeoutControlsView");
+var ScenarioSelectionView = require("./views/ScenarioSelectionView");
 var Seed = require("../lib/models/Seed");
 var Backbone = require("backbone");
 var SingletonContext = require("../lib/SingletonContext");
 var Resource = require("../lib/models/Resource");
 var Rock = require("../lib/models/Rock");
 var Critter = require("../lib/critter/Critter");
+var Scenario = require("../lib/models/Scenario");
 var CardinalDirection = require("../lib/models/CardinalDirection");
 var RelativeDirection = require("../lib/models/RelativeDirection");
 
 var Ordial = Backbone.View.extend({
   el: $('#ordial'),
 
-  initialize: function () {
-    this.paused = true;
+  initContext: function (singletonContext) {
+    singletonContext.ordial = this;
 
     PIXI.loader.add('/sim/assets/spriteSheet/ordialSprites.json')
       .load(_.bind(function () {
@@ -33,18 +35,22 @@ var Ordial = Backbone.View.extend({
 
     this.seedView = new SeedView({ model: new Seed(), el: '#seedContainer' });
 
-    this.pauseView = new PauseView({ paused: this.paused, el: '#pauseContainer' });
+    this.pauseView = new PauseView({ model: singletonContext.scheduler, el: '#pauseContainer' });
 
     this.timeoutControlsView = new TimeoutControlsView({ el: '#timeoutControlsContainer' });
     this.saveControlsView = new SaveControlsView({
       el: '#saveControlsContainer'
     });
 
-    this.critterManaView = new CritterGutsView({ el: '#critterGutsContainer' });
+    this.critterGutsView = new CritterGutsView({ el: '#critterGutsContainer' });
+    this.scenarioSelectionView = new ScenarioSelectionView({
+      el: '#scenarioSelectionContainer',
+      model: { scenarios: Scenario.defaultScenarios() }
+    });
 
     var ordial = this;
     this.listenTo(this.pauseView, 'pauseButtonClicked', function () {
-      ordial.togglePause();
+      ordial.updateSeedView();
     });
 
     this.listenTo(this.timeoutControlsView, 'timeout:changed', function (event) {
@@ -54,15 +60,8 @@ var Ordial = Backbone.View.extend({
     this.pauseView.render();
     this.timeoutControlsView.render();
     this.saveControlsView.render();
-    this.critterManaView.render();
-  },
-
-  togglePause: function () {
-    this.paused = !this.paused;
-
-    this.updateWorld();
-    this.updatePauseButton();
-    this.updateSeedView();
+    this.critterGutsView.render();
+    this.scenarioSelectionView.render();
   },
 
   updateWorld: function () {
@@ -70,16 +69,8 @@ var Ordial = Backbone.View.extend({
       this.worldView.render();
     }
 
-    if (!this.paused) {
-      singletonContext.world.update();
-      this.critterManaView.render();
-      singletonContext.scheduler.schedule(this);
-    }
-  },
-
-  updatePauseButton: function () {
-    this.pauseView.paused = this.paused;
-    this.pauseView.render();
+    singletonContext.world.update();
+    this.critterGutsView.render();
   },
 
   updateSeedView: function () {

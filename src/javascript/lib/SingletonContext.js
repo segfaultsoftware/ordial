@@ -16,6 +16,7 @@ MindFactory = require("./critter_production/MindFactory");
 GeneMutator = require("./critter_production/GeneMutator");
 SubMutator = require("./critter_production/SubMutator");
 RandomNumberGenerator = require("./RandomNumberGenerator");
+Scenario = require("./models/Scenario");
 
 function SingletonContext() {
   try {
@@ -38,5 +39,13 @@ function SingletonContext() {
   } catch (e) {
     throw 'Syntax error in SingletonContext.initialize' + e;
   }
+  this.initContext = function(){
+    _.each(Object.keys(this), (key)=>{
+      if(this[key]["initContext"]){
+        this[key].initContext(this);
+      }
+    });
+  };
+  setImmediate(this.initContext.bind(this));
 };
 module.exports = SingletonContext;

@@ -1,0 +1,11 @@
+<div class="scenario-selection">
+    <div class="inner">
+        <h2>Select Scenario</h2>
+        <% for(let i = 0; i< scenarios.length; i++) { %>
+            <input type="radio" id="<%= scenarios[i].id %>" name="scenario-group"/>
+            <label class="scenario" for="<%= scenarios[i].id %>">
+                <img src="/images/<%= scenarios[i].id %>.png"/>
+            </label>
+        <% } %>
+    </div>
+</div>

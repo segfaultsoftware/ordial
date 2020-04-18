@@ -20,6 +20,10 @@ module.exports = function (grunt) {
         files: ['spec/**/*.js', 'src/javascript/**/*.js'],
         tasks: ['exec:webpack_tests']
       },
+      buildJs: {
+        files: ['src/javascript/**/*.js'],
+        tasks: ['exec:webpack_browser']
+      },
       express: {
         files: ['public/compiled/serverBundle.js'],
         tasks: ['express:dev'],
@@ -31,6 +35,7 @@ module.exports = function (grunt) {
     exec: {
       webpack: 'node_modules/webpack-cli/bin/cli.js',
       webpack_lib: 'node_modules/webpack-cli/bin/cli.js --config-name libraryConfig',
+      webpack_browser: 'node_modules/webpack-cli/bin/cli.js --config-name browserConfig',
       webpack_tests: 'node_modules/webpack-cli/bin/cli.js --config-name browserTestConfig',
       compile_less: 'node_modules/less/bin/lessc src/less/ordial.less public/compiled/css/ordial.css'
     },

@@ -6,6 +6,7 @@ textarea,
 }
 body {
   font-family: sans-serif;
+  color: #333333;
 }
 #critterManaContainer {
   margin-top: 5px;
@@ -99,4 +100,56 @@ body {
 input::-moz-focus-inner,
 input::-moz-focus-outer {
   border: 0;
+}
+.scenario-selection {
+  position: absolute;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.scenario-selection .inner {
+  position: relative;
+  border: 1px solid #ece2dc;
+  max-width: calc(200px*3 + 40px*2 + 10px*2);
+  box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.21);
+  margin: auto;
+  margin-top: 60px;
+  background-color: white;
+  display: flow-root;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+.scenario-selection .inner h2 {
+  text-align: center;
+  font-weight: normal;
+  margin-top: 0;
+}
+.scenario-selection .inner input[type=radio] {
+  display: none;
+}
+.scenario-selection .inner input[type=radio]:checked + label.scenario {
+  background-color: #c163c3;
+}
+.scenario-selection .inner .scenario {
+  display: inline-grid;
+  min-width: 150px;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: #dfb2e2;
+}
+.scenario-selection .inner .scenario:hover,
+.scenario-selection .inner .scenario input[type="radio"]:checked {
+  background-color: #c163c3;
+}
+.scenario-selection .inner .scenario img {
+  border-radius: 5px;
+  width: 200px;
+  height: 100px;
+  object-fit: cover;
 }
