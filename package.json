@@ -21,6 +21,7 @@
     "test": "NODE_ENV=test testcafe --app 'grunt express:dev watch' --app-init-delay 2000 chrome testcafe/**/*[Tt]est.js"
   },
   "dependencies": {
+    "@json-editor/json-editor": "^2.1.0",
     "backbone": "1.4.x",
     "express": "^4.17.1",
     "extend": "^3.0.0",

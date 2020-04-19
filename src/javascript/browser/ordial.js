@@ -3,7 +3,8 @@ var $ = require("jquery");
 var _ = require("underscore");
 var SeedView = require("./views/SeedView");
 var PauseView = require("./views/PauseView");
-var CritterGutsView = require("./CritterGutsView");
+var CritterGutsView = require("./views/CritterGutsView");
+var CritterEditorView = require("./views/CritterEditorView");
 var WorldView = require("./views/WorldView");
 var SaveControlsView = require("./views/SaveControlsView");
 var TimeoutControlsView = require("./views/TimeoutControlsView");
@@ -42,7 +43,8 @@ var Ordial = Backbone.View.extend({
       el: '#saveControlsContainer'
     });
 
-    this.critterGutsView = new CritterGutsView({ el: '#critterGutsContainer' });
+    // this.critterGutsView = new CritterGutsView({ el: '#critterGutsContainer' });
+    this.critterGutsView = new CritterEditorView({ el: '#critterGutsContainer' });
     this.scenarioSelectionView = new ScenarioSelectionView({
       el: '#scenarioSelectionContainer',
       model: { scenarios: Scenario.defaultScenarios() }

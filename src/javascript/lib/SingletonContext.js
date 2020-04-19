@@ -42,7 +42,7 @@ function SingletonContext() {
   this.initContext = function(){
     _.each(Object.keys(this), (key)=>{
       if(this[key]["initContext"]){
-        this[key].initContext(this);
+        this[key].initContext.bind(this[key])(this);
       }
     });
   };

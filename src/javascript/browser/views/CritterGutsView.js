@@ -1,5 +1,5 @@
 var Backbone = require("backbone");
-var BinaryTreeGraphHelper = require("./BinaryTreeGraphHelper");
+var BinaryTreeGraphHelper = require("../BinaryTreeGraphHelper");
 
 CritterGutsView = Backbone.View.extend({
   initialize: function () {

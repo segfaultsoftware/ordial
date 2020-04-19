@@ -1,3 +1,5 @@
+var CritterGutsView = require("../../src/javascript/browser/views/CritterGutsView");
+
 describe("CritterGutsView", function() {
   var rob, gutsView;
   beforeEach(function() {
