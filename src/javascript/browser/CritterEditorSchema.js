@@ -74,11 +74,13 @@ module.exports = {
     "genes": {
       "type": "array",
       "title": "Genes",
-      "format": "table",
+      "format": "tabs",
       "uniqueItems": false,
       "items": {
         "type": "array",
         "title": "Gene",
+        "headerTemplate": "{{ self.1 }}",
+        "template": "{{ self.1 }}",
         "enum": [
           [
             "action",

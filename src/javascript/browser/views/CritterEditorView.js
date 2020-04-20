@@ -20,6 +20,11 @@ var CritterEditorView = Backbone.View.extend({
     if(!this.editor){
       this.editor = new JSONEditor(this.el, {
         schema: critterSchema,
+        theme: "spectre",
+        prompt_before_delete: false,
+        disable_array_reorder: true,
+        disable_array_delete_all_rows: true,
+        iconlib: "spectre"
       });
     }
   }
