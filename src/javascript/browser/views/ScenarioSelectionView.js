@@ -19,8 +19,7 @@ ScenarioSelectionView = Backbone.View.extend({
       world.initialize();
       eval(scenario.code);
     }
-    singletonContext.scheduler.paused = false;
-    singletonContext.scheduler.schedule()
+    singletonContext.scheduler.resume()
   },
 
   template: function () {
