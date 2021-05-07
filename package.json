@@ -31,7 +31,7 @@
     "mocha": "^6.2.3",
     "pixi.js": "^4.8.9",
     "snapsvg": "^0.4.0",
-    "underscore": "1.8.x"
+    "underscore": "1.12.x"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
